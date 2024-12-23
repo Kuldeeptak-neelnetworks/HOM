@@ -24,7 +24,7 @@ import {
   formatDate,
   successToastingFunction,
 } from "@/common/commonFunctions";
-import EditChatModel from "@/components/Orders/components/EditChatModel";
+import EditChatModel from "@/components/common/Editor/EditChatModel";
 import {
   Cross1Icon,
   DotsHorizontalIcon,

@@ -3,11 +3,11 @@ import { MentionUser } from "./types";
 export const atValues: MentionUser[] = [];
 
 export const hashValues: MentionUser[] = [
-  { id: 1, value: "important" },
-  { id: 2, value: "announcement" },
-  { id: 3, value: "bug" },
-  { id: 4, value: "feature" },
-  { id: 5, value: "documentation" },
+  { id: 1, value: "important", avatar: "" },
+  { id: 2, value: "announcement", avatar: "" },
+  { id: 3, value: "bug", avatar: "" },
+  { id: 4, value: "feature", avatar: "" },
+  { id: 5, value: "documentation", avatar: "" },
 ];
 
 export const mentionSource = (

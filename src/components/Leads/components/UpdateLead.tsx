@@ -37,19 +37,14 @@ import XLSX from "../../../asset/images/xlsx.png";
 import VIDEO from "../../../asset/images/video.png";
 import WORD from "../../../asset/images/word.png";
 import Logo from "../../../asset/images/companydummylog.png";
-import EditChatModel from "./EditChatModel";
+import EditChatModel from "../../common/Editor/EditChatModel";
 import QuillEditor from "@/components/customers/components/QuillEditor";
 import FilePreviewList from "@/components/common/FilePreviewList";
 
-const UpdateProductFlow = ({ productFlowId }: any) => {
+const UpdateLead = ({ leadId }: any) => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const {
-    fetchLeadsEditorData,
-    leadsEditorData,
-    fetchProductFlowUpdateData,
-    productFlowUpdateData,
-  }: any = useEditorStore();
+  const { fetchLeadsEditorData, leadsEditorData }: any = useEditorStore();
 
   const PDFPic = PDF.src;
   const XLSXPic = XLSX.src;
@@ -89,6 +84,7 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
     const formattedDate = date.toLocaleDateString("en-GB", options);
     return formattedDate;
   };
+
   const handlePinTrue = async (id: string) => {
     try {
       const response = await baseInstance.patch(`/updates/${id}/pin`, {
@@ -96,7 +92,8 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
       });
       if (response.status === 200) {
         successToastingFunction(response?.data?.message);
-        fetchProductFlowUpdateData(productFlowId);
+
+        fetchLeadsEditorData(leadId);
 
         setIsModalOpen(false);
       }
@@ -113,7 +110,8 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
       });
       if (response.status === 200) {
         successToastingFunction(response?.data?.message);
-        fetchProductFlowUpdateData(productFlowId);
+
+        fetchLeadsEditorData(leadId);
 
         setIsModalOpen(false);
       }
@@ -138,7 +136,7 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
         `/updates/toggle/${likeId}/like`
       );
       if (response.status === 200) {
-        fetchProductFlowUpdateData(productFlowId);
+        fetchLeadsEditorData(leadId);
       }
     } catch (error) {
       errorToastingFunction(error);
@@ -161,9 +159,9 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
 
   return (
     <>
-      {Array.isArray(productFlowUpdateData) &&
-        productFlowId &&
-        productFlowUpdateData.map((editor: any, index: number) => (
+      {Array.isArray(leadsEditorData) &&
+        leadId &&
+        leadsEditorData.map((editor: any, index: number) => (
           <React.Fragment key={editor.id || index}>
             {editor.isPinned === true && (
               <div className="flex justify-end mb-2">
@@ -219,10 +217,10 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                               <DeleteDialoge
                                 id={editor._id}
                                 entity="updates"
-                                setIsModalOpen={setIsModalOpen}
                                 setIsCommentOpen={setIsCommentOpen}
+                                setIsModalOpen={setIsModalOpen}
                                 fetchAllFunction={() =>
-                                  fetchProductFlowUpdateData(productFlowId)
+                                  fetchLeadsEditorData(leadId)
                                 }
                                 deleteText="Delete Update"
                               />
@@ -254,14 +252,14 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                               <EditChatModel
                                 id={editor._id}
                                 setIsModalOpen={setIsModalOpen}
-                                productFlowId={productFlowId}
+                                leadId={leadId}
                               />
                             </div>
                           </div>
                         </div>
                       )}
                     </div>
-                    <div />
+
                     <div
                       className="leading-relaxed mb-1 text-[0.8rem] mt-2"
                       dangerouslySetInnerHTML={{
@@ -314,6 +312,7 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                         </div>
                       </div>
                     </div>
+
                     {/* <div className="text-[0.8rem]">
                       <span className="font-bold mr-1">
                         {editor?.likes ? editor?.likes?.length : "0"}
@@ -338,12 +337,12 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                       {openQuill && (
                         <div className="pb-3 pr-4 pl-4">
                           <QuillEdior
-                            leadId={""}
+                            productFlowId={""}
+                            leadId={leadId}
                             updateId={editor._id}
                             indicatorText="reply"
                             customerId=""
                             orderId=""
-                            productFlowId={productFlowId}
                             technicalId={""}
                             setOpenQuill={setOpenQuill}
                             setIsOpenReplyModel={setIsOpenReplyModel}
@@ -398,14 +397,12 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                                       <DeleteDialoge
                                         id={data._id}
                                         entity="updates/replies"
-                                        setIsModalOpen={setIsModalOpen}
                                         setIsOpenReplyModel={
                                           setIsOpenReplyModel
                                         }
+                                        setIsModalOpen={setIsModalOpen}
                                         fetchAllFunction={() =>
-                                          fetchProductFlowUpdateData(
-                                            productFlowId
-                                          )
+                                          fetchLeadsEditorData(leadId)
                                         }
                                       />
                                     </div>
@@ -421,6 +418,7 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                                       }}
                                     />
                                   </p>
+
                                   <FilePreviewList files={data.files || []} />
                                   <div className="flex items-center justify-between flex-wrap  mt-2 w-full  ">
                                     <div className="flex justify-between gap-2">
@@ -495,12 +493,12 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                                 }}
                               >
                                 <QuillEdior
+                                  productFlowId={""}
                                   setOpenQuill={() => {}}
-                                  leadId={""}
+                                  leadId={leadId}
                                   updateId={editor._id}
                                   indicatorText="reply"
                                   customerId={""}
-                                  productFlowId={productFlowId}
                                   setIsOpenReplyModel={setIsOpenReplyModel}
                                   orderId={""}
                                   technicalId={""}
@@ -526,4 +524,4 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
   );
 };
 
-export default UpdateProductFlow;
+export default UpdateLead;

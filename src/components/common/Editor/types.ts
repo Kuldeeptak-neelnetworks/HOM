@@ -17,4 +17,5 @@ export interface QuillEditorProps {
 export interface MentionUser {
   id: number;
   value: string;
+  avatar: string;
 }

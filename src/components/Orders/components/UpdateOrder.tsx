@@ -37,7 +37,7 @@ import VIDEO from "../../../asset/images/video.png";
 import WORD from "../../../asset/images/word.png";
 import Logo from "../../../asset/images/companydummylog.png";
 import dynamic from "next/dynamic";
-import EditChatModel from "./EditChatModel";
+import EditChatModel from "../../common/Editor/EditChatModel";
 import QuillEditor from "@/components/customers/components/QuillEditor";
 import FilePreviewList from "@/components/common/FilePreviewList";
 

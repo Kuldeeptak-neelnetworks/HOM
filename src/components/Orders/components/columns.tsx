@@ -24,7 +24,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEditorStore } from "@/Store/EditorStore";
 import { useParams } from "next/navigation";
 import React from "react";
-import ChatModel from "./ChatModel";
+import ChatModel from "../../common/Editor/ChatModel";
 import Link from "next/link";
 const UserPic = User.src;
 // const companyLogo = Logo.src;

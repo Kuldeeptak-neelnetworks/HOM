@@ -16,7 +16,7 @@ const UserPic = User.src;
 import { createColumnHelper } from "@tanstack/react-table";
 import TooltipCommon from "@/components/common/TooltipCommon";
 import { DeletedUserUIconSVG } from "@/utils/SVGs/SVGs";
-import ChatModel from "@/components/Orders/components/ChatModel";
+import ChatModel from "@/components/common/Editor/ChatModel";
 import Link from "next/link";
 
 // const formatDate = (dateString: any) => {

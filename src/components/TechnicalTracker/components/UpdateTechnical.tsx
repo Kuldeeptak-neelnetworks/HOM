@@ -39,7 +39,7 @@ import VIDEO from "../../../asset/images/video.png";
 import WORD from "../../../asset/images/word.png";
 import Logo from "../../../asset/images/companydummylog.png";
 import CommentSection from "@/components/customers/components/CommentSection";
-import EditChatModel from "./EditChatModel";
+import EditChatModel from "../../common/Editor/EditChatModel";
 import FilePreviewList from "@/components/common/FilePreviewList";
 
 const UpdateTechnical = ({ technicalId }: any) => {

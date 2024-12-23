@@ -12,7 +12,7 @@ import {
 } from "@radix-ui/react-icons";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import QuillEdior from "@/components/customers/components/QuillEditor";
+import QuillEdior from "@/components/common/Editor/QuillEditor";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEditorStore } from "@/Store/EditorStore";
 import {
@@ -22,15 +22,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import UpdateOrder from "./UpdateOrder";
-import UpdateLead from "./UpdateLead";
-import UpdateTechnical from "./UpdateTechnical";
+import UpdateOrder from "../../Orders/components/UpdateOrder";
+import UpdateLead from "../../Leads/components/UpdateLead";
+import UpdateTechnical from "../../TechnicalTracker/components/UpdateTechnical";
 import { baseInstance, errorToastingFunction } from "@/common/commonFunctions";
 import { useUserStore } from "@/Store/UserStore";
 import { AxiosError } from "axios";
-import UpdateFilesSection from "@/components/customers/components/UpdateFilesSection";
+import UpdateFilesSection from "@/components/common/Editor/UpdateFilesSection";
 import UpdateAmendment from "@/components/Amendment/components/UpdateAmendment";
-import UpdateProductFlow from "./UpdateProductFlow";
+import UpdateProductFlow from "../../ProductFlow/components/UpdateProductFlow";
 import UpdateCopywriter from "@/components/CopywriterTracker/components/UpdateCopywriter";
 import { useCopywriterStore } from "@/Store/CopywriterStore";
 import UpdateWebsiteContent from "@/components/WebsiteContent/components/UpdateWebsiteContent";

@@ -31,7 +31,7 @@ import XLSX from "../../../asset/images/xlsx.png";
 import VIDEO from "../../../asset/images/video.png";
 import WORD from "../../../asset/images/word.png";
 import Logo from "../../../asset/images/companydummylog.png";
-import EditChatModel from "@/components/Orders/components/EditChatModel";
+import EditChatModel from "@/components/common/Editor/EditChatModel";
 import FilePreviewList from "@/components/common/FilePreviewList";
 
 const UpdateCopywriter = ({ copywriterId }: any) => {

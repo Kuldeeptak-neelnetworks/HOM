@@ -30,15 +30,13 @@ const UpdateFilesSection = ({
     const filename = parts[parts.length - 1];
     return filename;
   };
-  // useEffect(() => {
-  //   getUpdateFiles();
-  // }, []);
+
   return (
     <ScrollArea
       className="flex flex-col overflow-y-auto"
-      style={{ maxHeight: "178px" }}
+      style={{ maxHeight: "300px", height: "300px" }}
     >
-      {updateFileDetails &&
+      {updateFileDetails && updateFileDetails.length > 0 ? (
         updateFileDetails.map((editData: any, index: number) => {
           let fileExtension = "";
           if (editData?.fileUrl) {
@@ -47,8 +45,9 @@ const UpdateFilesSection = ({
               fileExtension = fileNameParts.pop()?.toLowerCase() || "";
             }
           }
+
           // Determine the type of the file based on fileExtension
-          let fileType = "unknown"; // default to unknown
+          let fileType = "unknown";
 
           switch (fileExtension) {
             case "pdf":
@@ -77,50 +76,68 @@ const UpdateFilesSection = ({
           let content;
           if (fileType === "pdf") {
             content = (
-              <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
-                <a href={editData?.fileUrl} target="_blank">
+              <a
+                href={editData?.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
                   <img
                     src={PDFPic}
                     alt=""
                     className="h-[80px] w-[80px] object-cover rounded"
                   />
-                </a>
-              </div>
+                </div>
+              </a>
             );
           } else if (fileType === "image") {
             content = (
-              <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
-                <img
-                  key={index}
-                  src={editData?.fileUrl}
-                  alt=""
-                  className="h-[80px] w-[80px] object-cover rounded"
-                />
-              </div>
+              <a
+                href={editData?.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
+                  <img
+                    key={index}
+                    src={editData?.fileUrl}
+                    alt=""
+                    className="h-[80px] w-[80px] object-cover rounded"
+                  />
+                </div>
+              </a>
             );
           } else if (fileType === "word") {
             content = (
-              <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
-                <a href={editData?.fileUrl} target="_blank">
+              <a
+                href={editData?.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
                   <img
                     src={WORDPic}
                     alt=""
                     className="h-[80px] w-[80px] object-cover rounded"
                   />
-                </a>
-              </div>
+                </div>
+              </a>
             );
           } else if (fileType === "xlsx") {
             content = (
-              <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
-                <a href={editData?.fileUrl} target="_blank">
+              <a
+                href={editData?.fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
                   <img
                     src={XLSXPic}
                     alt=""
                     className="h-[80px] w-[80px] object-cover rounded"
                   />
-                </a>
-              </div>
+                </div>
+              </a>
             );
           } else if (fileType === "video") {
             content = (
@@ -145,15 +162,20 @@ const UpdateFilesSection = ({
               className="rounded-md border flex items-center h-28 mx-2 my-2"
               key={editData?._id}
             >
-              <div className="border rounded-md m-3 flex items-center">
+              <div className="border rounded-md m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
                 {content}
               </div>
 
               <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-                <div className="font-bold">
-                  {getFilenameFromURL(editData?.fileUrl)}
+                <div className="font-bold hover:bg-slate-100 px-3 rounded">
+                  <a
+                    href={editData?.fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {getFilenameFromURL(editData?.fileUrl)}
+                  </a>
                 </div>
-                {/* <div>Updates</div> */}
                 <div className="flex items-center gap-3">
                   <span>
                     <TooltipCommon text={editData.uploadedBy?.fullName}>
@@ -178,7 +200,12 @@ const UpdateFilesSection = ({
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div className="text-center text-gray-600 flex items-center justify-center h-[90px] rounded">
+          No data found !
+        </div>
+      )}
     </ScrollArea>
   );
 };

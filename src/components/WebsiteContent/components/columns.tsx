@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/navigation-menu";
 
 const ChatModel = dynamic(
-  () => import("@/components/Orders/components/ChatModel"),
+  () => import("@/components/common/Editor/ChatModel"),
   { ssr: false }
 );
 const UserPic = User.src;

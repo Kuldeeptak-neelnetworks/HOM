@@ -23,7 +23,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import QuillEdior from "../../common/Editor/QuillEditor";
 import { useEditorStore } from "@/Store/EditorStore";
 import UpdateSection from "./UpdateSection";
-import UpdateFilesSection from "./UpdateFilesSection";
+import UpdateFilesSection from "../../common/Editor/UpdateFilesSection";
 import { EditCustomerIconSVG } from "@/utils/SVGs/SVGs";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import Link from "next/link";

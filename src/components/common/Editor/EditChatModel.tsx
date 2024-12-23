@@ -23,8 +23,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import QuillEdior from "@/components/customers/components/QuillEditor";
-
 import { ScrollArea } from "@/components/ui/scroll-area";
+
 import { useEditorStore } from "@/Store/EditorStore";
 
 import {
@@ -35,9 +35,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import UpdateOrder from "./UpdateOrder";
-import UpdateLead from "./UpdateLead";
-import UpdateTechnical from "./UpdateTechnical";
+import UpdateOrder from "../../Orders/components/UpdateOrder";
+import UpdateLead from "../../Leads/components/UpdateLead";
+import UpdateTechnical from "../../TechnicalTracker/components/UpdateTechnical";
 import ReactQuill, { Quill } from "react-quill";
 import {
   baseInstance,
@@ -48,7 +48,11 @@ import { useUserStore } from "@/Store/UserStore";
 import { Button } from "@/components/ui/button";
 import { AddFilesDarkUIconSVG, AddFilesUIconSVG } from "@/utils/SVGs/SVGs";
 import dynamic from "next/dynamic";
+import QuillMention from "quill-mention";
 import TooltipCommon from "@/components/common/TooltipCommon";
+Quill.register("modules/mention", QuillMention);
+import { atValues } from "./mentions";
+import { editorConfig } from "./config";
 
 const PDFPic = PDF.src;
 const XLSXPic = XLSX.src;
@@ -93,7 +97,8 @@ const EditChatModel = ({
   }: any = useEditorStore();
 
   const { fetchUsersData, userData }: any = useUserStore();
-
+  const [mentionedUserIds, setMentionedUserIds] = useState<string[]>([]);
+  const quillRef = useRef<ReactQuill>(null);
   const [editContent, setEditContent] = useState("");
 
   useEffect(() => {
@@ -115,9 +120,15 @@ const EditChatModel = ({
     setEditContent(editorToEdit?.content || editorToEdit?.replies || "");
   }, []);
 
-  const [value, setValue] = useState<string>("");
+  // const [value, setValue] = useState<string>("");
   const [images, setImages] = useState<File[]>([]);
   const [fileURLs, setFileURLs] = useState<{ name: string; url: string }[]>([]);
+
+  const handleChanges = (value: string, editor: any) => {
+    setEditContent(() =>
+      editor.getText().trim() === "" && value === "" ? "" : value
+    );
+  };
 
   const handleFileUpload = (files: FileList | null) => {
     if (files) {
@@ -165,6 +176,13 @@ const EditChatModel = ({
           formData.append("files", images[i]);
         }
       }
+      mentionedUserIds.forEach((mentionId) =>
+        formData.append("mentions", mentionId)
+      );
+
+      formData.forEach((ee) => {
+        console.log("ee", ee);
+      });
 
       const response = await baseInstance.patch(`/updates/${id}`, formData);
       if (response.status === 200) {
@@ -197,6 +215,7 @@ const EditChatModel = ({
   //     fileURLs.forEach((file) => URL.revokeObjectURL(file.url));
   //   };
   // }, [fileURLs]);
+
   useEffect(() => {
     return () => {
       if (Array.isArray(fileURLs)) {
@@ -234,22 +253,81 @@ const EditChatModel = ({
     [{ align: [] }],
   ];
 
-  const options = {
-    debug: "info",
-    modules: {
-      toolbar: toolbarOptions,
-      imageResize: {
-        parchment: Quill.import("parchment"),
-        modules: ["Resize", "DisplaySize"],
-      },
-    },
-    placeholder: "Compose an epic...",
-    theme: "snow",
+  // const options = {
+  //   debug: "info",
+  //   modules: {
+  //     toolbar: toolbarOptions,
+  //     imageResize: {
+  //       parchment: Quill.import("parchment"),
+  //       modules: ["Resize", "DisplaySize"],
+  //     },
+  //   },
+  //   placeholder: "Compose an epic...",
+  //   theme: "snow",
+  // };
+
+  // Function to extract mentioned user IDs from Quill editor content
+  const extractMentionedUserIds = (editor: any) => {
+    const mentions: string[] = [];
+    // Get all mentions from the editor
+    // editor.getContents().ops.forEach((op: any) => {
+    //   if (op.insert && op.insert["@"]) {
+    //     mentions.push(op.insert["@"].id); // Assuming the mentioned user ID is stored in the '@' object
+    //   }
+    // });
+
+    editor.getContents().ops.forEach((op: any) => {
+      if (op?.insert?.mention?.id) {
+        mentions.push(op?.insert?.mention?.id);
+      }
+    });
+    return mentions;
   };
 
+  // Function to update mentioned user IDs in state
+  const updateMentionedUserIds = () => {
+    const editor = quillRef.current?.getEditor();
+    const extractedIds = extractMentionedUserIds(editor);
+    setMentionedUserIds(extractedIds);
+  };
+
+  useEffect(() => {
+    fetchUsersData();
+  }, []);
+
   // useEffect(() => {
-  //   fetchUsersData();
-  // }, [fetchUsersData]);
+  //   userData?.forEach((item: any) => {
+  //     atValues.push({
+  //       id: item._id, // Use 'userId' if that's the field in userData
+  //       value: item.fullName, // Use 'username' if that's the field in userData
+  //     });
+  //   });
+  // }, [userData]);
+
+  useEffect(() => {
+    userData?.forEach((item: any) => {
+      if (!atValues.some((value) => value.id === item._id)) {
+        // Check if the 'id' already exists in 'atValues'
+        atValues.push({
+          id: item?._id, // Use 'userId' if that's the field in userData
+          value: item?.fullName, // Use 'username' if that's the field in userData
+          avatar: item?.avatar,
+        });
+      }
+    });
+  }, [userData]);
+
+  // Configure Quill options
+  const options = {
+    ...editorConfig,
+    modules: {
+      ...editorConfig.modules,
+      imageResize: {
+        ...editorConfig?.modules?.imageResize,
+        parchment: Quill.import("parchment"),
+      },
+    },
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -272,12 +350,23 @@ const EditChatModel = ({
                     <CardTitle>Updates</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
-                    <ReactQuill
+                    {/* <ReactQuill
                       theme={options.theme}
                       modules={options.modules}
                       // onChange={handleContentChange}
                       value={editContent}
                       onChange={(content: string) => setEditContent(content)}
+                    /> */}
+                    <ReactQuill
+                      ref={quillRef}
+                      theme={options.theme}
+                      modules={options.modules}
+                      value={editContent}
+                      onChange={(value, _, __, editor) => {
+                        handleChanges(value, editor);
+                      }}
+                      onChangeSelection={updateMentionedUserIds} // Trigger update when selection changes (optional)
+                      placeholder={options.placeholder}
                     />
 
                     <div className="flex justify-start gap-4">

@@ -17,7 +17,7 @@ import TooltipCommon from "@/components/common/TooltipCommon";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 const ChatModel = dynamic(
-  () => import("@/components/Orders/components/ChatModel"),
+  () => import("@/components/common/Editor/ChatModel"),
   { ssr: false }
 );
 const columnHelper = createColumnHelper();
@@ -192,5 +192,3 @@ export const columns = [
     cell: ({ row }: any) => <DataTableRowActions row={row} />,
   },
 ];
-
-
