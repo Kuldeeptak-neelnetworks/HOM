@@ -177,7 +177,7 @@ const LeadDetailsContent = () => {
   //   });
   return (
     <div className="sm:px-4 py-0 relative">
-      <div className="text-[1rem] font-semibold absolute top-[-40px]">
+      <div className="text-[1rem] font-semibold absolute top-[-35px]">
         {getLeadData(leadDetails?.customerName)}
       </div>
       {/* <div className="mb-1">
@@ -204,7 +204,7 @@ const LeadDetailsContent = () => {
               <CardDescription>Details Of existing Lead</CardDescription>
             </CardHeader>
             <CardContent className="px-6 py-0">
-              <ScrollArea className="h-[34vh] rounded-md px-3 py-3">
+              <ScrollArea className="h-[38vh] rounded-md px-3 py-3">
                 <div className="flex items-center pb-[10px] mb-[10px]  border-b-[#ddd] border-b text-[0.8rem]">
                   <Label htmlFor="name" className="text-right font-bold">
                     Contact Person :

@@ -57,8 +57,11 @@ const ProductflowContent: React.FC = () => {
 
   useEffect(() => {
     if (
-      productFlowData === "invalid token" ||
-      productFlowData === "Unauthorized request"
+      productFlowData === "Invalid refresh token" ||
+      productFlowData === "User not found" ||
+      productFlowData === "Invalid User Access Token" ||
+      productFlowData === "Invalid access token" ||
+      productFlowData === "Unauthorized request: No access or refresh token"
     ) {
       router.push("/auth/login");
     } else {

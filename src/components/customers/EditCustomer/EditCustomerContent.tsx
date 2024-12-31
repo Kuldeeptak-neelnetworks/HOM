@@ -114,7 +114,13 @@ const EditCustomerContent = () => {
 
   // Function when Authorization failed
   useEffect(() => {
-    if (userData === "invalid token" || userData === "Unauthorized request") {
+    if (
+      userData === "Invalid refresh token" ||
+      userData === "User not found" ||
+      userData === "Invalid User Access Token" ||
+      userData === "Invalid access token" ||
+      userData === "Unauthorized request: No access or refresh token"
+    ) {
       router.push("/auth/login");
     } else {
       // setLoader(false);
@@ -309,13 +315,11 @@ const EditCustomerContent = () => {
     },
   });
 
-  console.log("customerDetails", customerDetails);
-
   const { handleChange, handleBlur, handleSubmit, values, touched, errors } =
     formik;
   return (
     <div className="px-4 py-0 relative">
-      <div className="text-[1rem] font-semibold absolute top-[-35px]">
+      <div className="text-[1rem] font-semibold absolute top-[-30px]">
         {customerDetails?.customerNo}
         {" - "}
         {customerDetails?.companyName}

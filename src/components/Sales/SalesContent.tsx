@@ -112,8 +112,8 @@ const SalesContent: React.FC = () => {
     status: [],
   });
   const [orderYear, setOrderYear] = useState<any>("2024");
-  const [orderMonth, setOrderMonth] = useState<any>("03");
-  const [orderMonthlyYear, setOrderMonthlyYear] = useState<any>("2024");
+  const [orderMonth, setOrderMonth] = useState<any>("");
+  const [orderMonthlyYear, setOrderMonthlyYear] = useState<any>("");
   const searchParams = useSearchParams();
   const queryParams = searchParams.get("id");
 
@@ -128,9 +128,21 @@ const SalesContent: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const currentDate = new Date();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); // Get month and format as two digits
+    const year = currentDate.getFullYear().toString();
+
+    setOrderMonth(month);
+    setOrderMonthlyYear(year);
+  }, []);
+
+  useEffect(() => {
     if (
-      technicalData === "invalid token" ||
-      technicalData === "Unauthorized request"
+      technicalData === "Invalid refresh token" ||
+      technicalData === "User not found" ||
+      technicalData === "Invalid User Access Token" ||
+      technicalData === "Invalid access token" ||
+      technicalData === "Unauthorized request: No access or refresh token"
     ) {
       router.push("/auth/login");
     } else {
@@ -211,7 +223,7 @@ const SalesContent: React.FC = () => {
   return (
     <>
       {/* Yearly  */}
-      <div className="px-4 py-4 relative my-5 ">
+      <div className="px-4 relative">
         <div className="lg:flex justify-end my-3">
           <div className="w-36">
             <Selector

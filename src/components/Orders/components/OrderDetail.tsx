@@ -82,7 +82,7 @@ const OrderDetail = () => {
 
   return (
     <div className="px-4 py-0  relative text-[0.8rem]">
-      <div className="text-[1rem] font-semibold absolute top-[-40px]">
+      <div className="text-[1rem] font-semibold absolute top-[-35px]">
         {orderDetail?.customer?.companyName
           ? orderDetail?.customer?.companyName
           : "loading..."}
@@ -100,6 +100,7 @@ const OrderDetail = () => {
             <CardHeader>
               <CardTitle className="text-center my-3">
                 {orderDetail?.createdBy?.fullName}
+                <span className="mx-2">({orderDetail?.orderNo})</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="">

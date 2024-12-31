@@ -70,7 +70,14 @@ const DashBoardPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (leadData === "invalid token" || allLeads === undefined) {
+    if (
+      allLeads === undefined ||
+      leadData === "Invalid refresh token" ||
+      leadData === "User not found" ||
+      leadData === "Invalid User Access Token" ||
+      leadData === "Invalid access token" ||
+      leadData === "Unauthorized request: No access or refresh token"
+    ) {
       router.push("/auth/login");
     }
   }, [allLeads, leadData]);
@@ -92,8 +99,8 @@ const DashBoardPage: React.FC = () => {
             <div
               className={
                 toggleWidth
-                  ? `text-xl font-semibold absolute top-[-40px]`
-                  : `text-xl font-semibold absolute top-[-40px]`
+                  ? `text-[1rem] font-semibold absolute top-[-30px]`
+                  : `text-[1rem] font-semibold absolute top-[-30px]`
               }
             >
               Dashboard

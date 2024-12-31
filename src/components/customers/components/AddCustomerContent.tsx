@@ -23,7 +23,7 @@ const crumbs = [
 const AddCustomerContent = () => {
   return (
     <div className="px-4 py-0 relative">
-      <div className="text-md font-semibold absolute top-[-35px]">
+      <div className="text-md font-semibold absolute top-[-30px]">
         Add Customer
       </div>
       {/* <div className="mb-4">

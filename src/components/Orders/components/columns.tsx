@@ -57,7 +57,11 @@ export const columns = [
 
     cell: ({ row }: any) =>
       row?.original?.orderNo ? (
-        row?.original?.orderNo
+        <Link href={`/orders/orderDetails/${row?.original?._id}`}>
+          <span className="hover:underline hover:cursor-pointer">
+            {row?.original?.orderNo ? row?.original?.orderNo : "N/A"}
+          </span>
+        </Link>
       ) : (
         <div className="text-gray-400">N/A</div>
       ),

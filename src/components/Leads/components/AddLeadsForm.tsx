@@ -58,21 +58,11 @@ const AddLeadForm: React.FC = () => {
 
   useEffect(() => {
     if (
-      customerData === "invalid token" ||
-      customerData === "Unauthorized request"
-    ) {
-      router.push("/auth/login");
-    } else {
-      setAllCustomers(
-        customerData?.customers ? customerData?.customers || [] : []
-      );
-    }
-  }, [customerData, router]);
-
-  useEffect(() => {
-    if (
-      customerData === "invalid token" ||
-      customerData === "Unauthorized request"
+      customerData === "Invalid refresh token" ||
+      customerData === "User not found" ||
+      customerData === "Invalid User Access Token" ||
+      customerData === "Invalid access token" ||
+      customerData === "Unauthorized request: No access or refresh token"
     ) {
       router.push("/auth/login");
     } else {

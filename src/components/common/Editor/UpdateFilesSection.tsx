@@ -34,7 +34,7 @@ const UpdateFilesSection = ({
   return (
     <ScrollArea
       className="flex flex-col overflow-y-auto"
-      style={{ maxHeight: "300px", height: "300px" }}
+      style={{ maxHeight: "190px", height: "190px" }}
     >
       {updateFileDetails && updateFileDetails.length > 0 ? (
         updateFileDetails.map((editData: any, index: number) => {

@@ -85,8 +85,11 @@ const TechnicalTrackerContent: React.FC = () => {
 
   useEffect(() => {
     if (
-      technicalData === "invalid token" ||
-      technicalData === "Unauthorized request"
+      technicalData === "Invalid refresh token" ||
+      technicalData === "User not found" ||
+      technicalData === "Invalid User Access Token" ||
+      technicalData === "Invalid access token" ||
+      technicalData === "Unauthorized request: No access or refresh token"
     ) {
       router.push("/auth/login");
     } else {

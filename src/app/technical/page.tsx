@@ -29,8 +29,8 @@ const TechnicalPage: React.FC = () => {
       <div
         className={
           toggleWidth
-            ? `sm:px-2 p-0 sm:ml-64 ml-0  transition-all duration-300 bg-[#f2f6fa] min-h-[93vh]  `
-            : `sm:px-2 p-0 sm:ml-20 ml-0 transition-all duration-300 bg-[#f2f6fa] min-h-[93vh] `
+            ? `sm:px-2 p-0 sm:ml-64 ml-0  transition-all duration-300 bg-[#f2f6fa] min-h-[95vh]  `
+            : `sm:px-2 p-0 sm:ml-20 ml-0 transition-all duration-300 bg-[#f2f6fa] min-h-[95vh]`
         }
       >
         <div className="rounded-md dark:border-gray-700">

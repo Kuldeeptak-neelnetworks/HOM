@@ -200,10 +200,7 @@ const UserDetailsContent = () => {
   //   });
   return (
     <div className="px-4 py-0 relative">
-      {/* <div className="text-xl font-semibold absolute top-[-50px]">
-        User Details
-      </div> */}
-      <div className="text-xl font-semibold absolute top-[-50px]">
+      <div className="text-[1rem] font-semibold absolute top-[-38px]">
         {userDetails?.fullName || "Loading..."}
       </div>
       {/* <div className="mb-4">
@@ -214,7 +211,7 @@ const UserDetailsContent = () => {
         <div className="boxShadow">
           <Card className="w-[575px] h-[100%]">
             <CardHeader>
-              <CardTitle>User Data</CardTitle>
+              <CardTitle className="text-[1.1rem]">User Data</CardTitle>
               <CardDescription>Details Of existing User</CardDescription>
             </CardHeader>
             <CardContent>

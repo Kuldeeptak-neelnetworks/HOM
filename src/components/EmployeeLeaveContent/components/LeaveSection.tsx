@@ -91,10 +91,6 @@ export default function LeaveSection({
   EmployeeData,
   EmployeeLeaveData,
 }: any) {
-  // const { fetchEmployeeLeaveData, EmployeeLeaveData } = useEmployeeLeaveStore();
-
-  console.log("asjhu", EmployeeLeaveData);
-
   const stats = [
     { name: "Total Annual Leave Entitlement", value: "20" },
     {
@@ -108,25 +104,23 @@ export default function LeaveSection({
     },
   ];
 
-  const totalLeaves = {
-    employee1: 20,
-    employee2: 24,
-    employee3: 27,
-    employee4: 12,
-    employee5: 18,
-  };
+  let approvedRequests: any[] = [];
+  let pendingRequests: any[] = [];
+  let rejectedRequests: any[] = [];
 
-  const approvedRequests =
-    EmployeeLeaveData &&
-    EmployeeLeaveData?.filter((e: any) => e.managerResponse === "Approved");
+  if (Array.isArray(EmployeeLeaveData)) {
+    approvedRequests = EmployeeLeaveData.filter(
+      (e: any) => e.managerResponse === "Approved"
+    );
 
-  const pendingRequests =
-    EmployeeLeaveData &&
-    EmployeeLeaveData?.filter((e: any) => e.managerResponse === "Pending");
+    pendingRequests = EmployeeLeaveData.filter(
+      (e: any) => e.managerResponse === "Pending"
+    );
 
-  const rejectedRequests =
-    EmployeeLeaveData &&
-    EmployeeLeaveData?.filter((e: any) => e.managerResponse === "Rejected");
+    rejectedRequests = EmployeeLeaveData.filter(
+      (e: any) => e.managerResponse === "Rejected"
+    );
+  }
 
   const leaveStatus = [
     {
@@ -172,7 +166,7 @@ export default function LeaveSection({
                     </p>
                   </div>
                 ))
-              : leaveStatus.map((stat, statIdx) => (
+              : leaveStatus?.map((stat, statIdx) => (
                   <div
                     key={stat.name}
                     className={classNames(

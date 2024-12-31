@@ -135,7 +135,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="space-y-4 text-[#676879]">
       <div className="rounded-md border">
-        <div className="h-[78vh] overflow-x-auto bg-[#fff] boxShadow">
+        <div className="h-[82vh] overflow-x-auto bg-[#fff] boxShadow">
           <Table className="bg-[#fff]">
             <TableHeader className="bg-[#29354f] sticky top-0 z-10">
               {tableInstance?.getHeaderGroups()?.map((headerGroup: any) => (

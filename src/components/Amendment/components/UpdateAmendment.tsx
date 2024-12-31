@@ -8,6 +8,7 @@ import {
   DeletedUserUIconSVG,
   LikeDarkUIconSVG,
   LikeUIconSVG,
+  ReplyDarkUIconSVG,
   ReplyUIconSVG,
   ViewsUIconSVG,
 } from "@/utils/SVGs/SVGs";
@@ -26,7 +27,7 @@ import {
   successToastingFunction,
 } from "@/common/commonFunctions";
 
-import QuillEdior from "@/components/customers/components/QuillEditor";
+import QuillEdior from "@/components/common/Editor/QuillEditor";
 
 import { useEditorStore } from "@/Store/EditorStore";
 
@@ -39,10 +40,10 @@ import WORD from "../../../asset/images/word.png";
 import Logo from "../../../asset/images/companydummylog.png";
 import EditChatModel from "@/components/common/Editor/EditChatModel";
 import FilePreviewList from "@/components/common/FilePreviewList";
+import LikeComponent from "@/components/common/Editor/LikeComponent";
+import ReplyComponent from "@/components/common/Editor/ReplyComponent";
 
 const UpdateAmendment = ({ amendmentId }: any) => {
-  const [open, setOpen] = useState<boolean>(false);
-
   const { fetchAmendmentUpdateData, amendmentUpdateData }: any =
     useEditorStore();
 
@@ -59,6 +60,11 @@ const UpdateAmendment = ({ amendmentId }: any) => {
   const [isOpenReplyModel, setIsOpenReplyModel] = useState(false);
   const [reaplyId, setReplyId] = useState<string | null>(null);
   const [like, setLike] = React.useState(false);
+  const [openQuill, setOpenQuill] = useState(false);
+
+  const handleOpenQuillEditor = () => {
+    setOpenQuill((prevOpen) => !prevOpen);
+  };
 
   const [commentID, setCommentID] = useState<string | null>(null);
   const stripHtmlTags = (htmlString: string) => {
@@ -145,6 +151,7 @@ const UpdateAmendment = ({ amendmentId }: any) => {
   const likeClick = (likeId: string) => {
     if (likeId) addLikesData(likeId);
     setLike((prev) => !prev);
+    console.log("likeId", likeId);
   };
 
   const ReplyClick = (id: string) => {
@@ -262,7 +269,7 @@ const UpdateAmendment = ({ amendmentId }: any) => {
                     </div>
 
                     <div
-                      className="leading-relaxed mb-1 text-[0.8rem] mt-2"
+                      className="leading-relaxed mb-1 text-[0.8rem] mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_li]:leading-relaxed"
                       dangerouslySetInnerHTML={{
                         __html: editor?.content ? editor?.content : "",
                       }}
@@ -272,93 +279,68 @@ const UpdateAmendment = ({ amendmentId }: any) => {
 
                     <div className="flex items-center justify-between flex-wrap  mt-2 w-full  border-t border-[#e1e8f0]">
                       <div className="flex justify-between items-center gap-2">
-                        <div
-                          className="text-[0.8rem] border-r-2 pr-2 border-[#e1e8f0] flex gap-2 mt-1 items-center cursor-pointer"
-                          onClick={() => likeClick(editor?._id)}
-                        >
-                          <span
-                            className={`${
-                              editor.likes.some(
-                                (like: any) => like._id === userId
-                              )
-                                ? "text-[#3a5894] font-bold"
-                                : ""
-                            }`}
-                          >
-                            Like
-                          </span>
-                          {editor.likes.some(
-                            (like: any) => like._id === userId
-                          ) ? (
-                            <LikeDarkUIconSVG />
-                          ) : (
-                            <LikeUIconSVG />
-                          )}
-                        </div>
-                        <div
-                          className="text-[0.8rem] pr-2 flex gap-2 mt-1 items-center cursor-pointer"
-                          onClick={() => showComments(editor?._id)}
-                        >
-                          <span
-                            className={`${
-                              isCommentOpen ? "text-[#3a5894] font-bold" : ""
-                            }`}
-                          >
-                            Reply
-                          </span>
-                          <ReplyUIconSVG />
-                          {/* {isCommentOpen ? (
-                            <CommentsDarkUIconSVG />
-                          ) : (
-                            <CommentsUIconSVG />
-                          )} */}
-                        </div>
+                        <LikeComponent
+                          likes={editor?.likes}
+                          userId={userId}
+                          likeClick={likeClick} // Pass likeClick function
+                          editorId={editor._id} // Pass editorId
+                        />
+                        <ReplyComponent
+                          isOpenReplyModel={isCommentOpen}
+                          replyId={commentID}
+                          dataId={editor?._id}
+                          onReplyClick={showComments}
+                        />
                       </div>
                     </div>
-                    {/* <div className="text-[0.8rem]">
-                      <span className="font-bold mr-1">
-                        {editor?.likes ? editor?.likes?.length : "0"}
-                      </span>
-                      Likes
-                    </div> */}
                   </div>
                 </div>
               </div>
 
               {isCommentOpen && commentID === editor._id && (
                 <>
-                  {editor.replies.length === 0 &&
-                    editor.replies.constructor === Array && (
-                      <div className="pb-3 pr-4 pl-4">
-                        <QuillEdior
-                          leadId={""}
-                          amendmentId={amendmentId}
-                          updateId={editor._id}
-                          indicatorText="reply"
-                          customerId=""
-                          orderId=""
-                          technicalId={""}
-                          setOpenQuill={() => {}}
-                          setIsOpenReplyModel={setIsOpenReplyModel}
-                          handleEdit={""}
-                          copywriterId={""}
-                          productFlowId={""}
-                          websiteContentId={""}
-                        />
-                      </div>
-                    )}
+                  {editor?.replies ? (
+                    <div className="ml-[2.5rem] mr-[4.5rem]">
+                      <p
+                        className="w-full text-[0.8rem] text-gray-500 rounded-md border cursor-pointer border-stroke bg-transparent mx-[16px] my-2 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        onClick={handleOpenQuillEditor}
+                      >
+                        Click here to write a reply...
+                      </p>
 
-                  {/* reply Data list */}
+                      {openQuill && (
+                        <div className="pb-3 pr-4 pl-4">
+                          <QuillEdior
+                            productFlowId={""}
+                            amendmentId={amendmentId}
+                            leadId={""}
+                            updateId={editor._id}
+                            indicatorText="reply"
+                            customerId=""
+                            orderId=""
+                            technicalId={""}
+                            setOpenQuill={setOpenQuill}
+                            setIsOpenReplyModel={setIsOpenReplyModel}
+                            handleEdit={""}
+                            copywriterId={""}
+                            websiteContentId={""}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    "No Comment added"
+                  )}
                   {editor?.replies ? (
                     <div>
                       {[...(editor?.replies || [])]
                         .reverse()
                         .map((data: any) => (
                           <section
-                            className="text-gray-600 body-font overflow-hidden  my-2 rounded-md "
+                            className="text-gray-600 body-font overflow-hidden  my-2 rounded "
                             key={data?._id}
                           >
-                            <div className="container px-5 py-2 mx-auto bg-gray-100 border rounded-md w-[90%]">
+                            <div className="container px-5 py-2 mx-auto bg-gray-100 border rounded w-[90%] mt-2">
                               <div className="flex flex-wrap -m-12">
                                 <div className="p-12 md:w-full flex flex-col items-start">
                                   <div className="flex items-center justify-between w-full border-b-2 border-gray-100">
@@ -389,10 +371,10 @@ const UpdateAmendment = ({ amendmentId }: any) => {
                                       <DeleteDialoge
                                         id={data._id}
                                         entity="updates/replies"
-                                        setIsModalOpen={setIsModalOpen}
                                         setIsOpenReplyModel={
                                           setIsOpenReplyModel
                                         }
+                                        setIsModalOpen={setIsModalOpen}
                                         fetchAllFunction={() =>
                                           fetchAmendmentUpdateData(amendmentId)
                                         }
@@ -402,7 +384,7 @@ const UpdateAmendment = ({ amendmentId }: any) => {
 
                                   <p className="leading-relaxed mb-1 text-[0.8rem] mt-2">
                                     <div
-                                      className="leading-relaxed mb-1 text-[0.8rem] mt-2"
+                                      className="leading-relaxed mb-1 text-[0.8rem] mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_li]:leading-relaxed"
                                       dangerouslySetInnerHTML={{
                                         __html: data.content
                                           ? data.content
@@ -414,52 +396,19 @@ const UpdateAmendment = ({ amendmentId }: any) => {
                                   <FilePreviewList files={data.files || []} />
                                   <div className="flex items-center justify-between flex-wrap  mt-2 w-full  ">
                                     <div className="flex justify-between gap-2">
-                                      <div
-                                        className="text-[0.8rem] border-r-2 pr-2 border-gray-200 flex gap-2 mt-1 items-center cursor-pointer"
-                                        onClick={() => likeClick(data?._id)}
-                                      >
-                                        <span
-                                          className={`${
-                                            data.likes.some(
-                                              (like: any) => like._id === userId
-                                            )
-                                              ? "text-[#3a5894] font-bold"
-                                              : ""
-                                          }`}
-                                        >
-                                          Like
-                                        </span>
-                                        {data.likes.some(
-                                          (like: any) => like._id === userId
-                                        ) ? (
-                                          <LikeDarkUIconSVG />
-                                        ) : (
-                                          <LikeUIconSVG />
-                                        )}
-                                      </div>
-                                      {/* <div className="text-[0.8rem] border-r-2 pr-2 border-gray-200 flex gap-2 mt-1 items-center cursor-pointer">
-                                        <span className="font-bold">
-                                          {data?.likes
-                                            ? data?.likes?.length
-                                            : "0"}
-                                        </span>
-                                        Likes
-                                      </div> */}
-                                      <div
-                                        className="text-[0.8rem]  border-r-2 pr-2 border-gray-200 flex gap-2 mt-1 items-center cursor-pointer"
-                                        onClick={() => ReplyClick(data._id)}
-                                      >
-                                        <span
-                                          className={`${
-                                            isOpenReplyModel
-                                              ? "text-[#3a5894] font-bold"
-                                              : ""
-                                          }`}
-                                        >
-                                          Reply
-                                        </span>
-                                        <ReplyUIconSVG />
-                                      </div>
+                                      <LikeComponent
+                                        likes={data.likes}
+                                        userId={userId}
+                                        likeClick={likeClick} // Pass likeClick function
+                                        editorId={data?._id} // Pass editorId
+                                      />
+
+                                      <ReplyComponent
+                                        isOpenReplyModel={isOpenReplyModel}
+                                        replyId={reaplyId}
+                                        dataId={data._id}
+                                        onReplyClick={ReplyClick}
+                                      />
 
                                       <div className="text-[0.8rem] flex gap-2 mt-1 items-center cursor-pointer">
                                         <div className="pr-2 text-[0.8rem]">
@@ -484,9 +433,10 @@ const UpdateAmendment = ({ amendmentId }: any) => {
                                 }}
                               >
                                 <QuillEdior
+                                  productFlowId={""}
                                   setOpenQuill={() => {}}
                                   leadId={""}
-                                  productFlowId=""
+                                  amendmentId={amendmentId}
                                   updateId={editor._id}
                                   indicatorText="reply"
                                   customerId={""}
@@ -494,7 +444,6 @@ const UpdateAmendment = ({ amendmentId }: any) => {
                                   orderId={""}
                                   technicalId={""}
                                   handleEdit={""}
-                                  amendmentId={amendmentId}
                                   copywriterId={""}
                                   websiteContentId={""}
                                 />

@@ -22,11 +22,19 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useCopywriterStore } from "@/Store/CopywriterStore";
+import { useTableInstance } from "@/utils/Modules/useTableInstance";
 const animatedComponents = makeAnimated();
 
 const CopywriterContent: React.FC = () => {
   const router = useRouter();
-  const { fetchCopywriterData, copywriterData, loading } = useCopywriterStore();
+  const {
+    fetchCopywriterData,
+    copywriterData,
+    currentPage,
+    totalCopywriterTrackers,
+    totalPages,
+    loading,
+  } = useCopywriterStore();
   const [allCopywriter, setAllCopywriter] = useState<any>([]);
   const [loader, setLoader] = useState(true);
   const [rowSelection, setRowSelection] = React.useState({});
@@ -44,14 +52,22 @@ const CopywriterContent: React.FC = () => {
   const searchParams = useSearchParams();
   const queryParams = searchParams.get("id");
 
+  console.log("copywriterData", copywriterData);
+  console.log("currentPage", currentPage);
+  console.log("totalCopywriterTrackers", totalCopywriterTrackers);
+  console.log("totalPages", totalPages);
+
   useEffect(() => {
-    fetchCopywriterData();
+    fetchCopywriterData(1, 10);
   }, []);
 
   useEffect(() => {
     if (
-      copywriterData === "invalid token" ||
-      copywriterData === "Unauthorized request"
+      copywriterData === "Invalid refresh token" ||
+      copywriterData === "User not found" ||
+      copywriterData === "Invalid User Access Token" ||
+      copywriterData === "Invalid access token" ||
+      copywriterData === "Unauthorized request: No access or refresh token"
     ) {
       router.push("/auth/login");
     } else {
@@ -102,6 +118,7 @@ const CopywriterContent: React.FC = () => {
       setAllCopywriter(filterByStatus);
     }
   }, [filters?.status, copywriterData]);
+
   const tableInstance = useReactTable({
     data,
     columns,
@@ -131,6 +148,25 @@ const CopywriterContent: React.FC = () => {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
+
+  // const tableInstance = useTableInstance({
+  //   data,
+  //   columns,
+  //   state: {
+  //     sorting,
+  //     columnVisibility,
+  //     rowSelection,
+  //     globalFilter: filtering,
+  //     columnFilters,
+  //   },
+  //   setState: {
+  //     setFiltering,
+  //     setRowSelection,
+  //     setSorting,
+  //     setColumnFilters,
+  //     setColumnVisibility,
+  //   },
+  // });
 
   return (
     <div className="px-4 py-0 relative">

@@ -97,8 +97,11 @@ const CustomersContent: React.FC = () => {
 
   useEffect(() => {
     if (
-      customerData === "invalid token" ||
-      customerData === "Unauthorized request"
+      customerData === "Invalid refresh token" ||
+      customerData === "User not found" ||
+      customerData === "Invalid User Access Token" ||
+      customerData === "Invalid access token" ||
+      customerData === "Unauthorized request: No access or refresh token"
     ) {
       router.push("/auth/login");
     } else {

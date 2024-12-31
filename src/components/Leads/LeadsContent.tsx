@@ -74,8 +74,6 @@ const LeadsContent: React.FC = () => {
     fetchAllLeadData();
   }, []);
 
-  // console.log("allLeads", allLeads);
-
   const outcome = [
     { label: "Appointement Made", value: "Appointement Made" },
     { label: "Callback", value: "Callback" },
@@ -85,12 +83,18 @@ const LeadsContent: React.FC = () => {
   ];
 
   useEffect(() => {
-    if (leadData === "invalid token" || leadData === "Unauthorized request") {
+    if (
+      leadData === "Invalid refresh token" ||
+      leadData === "User not found" ||
+      leadData === "Invalid User Access Token" ||
+      leadData === "Invalid access token" ||
+      leadData === "Unauthorized request: No access or refresh token"
+    ) {
       router.push("/auth/login");
     } else {
       setAllLeads(leadData ? leadData?.leads || [] : []);
     }
-  }, [leadData?.leads, router]);
+  }, [leadData?.leads, leadData, router]);
 
   // Table Instance
   // const tableInstance = useReactTable({

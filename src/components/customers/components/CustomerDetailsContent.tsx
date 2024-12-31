@@ -139,7 +139,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       const response = await baseInstance.post(
         `/updates/toggle/${likeId}/like`
       );
-      if (response.status === 200) {
+      if (response?.status === 200) {
         fetchEditorData(customerId);
         // handleClear();
         // successToastingFunction(response?.data?.message);
@@ -187,7 +187,6 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
   };
   // Reply Function
   const ReplyClick = (replyId: string) => {
-    console.log("Clickeddededed", replyId);
     setReply((prev) => !prev);
   };
   // coments Function
@@ -454,6 +453,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
         editorData={editorData}
         ReplyClick={ReplyClick}
         likeClick={likeClick}
+        likeID={like}
         userId={userId}
         comments={comments}
         showComments={showComments}

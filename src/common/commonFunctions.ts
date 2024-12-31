@@ -48,7 +48,7 @@ export function getUserData() {
   }
   return null;
 }
-export const logOutFunction = (message: any) => {
+export const logOutFunction = async (message: any) => {
   if (localStorage?.getItem("token")) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -72,6 +72,7 @@ export const logOutFunction = (message: any) => {
     //   },
     // });
   }
+
   return;
 };
 export const successToastingFunction = (message: any) => {

@@ -80,18 +80,17 @@ const EditChatModel = ({
     fetchOrderEditorData,
     orderEditorData,
     fetchLeadsEditorData,
-    technicalUpdateData,
     leadsEditorData,
     fetchTechnicalUpdateData,
+    technicalUpdateData,
     fetchEditorData,
     editorData,
-    amendmentUpdateData,
-    productFlowUpdateData,
-    fetchProductFlowUpdateData,
     fetchAmendmentUpdateData,
-    copywriterUpdateData,
-
+    amendmentUpdateData,
+    fetchProductFlowUpdateData,
+    productFlowUpdateData,
     fetchCopywriterUpdateData,
+    copywriterUpdateData,
     fetchWebsiteContentUpdateData,
     websiteContentUpdateData,
   }: any = useEditorStore();
@@ -100,6 +99,8 @@ const EditChatModel = ({
   const [mentionedUserIds, setMentionedUserIds] = useState<string[]>([]);
   const quillRef = useRef<ReactQuill>(null);
   const [editContent, setEditContent] = useState("");
+  const [images, setImages] = useState<File[]>([]);
+  const [fileURLs, setFileURLs] = useState<{ name: string; url: string }[]>([]);
 
   useEffect(() => {
     const allEditorData = [
@@ -118,94 +119,244 @@ const EditChatModel = ({
     );
 
     setEditContent(editorToEdit?.content || editorToEdit?.replies || "");
+    // setImages(editorToEdit?.files || []);
   }, []);
 
   // const [value, setValue] = useState<string>("");
-  const [images, setImages] = useState<File[]>([]);
-  const [fileURLs, setFileURLs] = useState<{ name: string; url: string }[]>([]);
+
+  // const handleChanges = (value: string, editor: any) => {
+  //   setEditContent(() =>
+  //     editor.getText().trim() === "" && value === "" ? "" : value
+  //   );
+  // };
+
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [removedImageUrls, setRemovedImageUrls] = useState<string[]>([]);
+  const [finalRemovedURLs, setFinalRemovedURLs] = useState<string[]>([]);
+
+  const [fileUrls, setFileUrls] = useState<string[]>([]); // Tracks current file URLs
+  const [removedFileUrls, setRemovedFileUrls] = useState<string[]>([]); // Tracks removed file URLs
+  const [finalRemovedFileURLs, setFinalRemovedFileURLs] = useState<string[]>(
+    []
+  );
+
+  // const handleChanges = (value: string, editor: any) => {
+  //   // Set the content to state
+  //   setEditContent((prevContent) =>
+  //     editor.getText().trim() === "" && value === "" ? "" : value
+  //   );
+
+  //   // Extract image URLs using regex
+  //   const imgRegex = /<img[^>]+src="([^">]+)"/g;
+  //   const remainingImageUrls: string[] = [];
+  //   let match;
+
+  //   while ((match = imgRegex.exec(value)) !== null) {
+  //     remainingImageUrls.push(match[1]); // Capture the src attribute
+  //   }
+
+  //   // Store the URLs in state
+  //   setImageUrls(remainingImageUrls);
+
+  //   console.log("Remaining Image URLs:", remainingImageUrls);
+  // };
+
+  // const handleChanges = (value: string, editor: any) => {
+  //   // Set the content to state
+  //   setEditContent((prevContent) =>
+  //     editor.getText().trim() === "" && value === "" ? "" : value
+  //   );
+
+  //   // Extract image URLs using regex
+  //   const imgRegex = /<img[^>]+src="([^">]+)"/g;
+  //   const currentImageUrls: string[] = [];
+  //   let match;
+
+  //   while ((match = imgRegex.exec(value)) !== null) {
+  //     currentImageUrls.push(match[1]); // Capture the src attribute
+  //   }
+
+  //   // Determine removed URLs
+  //   const newlyRemovedUrls = imageUrls.filter(
+  //     (url) => !currentImageUrls.includes(url)
+  //   );
+
+  //   // Accumulate all removed URLs
+  //   setRemovedImageUrls((prevRemoved) => [...prevRemoved, ...newlyRemovedUrls]);
+
+  //   // Update remaining image URLs
+  //   setImageUrls(currentImageUrls);
+
+  //   console.log("Remaining Image URLs:", currentImageUrls);
+  //   setFinalRemovedURLs([...removedImageUrls, ...newlyRemovedUrls]);
+  //   console.log("All Removed Image URLs:", [
+  //     ...removedImageUrls,
+  //     ...newlyRemovedUrls,
+  //   ]);
+  // };
 
   const handleChanges = (value: string, editor: any) => {
-    setEditContent(() =>
+    // Set the content to state
+    setEditContent((prevContent) =>
       editor.getText().trim() === "" && value === "" ? "" : value
     );
+
+    // Define regex patterns for images and other file types
+    const fileRegex =
+      /(?:<img[^>]+src="([^">]+)"|<a[^>]+href="([^">]+(?:\.pdf|\.mp4|\.docx|\.xlsx|\.png|\.jpg|\.jpeg|\.gif))")/g;
+
+    // Extract file URLs (images and other file types)
+    const currentFileUrls: string[] = [];
+    let match;
+
+    while ((match = fileRegex.exec(value)) !== null) {
+      // Match either the src (for images) or href (for other files)
+      const fileUrl = match[1] || match[2];
+      if (fileUrl) currentFileUrls.push(fileUrl);
+    }
+
+    // Determine removed URLs
+    const newlyRemovedUrls = fileUrls.filter(
+      (url) => !currentFileUrls.includes(url)
+    );
+
+    // Accumulate all removed URLs
+    setRemovedFileUrls((prevRemoved) => [...prevRemoved, ...newlyRemovedUrls]);
+
+    // Update remaining file URLs
+    setFileUrls(currentFileUrls);
+
+    // console.log("Remaining File URLs:", currentFileUrls);
+    setFinalRemovedFileURLs([...removedFileUrls, ...newlyRemovedUrls]);
+    // console.log("All Removed File URLs:", [
+    //   ...removedFileUrls,
+    //   ...newlyRemovedUrls,
+    // ]);
   };
 
-  const handleFileUpload = (files: FileList | null) => {
+  // const handleFileUpload = (files: FileList | null) => {
+  //   if (files) {
+  //     const fileList = Array.from(files);
+  //     setImages(fileList);
+
+  //     const newContent: Promise<string>[] = fileList.map((file) => {
+  //       if (file.type.startsWith("image/")) {
+  //         return new Promise<string>((resolve, reject) => {
+  //           const reader = new FileReader();
+  //           reader.onloadend = () => {
+  //             const img = `<img src="${reader.result}" alt="${file.name}" />`;
+  //             resolve(img);
+  //           };
+  //           reader.onerror = () => reject(new Error("Failed to read file"));
+  //           reader.readAsDataURL(file);
+  //         });
+  //       } else {
+  //         const url = URL.createObjectURL(file);
+  //         setFileURLs((prev) => ({ ...prev, [file.name]: url }));
+
+  //         return Promise.resolve(
+  //           `<a href="${url}" target="_blank">${file.name}</a>`
+  //         );
+  //       }
+  //     });
+
+  //     Promise.all(newContent)
+  //       .then((contentArray) => {
+  //         setEditContent((prevContent) => prevContent + contentArray.join(""));
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error processing files:", error);
+  //       });
+  //   }
+  // };
+
+  // const handleFileUpload = async (files: FileList | null) => {
+  //   console.log("fileListfileList", files);
+  //   if (files) {
+  //     const fileList = Array.from(files);
+
+  //     // setImages((prevImages) => [...prevImages, ...fileList]); // Maintain previous images if needed
+
+  //     const newContentPromises = fileList.map(async (file) => {
+  //       if (file.type.startsWith("image/")) {
+  //         // Upload image to server
+  //         const formData = new FormData();
+  //         formData.append("files", file);
+
+  //         try {
+  //           const response = await baseInstance.post("/users/upload", formData); // Adjust endpoint as needed
+  //           const imageUrl = response?.data?.data?.fileUrl; // Extract URL from server response
+  //           const imgTag = `<img src="${imageUrl}" alt="${file.name}" />`;
+  //           setImages((prevImages) => [...prevImages, imageUrl]);
+  //           return `<img src="${imageUrl}" alt="${file.name}" />`;
+  //         } catch (error) {
+  //           console.error("Image upload failed:", error);
+  //           errorToastingFunction("Image upload failed.");
+  //           return ""; // Return empty string on failure
+  //         }
+  //       } else {
+  //         // Handle non-image files
+  //         const url = URL.createObjectURL(file);
+  //         setFileURLs((prev) => ({ ...prev, [file.name]: url }));
+  //         return `<a href="${url}" target="_blank" rel="noopener noreferrer">${file.name}</a>`;
+  //       }
+  //     });
+
+  //     // Wait for all content to process and update the state
+  //     try {
+  //       const contentArray = await Promise.all(newContentPromises);
+  //       setEditContent((prevContent) => {
+  //         return prevContent + contentArray.join("</br>") + "</br>";
+  //       });
+  //     } catch (error) {
+  //       console.error("Error processing files:", error);
+  //     }
+  //   }
+  // };
+  const handleFileUpload = async (files: FileList | null) => {
     if (files) {
       const fileList = Array.from(files);
-      setImages(fileList);
 
-      const newContent: Promise<string>[] = fileList.map((file) => {
+      const newContentPromises = fileList.map(async (file) => {
         if (file.type.startsWith("image/")) {
-          return new Promise<string>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              const img = `<img src="${reader.result}" alt="${file.name}" />`;
-              resolve(img);
-            };
-            reader.onerror = () => reject(new Error("Failed to read file"));
-            reader.readAsDataURL(file);
-          });
+          // Upload image to server
+          const formData = new FormData();
+          formData.append("files", file);
+
+          try {
+            const response = await baseInstance.post("/users/upload", formData); // Adjust endpoint as needed
+            const imageUrl = response?.data?.data?.fileUrls; // Extract URL from server response
+            const imgTag = `<img src="${imageUrl}" alt="${file.name}" />`;
+            setImages((prevImages) => [...prevImages, imageUrl]);
+            return `<img src="${imageUrl}" alt="${file.name}" />`;
+          } catch (error) {
+            console.error("Image upload failed:", error);
+            errorToastingFunction("Image upload failed.");
+            return ""; // Return empty string on failure
+          }
         } else {
-          const url = URL.createObjectURL(file);
-          setFileURLs((prev) => ({ ...prev, [file.name]: url }));
+          const formData = new FormData();
+          formData.append("files", file);
 
-          return Promise.resolve(
-            `<a href="${url}" target="_blank">${file.name}</a>`
-          );
+          try {
+            const response = await baseInstance.post("/users/upload", formData); // Adjust the endpoint as needed
+            const fileUrl = response?.data?.data?.fileUrls; // Assume the response contains the URL
+            setImages((prevImages) => [...prevImages, fileUrl]);
+            return `<a href="${fileUrl}" target="_blank" rel="noopener noreferrer">${file.name}</a>`;
+          } catch (error) {
+            errorToastingFunction("Image upload failed.");
+          }
         }
       });
 
-      Promise.all(newContent)
-        .then((contentArray) => {
-          setEditContent((prevContent) => prevContent + contentArray.join(""));
-        })
-        .catch((error) => {
-          console.error("Error processing files:", error);
+      // Wait for all content to process and update the state
+      try {
+        const contentArray = await Promise.all(newContentPromises);
+        setEditContent((prevContent) => {
+          return prevContent + contentArray.join("</br>") + "</br>";
         });
-    }
-  };
-
-  const handleUpdate = async () => {
-    try {
-      const formData = new FormData();
-
-      formData.append("content", editContent);
-      if (images.length > 0) {
-        for (let i = 0; i < images.length; i++) {
-          formData.append("files", images[i]);
-        }
-      }
-      mentionedUserIds.forEach((mentionId) =>
-        formData.append("mentions", mentionId)
-      );
-
-      formData.forEach((ee) => {
-        console.log("ee", ee);
-      });
-
-      const response = await baseInstance.patch(`/updates/${id}`, formData);
-      if (response.status === 200) {
-        successToastingFunction(response.data.message);
-        setOpen(false);
-        setIsModalOpen(false);
-        productFlowId ? fetchProductFlowUpdateData(productFlowId) : "";
-        amendmentId ? fetchAmendmentUpdateData(amendmentId) : "";
-        customerId ? fetchEditorData(customerId) : "";
-        leadId ? fetchLeadsEditorData(leadId) : "";
-        orderId ? fetchOrderEditorData(orderId) : "";
-        technicalId ? fetchTechnicalUpdateData(technicalId) : "";
-        copywriterId ? fetchCopywriterUpdateData(copywriterId) : "";
-        websiteContentId ? fetchWebsiteContentUpdateData(websiteContentId) : "";
-      }
-    } catch (error: any) {
-      if (
-        error?.response &&
-        error?.response?.data &&
-        error?.response?.data?.message
-      ) {
-        errorToastingFunction(error?.response?.data?.message);
-        setOpen(false);
+      } catch (error) {
+        console.error("Error processing files:", error);
       }
     }
   };
@@ -327,6 +478,66 @@ const EditChatModel = ({
         parchment: Quill.import("parchment"),
       },
     },
+  };
+
+  // Use a regular expression to match URLs
+  const urlRegex = /https?:\/\/[^\s"']+/g;
+
+  // Extract all URLs into an array
+  const updatedUrls = editContent?.match(urlRegex) || [];
+
+  const handleUpdate = async () => {
+    try {
+      const formData = new FormData();
+
+      formData.append("content", editContent);
+
+      // if (imageUrls?.length > 0) {
+      //   for (let i = 0; i < imageUrls?.length; i++) {
+      //     formData.append("retainFileUrl ", imageUrls[i]);
+      //   }
+      // }
+      // if (finalRemovedURLs?.length > 0) {
+      //   for (let i = 0; i < finalRemovedURLs?.length; i++) {
+      //     formData.append("removeFileUrl ", finalRemovedURLs[i]);
+      //   }
+      // }
+      finalRemovedFileURLs?.forEach((remURL) =>
+        formData.append("removeFileUrl[]", remURL)
+      );
+
+      updatedUrls?.forEach((image) => formData.append("files[]", image));
+
+      // images.length > 0 &&
+      //   images.forEach((image) => formData.append("files", image));
+      mentionedUserIds.forEach((mentionId) =>
+        formData.append("mentions", mentionId)
+      );
+
+      const response = await baseInstance.patch(`/updates/${id}`, formData);
+      if (response.status === 200) {
+        successToastingFunction(response.data.message);
+        setOpen(false);
+        setIsModalOpen(false);
+        productFlowId ? fetchProductFlowUpdateData(productFlowId) : "";
+        amendmentId ? fetchAmendmentUpdateData(amendmentId) : "";
+        customerId ? fetchEditorData(customerId) : "";
+        leadId ? fetchLeadsEditorData(leadId) : "";
+        orderId ? fetchOrderEditorData(orderId) : "";
+        technicalId ? fetchTechnicalUpdateData(technicalId) : "";
+        copywriterId ? fetchCopywriterUpdateData(copywriterId) : "";
+        websiteContentId ? fetchWebsiteContentUpdateData(websiteContentId) : "";
+      }
+    } catch (error: any) {
+      if (
+        error?.response &&
+        error?.response?.data &&
+        error?.response?.data?.message
+      ) {
+        errorToastingFunction(error?.response?.data?.message);
+        setOpen(false);
+      }
+    }
   };
 
   return (

@@ -58,7 +58,7 @@ export function AddAppointmentDialoge() {
     //   </DialogContent>
     // </Dialog>
     <>
-      <div className="text-xl font-semibold absolute top-[20px] px-2">
+      <div className="text-[1rem] font-semibold absolute top-[4px] px-2">
         Add Appointment
       </div>
 

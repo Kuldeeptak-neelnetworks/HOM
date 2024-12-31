@@ -99,26 +99,105 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     );
   };
 
-  const handleFileUpload = (files: FileList | null) => {
+  // const handleFileUpload = (files: FileList | null) => {
+  //   if (files) {
+  //     const fileList = Array.from(files);
+  //     setImages((prevImages) => [...prevImages, ...fileList]);
+
+  //     fileList.forEach((file) => {
+  //       if (file.type.startsWith("image/")) {
+  //         const reader = new FileReader();
+  //         reader.onloadend = () => {
+  //           const img = `<img src="${reader.result}" alt="${file.name}" />`;
+  //           setValue((prevValue) => prevValue + img + "</br>");
+  //         };
+  //         reader.readAsDataURL(file);
+  //       } else {
+  //         const url = URL.createObjectURL(file);
+  //         setFileURLs((prev) => ({ ...prev, [file.name]: url }));
+  //         const link = `<a href="${url}" target="_blank" rel="noopener noreferrer">${file.name}</a>`;
+  //         setValue((prevValue) => prevValue + link + "</br>");
+  //       }
+  //     });
+  //   }
+  // };
+
+  // const handleFileUpload = async (files: FileList | null) => {
+  //   if (files) {
+  //     const fileList = Array.from(files);
+  //     console.log("fileList", fileList);
+
+  //     // setImages((prevImages) => [...prevImages, ...fileList]);
+
+  //     for (const file of fileList) {
+  //       if (!file.type.startsWith("image/")) {
+  //         setImages((prevImages) => [...prevImages, ...fileList]);
+  //       }
+  //     }
+  //     for (const file of fileList) {
+  //       if (file.type.startsWith("image/")) {
+  //         const formData = new FormData();
+  //         formData.append("files", file);
+
+  //         try {
+  //           const response = await baseInstance.post("/users/upload", formData); // Adjust the endpoint as needed
+  //           const imageUrl = response?.data?.data?.fileUrl; // Assume the response contains the URL
+  //           console.log("imageUrlimageUrl", imageUrl);
+  //           const imgTag = `<img src="${imageUrl}" alt="${file.name}" />`;
+  //           setValue((prevValue) => prevValue + imgTag + "</br>");
+  //           setImages((prevImages) => [...prevImages, imageUrl]);
+  //         } catch (error) {
+  //           errorToastingFunction("Image upload failed.");
+  //         }
+  //       } else {
+  //         console.log("file", file);
+  //         const url = URL.createObjectURL(file);
+  //         setFileURLs((prev) => ({ ...prev, [file.name]: url }));
+  //         const link = `<a href="${url}" target="_blank" rel="noopener noreferrer">${file.name}</a>`;
+  //         setValue((prevValue) => prevValue + link + "</br>");
+  //       }
+  //     }
+  //   }
+  // };
+  const handleFileUpload = async (files: FileList | null) => {
     if (files) {
       const fileList = Array.from(files);
-      setImages((prevImages) => [...prevImages, ...fileList]);
 
-      fileList.forEach((file) => {
+      // setImages((prevImages) => [...prevImages, ...fileList]);
+
+      for (const file of fileList) {
         if (file.type.startsWith("image/")) {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const img = `<img src="${reader.result}" alt="${file.name}" />`;
-            setValue((prevValue) => prevValue + img + "</br>");
-          };
-          reader.readAsDataURL(file);
+          const formData = new FormData();
+          formData.append("files", file);
+
+          try {
+            const response = await baseInstance.post("/users/upload", formData); // Adjust the endpoint as needed
+            const imageUrl = response?.data?.data?.fileUrls; // Assume the response contains the URL
+            const imgTag = `<img src="${imageUrl}" alt="${file.name}" />`;
+            setValue((prevValue) => prevValue + imgTag + "</br>");
+            setImages((prevImages) => [...prevImages, imageUrl]);
+          } catch (error) {
+            errorToastingFunction("Image upload failed.");
+          }
         } else {
-          const url = URL.createObjectURL(file);
-          setFileURLs((prev) => ({ ...prev, [file.name]: url }));
-          const link = `<a href="${url}" target="_blank" rel="noopener noreferrer">${file.name}</a>`;
-          setValue((prevValue) => prevValue + link + "</br>");
+          // const url = URL.createObjectURL(file);
+          // setFileURLs((prev) => ({ ...prev, [file.name]: url }));
+          // const link = `<a href="${url}" target="_blank" rel="noopener noreferrer">${file.name}</a>`;
+          // setValue((prevValue) => prevValue + link + "</br>");
+          const formData = new FormData();
+          formData.append("files", file);
+
+          try {
+            const response = await baseInstance.post("/users/upload", formData); // Adjust the endpoint as needed
+            const fileUrl = response?.data?.data?.fileUrls; // Assume the response contains the URL
+            const fileTag = `<a href="${fileUrl}" target="_blank" rel="noopener noreferrer">${file.name}</a>`;
+            setValue((prevValue) => prevValue + fileTag + "</br>");
+            setImages((prevImages) => [...prevImages, fileUrl]);
+          } catch (error) {
+            errorToastingFunction("Image upload failed.");
+          }
         }
-      });
+      }
     }
   };
 
@@ -162,6 +241,12 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     setMentionedUserIds(extractedIds);
   };
 
+  // Use a regular expression to match URLs
+  const urlRegex = /https?:\/\/[^\s"']+/g;
+
+  // Extract all URLs into an array
+  const updatedUrls = value?.match(urlRegex) || [];
+
   const handleAddData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if ((value !== "" && value !== "<p><br></p>") || images.length > 0) {
@@ -170,7 +255,9 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
         const formData = new FormData();
 
         formData.append("content", value);
-        images.forEach((image) => formData.append("files", image));
+
+        updatedUrls?.forEach((image) => formData.append("files[]", image));
+
         mentionedUserIds.forEach((mentionId) =>
           formData.append("mentions", mentionId)
         );
@@ -213,10 +300,6 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             baseInstance.post(`/updates/update/reply/${updateId}`, formData)
           );
         }
-
-        formData.forEach((ee) => {
-          console.log("ee", ee);
-        });
 
         // const responses = await Promise.all(requests.filter(Boolean));
         // responses.forEach((response: any) => {
@@ -302,7 +385,9 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
 
   useEffect(() => {
     return () => {
-      Object.values(fileURLs).forEach((url) => URL.revokeObjectURL(url));
+      Object.values(fileURLs).forEach((url) => {
+        return URL.revokeObjectURL(url);
+      });
     };
   }, [fileURLs]);
 

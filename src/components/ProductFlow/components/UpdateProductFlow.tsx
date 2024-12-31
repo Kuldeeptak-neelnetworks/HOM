@@ -26,7 +26,8 @@ import {
   successToastingFunction,
 } from "@/common/commonFunctions";
 
-import QuillEdior from "@/components/customers/components/QuillEditor";
+// import QuillEdior from "@/components/customers/components/QuillEditor";
+import QuillEdior from "@/components/common/Editor/QuillEditor";
 
 import { useEditorStore } from "@/Store/EditorStore";
 
@@ -40,6 +41,8 @@ import Logo from "../../../asset/images/companydummylog.png";
 import EditChatModel from "../../common/Editor/EditChatModel";
 import QuillEditor from "@/components/customers/components/QuillEditor";
 import FilePreviewList from "@/components/common/FilePreviewList";
+import LikeComponent from "@/components/common/Editor/LikeComponent";
+import ReplyComponent from "@/components/common/Editor/ReplyComponent";
 
 const UpdateProductFlow = ({ productFlowId }: any) => {
   const [open, setOpen] = useState<boolean>(false);
@@ -263,7 +266,7 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                     </div>
                     <div />
                     <div
-                      className="leading-relaxed mb-1 text-[0.8rem] mt-2"
+                      className="leading-relaxed mb-1 text-[0.8rem] mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_li]:leading-relaxed"
                       dangerouslySetInnerHTML={{
                         __html: editor?.content ? editor?.content : "",
                       }}
@@ -271,55 +274,20 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                     <FilePreviewList files={editor.files || []} />
                     <div className="flex items-center justify-between flex-wrap  mt-2 w-full  border-t-2 border-gray-100">
                       <div className="flex justify-between items-center gap-2">
-                        <div
-                          className="text-[0.8rem] border-r-2 pr-2 border-gray-200 flex gap-2 mt-1 items-center cursor-pointer"
-                          onClick={() => likeClick(editor?._id)}
-                        >
-                          <span
-                            className={`${
-                              editor.likes.some(
-                                (like: any) => like._id === userId
-                              )
-                                ? "text-[#3a5894] font-bold"
-                                : ""
-                            }`}
-                          >
-                            Like
-                          </span>
-                          {editor.likes.some(
-                            (like: any) => like._id === userId
-                          ) ? (
-                            <LikeDarkUIconSVG />
-                          ) : (
-                            <LikeUIconSVG />
-                          )}
-                        </div>
-                        <div
-                          className="text-[0.8rem] pr-2 flex gap-2 mt-1 items-center cursor-pointer"
-                          onClick={() => showComments(editor?._id)}
-                        >
-                          <span
-                            className={`${
-                              isCommentOpen ? "text-[#3a5894] font-bold" : ""
-                            }`}
-                          >
-                            Reply
-                          </span>
-                          <ReplyUIconSVG />
-                          {/* {isCommentOpen ? (
-                            <CommentsDarkUIconSVG />
-                          ) : (
-                            <CommentsUIconSVG />
-                          )} */}
-                        </div>
+                        <LikeComponent
+                          likes={editor.likes}
+                          userId={userId}
+                          likeClick={likeClick} // Pass likeClick function
+                          editorId={editor._id} // Pass editorId
+                        />
+                        <ReplyComponent
+                          isOpenReplyModel={isCommentOpen}
+                          replyId={commentID}
+                          dataId={editor?._id}
+                          onReplyClick={showComments}
+                        />
                       </div>
                     </div>
-                    {/* <div className="text-[0.8rem]">
-                      <span className="font-bold mr-1">
-                        {editor?.likes ? editor?.likes?.length : "0"}
-                      </span>
-                      Likes
-                    </div> */}
                   </div>
                 </div>
               </div>
@@ -413,7 +381,7 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
 
                                   <p className="leading-relaxed mb-1 text-[0.8rem] mt-2">
                                     <div
-                                      className="leading-relaxed mb-1 text-[0.8rem] mt-2"
+                                      className="leading-relaxed mb-1 text-[0.8rem] mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_li]:leading-relaxed"
                                       dangerouslySetInnerHTML={{
                                         __html: data.content
                                           ? data.content
@@ -424,53 +392,19 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                                   <FilePreviewList files={data.files || []} />
                                   <div className="flex items-center justify-between flex-wrap  mt-2 w-full  ">
                                     <div className="flex justify-between gap-2">
-                                      <div
-                                        className="text-[0.8rem] border-r-2 pr-2 border-gray-200 flex gap-2 mt-1 items-center cursor-pointer"
-                                        onClick={() => likeClick(data?._id)}
-                                      >
-                                        <span
-                                          className={`${
-                                            data.likes.some(
-                                              (like: any) => like._id === userId
-                                            )
-                                              ? "text-[#3a5894] font-bold"
-                                              : ""
-                                          }`}
-                                        >
-                                          Like
-                                        </span>
-                                        {data.likes.some(
-                                          (like: any) => like._id === userId
-                                        ) ? (
-                                          <LikeDarkUIconSVG />
-                                        ) : (
-                                          <LikeUIconSVG />
-                                        )}
-                                      </div>
-                                      {/* <div className="text-[0.8rem] border-r-2 pr-2 border-gray-200 flex gap-2 mt-1 items-center cursor-pointer">
-                                        <span className="font-bold">
-                                          {data?.likes
-                                            ? data?.likes?.length
-                                            : "0"}
-                                        </span>
-                                        Likes
-                                      </div> */}
+                                      <LikeComponent
+                                        likes={data.likes}
+                                        userId={userId}
+                                        likeClick={likeClick} // Pass likeClick function
+                                        editorId={data?._id} // Pass editorId
+                                      />
 
-                                      <div
-                                        className="text-[0.8rem]  border-r-2 pr-2 border-gray-200 flex gap-2 mt-1 items-center cursor-pointer"
-                                        onClick={() => ReplyClick(data._id)}
-                                      >
-                                        <span
-                                          className={`${
-                                            isOpenReplyModel
-                                              ? "text-[#3a5894] font-bold"
-                                              : ""
-                                          }`}
-                                        >
-                                          Reply
-                                        </span>
-                                        <ReplyUIconSVG />
-                                      </div>
+                                      <ReplyComponent
+                                        isOpenReplyModel={isOpenReplyModel}
+                                        replyId={reaplyId}
+                                        dataId={data._id}
+                                        onReplyClick={ReplyClick}
+                                      />
 
                                       <div className="text-[0.8rem] flex gap-2 mt-1 items-center cursor-pointer">
                                         <div className="pr-2 text-[0.8rem]">

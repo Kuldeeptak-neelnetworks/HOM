@@ -87,9 +87,19 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
     setOpenDropDown((prev) => !prev);
   };
 
-  const logOutAccount = () => {
-    logOutFunction("Logout Successfully !!");
-    router.push("/auth/login");
+  const logOutAccount = async () => {
+    try {
+      const response = await baseInstance.post("/users/logout");
+      if (response.status === 200) {
+        router.push("/auth/login");
+        logOutFunction("Logout Successfully !!");
+        // set({ amendmentData: response.data?.data, loading: false });
+      } else {
+        // set({ amendmentData: response.data?.message, loading: false });
+      }
+    } catch (error: any) {
+      // logOutFunction(error?.response?.data?.message);
+    }
   };
 
   const profile = () => {
@@ -183,14 +193,14 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
       <div
         className={
           toggleSider
-            ? `pl-[7rem] pr-3 flex flex-wrap items-center justify-end mx-auto py-[0.5rem] transition-all duration-300 h-[100%]`
-            : `pl-[18rem] pr-3 flex flex-wrap items-center justify-end mx-auto py-[0.5rem] transition-all duration-300 h-[100%]`
+            ? `pl-[7rem] pr-3 flex flex-wrap items-center justify-end mx-auto py-[0.2rem] transition-all duration-300 h-[100%]`
+            : `pl-[18rem] pr-3 flex flex-wrap items-center justify-end mx-auto py-[0.2rem]  transition-all duration-300 h-[100%]`
         }
       >
         {/* Notification section  */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <div className="text-[#29354f] mr-5 relative cursor-pointer">
+            <div className="text-[#29354f] mr-5 relative cursor-pointer mt-1">
               <div className="h-4 w-4 rounded-full bg-red-600 absolute flex justify-center items-center right-3 -top-1">
                 <span className="font-bold text-white text-[10px]">
                   {notificationData?.notifications?.filter(
@@ -342,18 +352,18 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
             data-dropdown-toggle="user-dropdown"
             data-dropdown-placement="bottom"
             onClick={() => openDropdownMenu()}
-            // onBlur={() => openDropdownMenu()}
+            // onBlur={openDropdownMenu}
           >
             <span className="sr-only">Open user menu</span>
             {userData?.avatar ? (
               <img
-                className="w-8 h-8 rounded-full"
+                className="w-[1.8rem] h-[1.8rem] rounded-full"
                 src={`${userData?.avatar}`}
                 alt="user photo"
               />
             ) : (
               <img
-                className="w-8 h-8 rounded-full"
+                className="w-[1.8rem] h-[1.8rem] rounded-full"
                 src={UserPic}
                 alt="user photo"
               />
@@ -377,46 +387,24 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
                 {userData?.email ? userData?.email : ""}
               </span>
             </div>
-            <ul className="py-2" aria-labelledby="user-menu-button">
-              <li className="cursor-pointer">
-                <Link
-                  href="/profile"
-                  className="block px-4 py-2 text-[0.8rem] text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Profile
-                </Link>
-              </li>
-              <li onClick={logOutAccount} className="cursor-pointer">
-                <p className="block px-4 py-2 text-[0.8rem] text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                  Sign out
-                </p>
-              </li>
-            </ul>
+            <div>
+              <ul className="py-2" aria-labelledby="user-menu-button">
+                <li className="cursor-pointer">
+                  <Link
+                    href="/profile"
+                    className="block px-4 py-2 text-[0.8rem] text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  >
+                    Profile
+                  </Link>
+                </li>
+                <li onClick={logOutAccount} className="cursor-pointer">
+                  <p className="block px-4 py-2 text-[0.8rem] text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    Sign out
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
-          {/* <button
-            data-collapse-toggle="navbar-user"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-[0.8rem] text-gray-500 rounded-md md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            aria-controls="navbar-user"
-            aria-expanded="false"
-          >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button> */}
         </div>
       </div>
     </nav>
