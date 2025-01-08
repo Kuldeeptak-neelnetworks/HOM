@@ -395,10 +395,13 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             </TabsContent>
             <TabsContent value="files">
               <Card className="border-none">
-                <CardHeader className="py-0 px-1">
-                  {/* <CardTitle>Files</CardTitle> */}
-                </CardHeader>
-                <CardContent className="space-y-2 px-2 p-0">
+                <CardContent
+                  className="space-y-2 px-2 p-0"
+                  style={{
+                    maxHeight: "180px",
+                    overflow: "scroll",
+                  }}
+                >
                   <UpdateFilesSection updateFileDetails={updateFileDetails} />
                 </CardContent>
               </Card>

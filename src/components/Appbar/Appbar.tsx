@@ -144,22 +144,30 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
       ) {
         const itemType = notificationSingleData?.itemType;
 
+        console.log("itemType", itemType);
+
         const queryData = {
           id: notificationSingleData?.item,
         };
 
         const queryString = new URLSearchParams(queryData).toString();
-        console.log("queryString", queryString);
+        const idValue = queryString.split("=")[1];
         if (itemType === "Amendment") {
-          router.push(`/amendment?${queryString}`);
+          router.push(`/amendment`);
         } else if (itemType === "Customer") {
-          router.push(`/customers?${queryString}`);
+          router.push(`/customers`);
         } else if (itemType === "Order") {
-          router.push(`/orders?${queryString}`);
+          router.push(`/orders`);
         } else if (itemType === "Lead") {
-          router.push(`/leads?${queryString}`);
+          router.push(`/leads`);
         } else if (itemType === "NewWebsiteContent") {
-          router.push(`/websiteContent?${queryString}`);
+          router.push(`/websiteContent`);
+        } else if (itemType === "CopywriterTracker") {
+          router.push(`/copywriter`);
+        } else if (itemType === "TechnicalTracker") {
+          router.push(`/technical`);
+        } else if (itemType === "ProductFlow") {
+          router.push(`/productFlow`);
         }
 
         // if (itemType === "Amendment") {

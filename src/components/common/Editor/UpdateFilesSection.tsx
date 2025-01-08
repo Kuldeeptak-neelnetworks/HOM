@@ -32,10 +32,7 @@ const UpdateFilesSection = ({
   };
 
   return (
-    <ScrollArea
-      className="flex flex-col overflow-y-auto"
-      style={{ maxHeight: "190px", height: "190px" }}
-    >
+    <ScrollArea className="flex flex-col overflow-y-auto">
       {updateFileDetails && updateFileDetails.length > 0 ? (
         updateFileDetails.map((editData: any, index: number) => {
           let fileExtension = "";
@@ -159,7 +156,7 @@ const UpdateFilesSection = ({
 
           return (
             <div
-              className="rounded-md border flex items-center h-28 mx-2 my-2"
+              className="rounded-md border flex items-center h-28 mx-2 hover:bg-zinc-100 my-1"
               key={editData?._id}
             >
               <div className="border rounded-md m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">

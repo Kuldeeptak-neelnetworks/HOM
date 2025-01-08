@@ -16,6 +16,7 @@ import TooltipCommon from "@/components/common/TooltipCommon";
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import SideDrawer from "@/components/common/Editor/SideDrawer";
 const ChatModel = dynamic(
   () => import("@/components/common/Editor/ChatModel"),
   { ssr: false }
@@ -82,18 +83,36 @@ export const columns = [
       );
     },
   },
+  // {
+  //   accessorKey: "update",
+  //   header: ({ column }: any) => (
+  //     <DataTableColumnHeader column={column} title="Update" />
+  //   ),
+  //   cell: ({ row }: any) => (
+  //     <ChatModel
+  //       copywriterId={row?.original?._id}
+  //       length={row?.original?.updates?.length}
+  //       customerName={row?.original?.customer?.contactName}
+  //     />
+  //   ),
+  // },
   {
     accessorKey: "update",
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Update" />
     ),
-    cell: ({ row }: any) => (
-      <ChatModel
-        copywriterId={row?.original?._id}
-        length={row?.original?.updates?.length}
-        customerName={row?.original?.customer?.contactName}
-      />
-    ),
+    cell: ({ row }: any) => {
+      return (
+        <SideDrawer
+          copywriterId={row?.original?._id}
+          length={row?.original?.updates?.length}
+          customerName={
+            row?.original?.customer?.companyName &&
+            row?.original?.customer?.companyName
+          }
+        />
+      );
+    },
   },
   {
     accessorKey: "status",

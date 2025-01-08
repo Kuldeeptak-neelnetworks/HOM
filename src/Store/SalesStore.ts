@@ -44,38 +44,42 @@ export const useSalesStore = create<SalesState & SalesActions>()(
 
     fetchSalesData: async (orderYear) => {
       set({ loading: true });
-      try {
-        const response = await baseInstance.get(`/sales?year=${orderYear}`);
-        if (response.status === 200) {
-          set({ SalesData: response.data?.data, loading: false });
-        } else {
-          set({ SalesData: response.data?.message, loading: false });
+      if (orderYear) {
+        try {
+          const response = await baseInstance.get(`/sales?year=${orderYear}`);
+          if (response.status === 200) {
+            set({ SalesData: response.data?.data, loading: false });
+          } else {
+            set({ SalesData: response.data?.message, loading: false });
+          }
+        } catch (error: any) {
+          logOutFunction(error?.response?.data?.message);
+          set({ SalesData: error?.response?.data?.message, loading: false });
         }
-      } catch (error: any) {
-        logOutFunction(error?.response?.data?.message);
-        set({ SalesData: error?.response?.data?.message, loading: false });
       }
     },
     fetchMonthlySalesData: async (orderMonth, orderYear) => {
       set({ loading: true });
-      try {
-        const response = await baseInstance.get(
-          `/sales/monthly-status?month=${orderMonth}&year=${orderYear}`
-        );
-        // const response = await baseInstance.get(
-        //   `/sales/monthly-status?month=03&year=2024`
-        // );
-        if (response.status === 200) {
-          set({ MonthlySalesData: response.data?.data, loading: false });
-        } else {
-          set({ MonthlySalesData: response.data?.message, loading: false });
+      if (orderYear && orderMonth) {
+        try {
+          const response = await baseInstance.get(
+            `/sales/monthly-status?month=${orderMonth}&year=${orderYear}`
+          );
+          // const response = await baseInstance.get(
+          //   `/sales/monthly-status?month=03&year=2024`
+          // );
+          if (response.status === 200) {
+            set({ MonthlySalesData: response.data?.data, loading: false });
+          } else {
+            set({ MonthlySalesData: response.data?.message, loading: false });
+          }
+        } catch (error: any) {
+          logOutFunction(error?.response?.data?.message);
+          set({
+            MonthlySalesData: error?.response?.data?.message,
+            loading: false,
+          });
         }
-      } catch (error: any) {
-        logOutFunction(error?.response?.data?.message);
-        set({
-          MonthlySalesData: error?.response?.data?.message,
-          loading: false,
-        });
       }
     },
   }))

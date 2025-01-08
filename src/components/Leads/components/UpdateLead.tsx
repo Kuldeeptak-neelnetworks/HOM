@@ -30,11 +30,13 @@ import QuillEditor from "@/components/customers/components/QuillEditor";
 import FilePreviewList from "@/components/common/FilePreviewList";
 import LikeComponent from "@/components/common/Editor/LikeComponent";
 import ReplyComponent from "@/components/common/Editor/ReplyComponent";
+import { LoaderIconSVG } from "@/utils/SVGs/SVGs";
 
 const UpdateLead = ({ leadId }: any) => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const { fetchLeadsEditorData, leadsEditorData }: any = useEditorStore();
+  const { fetchLeadsEditorData, leadsEditorData, loading }: any =
+    useEditorStore();
 
   const PDFPic = PDF.src;
   const XLSXPic = XLSX.src;
@@ -144,7 +146,13 @@ const UpdateLead = ({ leadId }: any) => {
 
   return (
     <>
-      {Array.isArray(leadsEditorData) &&
+      {loading ? (
+        <div className="flex justify-center mb-6">
+          <LoaderIconSVG />
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+        Array.isArray(leadsEditorData) &&
         leadId &&
         leadsEditorData.map((editor: any, index: number) => (
           <React.Fragment key={editor.id || index}>
@@ -246,7 +254,7 @@ const UpdateLead = ({ leadId }: any) => {
                     </div>
 
                     <div
-                      className="leading-relaxed mb-1 text-[0.8rem] mt-2"
+                      className="leading-relaxed mb-1 text-[0.8rem] mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_li]:leading-relaxed"
                       dangerouslySetInnerHTML={{
                         __html: editor?.content ? editor?.content : "",
                       }}
@@ -360,7 +368,7 @@ const UpdateLead = ({ leadId }: any) => {
 
                                   <p className="leading-relaxed mb-1 text-[0.8rem] mt-2">
                                     <div
-                                      className="leading-relaxed mb-1 text-[0.8rem] mt-2"
+                                      className="leading-relaxed mb-1 text-[0.8rem] mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_li]:leading-relaxed"
                                       dangerouslySetInnerHTML={{
                                         __html: data.content
                                           ? data.content
@@ -435,7 +443,8 @@ const UpdateLead = ({ leadId }: any) => {
               )}
             </section>
           </React.Fragment>
-        ))}
+        ))
+      )}
     </>
   );
 };

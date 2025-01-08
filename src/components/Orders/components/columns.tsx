@@ -26,6 +26,7 @@ import { useParams } from "next/navigation";
 import React from "react";
 import ChatModel from "../../common/Editor/ChatModel";
 import Link from "next/link";
+import SideDrawer from "@/components/common/Editor/SideDrawer";
 const UserPic = User.src;
 // const companyLogo = Logo.src;
 
@@ -67,6 +68,21 @@ export const columns = [
       ),
   },
 
+  // {
+  //   accessorKey: "update",
+  //   header: ({ column }: any) => (
+  //     <DataTableColumnHeader column={column} title="Update" />
+  //   ),
+  //   cell: ({ row }: any) => {
+  //     return (
+  //       <ChatModel
+  //         orderId={row?.original?._id}
+  //         length={row?.original?.updates?.length}
+  //         customerName={row?.original?.customer?.contactName}
+  //       />
+  //     );
+  //   },
+  // },
   {
     accessorKey: "update",
     header: ({ column }: any) => (
@@ -74,10 +90,14 @@ export const columns = [
     ),
     cell: ({ row }: any) => {
       return (
-        <ChatModel
+        <SideDrawer
           orderId={row?.original?._id}
           length={row?.original?.updates?.length}
-          customerName={row?.original?.customer?.contactName}
+          customerName={
+            row?.original?.customer?.companyName &&
+            row?.original?.customer?.companyName
+          }
+          invoice={row?.original?.vatInvoice}
         />
       );
     },

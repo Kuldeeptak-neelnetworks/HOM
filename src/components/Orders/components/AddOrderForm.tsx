@@ -102,6 +102,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   const signaturePad = useRef<any>(null);
 
   const [url, setUrl] = useState("");
+  const [urlSignature, setUrlSignature] = useState("");
 
   function formatDate(date: any) {
     const d = new Date(date);
@@ -219,8 +220,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
           formData.append("dateOfFirstDd", formatDate(dateOfFirstDd));
         if (renewalDate)
           formData.append("renewalDate2024", formatDate(renewalDate));
-        const signatureDataURL = signaturePad.current.toDataURL("");
-        formData.append("customerSignature", signatureDataURL);
+        if (urlSignature) formData.append("customerSignature", urlSignature);
 
         const response = await baseInstance.post(
           `/orders/${selectedCustomerId}`,
@@ -299,9 +299,54 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
     }
   }, [customerData, router]);
 
+  // Function to convert base64 to Blob
+  const base64ToBlob = (base64: string, mimeType: string) => {
+    const byteString = atob(base64);
+    const byteNumbers = new Array(byteString.length)
+      .fill(null)
+      .map((_, i) => byteString.charCodeAt(i));
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: mimeType });
+  };
+
+  // Function to upload signature as a file
+  const uploadSignature = async () => {
+    if (url) {
+      // Base64 data from the signature pad
+      const base64Data = url && url?.split(",")[1]; // Remove "data:image/png;base64,"
+      const blob = base64ToBlob(base64Data, "image/png");
+
+      // Optional: Create a File object if needed
+      const file = new File([blob], "signature.png", { type: "image/png" });
+
+      // Send using FormData
+      const formData = new FormData();
+      formData.append("files", file);
+
+      try {
+        const response = await baseInstance.post("/users/upload", formData); // Adjust the endpoint as needed
+        const signateUrl = response?.data?.data?.fileUrls[0]; // Assume the response contains the URL
+
+        if (response.status === 200) {
+          setUrlSignature(signateUrl && signateUrl);
+        } else {
+          errorToastingFunction("Upload failed");
+        }
+      } catch (error) {
+        errorToastingFunction("Error uploading Signature");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (url) uploadSignature();
+  }, [url]);
+
+  console.log("url", url);
+
   return (
     <div className="p-4 relative">
-      <div className="text-[1rem] font-semibold absolute top-[-35px]">
+      <div className="text-[1rem] font-semibold absolute top-[-30px]">
         Add Order
       </div>
 
@@ -1034,10 +1079,23 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                       className: "max-w-full",
                     }}
                     ref={signaturePad}
+                    // onEnd={() => {
+                    //   setTimeout(() => {
+                    //     setUrl(signaturePad.current.toDataURL());
+                    //   }, 100);
+                    // }}
                     onEnd={() => {
-                      setTimeout(() => {
-                        setUrl(signaturePad.current.toDataURL());
-                      }, 100);
+                      if (signaturePad.current.isEmpty()) {
+                        console.log("The signature pad is empty.");
+                      } else {
+                        const signatureDataUrl =
+                          signaturePad.current.toDataURL();
+                        console.log(
+                          "User has written something:",
+                          signatureDataUrl
+                        );
+                        setUrl(signatureDataUrl);
+                      }
                     }}
                   />
                   {formik.touched.customerSignature &&

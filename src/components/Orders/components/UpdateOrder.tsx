@@ -44,18 +44,6 @@ import FilePreviewList from "@/components/common/FilePreviewList";
 import LikeComponent from "@/components/common/Editor/LikeComponent";
 import ReplyComponent from "@/components/common/Editor/ReplyComponent";
 
-const Example = () => {
-  const content = "<ol><li>wq</li><li>ad</li><li>dsad</li></ol>";
-
-  return (
-    <div
-      dangerouslySetInnerHTML={{
-        __html: content,
-      }}
-    />
-  );
-};
-
 const UpdateOrder = ({ orderId }: any) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -272,13 +260,6 @@ const UpdateOrder = ({ orderId }: any) => {
                         </div>
                       )}
                     </div>
-
-                    {/* <div
-                      className="leading-relaxed mb-1 text-[0.8rem] mt-2"
-                      dangerouslySetInnerHTML={{
-                        __html: editor?.content ? editor?.content : "",
-                      }}
-                    /> */}
 
                     <div
                       className="leading-relaxed mb-1 text-[0.8rem] mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_li]:leading-relaxed"

@@ -109,7 +109,7 @@ const CommentSection = ({
 
                       <p className="leading-relaxed mb-1 text-[0.8rem] mt-2">
                         <div
-                          className="leading-relaxed mb-1 text-[0.8rem] mt-2"
+                          className="leading-relaxed mb-1 text-[0.8rem] mt-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_li]:mb-1 [&_li]:leading-relaxed"
                           dangerouslySetInnerHTML={{
                             __html: data.content ? data.content : "",
                           }}

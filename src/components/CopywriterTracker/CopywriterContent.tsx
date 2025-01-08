@@ -52,11 +52,6 @@ const CopywriterContent: React.FC = () => {
   const searchParams = useSearchParams();
   const queryParams = searchParams.get("id");
 
-  console.log("copywriterData", copywriterData);
-  console.log("currentPage", currentPage);
-  console.log("totalCopywriterTrackers", totalCopywriterTrackers);
-  console.log("totalPages", totalPages);
-
   useEffect(() => {
     fetchCopywriterData(1, 10);
   }, []);

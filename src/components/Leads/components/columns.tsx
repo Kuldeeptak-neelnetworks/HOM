@@ -18,6 +18,7 @@ import TooltipCommon from "@/components/common/TooltipCommon";
 import { DeletedUserUIconSVG } from "@/utils/SVGs/SVGs";
 import ChatModel from "@/components/common/Editor/ChatModel";
 import Link from "next/link";
+import SideDrawer from "@/components/common/Editor/SideDrawer";
 
 // const formatDate = (dateString: any) => {
 //   const date = new Date(dateString);
@@ -106,13 +107,30 @@ export const columns = [
         <div className="text-gray-400">N/A</div>
       ),
   },
+  // {
+  //   accessorKey: "update",
+  //   header: ({ column }: any) => (
+  //     <DataTableColumnHeader column={column} title="Update" />
+  //   ),
+  //   cell: ({ row }: any) => (
+  //     <ChatModel
+  //       leadId={row?.original?._id}
+  //       length={row?.original?.updates?.length}
+  //       customerName={
+  //         row?.original?.customer_id?.companyName
+  //           ? row?.original?.customer_id?.companyName
+  //           : row?.original?.customerName
+  //       }
+  //     />
+  //   ),
+  // },
   {
     accessorKey: "update",
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Update" />
     ),
     cell: ({ row }: any) => (
-      <ChatModel
+      <SideDrawer
         leadId={row?.original?._id}
         length={row?.original?.updates?.length}
         customerName={

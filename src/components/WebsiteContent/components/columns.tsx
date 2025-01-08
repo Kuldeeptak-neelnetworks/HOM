@@ -25,6 +25,7 @@ import {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
+import SideDrawer from "@/components/common/Editor/SideDrawer";
 
 const ChatModel = dynamic(
   () => import("@/components/common/Editor/ChatModel"),
@@ -382,18 +383,36 @@ export const columns = [
       );
     },
   },
+  // {
+  //   accessorKey: "update",
+  //   header: ({ column }: any) => (
+  //     <DataTableColumnHeader column={column} title="Update" />
+  //   ),
+  //   cell: ({ row }: any) => (
+  //     <ChatModel
+  //       websiteContentId={row?.original?._id}
+  //       length={row?.original?.updates?.length}
+  //       customerName={row?.original?.customer?.contactName}
+  //     />
+  //   ),
+  // },
   {
     accessorKey: "update",
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Update" />
     ),
-    cell: ({ row }: any) => (
-      <ChatModel
-        websiteContentId={row?.original?._id}
-        length={row?.original?.updates?.length}
-        customerName={row?.original?.customer?.contactName}
-      />
-    ),
+    cell: ({ row }: any) => {
+      return (
+        <SideDrawer
+          websiteContentId={row?.original?._id}
+          length={row?.original?.updates?.length}
+          customerName={
+            row?.original?.customer?.companyName &&
+            row?.original?.customer?.companyName
+          }
+        />
+      );
+    },
   },
 
   {
@@ -451,10 +470,12 @@ export const columns = [
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Domain Info" />
     ),
-    cell: ({ row }: any) =>
-      <div className="text-nowrap">{row?.original?.domainInfo}</div> || (
-        <div className="text-gray-400">-</div>
-      ),
+    cell: ({ row }: any) => (
+      // <div className="text-nowrap">{row?.original?.domainInfo}</div> || (
+      //   <div className="text-gray-400">-</div>
+      // ),
+      <div className="text-nowrap">{row?.original?.domainInfo}</div>
+    ),
   },
 
   {
@@ -535,10 +556,12 @@ export const columns = [
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Colours" />
     ),
-    cell: ({ row }: any) =>
-      <div className="text-nowrap">{row?.original?.colours}</div> || (
-        <div className="text-gray-400">-</div>
-      ),
+    cell: ({ row }: any) => (
+      <div className="text-nowrap">{row?.original?.colours}</div>
+    ),
+    // <div className="text-nowrap">{row?.original?.colours}</div> || (
+    //   <div className="text-gray-400">-</div>
+    // ),
   },
 
   {
@@ -664,22 +687,26 @@ export const columns = [
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="New Contact Information" />
     ),
-    cell: ({ row }: any) =>
-      (
-        <div className="text-nowrap">
-          {row?.original?.newContactInformation}
-        </div>
-      ) || <div className="text-gray-400">-</div>,
+    cell: ({ row }: any) => (
+      // (
+      //   <div className="text-nowrap">
+      //     {row?.original?.newContactInformation}
+      //   </div>
+      // ) || <div className="text-gray-400">-</div>,
+      <div className="text-nowrap">{row?.original?.newContactInformation}</div>
+    ),
   },
   {
     accessorKey: "notesForDesign",
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Notes For Design" />
     ),
-    cell: ({ row }: any) =>
-      <div className="text-nowrap">{row?.original?.notesForDesign}</div> || (
-        <div className="text-gray-400">-</div>
-      ),
+    cell: ({ row }: any) => (
+      // <div className="text-nowrap">{row?.original?.notesForDesign}</div> || (
+      //   <div className="text-gray-400">-</div>
+      // ),
+      <div className="text-nowrap">{row?.original?.notesForDesign}</div>
+    ),
   },
 
   {
@@ -687,10 +714,12 @@ export const columns = [
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Notes For Copywriter" />
     ),
-    cell: ({ row }: any) =>
-      (
-        <div className="text-nowrap">{row?.original?.notesForCopywriter}</div>
-      ) || <div className="text-gray-400">-</div>,
+    cell: ({ row }: any) => (
+      <div className="text-nowrap">{row?.original?.notesForCopywriter}</div>
+    ),
+    // (
+    //   <div className="text-nowrap">{row?.original?.notesForCopywriter}</div>
+    // ) || <div className="text-gray-400">-</div>,
   },
 
   {

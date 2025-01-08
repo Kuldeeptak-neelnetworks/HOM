@@ -111,7 +111,7 @@ const SalesContent: React.FC = () => {
   const [filters, setFilters] = useState<any>({
     status: [],
   });
-  const [orderYear, setOrderYear] = useState<any>("2024");
+  const [orderYear, setOrderYear] = useState<any>("");
   const [orderMonth, setOrderMonth] = useState<any>("");
   const [orderMonthlyYear, setOrderMonthlyYear] = useState<any>("");
   const searchParams = useSearchParams();
@@ -134,6 +134,7 @@ const SalesContent: React.FC = () => {
 
     setOrderMonth(month);
     setOrderMonthlyYear(year);
+    setOrderYear(year);
   }, []);
 
   useEffect(() => {
@@ -220,6 +221,17 @@ const SalesContent: React.FC = () => {
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const getYearOptions = () => {
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 3; // Adjust range as needed
+    const endYear = currentYear; // Adjust range as needed
+    return Array.from(
+      { length: endYear - startYear + 1 },
+      (_, index) => startYear + index
+    );
+  };
+  const yearOptions = getYearOptions();
+
   return (
     <>
       {/* Yearly  */}
@@ -242,7 +254,16 @@ const SalesContent: React.FC = () => {
                   <SelectLabel className="text-[0.8rem]">
                     Select a year
                   </SelectLabel>
-                  <SelectItem value="2022" className="text-[0.8rem]">
+                  {yearOptions.map((year) => (
+                    <SelectItem
+                      key={year}
+                      value={year.toString()}
+                      className="text-[0.8rem]"
+                    >
+                      {year}
+                    </SelectItem>
+                  ))}
+                  {/* <SelectItem value="2022" className="text-[0.8rem]">
                     2022
                   </SelectItem>
                   <SelectItem value="2023" className="text-[0.8rem]">
@@ -251,6 +272,9 @@ const SalesContent: React.FC = () => {
                   <SelectItem value="2024" className="text-[0.8rem]">
                     2024
                   </SelectItem>
+                  <SelectItem value="2025" className="text-[0.8rem]">
+                    2025
+                  </SelectItem> */}
                 </SelectGroup>
               </SelectContent>
             </Selector>
@@ -399,7 +423,16 @@ const SalesContent: React.FC = () => {
                   <SelectLabel className="text-[0.8rem]">
                     Select a year
                   </SelectLabel>
-                  <SelectItem value="2022" className="text-[0.8rem]">
+                  {yearOptions.map((year) => (
+                    <SelectItem
+                      key={year}
+                      value={year.toString()}
+                      className="text-[0.8rem]"
+                    >
+                      {year}
+                    </SelectItem>
+                  ))}
+                  {/* <SelectItem value="2022" className="text-[0.8rem]">
                     2022
                   </SelectItem>
                   <SelectItem value="2023" className="text-[0.8rem]">
@@ -407,7 +440,7 @@ const SalesContent: React.FC = () => {
                   </SelectItem>
                   <SelectItem value="2024" className="text-[0.8rem]">
                     2024
-                  </SelectItem>
+                  </SelectItem> */}
                 </SelectGroup>
               </SelectContent>
             </Selector>

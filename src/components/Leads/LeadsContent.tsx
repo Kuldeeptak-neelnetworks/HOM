@@ -33,6 +33,7 @@ import PageHeader from "../common/PageHeader";
 import makeAnimated from "react-select/animated";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import SideDrawer from "../common/Editor/SideDrawer";
 
 const animatedComponents = makeAnimated();
 
@@ -50,6 +51,7 @@ const crumbs = [
 ];
 
 const LeadsContent: React.FC = () => {
+  const [open, setOpen] = useState<boolean>(true);
   const { fetchAllLeadData, leadData, loading }: any = useLeadStore();
   const searchParams = useSearchParams();
   const queryParams = searchParams.get("id");
@@ -193,7 +195,7 @@ const LeadsContent: React.FC = () => {
         <BreadcrumbSection crumbs={crumbs} />
       </div> */}
 
-      <div className="w-[300px] lg:absolute z-50 mt-2 lg:mt-0">
+      <div className="w-[300px] lg:absolute z-10 mt-2 lg:mt-0">
         <Select
           className="text-[0.8rem] boxShadow"
           closeMenuOnSelect={false}

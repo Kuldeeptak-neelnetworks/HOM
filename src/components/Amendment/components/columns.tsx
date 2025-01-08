@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DeletedUserUIconSVG } from "@/utils/SVGs/SVGs";
 import ChatModel from "@/components/common/Editor/ChatModel";
 import Link from "next/link";
+import SideDrawer from "@/components/common/Editor/SideDrawer";
 
 const formatDate = (dateString: any) => {
   const date = new Date(dateString);
@@ -98,18 +99,37 @@ export const columns = [
       ),
   },
 
+  // {
+  //   accessorKey: "update",
+  //   header: ({ column }: any) => (
+  //     <DataTableColumnHeader column={column} title="Update" />
+  //   ),
+  //   cell: ({ row }: any) => (
+  //     <ChatModel
+  //       amendmentId={row?.original?._id}
+  //       length={row?.original?.updates?.length}
+  //       customerName={row?.original?.customer?.contactName}
+  //     />
+  //   ),
+  // },
   {
     accessorKey: "update",
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Update" />
     ),
-    cell: ({ row }: any) => (
-      <ChatModel
-        amendmentId={row?.original?._id}
-        length={row?.original?.updates?.length}
-        customerName={row?.original?.customer?.contactName}
-      />
-    ),
+    cell: ({ row }: any) => {
+      console.log("cvbnm,", row.original);
+      return (
+        <SideDrawer
+          amendmentId={row?.original?._id}
+          length={row?.original?.updates?.length}
+          customerName={
+            row?.original?.customer?.companyName &&
+            row?.original?.customer?.companyName
+          }
+        />
+      );
+    },
   },
 
   {

@@ -1,4 +1,5 @@
 "use client";
+import SideDrawer from "@/components/common/Editor/SideDrawer";
 import { DataTableColumnHeader } from "../../common/data-table-column-header";
 import { DataTableRowActions } from "../../common/data-table-row-actions";
 
@@ -89,18 +90,37 @@ export const columns = [
       ),
   },
 
+  // {
+  //   accessorKey: "update",
+  //   header: ({ column }: any) => (
+  //     <DataTableColumnHeader column={column} title="Update" />
+  //   ),
+  //   cell: ({ row }: any) => (
+  //     <ChatModel
+  //       technicalId={row?.original?._id}
+  //       length={row?.original?.updates?.length}
+  //       customerName={row?.original?.customer?.contactName}
+  //     />
+  //   ),
+  // },
   {
     accessorKey: "update",
     header: ({ column }: any) => (
       <DataTableColumnHeader column={column} title="Update" />
     ),
-    cell: ({ row }: any) => (
-      <ChatModel
-        technicalId={row?.original?._id}
-        length={row?.original?.updates?.length}
-        customerName={row?.original?.customer?.contactName}
-      />
-    ),
+    cell: ({ row }: any) => {
+      console.log("cvbnm,", row.original);
+      return (
+        <SideDrawer
+          technicalId={row?.original?._id}
+          length={row?.original?.updates?.length}
+          customerName={
+            row?.original?.customer?.companyName &&
+            row?.original?.customer?.companyName
+          }
+        />
+      );
+    },
   },
 
   {

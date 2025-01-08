@@ -171,6 +171,17 @@ const OrdersContent = () => {
     setOrderList(filterByOrderType);
   }, [filters?.orderType, orderData]);
 
+  const getYearOptions = () => {
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 3; // Adjust range as needed
+    const endYear = currentYear; // Adjust range as needed
+    return Array.from(
+      { length: endYear - startYear + 1 },
+      (_, index) => startYear + index
+    );
+  };
+  const yearOptions = getYearOptions();
+
   return (
     <div className="px-4 py-0 relative">
       {/* <div className="text-xl font-semibold absolute top-[-60px]">Orders</div> */}
@@ -212,7 +223,16 @@ const OrdersContent = () => {
           <SelectContent className="text-[0.8rem] ">
             <SelectGroup>
               <SelectLabel className="text-[0.8rem]">Select a year</SelectLabel>
-              <SelectItem value="2022" className="text-[0.8rem]">
+              {yearOptions.map((year) => (
+                <SelectItem
+                  key={year}
+                  value={year.toString()}
+                  className="text-[0.8rem]"
+                >
+                  {year}
+                </SelectItem>
+              ))}
+              {/* <SelectItem value="2022" className="text-[0.8rem]">
                 2022
               </SelectItem>
               <SelectItem value="2023" className="text-[0.8rem]">
@@ -220,7 +240,7 @@ const OrdersContent = () => {
               </SelectItem>
               <SelectItem value="2024" className="text-[0.8rem]">
                 2024
-              </SelectItem>
+              </SelectItem> */}
             </SelectGroup>
           </SelectContent>
         </Selector>
