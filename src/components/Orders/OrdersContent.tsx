@@ -50,6 +50,7 @@ const crumbs = [
 const OrdersContent = () => {
   const { fetchAllOrdersData, orderData, loading }: any = useOrderStore();
   const [orderList, setOrderList] = useState<any>([]);
+  const [yearOptions, setYearOptions] = useState<any[]>([]);
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -68,10 +69,10 @@ const OrdersContent = () => {
   const searchParams = useSearchParams();
   const queryParams = searchParams.get("id");
 
-  const [orderYear, setOrderYear] = useState<any>("2024");
+  const [orderYear, setOrderYear] = useState<any>("");
 
   useEffect(() => {
-    fetchAllOrdersData(orderYear);
+    if (orderYear && orderYear) fetchAllOrdersData(orderYear);
   }, [orderYear]);
 
   const orderTypeOptions = [
@@ -180,7 +181,13 @@ const OrdersContent = () => {
       (_, index) => startYear + index
     );
   };
-  const yearOptions = getYearOptions();
+
+  // Set default orderYear to current year and yearOptions when page loads
+  useEffect(() => {
+    setYearOptions(getYearOptions());
+    setOrderYear(new Date().getFullYear().toString()); // Set default to current year
+  }, []);
+  // const yearOptions = getYearOptions();
 
   return (
     <div className="px-4 py-0 relative">
@@ -223,15 +230,16 @@ const OrdersContent = () => {
           <SelectContent className="text-[0.8rem] ">
             <SelectGroup>
               <SelectLabel className="text-[0.8rem]">Select a year</SelectLabel>
-              {yearOptions.map((year) => (
-                <SelectItem
-                  key={year}
-                  value={year.toString()}
-                  className="text-[0.8rem]"
-                >
-                  {year}
-                </SelectItem>
-              ))}
+              {yearOptions &&
+                yearOptions?.map((year) => (
+                  <SelectItem
+                    key={year}
+                    value={year.toString()}
+                    className="text-[0.8rem]"
+                  >
+                    {year}
+                  </SelectItem>
+                ))}
               {/* <SelectItem value="2022" className="text-[0.8rem]">
                 2022
               </SelectItem>

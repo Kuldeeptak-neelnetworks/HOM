@@ -29,6 +29,7 @@ import { Pencil2Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import TooltipCommon from "@/components/common/TooltipCommon";
 import PDF from "../../../asset/images/pdf.png";
+import OrderDetailsInCustomer from "./OrderDetailsInCustomer";
 const PDFPic = PDF.src;
 
 let userDataString: any =
@@ -53,6 +54,35 @@ const crumbs = [
     link: "",
   },
 ];
+
+interface Order {
+  _id: string;
+  createdBy: {
+    _id: string;
+    email: string;
+  };
+  customer: {
+    _id: string;
+  };
+  dateOfOrder: string;
+  orderType: string;
+  renewalStatus: string;
+  orderValue: number;
+  deposit: number;
+  numberOfInstallments: number;
+  DdMonthly: number;
+  dateOfFirstDd: string;
+  depositMethod: string;
+  customerAccountName: string;
+  customerAccountNumber: string;
+  customerSortCode: string;
+  googleEmailRenewCampaign: string;
+  customerSignature: string;
+}
+
+interface OrdersDetailsType {
+  orders: Order[];
+}
 interface CustomerDetailType {
   id: number;
   contactName: string;
@@ -91,6 +121,8 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
   const { fetchEditorData, editorData, loading }: any = useEditorStore();
   const [customerDetails, setCustomerDetails] =
     React.useState<CustomerDetailType | null>(null);
+  const [orderDetails, setOrderDetails] =
+    React.useState<OrdersDetailsType | null>(null);
   const [updateFileDetails, setUpdateFileDetails] =
     React.useState<updateFileDetailType | null>(null);
   const [like, setLike] = React.useState(false);
@@ -103,6 +135,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       const result = await baseInstance.get(`/customers/${customerId}`);
       if (result.status === 200) {
         setCustomerDetails(result?.data?.data?.customer as CustomerDetailType);
+        setOrderDetails(result?.data?.data?.orders as OrdersDetailsType);
       }
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
@@ -173,6 +206,8 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       // setIsLoading(() => false);
     }
   };
+
+  console.log("orderDetails", orderDetails);
 
   useEffect(() => {
     getCustomerDetails();
@@ -452,19 +487,22 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
           </Tabs>
         </div>
       </div>
-      <UpdateSection
-        editorData={editorData}
-        ReplyClick={ReplyClick}
-        likeClick={likeClick}
-        likeID={like}
-        userId={userId}
-        comments={comments}
-        showComments={showComments}
-        commentID={commentID}
-        customerId={customerId}
-        addViewsData={addViewsData}
-        handleUpdate={handleUpdate}
-      />
+      <div className="flex">
+        <OrderDetailsInCustomer orderData={orderDetails && orderDetails} />
+        <UpdateSection
+          editorData={editorData}
+          ReplyClick={ReplyClick}
+          likeClick={likeClick}
+          likeID={like}
+          userId={userId}
+          comments={comments}
+          showComments={showComments}
+          commentID={commentID}
+          customerId={customerId}
+          addViewsData={addViewsData}
+          handleUpdate={handleUpdate}
+        />
+      </div>
     </div>
   );
 };

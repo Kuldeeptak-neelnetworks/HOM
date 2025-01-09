@@ -113,7 +113,10 @@ const UpdateSection = React.memo(
     };
 
     return (
-      <div className=" border border-[#e1e8f0] px-1 mt-1 py-1 rounded-md bg-[#fff] boxShadow">
+      <div
+        className=" border border-[#e1e8f0] px-1 mt-1 py-1 rounded-md bg-[#fff] boxShadow"
+        style={{ width: "50%" }}
+      >
         {/* <div className="h-[64vh] rounded-md overflow-y-auto"> */}
         <ScrollArea className="h-[64vh] rounded-md ">
           {Array.isArray(editorData) && editorData

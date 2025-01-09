@@ -193,6 +193,18 @@ export const columns = [
     },
   },
   {
+    accessorKey: "orderValue",
+    header: ({ column }: any) => (
+      <DataTableColumnHeader column={column} title="Order Value" />
+    ),
+    cell: ({ row }: any) =>
+      row?.original?.orderValue ? (
+        row?.original?.orderValue
+      ) : (
+        <div className="text-gray-400">N/A</div>
+      ),
+  },
+  {
     id: "actions",
     header: "Actions",
     cell: ({ row }: any) => <DataTableRowActions row={row} />,

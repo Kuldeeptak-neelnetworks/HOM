@@ -42,6 +42,6 @@ export const editorConfig: QuillOptionsStatic = {
       },
     },
   },
-  placeholder: "Compose an epic...",
+  placeholder: "Compose a message...",
   theme: "snow",
 };

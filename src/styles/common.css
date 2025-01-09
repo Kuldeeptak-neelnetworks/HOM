@@ -252,6 +252,24 @@
   opacity: 1;
 }
 
+/* Quill Image  */
+
+.quill-uploaded-image {
+  max-width: 100%; /* Prevent overflow */
+  display: block; /* Ensure proper layout */
+  margin: 8px 0; /* Add some margin for better spacing */
+  resize: both; /* Allow resizing */
+  overflow: hidden;
+}
+
+/* .quill-uploaded-image {
+  width: 130px;
+  height: 130px;
+  object-fit: cover; 
+  margin: 5px;
+  border-radius: 5px;
+} */
+
 @media screen and (min-width: 1200px) and (max-width: 1454px) {
   .addFiles {
     top: 177px;

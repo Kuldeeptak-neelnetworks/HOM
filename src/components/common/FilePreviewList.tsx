@@ -28,7 +28,9 @@ const getFileType = (fileExtension: string) => {
     case "pdf":
       return "pdf";
     case "jpg":
+      return "image";
     case "jpeg":
+      return "image";
     case "png":
       return "image";
     case "xlsx":
@@ -43,11 +45,21 @@ const getFileType = (fileExtension: string) => {
 };
 
 const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
+  console.log("files", files);
   return (
-    <div className="flex gap-4">
+    <div
+      className={`flex gap-4  ${
+        files?.length > 0
+          ? "max-w-[80%] border border-t p-1 overflow-x-auto"
+          : ""
+      } `}
+    >
       {files &&
         files.map((file: string, index: number) => {
-          const fileExtension = file.split(".").pop()?.toLowerCase() || "";
+          // const fileExtension = file.split(".").pop()?.toLowerCase() || "";
+          const fileExtension =
+            file?.split("/").pop()?.split(".").pop()?.toLowerCase() || "";
+
           const fileType = getFileType(fileExtension);
 
           let content;
@@ -55,13 +67,13 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
           switch (fileType) {
             case "pdf":
               content = (
-                <div className="flex flex-col items-center justify-center h-[100px] w-[100px] bg-gray-200 rounded-md relative">
+                <div className="flex flex-col items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md relative">
                   <a href={file} target="_blank" rel="noopener noreferrer">
                     <img
                       //   src={fileIcons[fileType]}
                       src={PDFPic}
                       alt="PDF"
-                      className="h-[100px] w-[100px] object-cover rounded"
+                      className="h-[50px] w-[50px] object-cover rounded"
                     />
                   </a>
                   {/* <iframe
@@ -83,23 +95,27 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
               break;
             case "image":
               content = (
-                <></>
-                // <img
-                //   key={index}
-                //   src={file}
-                //   alt="Image"
-                //   className="h-[100px] w-[100px] object-cover rounded"
-                // />
+                // <></>
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
+                  <a href={file} target="_blank" rel="noopener noreferrer">
+                    <img
+                      key={index}
+                      src={file}
+                      alt="Image"
+                      className="h-[50px] w-[50px] object-cover rounded"
+                    />
+                  </a>
+                </div>
               );
               break;
             case "word":
               content = (
-                <div className="flex items-center justify-center h-[100px] w-[100px] bg-gray-200 rounded-md">
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
                   <a href={file} target="_blank" rel="noopener noreferrer">
                     <img
                       src={WORDPic}
                       alt={fileType}
-                      className="h-[100px] w-[100px] object-cover rounded-md"
+                      className="h-[50px] w-[50px] object-cover rounded-md"
                     />
                   </a>
                 </div>
@@ -107,12 +123,12 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
               break;
             case "xlsx":
               content = (
-                <div className="flex items-center justify-center h-[100px] w-[100px] bg-gray-200 rounded-md">
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
                   <a href={file} target="_blank" rel="noopener noreferrer">
                     <img
                       src={XLSXPic}
                       alt={fileType}
-                      className="h-[100px] w-[100px] object-cover rounded-md"
+                      className="h-[50px] w-[50px] object-cover rounded-md"
                     />
                   </a>
                 </div>
@@ -120,18 +136,20 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
               break;
             case "video":
               content = (
-                <video
-                  key={index}
-                  src={file}
-                  width={200}
-                  className="h-[100px]"
-                  controls
-                />
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
+                  <video
+                    key={index}
+                    src={file}
+                    width={200}
+                    className="h-[50px]"
+                    controls
+                  />
+                </div>
               );
               break;
             default:
               content = (
-                <div className="flex items-center justify-center h-[100px] w-[100px] bg-gray-200 rounded-md">
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
                   <span className="text-gray-600 text-lg">Unknown</span>
                 </div>
               );
@@ -139,7 +157,7 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
           }
 
           return (
-            <div key={index} className="relative">
+            <div key={index} className="relative hover:bg-[#607ebd] p-1">
               {content}
             </div>
           );

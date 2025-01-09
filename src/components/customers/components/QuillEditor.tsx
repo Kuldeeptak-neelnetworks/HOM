@@ -177,7 +177,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
         if (file.type.startsWith("image/")) {
           const reader = new FileReader();
           reader.onloadend = () => {
-            const img = `<img src="${reader.result}" alt="${file.name}" />`;
+            const img = `<img src="${reader.result}" alt="${file.name}" style="width: 100px; height: 100px;"  />`;
             setValue((prevValue) => prevValue + img + `</br>`);
           };
           reader.readAsDataURL(file);
@@ -246,7 +246,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
         modules: ["Resize", "DisplaySize"],
       },
     },
-    placeholder: "Compose an epic...",
+    placeholder: "Compose a message...",
     theme: "snow",
   };
 

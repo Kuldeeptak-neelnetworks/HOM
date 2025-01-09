@@ -98,6 +98,14 @@ ul {
   line-height: 1.5; 
 } */
 
+.quill-uploaded-image {
+  max-width: 100%; /* Prevent overflow */
+  display: block; /* Ensure proper layout */
+  margin: 8px 0; /* Add some margin for better spacing */
+  resize: both; /* Allow resizing */
+  overflow: hidden;
+}
+
 @layer base {
   * {
     @apply border-border;

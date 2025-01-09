@@ -18,6 +18,10 @@ const LikeComponent: React.FC<LikeStatusProps> = ({
     return Array.isArray(likes) && likes.some((like) => like?._id === userId);
   }, [likes, userId]);
 
+  console.log("isLiked", isLiked);
+  console.log("likes", likes);
+  console.log("userId", userId);
+
   return (
     <div
       className="text-[0.8rem] border-r-2 pr-2 border-gray-200 flex gap-2 mt-1 items-center cursor-pointer"
