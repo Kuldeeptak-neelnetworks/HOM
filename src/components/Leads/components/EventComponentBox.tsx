@@ -71,7 +71,7 @@ const EventComponentBox = ({
 
   return (
     <div className="overflow-y-auto mt-6 text-[0.8rem]">
-      <ScrollArea className="h-[30rem] w-[100%] rounded-md border px-3">
+      <ScrollArea className="h-[30rem] w-[100%]  border px-3">
         {!isUserValid ? (
           <>
             {appointments && appointments?.length > 0 ? (

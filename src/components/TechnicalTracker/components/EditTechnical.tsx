@@ -152,10 +152,10 @@ const EditTechnical = () => {
           : "loading..."}
       </div>
       <div className=" flex gap-5 justify-center">
-        <ScrollArea className="h-[80vh] rounded-md  sm:px-3 sm:py-3 w-[100%] xl:w-[56vw]">
+        <ScrollArea className="h-[80vh]   sm:px-3 sm:py-3 w-[100%] xl:w-[56vw]">
           <form
             onSubmit={handleSubmit}
-            className="border p-6 bg-[#fff] rounded-md boxShadow"
+            className="border p-6 bg-[#fff]  boxShadow"
           >
             {/* timeTakenMinutes */}
             <div className="lg:flex gap-5">
@@ -172,7 +172,7 @@ const EditTechnical = () => {
                     id="timeTakenMinutes"
                     name="timeTakenMinutes"
                     placeholder="Enter time taken minutes"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -203,7 +203,7 @@ const EditTechnical = () => {
                         selected={completeDate}
                         initialFocus
                         onSelect={handleCompleteDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -325,7 +325,7 @@ const EditTechnical = () => {
             <div className="my-6 ">
               <Button
                 type="submit"
-                className="lg:w-[6vw] w-full cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
+                className="lg:w-[6vw] w-full cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
               >
                 {isTechnicalValid ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

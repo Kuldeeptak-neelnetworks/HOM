@@ -181,7 +181,7 @@ const EditCustomer = ({}) => {
                 value={customerData?.contactName || ""}
                 onChange={handleInputChange}
                 onBlur={formik.handleBlur}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div>
           </div>
@@ -198,7 +198,7 @@ const EditCustomer = ({}) => {
                 value={customerData?.companyName || ""}
                 onChange={handleInputChange}
                 onBlur={formik.handleBlur}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div>
           </div>
@@ -214,7 +214,7 @@ const EditCustomer = ({}) => {
                 value={customerData?.email || ""}
                 id="email"
                 name="email"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div>
             {formik.touched.email && formik.errors.email ? (
@@ -233,7 +233,7 @@ const EditCustomer = ({}) => {
                 value={customerData?.mobileNo || ""}
                 id="mobileNo"
                 name="mobileNo"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div>
             {formik.touched.mobileNo && formik.errors.mobileNo ? (
@@ -251,7 +251,7 @@ const EditCustomer = ({}) => {
                 value={customerData?.phoneNo || ""}
                 id="phoneNo"
                 name="phoneNo"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div>
             {formik.touched.phoneNo && formik.errors.phoneNo ? (
@@ -271,13 +271,13 @@ const EditCustomer = ({}) => {
                 value={customerData?.address || ""}
                 id="address"
                 name="address"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div> */}
           </div>
 
           <div className="mb-3">
-            <Button className="w-full cursor-pointer rounded-md border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90">
+            <Button className="w-full cursor-pointer border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90">
               {isUserValid ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (

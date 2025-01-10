@@ -95,7 +95,7 @@ const DashBoardPage: React.FC = () => {
               : `sm:px-4  sm:ml-20 ml-0  bg-[#edf0f5] transition-all duration-300 relative text-[0.8rem]`
           }
         >
-          <div className="p-4 rounded-md dark:border-gray-700">
+          <div className="p-4 dark:border-gray-700">
             <div
               className={
                 toggleWidth
@@ -211,7 +211,7 @@ const DashBoardPage: React.FC = () => {
             )}
             <div className="sm:grid sm:grid-cols-3 gap-4 mb-4">
               {/* latest Leads  */}
-              <div className="flex flex-col items-center  rounded-md bg-[#ffffff] dark:bg-gray-800 shadow-lg my-3 sm:my-0">
+              <div className="flex flex-col items-center  bg-[#ffffff] dark:bg-gray-800 shadow-lg my-3 sm:my-0">
                 <p className="mt-5  bg-gray-100 p-6 rounded-full">
                   <LatestLeadsUIconSVG />
                 </p>
@@ -232,12 +232,12 @@ const DashBoardPage: React.FC = () => {
                     ) : allLeads.length > 0 ? (
                       blockData(allLeads)?.map((item, index) => (
                         <li
-                          className={`my-2 rounded-2xl  ${
+                          className={`my-2  ${
                             index === 4 ? "border-none" : "border-b-2"
                           }`}
                           key={item?._id}
                         >
-                          <div className="p-[1rem] text-center rounded flex justify-between gap-3 flex-col lg:flex-row">
+                          <div className="p-[1rem] text-center  flex justify-between gap-3 flex-col lg:flex-row">
                             <Link
                               className="font-bold  text-[0.8rem] xl:text-[0.9rem] lg:text-left lg:w-[40%] overflow-x-auto hover:underline"
                               href={`/leads/leadsDetails/${item?._id}`}
@@ -276,7 +276,7 @@ const DashBoardPage: React.FC = () => {
               </div>
 
               {/* New Orders  */}
-              <div className="flex flex-col items-center  rounded-md bg-[#ffffff] dark:bg-gray-800 shadow-lg my-3 sm:my-0">
+              <div className="flex flex-col items-center bg-[#ffffff] dark:bg-gray-800 shadow-lg my-3 sm:my-0">
                 <p className="mt-5  bg-gray-100 p-6 rounded-full">
                   <LatestOrdersUIconSVG />
                 </p>
@@ -296,12 +296,12 @@ const DashBoardPage: React.FC = () => {
                     ) : allOrders.length > 0 ? (
                       blockData(allOrders)?.map((item, index) => (
                         <li
-                          className={`my-2 rounded-2xl  ${
+                          className={`my-2  ${
                             index === 4 ? "border-none" : "border-b-2"
                           }`}
                           key={item?._id}
                         >
-                          <div className="p-[1rem] text-center rounded flex justify-between gap-3 flex-col lg:flex-row">
+                          <div className="p-[1rem] text-center flex justify-between gap-3 flex-col lg:flex-row">
                             <p className="font-bold text-[0.8rem] xl:text-[0.9rem] lg:text-left lg:w-[40%] overflow-x-auto">
                               <Link
                                 className="font-bold  text-[0.8rem] xl:text-[0.9rem] lg:text-left lg:w-[40%] overflow-x-auto hover:underline"
@@ -339,7 +339,7 @@ const DashBoardPage: React.FC = () => {
               </div>
 
               {/* New Amendments  */}
-              <div className="flex flex-col items-center  rounded-md bg-[#ffffff] dark:bg-gray-800 shadow-lg my-3 sm:my-0">
+              <div className="flex flex-col items-center bg-[#ffffff] dark:bg-gray-800 shadow-lg my-3 sm:my-0">
                 <p className="mt-5 bg-gray-100 p-6 rounded-full">
                   <LatestAmendmentsUIconSVG />
                 </p>
@@ -359,12 +359,12 @@ const DashBoardPage: React.FC = () => {
                     ) : allAmendments.length > 0 ? (
                       blockData(allAmendments)?.map((item, index) => (
                         <li
-                          className={`my-2 rounded-2xl ${
+                          className={`my-2 ${
                             index === 4 ? "border-none" : "border-b-2"
                           }`}
                           key={item?._id}
                         >
-                          <div className="p-[1rem] text-center rounded flex justify-between gap-3 flex-col lg:flex-row">
+                          <div className="p-[1rem] text-center flex justify-between gap-3 flex-col lg:flex-row">
                             <Link
                               className="font-bold text-[0.8rem] xl:text-[0.9rem] lg:text-left lg:w-[40%] overflow-x-auto hover:underline"
                               href={`/amendment/amendmentDetails/${item?._id}`}

@@ -207,8 +207,6 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
     }
   };
 
-  console.log("orderDetails", orderDetails);
-
   useEffect(() => {
     getCustomerDetails();
     getUpdateFiles();
@@ -260,7 +258,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                 </TooltipCommon>
               </div>
 
-              <div className="rounded-md text-left overflow-auto">
+              <div className=" text-left overflow-auto">
                 <div className="flex gap-3 text-nowrap p-2 justify-evenly">
                   <div className="px-2">
                     {/* Company Name  */}
@@ -389,7 +387,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             </CardContent>
           </Card>
         </div>
-        <div className="w-full border rounded-md bg-[#fff] ">
+        <div className="w-full border bg-[#fff] ">
           <Tabs defaultValue="updates" className="w-full">
             <TabsList className="grid grid-cols-3">
               <TabsTrigger value="updates" className="bg-[#fff]">
@@ -455,7 +453,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                       ? customerDetails?.vatInvoice?.map((item) => {
                           return item ? (
                             // <a
-                            //   className="bg-gray-50 p-3 hover:bg-slate-100 rounded-md"
+                            //   className="bg-gray-50 p-3 hover:bg-slate-100"
                             //   href={item ? item : ""}
                             //   target="_blank"
                             //   key={item}
@@ -472,7 +470,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                                 //   src={fileIcons[fileType]}
                                 src={PDFPic}
                                 alt="PDF"
-                                className="h-[50px] w-[50px] object-cover rounded"
+                                className="h-[50px] w-[50px] object-cover"
                               />
                             </a>
                           ) : (

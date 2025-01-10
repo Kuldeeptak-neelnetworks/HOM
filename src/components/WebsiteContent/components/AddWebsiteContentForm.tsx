@@ -214,10 +214,10 @@ const AddWebsiteContentForm = ({}: any) => {
         </div>
 
         <div className="flex justify-center">
-          <ScrollArea className="h-[80vh] rounded-md  px-3 py-3 w-[100%] xl:w-[56vw]">
+          <ScrollArea className="h-[80vh]   px-3 py-3 w-[100%] xl:w-[56vw]">
             <form
               onSubmit={handleSubmit}
-              className="border p-6 text-[0.8rem] bg-[#fff] rounded-md boxShadow"
+              className="border p-6 text-[0.8rem] bg-[#fff]  boxShadow"
             >
               <div className="mb-3 mt-3">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
@@ -307,7 +307,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="currentDomain"
                       name="currentDomain"
                       placeholder="Enter current domain"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -325,7 +325,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="newDomain"
                       name="newDomain"
                       placeholder="Enter new domain"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -341,7 +341,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="domainInfo"
                       name="domainInfo"
                       placeholder="Enter domain info"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -390,7 +390,7 @@ const AddWebsiteContentForm = ({}: any) => {
                         id="registrarName"
                         name="registrarName"
                         placeholder="Enter registrar Name"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {formik.touched.registrarName &&
                       formik.errors.registrarName ? (
@@ -466,7 +466,7 @@ const AddWebsiteContentForm = ({}: any) => {
                         id="emailsToBeCreated"
                         name="emailsToBeCreated"
                         placeholder="Enter emails to be created"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {formik.touched.emailsToBeCreated &&
                       formik.errors.emailsToBeCreated ? (
@@ -492,7 +492,7 @@ const AddWebsiteContentForm = ({}: any) => {
                         id="existingEmailsAttached"
                         name="existingEmailsAttached"
                         placeholder="Enter existing emails attached"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {formik.touched.existingEmailsAttached &&
                       formik.errors.existingEmailsAttached ? (
@@ -518,7 +518,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="theme"
                       name="theme"
                       placeholder="Enter theme"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -534,7 +534,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="colours"
                       name="colours"
                       placeholder="Enter colours"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -630,7 +630,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="notesForDesign"
                       name="notesForDesign"
                       placeholder="Enter notes for design"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -736,7 +736,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="pageName"
                       name="pageName"
                       placeholder="Enter page name"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -752,7 +752,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="socialMedia"
                       name="socialMedia"
                       placeholder="Enter social media"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -771,7 +771,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="keyPhrasesAgreed"
                       name="keyPhrasesAgreed"
                       placeholder="Enter key phrases agreed"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -787,7 +787,7 @@ const AddWebsiteContentForm = ({}: any) => {
                       id="keyAreasAgreed"
                       name="keyAreasAgreed"
                       placeholder="Enter key areas agreed"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -830,7 +830,7 @@ const AddWebsiteContentForm = ({}: any) => {
                         id="keyWordForBlogPosts"
                         name="keyWordForBlogPosts"
                         placeholder="Enter keyword for blog posts"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {formik.touched.keyWordForBlogPosts &&
                       formik.errors.keyWordForBlogPosts ? (
@@ -888,7 +888,7 @@ const AddWebsiteContentForm = ({}: any) => {
                         id="linkToCurrentGoogleReviews"
                         name="linkToCurrentGoogleReviews"
                         placeholder="Enter link to current google reviews"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {formik.touched.linkToCurrentGoogleReviews &&
                       formik.errors.linkToCurrentGoogleReviews ? (
@@ -953,7 +953,7 @@ const AddWebsiteContentForm = ({}: any) => {
                         id="newContactInformation"
                         name="newContactInformation"
                         placeholder="Enter new contact information"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {formik.touched.newContactInformation &&
                       formik.errors.newContactInformation ? (
@@ -978,7 +978,7 @@ const AddWebsiteContentForm = ({}: any) => {
                     id="notesForCopywriter"
                     name="notesForCopywriter"
                     placeholder="Enter notes for copywriter"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -995,7 +995,7 @@ const AddWebsiteContentForm = ({}: any) => {
                     id="preferredPageNamesForBlog"
                     name="preferredPageNamesForBlog"
                     placeholder="Enter preferred page names for blog"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -1003,7 +1003,7 @@ const AddWebsiteContentForm = ({}: any) => {
               <div className="my-6 ">
                 <Button
                   type="submit"
-                  className="lg:w-[6vw] cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
+                  className="lg:w-[6vw] cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
                 >
                   {isWebsiteContentValid ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

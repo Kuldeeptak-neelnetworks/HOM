@@ -62,16 +62,16 @@ const OrderDetailsInCustomer = ({ orderData }: any) => {
 
   return (
     <div
-      className="border border-[#e1e8f0] px-1 mt-1 py-1 rounded-md bg-[#fff] boxShadow"
+      className="border border-[#e1e8f0] px-1 mt-1 py-1  bg-[#fff] boxShadow"
       style={{ width: "50%" }}
     >
-      <ScrollArea className="h-[64vh] rounded-md ">
+      <ScrollArea className="h-[64vh]  ">
         {orderData
           ? orderData &&
             orderData?.map((order: any) => {
               return (
                 <section
-                  className="bg-white text-gray-800 border border-[#e1e8f0] rounded-md  my-2"
+                  className="bg-white text-gray-800 border border-[#e1e8f0]  my-2"
                   key={order?._id}
                   id={`editor-${order?._id}`}
                 >

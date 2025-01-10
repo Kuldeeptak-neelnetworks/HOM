@@ -249,7 +249,7 @@ const EditAmendmentContent = () => {
         <BreadcrumbSection crumbs={crumbs} />
       </div> */}
       <div className=" flex gap-5 justify-center ">
-        <ScrollArea className="h-[80vh] rounded-md  sm:px-3 sm:py-3 w-[100%] xl:w-[56vw]">
+        <ScrollArea className="h-[80vh]  sm:px-3 sm:py-3 w-[100%] xl:w-[56vw]">
           <form
             onSubmit={handleSubmit}
             className="border p-6 bg-[#fff] boxShadow"
@@ -280,7 +280,7 @@ const EditAmendmentContent = () => {
                         selected={date}
                         initialFocus
                         onSelect={handleDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -315,7 +315,7 @@ const EditAmendmentContent = () => {
                         selected={completeDate}
                         initialFocus
                         onSelect={handleComplateDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -419,7 +419,7 @@ const EditAmendmentContent = () => {
             <div className="my-6 ">
               <Button
                 type="submit"
-                className="lg:w-[6vw] w-full cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
+                className="lg:w-[6vw] w-full cursor-pointer border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
               >
                 {isAmendmentValid ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

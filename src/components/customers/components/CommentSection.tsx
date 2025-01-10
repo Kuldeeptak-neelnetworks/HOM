@@ -67,10 +67,10 @@ const CommentSection = ({
           <div>
             {[...(editor?.replies || [])].reverse().map((data: any) => (
               <section
-                className="text-gray-600 body-font overflow-hidden  my-2 rounded-md "
+                className="text-gray-600 body-font overflow-hidden  my-2 "
                 key={data?._id}
               >
-                <div className="container px-5 py-2 mx-auto bg-gray-100 border rounded-md w-[90%]">
+                <div className="container px-5 py-2 mx-auto bg-gray-100 border w-[90%]">
                   <div className="flex flex-wrap -m-12">
                     <div className="p-12 md:w-full flex flex-col items-start">
                       <div className="flex items-center justify-between w-full border-b-2 border-gray-100">
@@ -208,7 +208,7 @@ const CommentSection = ({
                             } else {
                               // Handle unknown file types or default case
                               content = (
-                                <div className="flex items-center justify-center h-[100px] w-[100px] bg-gray-200 rounded-md">
+                                <div className="flex items-center justify-center h-[100px] w-[100px] bg-gray-200">
                                   <span className="text-gray-600 text-lg">
                                     Unknown
                                   </span>

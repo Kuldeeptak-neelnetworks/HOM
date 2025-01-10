@@ -77,7 +77,7 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({
           type="button"
           onClick={showSmallSideBar}
           onBlur={showSmallSideBar}
-          className="inline-flex items-center p-2 mt-2 ms-3 text-[0.8rem] text-gray-500 rounded-md sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="inline-flex items-center p-2 mt-2 ms-3 text-[0.8rem] text-gray-500  sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         >
           <span className="sr-only">Open sidebar</span>
           <svg
@@ -137,7 +137,7 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({
             <div
               className={` ${
                 toggleSider ? "ml-[2.2rem] p-2" : "ml-2 p-1"
-              }  cursor-pointer rounded-md bg-[#4b9437]  hover:bg-gray-400`}
+              }  cursor-pointer  bg-[#4b9437]  hover:bg-gray-400`}
               onClick={() => togglerFunction()}
             >
               <SidebarToggler />

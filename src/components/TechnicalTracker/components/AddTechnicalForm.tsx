@@ -108,7 +108,7 @@ const AddTechnicalForm: React.FC<AddTechnicalFormProps> = ({
   }, []);
 
   return (
-    <ScrollArea className="h-[23rem] rounded-md  px-3 py-3">
+    <ScrollArea className="h-[23rem]   px-3 py-3">
       <form onSubmit={handleSubmit} className="text-[0.8rem]">
         <div className="mb-3 mt-3">
           <label className="mb-2.5 block font-medium text-black dark:text-white">
@@ -154,7 +154,7 @@ const AddTechnicalForm: React.FC<AddTechnicalFormProps> = ({
               id="timeTakenMinutes"
               name="timeTakenMinutes"
               placeholder="Enter time taken minutes"
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
           </div>
         </div>
@@ -270,7 +270,7 @@ const AddTechnicalForm: React.FC<AddTechnicalFormProps> = ({
           <Button
             type="submit"
             value=""
-            className="cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
+            className="cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
           >
             {isCustomerValid ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

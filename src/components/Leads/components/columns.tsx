@@ -52,7 +52,7 @@ const outComeStyles: { [key: string]: string } = {
 
 const renderOutcome = (outcome: string) => (
   <div
-    className={`p-1 rounded-md text-center font-bold border border-l-8 w-[170px] ${
+    className={`p-1  text-center font-bold border border-l-8 w-[170px] ${
       outComeStyles[outcome] || ""
     }`}
   >

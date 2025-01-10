@@ -30,7 +30,7 @@ const SalesPage: React.FC = () => {
             : `sm:px-4  p-0 sm:ml-20 ml-0 transition-all duration-300`
         }
       >
-        <div className="rounded-md dark:border-gray-700">
+        <div className=" dark:border-gray-700">
           <SalesContent />
         </div>
       </div>

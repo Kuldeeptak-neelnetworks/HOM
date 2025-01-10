@@ -78,11 +78,11 @@ const UpdateFilesSection = ({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200 ">
                   <img
                     src={PDFPic}
                     alt=""
-                    className="h-[80px] w-[80px] object-cover rounded"
+                    className="h-[60px] w-[60px] object-cover "
                   />
                 </div>
               </a>
@@ -94,12 +94,12 @@ const UpdateFilesSection = ({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200 ">
                   <img
                     key={index}
                     src={editData?.fileUrl}
                     alt=""
-                    className="h-[80px] w-[80px] object-cover rounded"
+                    className="h-[60px] w-[60px] object-cover "
                   />
                 </div>
               </a>
@@ -111,11 +111,11 @@ const UpdateFilesSection = ({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200 ">
                   <img
                     src={WORDPic}
                     alt=""
-                    className="h-[80px] w-[80px] object-cover rounded"
+                    className="h-[60px] w-[60px] object-cover "
                   />
                 </div>
               </a>
@@ -127,11 +127,11 @@ const UpdateFilesSection = ({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="flex items-center justify-center h-[90px] w-[135px] bg-gray-200 rounded">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
                   <img
                     src={XLSXPic}
                     alt=""
-                    className="h-[80px] w-[80px] object-cover rounded"
+                    className="h-[60px] w-[60px] object-cover "
                   />
                 </div>
               </a>
@@ -139,16 +139,16 @@ const UpdateFilesSection = ({
           } else if (fileType === "video") {
             content = (
               <video
-                className="h-[100px] w-[135px] rounded"
+                className="h-[100px] w-[135px]"
                 src={editData?.fileUrl}
-                width={200}
+                width={400}
                 controls
               ></video>
             );
           } else {
             // Handle unknown file types or default case
             content = (
-              <div className="flex items-center justify-center h-[100px] w-[100px] bg-gray-200 rounded">
+              <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
                 <span className="text-gray-600 text-lg">Unknown</span>
               </div>
             );
@@ -156,15 +156,15 @@ const UpdateFilesSection = ({
 
           return (
             <div
-              className="rounded-md border flex items-center h-28 mx-2 hover:bg-zinc-100 my-1"
+              className=" border flex items-center h-24 mx-2 hover:bg-zinc-100 my-1"
               key={editData?._id}
             >
-              <div className="border rounded-md m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
+              <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
                 {content}
               </div>
 
               <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-                <div className="font-bold hover:bg-slate-100 px-3 rounded">
+                <div className="font-bold hover:bg-slate-100 px-3 ">
                   <a
                     href={editData?.fileUrl}
                     target="_blank"
@@ -199,7 +199,7 @@ const UpdateFilesSection = ({
           );
         })
       ) : (
-        <div className="text-center text-gray-600 flex items-center justify-center h-[90px] rounded">
+        <div className="text-center text-gray-600 flex items-center justify-center h-[90px] ">
           No data found !
         </div>
       )}

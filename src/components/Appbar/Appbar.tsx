@@ -354,7 +354,7 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
           <button
             type="button"
-            className="flex text-[0.8rem] bg-gray-800 rounded-md md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            className="flex text-[0.8rem] bg-gray-800  md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
             id="user-menu-button"
             aria-expanded="false"
             data-dropdown-toggle="user-dropdown"
@@ -382,8 +382,8 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
           <div
             className={
               openDropDown
-                ? `z-50 absolute right-2 top-6  my-4 text-base list-none bg-white divide-y border border-gray-400 divide-gray-100 rounded-md shadow dark:bg-gray-700 dark:divide-gray-600 w-[157px]`
-                : `z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-md shadow dark:bg-gray-700 dark:divide-gray-600 w-[157px]`
+                ? `z-50 absolute right-2 top-6  my-4 text-base list-none bg-white divide-y border border-gray-400 divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 w-[157px]`
+                : `z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 w-[157px]`
             }
             id="user-dropdown"
           >

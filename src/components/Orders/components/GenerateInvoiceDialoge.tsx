@@ -48,12 +48,12 @@ const GenerateInvoiceDialoge = ({ id, orderNo, dateOfOrder }: any) => {
     <Dialog open={open} onOpenChange={setOpen}>
       {/* Button Section  */}
       <DialogTrigger>
-        <PlusIcon className="h-[1.35rem] w-[1.75rem] p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />
+        <PlusIcon className="h-[1.35rem] w-[1.75rem] p-1 hover:bg-[#29354f] text-black hover:text-[white] " />
       </DialogTrigger>
       {/* form Section  */}
       <DialogContent className="sm:max-w-[500px] text-[0.8rem]">
         <div className="flex justify-center text-xl">
-          <FileTextIcon className="h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />{" "}
+          <FileTextIcon className="h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] " />{" "}
           Generate Invoice
         </div>
         <div className="border-t border-gray-200"></div>
@@ -63,7 +63,7 @@ const GenerateInvoiceDialoge = ({ id, orderNo, dateOfOrder }: any) => {
         <div className="flex justify-center">
           <Button
             onClick={handleIconClick}
-            className="lg:w-[6vw] w-full cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 "
+            className="lg:w-[6vw] w-full cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 "
           >
             {isGeneratingInvoice ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

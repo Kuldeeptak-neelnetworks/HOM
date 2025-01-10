@@ -193,18 +193,18 @@ any) => {
 
       <div className="px-4 py-0 relative flex justify-center text-[0.8rem] pt-12">
         <div
-          className="p-2 w-fit h-fit mx-5 rounded-md cursor-pointer hover:bg-slate-200 hidden sm:block bg-[#fff] boxShadow"
+          className="p-2 w-fit h-fit mx-5  cursor-pointer hover:bg-slate-200 hidden sm:block bg-[#fff] boxShadow"
           onClick={goToLeadsDetails}
         >
           Back
         </div>
-        <div className="flex justify-center md:w-[55vw] w-full border rounded-md bg-[#fff] boxShadow">
+        <div className="flex justify-center md:w-[55vw] w-full border  bg-[#fff] boxShadow">
           <div className="w-full p-3">
             <form
               onSubmit={handleSubmit}
               className=" overflow-y-auto text-[0.8rem] "
             >
-              <ScrollArea className="rounded-md px-3 py-3">
+              <ScrollArea className=" px-3 py-3">
                 {/* Title   */}
                 <div className="mb-3">
                   <label className="mb-2.5 block  text-black font-[600]  dark:text-white">
@@ -219,7 +219,7 @@ any) => {
                       onBlur={handleBlur}
                       value={values.title}
                       placeholder="Title"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                     {touched.title && errors.title ? (
                       <div className="text-red-500">{errors.title}</div>
@@ -235,7 +235,7 @@ any) => {
                   <div className="relative">
                     <input
                       type="date"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
+                      className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
                       id="date"
                       name="date"
                       onChange={handleChange}
@@ -275,7 +275,7 @@ any) => {
                           selected={appointmentDate}
                           initialFocus
                           onSelect={handleAppointmentDate}
-                          className="rounded-md border"
+                          className=" border"
                           defaultMonth={appointmentDate}
                         />
                       </PopoverContent>
@@ -295,7 +295,7 @@ any) => {
                     <div>
                       <input
                         type="time"
-                        className="rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
+                        className=" border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
                         id="time"
                         name="time"
                         onChange={handleChange}
@@ -322,7 +322,7 @@ any) => {
                       onBlur={handleBlur}
                       value={values.content}
                       placeholder="Write Here"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                     {touched.content && errors.content ? (
                       <div className="text-red-500">{errors.content}</div>
@@ -335,7 +335,7 @@ any) => {
                   <Button
                     type="submit"
                     value="Sign In"
-                    className="cursor-pointer rounded-md border border-primary bg-primary py-1 text-white transition hover:bg-opacity-90"
+                    className="cursor-pointer  border border-primary bg-primary py-1 text-white transition hover:bg-opacity-90"
                   >
                     {isUserValid ? (
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />

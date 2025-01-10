@@ -45,7 +45,6 @@ const getFileType = (fileExtension: string) => {
 };
 
 const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
-  console.log("files", files);
   return (
     <div
       className={`flex gap-4  ${
@@ -67,13 +66,13 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
           switch (fileType) {
             case "pdf":
               content = (
-                <div className="flex flex-col items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md relative">
+                <div className="flex flex-col items-center justify-center h-[50px] w-[50px] bg-gray-200 relative">
                   <a href={file} target="_blank" rel="noopener noreferrer">
                     <img
                       //   src={fileIcons[fileType]}
                       src={PDFPic}
                       alt="PDF"
-                      className="h-[50px] w-[50px] object-cover rounded"
+                      className="h-[50px] w-[50px] object-cover p-1 "
                     />
                   </a>
                   {/* <iframe
@@ -96,13 +95,13 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
             case "image":
               content = (
                 // <></>
-                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 ">
                   <a href={file} target="_blank" rel="noopener noreferrer">
                     <img
                       key={index}
                       src={file}
                       alt="Image"
-                      className="h-[50px] w-[50px] object-cover rounded"
+                      className="h-[50px] w-[50px] object-cover p-1"
                     />
                   </a>
                 </div>
@@ -110,12 +109,12 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
               break;
             case "word":
               content = (
-                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 ">
                   <a href={file} target="_blank" rel="noopener noreferrer">
                     <img
                       src={WORDPic}
                       alt={fileType}
-                      className="h-[50px] w-[50px] object-cover rounded-md"
+                      className="h-[50px] w-[50px] object-cover p-1"
                     />
                   </a>
                 </div>
@@ -123,12 +122,12 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
               break;
             case "xlsx":
               content = (
-                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 ">
                   <a href={file} target="_blank" rel="noopener noreferrer">
                     <img
                       src={XLSXPic}
                       alt={fileType}
-                      className="h-[50px] w-[50px] object-cover rounded-md"
+                      className="h-[50px] w-[50px] object-cover p-1"
                     />
                   </a>
                 </div>
@@ -136,7 +135,7 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
               break;
             case "video":
               content = (
-                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
+                <div className="flex items-center justify-center h-[50px] w-[135px] bg-gray-200 ">
                   <video
                     key={index}
                     src={file}
@@ -149,7 +148,7 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
               break;
             default:
               content = (
-                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 rounded-md">
+                <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 ">
                   <span className="text-gray-600 text-lg">Unknown</span>
                 </div>
               );

@@ -149,7 +149,7 @@ const AddAmendmentForm: React.FC<AddAmendmentFormProps> = ({
   }, []);
 
   return (
-    <ScrollArea className="h-[23rem] rounded-md  px-3 py-3">
+    <ScrollArea className="h-[23rem] px-3 py-3">
       <form onSubmit={handleSubmit} className="text-[0.8rem]">
         <div className="mb-3 mt-3">
           <label className="mb-2.5 block font-medium text-black dark:text-white">
@@ -249,7 +249,7 @@ const AddAmendmentForm: React.FC<AddAmendmentFormProps> = ({
                   selected={date}
                   initialFocus
                   onSelect={handleDateSelect}
-                  className="rounded-md border"
+                  className="border"
                 />
               </PopoverContent>
             </Popover>
@@ -352,7 +352,7 @@ const AddAmendmentForm: React.FC<AddAmendmentFormProps> = ({
           <Button
             type="submit"
             value="Sign In"
-            className="cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
+            className="cursor-pointer border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
           >
             {isUserValid ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

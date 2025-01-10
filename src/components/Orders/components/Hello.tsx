@@ -230,7 +230,7 @@
 //     <>
 //       {length === 0 ? (
 //         <PlusCircleIcon
-//           className="h-7 w-7 p-1 text-black rounded-sm cursor-pointer"
+//           className="h-7 w-7 p-1 text-black  cursor-pointer"
 //           onClick={handleOpenModal}
 //         />
 //       ) : (
@@ -283,7 +283,7 @@
 //                     >
 //                       <div className="space-y-1">
 
-//                         <ScrollArea className="h-[30vh] rounded-md">
+//                         <ScrollArea className="h-[30vh] ">
 //                         {Array.isArray(leadsEditorData) &&
 //         leadId &&
 //         leadsEditorData.map((editor: any) => (
@@ -370,7 +370,7 @@
 //                                 onClick={() => handlePinFalse(editor._id)}
 //                                 className="cursor-pointer flex items-center"
 //                               >
-//                                 <DrawingPinIcon className="h-5 w-5 text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />
+//                                 <DrawingPinIcon className="h-5 w-5 text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] " />
 //                                 <span className="text-gray-700 text-[0.8rem]">
 //                                   Unpin from top
 //                                 </span>
@@ -380,7 +380,7 @@
 //                                 onClick={() => handlePinTrue(editor._id)}
 //                                 className="cursor-pointer flex items-center"
 //                               >
-//                                 <DrawingPinIcon className="h-5 w-5 text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />
+//                                 <DrawingPinIcon className="h-5 w-5 text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] " />
 //                                 <span className="text-gray-700 text-[0.8rem]">
 //                                   Pin to top
 //                                 </span>
@@ -391,7 +391,7 @@
 //                             className="flex items-center py-2 cursor-pointer"
 //                             onClick={() => handleEdit(editor._id)}
 //                           >
-//                             <Pencil2Icon className="h-5 w-5 text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />
+//                             <Pencil2Icon className="h-5 w-5 text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] " />
 //                             <span className="text-gray-700 text-[0.8rem]">Edit</span>
 //                           </div>
 //                         </div>

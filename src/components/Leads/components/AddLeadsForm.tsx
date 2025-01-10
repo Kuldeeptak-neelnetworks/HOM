@@ -173,7 +173,7 @@ const AddLeadForm: React.FC = () => {
     fetchAllCustomerData();
   }, []);
   return (
-    <ScrollArea className="rounded-md  p-7 w-full lg:w-[70%] border my-5 bg-[#fff] boxShadow">
+    <ScrollArea className=" p-7 w-full lg:w-[70%] border my-5 bg-[#fff] boxShadow">
       <form onSubmit={handleSubmit} className="text-[0.8rem] ">
         <div className="mb-2">
           <input
@@ -207,7 +207,7 @@ const AddLeadForm: React.FC = () => {
                   id="customerName"
                   name="customerName"
                   placeholder="Enter name"
-                  className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
             </div>
@@ -284,7 +284,7 @@ const AddLeadForm: React.FC = () => {
                 id="contactPerson"
                 name="contactPerson"
                 placeholder="Enter name"
-                className={`w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+                className={`w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
                   fieldFocused ? "red-border" : ""
                 }`}
               />
@@ -313,7 +313,7 @@ const AddLeadForm: React.FC = () => {
                 onBlur={handleBlur}
                 value={values.emailAddress}
                 placeholder="Enter Your Email"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {formik.touched.emailAddress && formik.errors.emailAddress ? (
                 <div className="text-red-500">{formik.errors.emailAddress}</div>
@@ -352,7 +352,7 @@ const AddLeadForm: React.FC = () => {
                 id="mobileNumber"
                 name="mobileNumber"
                 placeholder="Enter Your Mobile Number"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {formik.touched.mobileNumber && formik.errors.mobileNumber ? (
                 <div className="text-red-500">{formik.errors.mobileNumber}</div>
@@ -379,7 +379,7 @@ const AddLeadForm: React.FC = () => {
                 id="currentWebsite"
                 name="currentWebsite"
                 placeholder="Enter name"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {formik.touched.currentWebsite && formik.errors.currentWebsite ? (
                 <div className="text-red-500">
@@ -401,7 +401,7 @@ const AddLeadForm: React.FC = () => {
                 id="landlineNumber"
                 name="landlineNumber"
                 placeholder="Enter Your Landline Number"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {formik.touched.landlineNumber && formik.errors.landlineNumber ? (
                 <div className="text-red-500">
@@ -502,7 +502,7 @@ const AddLeadForm: React.FC = () => {
               id="orderForecast"
               name="orderForecast"
               placeholder="Enter Your order forecast"
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
             {formik.touched.orderForecast && formik.errors.orderForecast ? (
               <div className="text-red-500">{formik.errors.orderForecast}</div>
@@ -523,7 +523,7 @@ const AddLeadForm: React.FC = () => {
               minLength={4}
               placeholder="Enter Your notes"
               rows={4}
-              className="w-full resize-none rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full resize-none  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
             {formik.touched.notes && formik.errors.notes ? (
               <div className="text-red-500">{formik.errors.notes}</div>
@@ -535,7 +535,7 @@ const AddLeadForm: React.FC = () => {
         <div className="mb-3">
           <Button
             type="submit"
-            className="cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
+            className="cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
           >
             {isLead ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

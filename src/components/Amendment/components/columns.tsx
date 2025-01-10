@@ -41,7 +41,7 @@ const customerStatusStyles: { [key: string]: string } = {
 
 const renderStatus = (status: string) => (
   <div
-    className={`p-1 rounded-md text-center font-bold border border-l-8 w-[80px] ${
+    className={`p-1 text-center font-bold border border-l-8 w-[80px] ${
       statusStyles[status] || ""
     }`}
   >
@@ -51,7 +51,7 @@ const renderStatus = (status: string) => (
 
 const renderPriority = (priority: string) => (
   <div
-    className={`p-1 rounded-md text-center font-bold border border-l-8 w-[80px] ${
+    className={`p-1 text-center font-bold border border-l-8 w-[80px] ${
       priorityStyles[priority] || ""
     }`}
   >
@@ -61,7 +61,7 @@ const renderPriority = (priority: string) => (
 
 const renderCustomerStatus = (customerStatus: string) => (
   <div
-    className={`p-1 rounded-md text-center font-bold border border-l-8 w-[80px] ${
+    className={`p-1 text-center font-bold border border-l-8 w-[80px] ${
       customerStatusStyles[customerStatus] || ""
     }`}
   >

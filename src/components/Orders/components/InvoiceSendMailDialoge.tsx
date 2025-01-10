@@ -109,12 +109,12 @@
 //     <Dialog open={open} onOpenChange={setOpen}>
 //       {/* Button Section  */}
 //       <DialogTrigger>
-//         <FileTextIcon className="h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />
+//         <FileTextIcon className="h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] " />
 //       </DialogTrigger>
 //       {/* form Section  */}
 //       <DialogContent className="sm:max-w-[600px]">
 //         <div className="flex justify-center text-xl">
-//           <FileTextIcon className="h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />{" "}
+//           <FileTextIcon className="h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] " />{" "}
 //           Mail Invoice
 //         </div>
 //         <div className="border-t border-gray-200"></div>
@@ -134,7 +134,7 @@
 //                 type="email"
 //                 value="info@highoaksmedia.co.uk"
 //                 disabled
-//                 className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+//                 className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
 //               />
 //             </div>
 //           </div>
@@ -198,7 +198,7 @@
 //                   }))
 //                 }
 //                 required
-//                 className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+//                 className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
 //               />
 //             </div>
 //           </div>
@@ -235,7 +235,7 @@
 //           <div className="mb-3 flex justify-center ">
 //             <Button
 //               type="submit"
-//               className="cursor-pointer rounded-md border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 "
+//               className="cursor-pointer  border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90 "
 //             >
 //               {isMail ? (
 //                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -356,11 +356,11 @@ const InvoiceSendMailDialoge: React.FC<Props> = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <EnvelopeClosedIcon className="h-[1.35rem] w-[1.75rem] p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />
+        <EnvelopeClosedIcon className="h-[1.35rem] w-[1.75rem] p-1 hover:bg-[#29354f] text-black hover:text-[white] " />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[550px] text-[0.8rem]">
         <div className="flex justify-center text-xl">
-          <FileTextIcon className="h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />{" "}
+          <FileTextIcon className="h-7 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] " />{" "}
           Mail Invoice
         </div>
         <div className="border-t border-gray-200"></div>
@@ -380,7 +380,7 @@ const InvoiceSendMailDialoge: React.FC<Props> = ({
                 value="info@highoaksmedia.co.uk"
                 // value="divya@neelnetworks.com"
                 disabled
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div>
           </div>
@@ -428,7 +428,7 @@ const InvoiceSendMailDialoge: React.FC<Props> = ({
               value={values.subject}
               onChange={handleChange}
               onBlur={formik.handleBlur}
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
             {touched.subject && errors.subject && (
               <div className="text-red-500">{errors.subject}</div>
@@ -467,7 +467,7 @@ const InvoiceSendMailDialoge: React.FC<Props> = ({
             <Button
               type="submit"
               disabled={isMail}
-              className={`cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 ${
+              className={`cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 ${
                 isMail ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >

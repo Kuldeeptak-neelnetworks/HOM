@@ -202,7 +202,7 @@ export default function AppointmentSection({ leadId }: any) {
       </h2>
       <div className="lg:grid lg:grid-cols-12 lg:gap-x-3">
         <div className="text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-1 xl:col-start-9">
-          <div className="border p-3 rounded-md boxShadow bg-[#fff]">
+          <div className="border p-3  boxShadow bg-[#fff]">
             <div className="flex items-center text-gray-900 ">
               <button
                 type="button"
@@ -233,7 +233,7 @@ export default function AppointmentSection({ leadId }: any) {
               <div>S</div>
               <div>S</div>
             </div>
-            <div className="isolate mt-2 grid grid-cols-7 gap-px rounded-md bg-gray-200 text-[0.8rem] shadow ring-1 ring-gray-200 ">
+            <div className="isolate mt-2 grid grid-cols-7 gap-px  bg-gray-200 text-[0.8rem] shadow ring-1 ring-gray-200 ">
               {days.map((day) => (
                 <button
                   key={day.toISOString()}
@@ -263,7 +263,7 @@ export default function AppointmentSection({ leadId }: any) {
               ))}
             </div>
             <Button
-              className="mt-8 w-full rounded-md  px-3 py-2 text-[0.8rem] font-semibold text-white shadow hover:bg-[#29354f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="mt-8 w-full   px-3 py-2 text-[0.8rem] font-semibold text-white shadow hover:bg-[#29354f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               onClick={goToAddAppointment}
             >
               Book an Appointment
@@ -275,7 +275,7 @@ export default function AppointmentSection({ leadId }: any) {
             /> */}
           </div>
         </div>
-        <div className="mt-[0.2rem] lg:col-span-7 xl:col-span-8 border rounded-md p-2 h-[376px] overflow-y-auto boxShadow bg-[#fff]">
+        <div className="mt-[0.2rem] lg:col-span-7 xl:col-span-8 border  p-2 h-[376px] overflow-y-auto boxShadow bg-[#fff]">
           {filteredMeetings.length === 0 ? (
             <p className="text-center text-gray-500 flex justify-center items-center h-full">
               There are no Appointments scheduled for this month.
@@ -285,7 +285,7 @@ export default function AppointmentSection({ leadId }: any) {
               {filteredMeetings.map((filteredMeeting: any) => (
                 <li
                   key={filteredMeeting?._id}
-                  className="relative flex space-x-6 py-6 px-3 rounded-md my-2 border "
+                  className="relative flex space-x-6 py-6 px-3  my-2 border "
                 >
                   <div className="flex-auto text-[0.8rem]">
                     <h3 className="pr-10 font-bold text-[1rem] text-gray-900 mb-2">
@@ -351,7 +351,7 @@ export default function AppointmentSection({ leadId }: any) {
       {/* Confirmation Dialog */}
       {isDeleteDialogOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-md shadow-lg">
+          <div className="bg-white p-6  shadow-lg">
             <h3 className="text-lg font-semibold">Confirm Delete</h3>
             <p className="mt-2">
               Are you sure you want to delete this appointment?

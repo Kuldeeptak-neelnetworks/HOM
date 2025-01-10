@@ -88,7 +88,7 @@ export function LeadsShowMoreDialoge({ row }: any) {
               mode="single"
               selected={date}
               onSelect={setDate}
-              className="rounded-md border"
+              className=" border"
               onDayClick={() => openEventModelFunction()}
             />
             {showEventBox ? (

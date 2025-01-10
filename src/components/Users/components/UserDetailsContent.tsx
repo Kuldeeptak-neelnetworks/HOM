@@ -287,7 +287,7 @@ const UserDetailsContent = () => {
             mode="single"
             selected={date}
             onSelect={setDate}
-            className="rounded-md border"
+            className=" border"
             onDayClick={() => openDropDown()}
           />
           {showEventBox ? (

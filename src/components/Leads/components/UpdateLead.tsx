@@ -165,7 +165,7 @@ const UpdateLead = ({ leadId }: any) => {
               </div>
             )}
 
-            <section className="bg-white text-gray-800 border border-gray-300 rounded-md my-2">
+            <section className="bg-white text-gray-800 border border-gray-300  my-2">
               <div className="px-6 py-4 mx-auto">
                 <div className="flex flex-wrap -m-4">
                   <div className="p-4 md:w-full flex flex-col items-start">
@@ -224,7 +224,7 @@ const UpdateLead = ({ leadId }: any) => {
                                   onClick={() => handlePinFalse(editor._id)}
                                   className="cursor-pointer flex items-center"
                                 >
-                                  <DrawingPinIcon className=" text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f]  hover:text-[white] rounded-sm" />
+                                  <DrawingPinIcon className=" text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f]  hover:text-[white] " />
                                   <span className="text-gray-700 text-[0.8rem] ml-[7px]">
                                     Unpin From Top
                                   </span>
@@ -234,7 +234,7 @@ const UpdateLead = ({ leadId }: any) => {
                                   onClick={() => handlePinTrue(editor._id)}
                                   className="cursor-pointer flex items-center"
                                 >
-                                  <DrawingPinIcon className=" text-gray-700 mr-1 h-7 w-7 p-1 hover:bg-[#29354f]  hover:text-[white] rounded-sm" />
+                                  <DrawingPinIcon className=" text-gray-700 mr-1 h-7 w-7 p-1 hover:bg-[#29354f]  hover:text-[white] " />
                                   <span className="text-gray-700 text-[0.8rem] ml-[8px]">
                                     Pin To Top
                                   </span>
@@ -286,7 +286,7 @@ const UpdateLead = ({ leadId }: any) => {
                   {editor?.replies ? (
                     <div className="ml-[2.5rem] mr-[4.5rem]">
                       <p
-                        className="w-full text-[0.8rem] text-gray-500 rounded-md border cursor-pointer border-stroke bg-transparent mx-[16px] my-2 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full text-[0.8rem] text-gray-500  border cursor-pointer border-stroke bg-transparent mx-[16px] my-2 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         onClick={handleOpenQuillEditor}
                       >
                         Click here to write a reply...

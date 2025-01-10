@@ -202,7 +202,7 @@ export default function SideDrawer({
     <>
       <div onClick={openSideDrawer} className="relative">
         {length === 0 ? (
-          <PlusCircleIcon className="h-[1.35rem] w-[1.35rem] p-1 text-black rounded-sm cursor-pointer" />
+          <PlusCircleIcon className="h-[1.35rem] w-[1.35rem] p-1 text-black  cursor-pointer" />
         ) : (
           <>
             <ChatBubbleIcon className="h-[1.35rem] w-[1.55rem] p-1 text-black cursor-pointer" />
@@ -260,7 +260,7 @@ export default function SideDrawer({
                             <Card>
                               <CardContent className="space-y-2  overflow-auto">
                                 <p
-                                  className="w-full text-gray-500 rounded-md border cursor-pointer border-stroke bg-transparent text-[0.8rem] my-3 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                  className="w-full text-gray-500 border cursor-pointer border-stroke bg-transparent text-[0.8rem] my-3 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                   onClick={handleOpenQuillEditor}
                                 >
                                   Click here to write something...
@@ -285,7 +285,7 @@ export default function SideDrawer({
                                   </div>
                                 )}
 
-                                <ScrollArea className="rounded-md overflow-auto h-[68vh]">
+                                <ScrollArea className="overflow-auto h-[68vh]">
                                   <UpdateLead leadId={leadId} />
                                   <UpdateOrder orderId={orderId} />
                                   <UpdateTechnical technicalId={technicalId} />

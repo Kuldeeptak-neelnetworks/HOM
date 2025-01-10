@@ -182,7 +182,7 @@ const AddUserForm: React.FC = () => {
   } = formik;
 
   return (
-    <ScrollArea className="w-[60%] rounded-md  p-7 my-5 border boxShadow bg-[#fff]">
+    <ScrollArea className="w-[60%]   p-7 my-5 border boxShadow bg-[#fff]">
       <form onSubmit={handleSubmit} className="text-[0.8rem] ">
         <div className="mb-3 flex gap-3">
           {/* Name  */}
@@ -199,7 +199,7 @@ const AddUserForm: React.FC = () => {
                 onBlur={handleBlur}
                 value={values.fullName}
                 placeholder="Name"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.fullName && errors.fullName ? (
                 <div className="text-red-500">{errors.fullName}</div>
@@ -224,7 +224,7 @@ const AddUserForm: React.FC = () => {
                 onBlur={handleBlur}
                 value={values.email}
                 placeholder="Enter Your Email"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.email && errors.email ? (
                 <div className="text-red-500">{errors.email}</div>
@@ -266,7 +266,7 @@ const AddUserForm: React.FC = () => {
                 id="password"
                 name="password"
                 placeholder="6+ Characters, 1 Capital letter"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.password && errors.password ? (
                 <div className="text-red-500">{errors.password}</div>
@@ -334,7 +334,7 @@ const AddUserForm: React.FC = () => {
           </label>
           <div className="relative">
             <TimezoneSelect
-              className="w-full rounded-md border border-stroke bg-transparent  text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full  border border-stroke bg-transparent  text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               value={selectedTimezone.value}
               name="timeZone"
               id="timeZone"
@@ -366,7 +366,7 @@ const AddUserForm: React.FC = () => {
                 id="mobileNo"
                 name="mobileNo"
                 placeholder="Enter Your Number"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {formik.touched.mobileNo && formik.errors.mobileNo ? (
                 <div className="text-red-500">{formik.errors.mobileNo}</div>
@@ -391,7 +391,7 @@ const AddUserForm: React.FC = () => {
                 id="jobtitle"
                 name="jobtitle"
                 placeholder="Enter Job Title"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.jobtitle && errors.jobtitle ? (
                 <div className="text-red-500">{errors.jobtitle}</div>
@@ -413,7 +413,7 @@ const AddUserForm: React.FC = () => {
               id="address"
               name="address"
               placeholder="Enter Your Address"
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
             {touched.address && errors.address ? (
               <div className="text-red-500">{errors.address}</div>
@@ -437,7 +437,7 @@ const AddUserForm: React.FC = () => {
               id="avatar"
               name="avatar"
               placeholder="choose your file"
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
             {logoPreview && (
               <div className="mt-2">
@@ -455,7 +455,7 @@ const AddUserForm: React.FC = () => {
           <Button
             type="submit"
             value="Sign In"
-            className="cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
+            className="cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
           >
             {isUserValid ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -31,7 +31,7 @@ const leaveTypeStyles: { [key: string]: string } = {
 
 const renderResponse = (response: string) => (
   <div
-    className={`p-1 rounded-md text-center font-bold border border-l-8 w-[120px] ${
+    className={`p-1 text-center font-bold border border-l-8 w-[120px] ${
       responseStyles[response] || ""
     }`}
   >
@@ -40,7 +40,7 @@ const renderResponse = (response: string) => (
 );
 const renderLeaveType = (leaveType: string) => (
   <div
-    className={`p-1 rounded-md text-center font-bold border border-l-8 w-[120px] ${
+    className={`p-1 text-center font-bold border border-l-8 w-[120px] ${
       leaveTypeStyles[leaveType] || ""
     }`}
   >
@@ -157,7 +157,7 @@ export const getColumns = (userRole: string | null) => [
       return (
         <TooltipCommon text={`${row?.original?.totalDayHoliday} Days`}>
           <span className="text-nowrap flex justify-center cursor-pointer">
-            <span className=" bg-slate-200 px-3 py-1 rounded-md">
+            <span className=" bg-slate-200 px-3 py-1">
               {`${formatDate(startDate)} - ${formatDate(endDate)}`}
             </span>
           </span>

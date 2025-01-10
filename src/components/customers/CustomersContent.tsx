@@ -236,7 +236,7 @@ const CustomersContent: React.FC = () => {
 
       <div className="w-[300px] lg:absolute  z-50 mt-2 lg:mt-0">
         <Select
-          className="text-[0.8rem] boxShadow"
+          className="text-[0.8rem] boxShadow border-none"
           closeMenuOnSelect={false}
           components={animatedComponents}
           isMulti

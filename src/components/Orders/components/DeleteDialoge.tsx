@@ -50,11 +50,11 @@ const DeleteDialoge = ({
       <DialogTrigger>
         {entity === "updates/replies" ? (
           <>
-            <Cross1Icon className="h-6 w-6 p-1 rounded-sm" />
+            <Cross1Icon className="h-6 w-6 p-1 " />
           </>
         ) : (
           <div className="flex items-center">
-            <TrashIcon className="h-6 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] rounded-sm" />
+            <TrashIcon className="h-6 w-7 p-1 hover:bg-[#29354f] text-black hover:text-[white] " />
             <span className="text-gray-700 text-[0.8rem] ml-2">
               {deleteText}
             </span>

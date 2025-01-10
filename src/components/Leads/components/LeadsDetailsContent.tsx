@@ -204,7 +204,7 @@ const LeadDetailsContent = () => {
               <CardDescription>Details Of existing Lead</CardDescription>
             </CardHeader>
             <CardContent className="px-6 py-0">
-              <ScrollArea className="h-[38vh] rounded-md px-3 py-3">
+              <ScrollArea className="h-[38vh]  px-3 py-3">
                 <div className="flex items-center pb-[10px] mb-[10px]  border-b-[#ddd] border-b text-[0.8rem]">
                   <Label htmlFor="name" className="text-right font-bold">
                     Contact Person :
@@ -292,7 +292,7 @@ const LeadDetailsContent = () => {
             onSelect={(e) => {
               setDate(e);
             }}
-            className="rounded-md border"
+            className=" border"
             onDayClick={(e) => {
               openDropDown(e);
             }}

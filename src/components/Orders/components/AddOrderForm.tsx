@@ -351,7 +351,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
       </div>
 
       <div className="flex justify-center">
-        <ScrollArea className="h-[91.7vh] rounded-md  px-3 py-1 w-[100%] xl:w-[75vw]">
+        <ScrollArea className="h-[91.7vh]   px-3 py-1 w-[100%] xl:w-[75vw]">
           <form
             onSubmit={formik.handleSubmit}
             className="border p-6 text-[0.8rem] bg-[#fff] boxShadow"
@@ -385,7 +385,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                         selected={dateOfOrder}
                         initialFocus
                         onSelect={handleDateOfOrderDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -456,7 +456,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     onBlur={handleBlur}
                     value={values.customerEmail}
                     placeholder="Enter Your Email"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.customerEmail &&
                   formik.errors.customerEmail ? (
@@ -501,7 +501,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     id="buildingAddress"
                     name="buildingAddress"
                     placeholder="Enter name building address"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.buildingAddress &&
                   formik.errors.buildingAddress ? (
@@ -526,7 +526,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     onBlur={formik.handleBlur}
                     id="streetNoName"
                     name="streetNoName"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {/* {formik.touched.streetNoName && formik.errors.streetNoName ? (
                 <div className="text-red-500">{formik.errors.streetNoName}</div>
@@ -549,7 +549,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     onBlur={formik.handleBlur}
                     id="town"
                     name="town"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
 
                   {/* {formik.touched.town && formik.errors.town ? (
@@ -571,7 +571,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     onBlur={formik.handleBlur}
                     id="county"
                     name="county"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {/* {formik.touched.county && formik.errors.county ? (
                 <div className="text-red-500">{formik.errors.county}</div>
@@ -593,7 +593,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     onBlur={formik.handleBlur}
                     id="postcode"
                     name="postcode"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {/* {formik.touched.postcode && formik.errors.postcode ? (
                 <div className="text-red-500">{formik.errors.postcode}</div>
@@ -690,7 +690,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                       id="assignUser"
                       readOnly
                       placeholder="Enter User Name"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -714,7 +714,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                         id="numberOfKeyPhrase"
                         name="numberOfKeyPhrase"
                         placeholder="Enter name number of key phrase"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {touched.numberOfKeyPhrase && errors.numberOfKeyPhrase ? (
                         <div className="text-red-500">
@@ -737,7 +737,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                         id="numberOfKeyAreas"
                         name="numberOfKeyAreas"
                         placeholder="Enter name number of key areas"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {touched.numberOfKeyAreas && errors.numberOfKeyAreas ? (
                         <div className="text-red-500">
@@ -765,7 +765,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     id="orderValue"
                     name="orderValue"
                     placeholder="Enter name order value"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.orderValue && formik.errors.orderValue ? (
                     <div className="text-red-500">
@@ -788,7 +788,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     id="deposit"
                     name="deposit"
                     placeholder="Enter deposit value"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.deposit && formik.errors.deposit ? (
                     <div className="text-red-500">{formik.errors.deposit}</div>
@@ -809,7 +809,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     id="numberOfInstallments"
                     name="numberOfInstallments"
                     placeholder="Enter number of installments"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.numberOfInstallments &&
                   formik.errors.numberOfInstallments ? (
@@ -881,7 +881,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     id="customerAccountName"
                     name="customerAccountName"
                     placeholder="Enter Your customer account name"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.customerAccountName &&
                   formik.errors.customerAccountName ? (
@@ -904,7 +904,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     id="customerAccountNumber"
                     name="customerAccountNumber"
                     placeholder="Enter Your Customer Account Number"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.customerAccountNumber &&
                   formik.errors.customerAccountNumber ? (
@@ -927,7 +927,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     id="customerSortCode"
                     name="customerSortCode"
                     placeholder="Enter Your Customer Sort Code"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.customerSortCode &&
                   formik.errors.customerSortCode ? (
@@ -1005,7 +1005,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                         selected={dateOfFirstDd}
                         initialFocus
                         onSelect={handleOfFirstDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -1046,7 +1046,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                         selected={renewalDate}
                         initialFocus
                         onSelect={handleRenewalDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -1127,7 +1127,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
             <div className="my-1 ">
               <Button
                 type="submit"
-                className="lg:w-[6vw] w-full cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
+                className="lg:w-[6vw] w-full cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
               >
                 {isOrder ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

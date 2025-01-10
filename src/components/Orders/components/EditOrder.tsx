@@ -354,7 +354,7 @@ const EditOrder = ({}) => {
         <div className="my-3 text-[0.8rem] hover:bg-gray-300 h-fit px-2 py-1 rounded cursor-pointer hidden text-center sm:block w-fit bg-[#fff] boxShadow">
           <Link href={`/orders`}>Back</Link>
         </div>
-        <ScrollArea className="h-[95vh] rounded-md  sm:px-3 sm:py-3 w-[100%] xl:w-[70vw]">
+        <ScrollArea className="h-[95vh]   sm:px-3 sm:py-3 w-[100%] xl:w-[70vw]">
           <form
             onSubmit={handleSubmit}
             className="border p-6 text-[0.8rem] bg-[#fff] boxShadow"
@@ -462,7 +462,7 @@ const EditOrder = ({}) => {
                       id="assignUser"
                       readOnly
                       placeholder="Enter User Name"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -496,7 +496,7 @@ const EditOrder = ({}) => {
                         selected={dateOfOrder}
                         initialFocus
                         onSelect={handleDateOfOrderDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -524,7 +524,7 @@ const EditOrder = ({}) => {
                     onBlur={formik.handleBlur}
                     value={formik.values.customerEmail}
                     placeholder="Enter Your Email"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.customerEmail &&
                   formik.errors.customerEmail ? (
@@ -566,7 +566,7 @@ const EditOrder = ({}) => {
                     id="buildingAddress"
                     name="buildingAddress"
                     placeholder="Enter name building address"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.buildingAddress &&
                   formik.errors.buildingAddress ? (
@@ -634,7 +634,7 @@ const EditOrder = ({}) => {
                     type="text"
                     id="renewalNotes"
                     name="renewalNotes"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.renewalNotes && formik.errors.renewalNotes ? (
                     <div className="text-red-500">
@@ -697,7 +697,7 @@ const EditOrder = ({}) => {
                         id="numberOfKeyPhrase"
                         name="numberOfKeyPhrase"
                         placeholder="Enter name number of key phrase"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {formik.touched.numberOfKeyPhrase &&
                       formik.errors.numberOfKeyPhrase ? (
@@ -721,7 +721,7 @@ const EditOrder = ({}) => {
                         id="numberOfKeyAreas"
                         name="numberOfKeyAreas"
                         placeholder="Enter name number of key areas"
-                        className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       />
                       {formik.touched.numberOfKeyAreas &&
                       formik.errors.numberOfKeyAreas ? (
@@ -751,7 +751,7 @@ const EditOrder = ({}) => {
                     id="orderValue"
                     name="orderValue"
                     placeholder="Enter name order value"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.orderValue && formik.errors.orderValue ? (
                     <div className="text-red-500">
@@ -775,7 +775,7 @@ const EditOrder = ({}) => {
                     id="deposit"
                     name="deposit"
                     placeholder="Enter deposit value"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.deposit && formik.errors.deposit ? (
                     <div className="text-red-500">{formik.errors.deposit}</div>
@@ -797,7 +797,7 @@ const EditOrder = ({}) => {
                     id="numberOfInstallments"
                     name="numberOfInstallments"
                     placeholder="Enter number of installments"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.numberOfInstallments &&
                   formik.errors.numberOfInstallments ? (
@@ -855,7 +855,7 @@ const EditOrder = ({}) => {
             {/* CALCULATIONS  */}
             {!loading ? (
               <div className="lg:flex gap-5 text-[0.8rem]">
-                <div className="mb-3  bg-gray-200  px-5 py-2 rounded-md flex gap-10">
+                <div className="mb-3  bg-gray-200  px-5 py-2  flex gap-10">
                   <div className="flex gap-2">
                     <span className="font-bold ">◼ DD Monthly:</span>
                     <span className="">{isNaN(ddMonthly) ? 0 : ddMonthly}</span>
@@ -947,7 +947,7 @@ const EditOrder = ({}) => {
                     id="numberOfInstallments"
                     name="numberOfInstallments"
                     placeholder="Enter name number of installments"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.numberOfInstallments &&
                   formik.errors.numberOfInstallments ? (
@@ -987,7 +987,7 @@ const EditOrder = ({}) => {
                         selected={dateOfFirstDd}
                         initialFocus
                         onSelect={handleOfFirstDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -1013,7 +1013,7 @@ const EditOrder = ({}) => {
                     id="customerAccountName"
                     name="customerAccountName"
                     placeholder="Enter Your customer account name"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.customerAccountName &&
                   formik.errors.customerAccountName ? (
@@ -1038,7 +1038,7 @@ const EditOrder = ({}) => {
                     id="customerAccountNumber"
                     name="customerAccountNumber"
                     placeholder="Enter Your Customer Account Number"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.customerAccountNumber &&
                   formik.errors.customerAccountNumber ? (
@@ -1061,7 +1061,7 @@ const EditOrder = ({}) => {
                     id="customerSortCode"
                     name="customerSortCode"
                     placeholder="Enter Your Customer Sort Code"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.customerSortCode &&
                   formik.errors.customerSortCode ? (
@@ -1139,7 +1139,7 @@ const EditOrder = ({}) => {
                         selected={renewalDate}
                         initialFocus
                         onSelect={handleRenewalDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -1158,7 +1158,7 @@ const EditOrder = ({}) => {
               <Button
                 type="submit"
                 // value="Sign In"
-                className="lg:w-[6vw] w-full cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
+                className="lg:w-[6vw] w-full cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
               >
                 {isLeadValid ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -139,7 +139,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ resetToken }) => {
               onChange={(e) => handleChange(e)}
               className=" border-b border-b-gray-300 outline-none py-4 w-[502.4px] bg-transparent px-3"
             />
-            <span className="absolute right-4 top-2 hover:bg-gray-100  rounded-sm">
+            <span className="absolute right-4 top-2 hover:bg-gray-100  ">
               {showPassword ? (
                 <div onClick={togglePassword} className="cursor-pointer p-1">
                   <EyeIcon className="bottom-10 right-0 text-gray-400 h-5" />
@@ -159,7 +159,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ resetToken }) => {
               onChange={(e) => handleChange(e)}
               className=" border-b border-b-gray-300 outline-none py-4 w-[502.4px] bg-transparent px-3"
             />
-            <span className="absolute right-4 top-24 hover:bg-gray-100  rounded-sm">
+            <span className="absolute right-4 top-24 hover:bg-gray-100  ">
               {showPassword ? (
                 <div onClick={togglePassword} className="cursor-pointer p-1">
                   <EyeIcon className=" bottom-10 right-0 text-gray-400 h-5" />
@@ -185,8 +185,8 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ resetToken }) => {
             </div>
           </form>
           <div className="my-4 items-start ">
-          <Link href="/auth/login" className="">
-             <span className="text-gray-400 mx-3">Go back to login page</span>
+            <Link href="/auth/login" className="">
+              <span className="text-gray-400 mx-3">Go back to login page</span>
             </Link>
             {/* <span className="text-gray-400 mx-3">Back To Login?</span>
             <Link href="/auth/login" className="text-primary px-3 ">

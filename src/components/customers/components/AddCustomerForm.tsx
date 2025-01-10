@@ -233,7 +233,7 @@ const AddCustomerForm: React.FC = () => {
     formik;
 
   return (
-    <ScrollArea className="rounded-md  p-7 w-full lg:w-[70%] border my-5 h-[90vh] bg-[#fff] boxShadow">
+    <ScrollArea className=" p-7 w-full lg:w-[70%] border my-5 h-[90vh] bg-[#fff] boxShadow">
       <form onSubmit={handleSubmit} className="text-[0.8rem] bg-[#fff]">
         <div className="mb-3 lg:flex gap-3">
           {/* User List */}
@@ -323,7 +323,7 @@ const AddCustomerForm: React.FC = () => {
                   id="assignUser"
                   readOnly
                   placeholder="Enter User Name"
-                  className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  className="w-full border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
             </div>
@@ -341,7 +341,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.contactName}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.contactName && errors.contactName ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -370,7 +370,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.companyName}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.companyName && errors.companyName ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -396,7 +396,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.customerEmail}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.customerEmail && errors.customerEmail ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -439,7 +439,7 @@ const AddCustomerForm: React.FC = () => {
                 value={values.mobileNo}
                 id="mobileNo"
                 name="mobileNo"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.mobileNo && errors.mobileNo ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -466,7 +466,7 @@ const AddCustomerForm: React.FC = () => {
                 value={values.landlineNo}
                 id="landlineNo"
                 name="landlineNo"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.landlineNo && errors.landlineNo ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -495,7 +495,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.streetNoName}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.streetNoName && errors.streetNoName ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -517,7 +517,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.town}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.town && errors.town ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -542,7 +542,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.county}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.county && errors.county ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -564,7 +564,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.postcode}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.postcode && errors.postcode ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -589,7 +589,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.url}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div>
           </div>
@@ -606,7 +606,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.ssl}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
             </div>
           </div>
@@ -626,7 +626,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.sitemap}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.sitemap && errors.sitemap ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -648,7 +648,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.htAccess}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.htAccess && errors.htAccess ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -673,7 +673,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.gaCode}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.gaCode && errors.gaCode ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -695,7 +695,7 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.newGACode}
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {touched.newGACode && errors.newGACode ? (
                 <div className="text-red-500 text-[0.8rem] pl-2">
@@ -763,14 +763,14 @@ const AddCustomerForm: React.FC = () => {
                 onChange={handleLogoChange}
                 id="logo"
                 name="logo"
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
               {logoPreview && (
                 <div className="mt-2">
                   <img
                     src={logoPreview}
                     alt="Logo Preview"
-                    className="h-[180px] w-[180px] object-cover rounded"
+                    className="h-[180px] w-[180px] object-cover"
                   />
                 </div>
               )}
@@ -803,7 +803,7 @@ const AddCustomerForm: React.FC = () => {
                   selected={date}
                   initialFocus
                   onSelect={handleDateSelect}
-                  className="rounded-md border"
+                  className=" border"
                 />
               </PopoverContent>
             </Popover>
@@ -813,7 +813,7 @@ const AddCustomerForm: React.FC = () => {
         <div className="mb-3 mt-3">
           <Button
             type="submit"
-            className="cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
+            className="cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
           >
             {isCustomerValid ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

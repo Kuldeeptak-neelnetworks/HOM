@@ -184,7 +184,7 @@ const ProfileContent = () => {
 
       <div className="flex justify-center">
         <div className="sm:max-w-[775px] w-full">
-          <ScrollArea className="h-[44rem] rounded-md px-3 py-3">
+          <ScrollArea className="h-[44rem]  px-3 py-3">
             <form className="mt-5" onSubmit={handleSubmit}>
               <div className="mb-3">
                 {/* {logoPreview ? (
@@ -192,13 +192,13 @@ const ProfileContent = () => {
                     <img
                       src={logoPreview}
                       alt="Logo Preview"
-                      className="w-44 h-60 rounded-sm"
+                      className="w-44 h-60 "
                     />
                   </div>
                 ) : (
                   <div className="mt-2 flex justify-center lg:justify-start">
                     <img
-                      className="w-52 h-60 rounded-sm"
+                      className="w-52 h-60 "
                       src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"
                       alt="user photo"
                     />
@@ -209,13 +209,13 @@ const ProfileContent = () => {
                     <img
                       src={logoPreview}
                       alt="Avatar Preview"
-                      className="w-44 h-60 rounded-sm"
+                      className="w-44 h-60 "
                     />
                   </div>
                 ) : (
                   <div className="mt-2 flex justify-center lg:justify-start">
                     <img
-                      className="w-44 h-60 rounded-sm"
+                      className="w-44 h-60 "
                       src="https://i.pinimg.com/736x/8b/16/7a/8b167af653c2399dd93b952a48740620.jpg"
                       alt="user photo"
                     />
@@ -233,7 +233,7 @@ const ProfileContent = () => {
                     id="avatar"
                     name="avatar"
                     placeholder="choose your file"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -250,7 +250,7 @@ const ProfileContent = () => {
                     value={userData?.fullName || ""}
                     onChange={handleInputChange}
                     onBlur={formik.handleBlur}
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -269,7 +269,7 @@ const ProfileContent = () => {
                     }
                     readOnly
                     disabled
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -284,7 +284,7 @@ const ProfileContent = () => {
                     value={userData?.mobileNo || ""}
                     id="mobileNo"
                     name="mobileNo"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -301,14 +301,14 @@ const ProfileContent = () => {
                     value={userData?.address || ""}
                     id="address"
                     name="address"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
               <div className="mb-3">
                 <Button
                   type="submit"
-                  className="cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 w-[6rem]"
+                  className="cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 w-[6rem]"
                 >
                   {isUserValid ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

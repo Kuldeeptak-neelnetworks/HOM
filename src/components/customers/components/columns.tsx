@@ -29,7 +29,7 @@ const statusStyles: { [key: string]: string } = {
 
 const renderStatus = (status: string) => (
   <div
-    className={`p-1 rounded-md text-center font-bold border border-l-8 w-[180px] ${
+    className={`p-1 text-center font-bold border border-l-8 w-[180px] ${
       statusStyles[status] || ""
     }`}
   >

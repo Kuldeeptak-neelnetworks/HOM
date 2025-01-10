@@ -241,7 +241,7 @@ const EditLeads = ({}) => {
       </div> */}
 
       <div className="flex justify-center">
-        <ScrollArea className="h-[80vh] rounded-md  px-3 py-3 w-[100%] xl:w-[56vw]">
+        <ScrollArea className="h-[80vh]   px-3 py-3 w-[100%] xl:w-[56vw]">
           <form
             onSubmit={handleSubmit}
             className="border p-6 bg-[#fff] boxShadow"
@@ -261,7 +261,7 @@ const EditLeads = ({}) => {
                     type="text"
                     id="contactPerson"
                     name="contactPerson"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.contactPerson &&
                   formik.errors.contactPerson ? (
@@ -400,7 +400,7 @@ const EditLeads = ({}) => {
                       onBlur={handleBlur}
                       id="town"
                       name="town"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -417,7 +417,7 @@ const EditLeads = ({}) => {
                       onBlur={handleBlur}
                       id="county"
                       name="county"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -434,7 +434,7 @@ const EditLeads = ({}) => {
                       onBlur={handleBlur}
                       id="postcode"
                       name="postcode"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -455,7 +455,7 @@ const EditLeads = ({}) => {
                     onBlur={handleBlur}
                     id="currentWebsite"
                     name="currentWebsite"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.currentWebsite &&
                   formik.errors.currentWebsite ? (
@@ -478,7 +478,7 @@ const EditLeads = ({}) => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.emailAddress}
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.emailAddress && formik.errors.emailAddress ? (
                     <div className="text-red-500">
@@ -521,7 +521,7 @@ const EditLeads = ({}) => {
                     value={values.mobileNumber}
                     id="mobileNumber"
                     name="mobileNumber"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.mobileNumber && formik.errors.mobileNumber ? (
                     <div className="text-red-500">
@@ -547,7 +547,7 @@ const EditLeads = ({}) => {
                     onChange={handleChange}
                     id="landlineNumber"
                     name="landlineNumber"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {formik.touched.landlineNumber &&
                   formik.errors.landlineNumber ? (
@@ -574,7 +574,7 @@ const EditLeads = ({}) => {
                   onBlur={handleBlur}
                   id="orderForecast"
                   name="orderForecast"
-                  className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
                 {formik.touched.orderForecast && formik.errors.orderForecast ? (
                   <div className="text-red-500">
@@ -597,7 +597,7 @@ const EditLeads = ({}) => {
                   id="notes"
                   name="notes"
                   minLength={4}
-                  className="w-full resize-none  rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  className="w-full resize-none   border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
                 {formik.touched.notes && formik.errors.notes ? (
                   <div className="text-red-500">{formik.errors.notes}</div>
@@ -609,7 +609,7 @@ const EditLeads = ({}) => {
               <Button
                 type="submit"
                 // value="Sign In"
-                className="lg:w-[6vw] w-full cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
+                className="lg:w-[6vw] w-full cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
               >
                 {isLeadValid ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

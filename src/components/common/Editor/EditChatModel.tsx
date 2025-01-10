@@ -544,7 +544,7 @@ const EditChatModel = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <div className="flex items-center">
-          <Pencil2Icon className="h-6 w-7 py-1 mr-1 text-gray-700 rounded-sm cursor-pointer hover:bg-[#29354f] hover:text-[white] " />
+          <Pencil2Icon className="h-6 w-7 py-1 mr-1 text-gray-700  cursor-pointer hover:bg-[#29354f] hover:text-[white] " />
           <span className="text-gray-700 text-[0.8rem] ml-2">Edit</span>
         </div>
       </DialogTrigger>

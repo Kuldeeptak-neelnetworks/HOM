@@ -142,7 +142,7 @@ export default function LeaveSection({
       <main>
         <header>
           {/* Stats */}
-          <div className="grid grid-cols-1  sm:grid-cols-1 lg:grid-cols-3 rounded-md border  bg-white boxShadow">
+          <div className="grid grid-cols-1  sm:grid-cols-1 lg:grid-cols-3 border  bg-white boxShadow">
             {userRole !== "admin"
               ? stats.map((stat, statIdx) => (
                   <div
@@ -376,7 +376,7 @@ export default function LeaveSection({
                               <AccordionTrigger className="hover:no-underline">
                                 On : 01/10/2024
                               </AccordionTrigger>
-                              <AccordionContent className="border rounded-md p-3 mb-1">
+                              <AccordionContent className="border p-3 mb-1">
                                 <table className="border border-collapse w-full bg-[#f2f6fa]">
                                   <thead>
                                     <tr className="border text-center">
@@ -446,7 +446,7 @@ export default function LeaveSection({
                                           On : {formatDate(pendReq?.startDate)}
                                         </span>
                                       </AccordionTrigger>
-                                      <AccordionContent className="border rounded-md p-3 mb-1">
+                                      <AccordionContent className="border p-3 mb-1">
                                         <table className="border border-collapse w-full bg-[#f2f6fa]">
                                           <thead>
                                             <tr className="border text-center">
@@ -532,7 +532,7 @@ export default function LeaveSection({
                                           On : {formatDate(appReq?.startDate)}
                                         </span>
                                       </AccordionTrigger>
-                                      <AccordionContent className="border rounded-md p-3 mb-1">
+                                      <AccordionContent className="border p-3 mb-1">
                                         <table className="border border-collapse w-full bg-[#f2f6fa]">
                                           <thead>
                                             <tr className="border text-center">
@@ -606,7 +606,7 @@ export default function LeaveSection({
                                           On : {formatDate(rejReq?.startDate)}
                                         </span>
                                       </AccordionTrigger>
-                                      <AccordionContent className="border rounded-md p-3 mb-1">
+                                      <AccordionContent className="border p-3 mb-1">
                                         <table className="border border-collapse w-full bg-[#f2f6fa]">
                                           <thead>
                                             <tr className="border text-center">
@@ -706,7 +706,7 @@ export default function LeaveSection({
                                   <AccordionTrigger className="hover:no-underline">
                                     On : {formatDate(appReq?.startDate)}
                                   </AccordionTrigger>
-                                  <AccordionContent className="border rounded-md p-3 mb-1">
+                                  <AccordionContent className="border p-3 mb-1">
                                     <table className="border border-collapse w-full bg-[#f2f6fa]">
                                       <thead>
                                         <tr className="border text-center">
@@ -772,7 +772,7 @@ export default function LeaveSection({
                                   <AccordionTrigger className="hover:no-underline">
                                     On : {formatDate(pendReq?.startDate)}
                                   </AccordionTrigger>
-                                  <AccordionContent className="border rounded-md p-3 mb-1">
+                                  <AccordionContent className="border p-3 mb-1">
                                     <table className="border border-collapse w-full bg-[#f2f6fa]">
                                       <thead>
                                         <tr className="border text-center">
@@ -834,7 +834,7 @@ export default function LeaveSection({
                                   <AccordionTrigger className="hover:no-underline">
                                     On : {formatDate(rejReq?.startDate)}
                                   </AccordionTrigger>
-                                  <AccordionContent className="border rounded-md p-3 mb-1 ">
+                                  <AccordionContent className="border p-3 mb-1 ">
                                     <table className="border border-collapse w-full bg-[#f2f6fa]">
                                       <thead>
                                         <tr className="border text-center">

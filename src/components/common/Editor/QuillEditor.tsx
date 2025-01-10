@@ -409,7 +409,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
       <div className="flex justify-start gap-2 items-center">
         <Button
           type="submit"
-          className="cursor-pointer h-[24px] rounded-md border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
+          className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
         >
           {isLoading ? (
             <Loader2 className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
@@ -422,7 +422,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
 
         <div onClick={imageHandler} className="w-fit cursor-pointer">
           <TooltipCommon text="Add Files">
-            <div className="hover:bg-gray-100 px-2 py-1 rounded-md">
+            <div className="hover:bg-gray-100 px-2 py-1">
               <AddFilesDarkUIconSVG />
             </div>
           </TooltipCommon>

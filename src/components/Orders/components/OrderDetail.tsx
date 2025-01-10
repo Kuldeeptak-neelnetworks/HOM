@@ -105,7 +105,7 @@ const OrderDetail = () => {
             </CardHeader>
             <CardContent className="">
               {/* Contact Name  */}
-              <ScrollArea className="h-[75vh] rounded-md  px-3 py-3">
+              <ScrollArea className="h-[75vh]   px-3 py-3">
                 <div className="xl:flex lg:justify-between xl:px-16 mt-2 xl:border-b-[#ddd] xl:border-b">
                   <div className="flex items-center justify-center pb-[10px] mb-[10px]  border-b-[#ddd] border-b xl:border-none">
                     <Label htmlFor="name" className="text-right font-bold">
@@ -570,7 +570,7 @@ export default OrderDetail;
 //       </CardHeader>
 //       <CardContent>
 
-//         <ScrollArea className="h-[67vh] rounded-md  px-3 py-3 ">
+//         <ScrollArea className="h-[67vh]   px-3 py-3 ">
 //         <div className=" p-4 relative ">
 
 // <div className="flex gap-5 justify-center">

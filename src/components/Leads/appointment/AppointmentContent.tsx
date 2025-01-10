@@ -270,14 +270,14 @@ const AppointmentContent: React.FC = () => {
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                   <DialogPanel
-                    className="relative transform overflow-hidden rounded-md
+                    className="relative transform overflow-hidden
                    bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
                   >
                     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                       <div className="sm:flex sm:items-start">
                         <div
                           className="mx-auto flex h-12 w-12 flex-shrink-0 items-center 
-                      justify-center rounded-md bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+                      justify-center bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
                         >
                           <ExclamationTriangleIcon
                             className="h-6 w-6 text-red-600"
@@ -299,7 +299,7 @@ const AppointmentContent: React.FC = () => {
                     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                       <button
                         type="button"
-                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-[0.8rem] 
+                        className="inline-flex w-full justify-center bg-red-600 px-3 py-2 text-[0.8rem] 
                       font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                         onClick={handleDelete}
                       >
@@ -307,7 +307,7 @@ const AppointmentContent: React.FC = () => {
                       </button>
                       <button
                         type="button"
-                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-[0.8rem] font-semibold text-gray-900 
+                        className="mt-3 inline-flex w-full justify-center bg-white px-3 py-2 text-[0.8rem] font-semibold text-gray-900 
                       shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                         onClick={handleCloseModal}
                       >
@@ -351,7 +351,7 @@ const AppointmentContent: React.FC = () => {
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                   <DialogPanel
-                    className="relative transform overflow-hidden rounded-md
+                    className="relative transform overflow-hidden
                    bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
                   >
                     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
@@ -383,7 +383,7 @@ const AppointmentContent: React.FC = () => {
                     <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                       {/* <button
                         type="button"
-                        className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-[0.8rem] 
+                        className="inline-flex w-full justify-center  bg-red-600 px-3 py-2 text-[0.8rem] 
                       font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                         onClick={handleDelete}
                       >
@@ -391,7 +391,7 @@ const AppointmentContent: React.FC = () => {
                       </button> */}
                       <button
                         type="button"
-                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-[0.8rem] font-semibold text-gray-900 
+                        className="mt-3 inline-flex w-full justify-center  bg-white px-3 py-2 text-[0.8rem] font-semibold text-gray-900 
                       shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                         onClick={handleCloseModal}
                       >
@@ -430,10 +430,12 @@ const AppointmentContent: React.FC = () => {
                   leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                  <DialogPanel className="relative transform overflow-hidden rounded-md bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+                  <DialogPanel className="relative transform overflow-hidden  bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                     <div>
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-md
-                       bg-green-100">
+                      <div
+                        className="mx-auto flex h-12 w-12 items-center justify-center
+                       bg-green-100"
+                      >
                         <CheckIcon
                           className="h-6 w-6 text-green-600"
                           aria-hidden="true"
@@ -448,7 +450,7 @@ const AppointmentContent: React.FC = () => {
                             <input
                               type="text"
                               name="title"
-                              className="block w-full px-3 rounded-md border-0 py-1.5 text-gray-900 
+                              className="block w-full px-3 border-0 py-1.5 text-gray-900 
                             shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 
                             focus:ring-2 
                             focus:ring-inset focus:ring-[#29354f] 
@@ -461,14 +463,14 @@ const AppointmentContent: React.FC = () => {
                           <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                             <button
                               type="submit"
-                              className="inline-flex w-full justify-center rounded-md bg-[#29354f] px-3 py-2 text-[0.8rem] font-semibold text-white shadow-sm hover:bg-[#29354f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#29354f] sm:col-start-2 disabled:opacity-25"
+                              className="inline-flex w-full justify-center bg-[#29354f] px-3 py-2 text-[0.8rem] font-semibold text-white shadow-sm hover:bg-[#29354f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#29354f] sm:col-start-2 disabled:opacity-25"
                               disabled={newEvent.title === ""}
                             >
                               Create
                             </button>
                             <button
                               type="button"
-                              className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-[0.8rem] font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                              className="mt-3 inline-flex w-full justify-center bg-white px-3 py-2 text-[0.8rem] font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
                               onClick={handleCloseModal}
                             >
                               Cancel

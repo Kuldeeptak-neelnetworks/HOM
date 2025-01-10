@@ -140,7 +140,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
   } = formik;
 
   return (
-    <ScrollArea className=" w-[100%] xl:w-[56vw] rounded-md  p-7 my-5 border boxShadow bg-[#fff]">
+    <ScrollArea className=" w-[100%] xl:w-[56vw]  p-7 my-5 border boxShadow bg-[#fff]">
       <form onSubmit={handleSubmit} className="text-[0.8rem] ">
         <div className="mb-3 lg:flex gap-3">
           {/* Rep Name  */}
@@ -157,7 +157,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                 placeholder="Rep Name"
                 readOnly
                 disabled
-                className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
               />
 
               <span className="absolute right-4 top-2">
@@ -232,7 +232,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                     selected={startDate}
                     initialFocus
                     onSelect={handleStartDate}
-                    className="rounded-md border"
+                    className="border"
                   />
                 </PopoverContent>
               </Popover>
@@ -266,7 +266,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                     selected={endDate}
                     initialFocus
                     onSelect={handleEndDate}
-                    className="rounded-md border"
+                    className=" border"
                   />
                 </PopoverContent>
               </Popover>
@@ -301,7 +301,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                   selected={returnDate}
                   initialFocus
                   onSelect={handleReturnDate}
-                  className="rounded-md border"
+                  className=" border"
                 />
               </PopoverContent>
             </Popover>
@@ -319,7 +319,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
               id="leaveReason"
               name="leaveReason"
               placeholder="Enter Your leave Reason"
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
             {touched.leaveReason && errors.leaveReason ? (
               <div className="text-red-500">{errors.leaveReason}</div>
@@ -330,7 +330,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
           <Button
             type="submit"
             value="Sign In"
-            className="cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
+            className="cursor-pointer border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90"
           >
             {isUserValid ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

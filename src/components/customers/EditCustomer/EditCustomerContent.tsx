@@ -327,14 +327,14 @@ const EditCustomerContent = () => {
       {/* <div className="mb-4">
         <BreadcrumbSection crumbs={crumbs} />
       </div> */}
-      <div className=" flex gap-5 justify-center rounded-md">
-        <div className="my-3 text-[0.8rem] bg-[#fff] hover:bg-gray-300 h-fit w-fit px-2 py-1 rounded-md cursor-pointer hidden text-center sm:block boxShadow ">
+      <div className=" flex gap-5 justify-center">
+        <div className="my-3 text-[0.8rem] bg-[#fff] hover:bg-gray-300 h-fit w-fit px-2 py-1  cursor-pointer hidden text-center sm:block boxShadow ">
           <Link href={`/customers/customerDetails/${customerId}`}>Back</Link>
         </div>
-        <ScrollArea className="h-[90vh] rounded-md my-3 sm:my-0 sm:px-3 sm:py-3 w-[100%] xl:w-[70vw] ">
+        <ScrollArea className="h-[90vh]  my-3 sm:my-0 sm:px-3 sm:py-3 w-[100%] xl:w-[70vw] ">
           <form
             onSubmit={handleSubmit}
-            className="border p-6 text-[0.8rem] bg-[#fff]  rounded-md boxShadow"
+            className="border p-6 text-[0.8rem] bg-[#fff] boxShadow"
           >
             <div className="lg:flex gap-5">
               {/* Contact Name  */}
@@ -351,7 +351,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.contactName}
                     placeholder="Name"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.contactName && errors.contactName ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -378,7 +378,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.companyName}
                     placeholder="Company Name"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.companyName && errors.companyName ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -407,7 +407,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.customerEmail}
                     placeholder="Enter Your Email"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.customerEmail && errors.customerEmail ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -434,7 +434,7 @@ const EditCustomerContent = () => {
                     id="mobileNo"
                     name="mobileNo"
                     placeholder="Enter Your Mobile Number"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.mobileNo && errors.mobileNo ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -463,7 +463,7 @@ const EditCustomerContent = () => {
                     id="landlineNo"
                     name="landlineNo"
                     placeholder="Enter Your Landline Number"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.landlineNo && errors.landlineNo ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -490,7 +490,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.streetNoName}
                     placeholder="Street No. and Names"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.streetNoName && errors.streetNoName ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -515,7 +515,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.town}
                     placeholder="Town Name"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.town && errors.town ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -538,7 +538,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.county}
                     placeholder="Enter County"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.county && errors.county ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -561,7 +561,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.postcode}
                     placeholder="Enter Post Code"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                   {touched.postcode && errors.postcode ? (
                     <div className="text-red-500 text-[0.8rem] pl-2">
@@ -586,7 +586,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.url}
                     placeholder="Enter URL"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -604,7 +604,7 @@ const EditCustomerContent = () => {
                   onBlur={handleBlur}
                   value={formatDate(values.liveDate)}
                   placeholder="Enter Live Date"
-                  className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 /> */}
 
                   <Popover>
@@ -627,7 +627,7 @@ const EditCustomerContent = () => {
                         selected={date}
                         initialFocus
                         onSelect={handleDateSelect}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -649,7 +649,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.ssl}
                     placeholder="Enter SSL"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -667,7 +667,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.sitemap}
                     placeholder="Enter Site Map"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -687,7 +687,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.htAccess}
                     placeholder="Enter HT Access"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -705,7 +705,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.gaCode}
                     placeholder="Enter GA Code"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -725,7 +725,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.newGACode}
                     placeholder="Enter New GA Code"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -743,7 +743,7 @@ const EditCustomerContent = () => {
                     onBlur={handleBlur}
                     value={values.ordersRenewals}
                     placeholder="Enter Orders/Renewals"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -885,7 +885,7 @@ const EditCustomerContent = () => {
                       id="assignUser"
                       readOnly
                       placeholder="Enter User Name"
-                      className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
                   </div>
                 </div>
@@ -904,14 +904,14 @@ const EditCustomerContent = () => {
                   id="logo"
                   name="logo"
                   placeholder="choose your Logo"
-                  className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3  pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  className="w-full border border-stroke bg-transparent py-2 pl-3  pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
                 {logoPreview && (
                   <div className="mt-2">
                     <img
                       src={logoPreview}
                       alt="Logo Preview"
-                      className="h-[180px] w-[180px] object-cover rounded"
+                      className="h-[180px] w-[180px] object-cover"
                     />
                   </div>
                 )}
@@ -922,7 +922,7 @@ const EditCustomerContent = () => {
               <Button
                 type="submit"
                 // value="Sign In"
-                className="lg:w-[6vw] w-full cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
+                className="lg:w-[6vw] w-full cursor-pointer border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
               >
                 {isCustomerValid ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

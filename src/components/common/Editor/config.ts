@@ -27,7 +27,7 @@ export const editorConfig: QuillOptionsStatic = {
       renderItem: (item: { avatar: any; value: string }) => {
         return `
     <div class="border"> 
-      <div class="mention-item p-1 hover:bg-gray-200 rounded-md max-h-[100px] overflow-hidden">
+      <div class="mention-item p-1 hover:bg-gray-200 max-h-[100px] overflow-hidden">
         <img 
           class="rounded-full w-8 h-8 inline-block mr-2" 
           src="${item.avatar || UserPic}" 

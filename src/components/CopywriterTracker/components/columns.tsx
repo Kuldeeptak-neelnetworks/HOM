@@ -41,7 +41,7 @@ const copywriterStatusStyles: { [key: string]: string } = {
 
 const renderCopywriterStatus = (copywriterTaskStatus: string) => (
   <div
-    className={`p-1 rounded-md text-center font-bold border border-l-8 w-[190px] text-nowrap ${
+    className={`p-1 text-center font-bold border border-l-8 w-[190px] text-nowrap ${
       copywriterStatusStyles[copywriterTaskStatus] || ""
     }`}
   >

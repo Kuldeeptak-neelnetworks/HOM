@@ -19,7 +19,7 @@ const NotificationCard = ({
       onClick={() => singleNotificationfecthHandler(notification?._id)}
       className={`mb-4 flex items-start p-4 gap-4 ${
         notification?.isRead ? "" : "bg-[#f0f7ff]"
-      } rounded-md hover:cursor-pointer hover:bg-[#eff2f5]`}
+      } hover:cursor-pointer hover:bg-[#eff2f5]`}
     >
       <span>
         <Avatar className="cursor-pointer">
@@ -62,7 +62,7 @@ const NotificationCard = ({
               <span>{timeAgo(notification.createdAt)}</span>
 
               {!notification.isRead && (
-                <span className="flex h-2 w-2  rounded-md bg-sky-500" />
+                <span className="flex h-2 w-2 bg-sky-500" />
               )}
             </span>
           </div>
@@ -89,12 +89,12 @@ export default NotificationCard;
 // <div
 //   className={`mb-4 flex items-center p-4 gap-4 ${
 //     notification?.isRead ? "" : "bg-[#f0f7ff]"
-//   } rounded-md hover:cursor-pointer hover:bg-[#eff2f5]`}
+//   }  hover:cursor-pointer hover:bg-[#eff2f5]`}
 // >
 //   <div className="w-full">
 //     <div className="flex gap-2 items-center w-full">
 //       {!notification.isRead && (
-//         <span className="flex h-2 w-2 translate-y-1 rounded-md bg-sky-500" />
+//         <span className="flex h-2 w-2 translate-y-1  bg-sky-500" />
 //       )}
 //       <span>
 //         <Avatar className="cursor-pointer">

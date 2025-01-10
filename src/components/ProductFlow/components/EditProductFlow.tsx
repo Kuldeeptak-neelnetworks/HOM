@@ -221,10 +221,10 @@ const EditProductFlow = () => {
         <div className="my-3 text-[0.8rem] bg-[#fff] hover:bg-gray-300 h-fit px-2 py-1 rounded cursor-pointer hidden text-center sm:block w-fit boxShadow ">
           <Link href={`/productFlow`}>Back</Link>
         </div>
-        <ScrollArea className="h-[80vh] rounded-md  sm:px-3 sm:py-3 w-[100%] xl:w-[56vw]">
+        <ScrollArea className="h-[80vh]   sm:px-3 sm:py-3 w-[100%] xl:w-[56vw]">
           <form
             onSubmit={handleSubmit}
-            className="border p-6 bg-[#fff] rounded-md boxShadow"
+            className="border p-6 bg-[#fff]  boxShadow"
           >
             <div className="lg:flex gap-5">
               <div className="mb-5 w-full">
@@ -254,7 +254,7 @@ const EditProductFlow = () => {
                         selected={datePhase1Instructed}
                         initialFocus
                         onSelect={handlePhase1Instructed}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -287,7 +287,7 @@ const EditProductFlow = () => {
                         selected={datePhase2Instructed}
                         initialFocus
                         onSelect={handlePhase2Instructed}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -322,7 +322,7 @@ const EditProductFlow = () => {
                         selected={liveDate}
                         initialFocus
                         onSelect={handleLiveDate}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -355,7 +355,7 @@ const EditProductFlow = () => {
                         selected={demoCompletedDate}
                         initialFocus
                         onSelect={handleDemoCompletedDate}
-                        className="rounded-md border"
+                        className=" border"
                       />
                     </PopoverContent>
                   </Popover>
@@ -433,7 +433,7 @@ const EditProductFlow = () => {
                     value={formik.values.notes}
                     id="notes"
                     name="notes"
-                    className="w-full rounded-md border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   />
                 </div>
               </div>
@@ -442,7 +442,7 @@ const EditProductFlow = () => {
             <div className="my-6 ">
               <Button
                 type="submit"
-                className="lg:w-[6vw] cursor-pointer rounded-md border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
+                className="lg:w-[6vw] cursor-pointer  border border-primary bg-primary px-4 py-1 text-white transition hover:bg-opacity-90 text-md"
               >
                 {isProductFlowValid ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />

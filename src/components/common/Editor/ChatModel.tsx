@@ -153,7 +153,7 @@ const ChatModel = ({
       <DialogTrigger>
         <div className="relative" style={{ paddingTop: "6px" }}>
           {length === 0 ? (
-            <PlusCircleIcon className="h-[1.35rem] w-[1.35rem] p-1 text-black rounded-sm cursor-pointer" />
+            <PlusCircleIcon className="h-[1.35rem] w-[1.35rem] p-1 text-black  cursor-pointer" />
           ) : (
             <>
               <ChatBubbleIcon className="h-[1.35rem] w-[1.55rem] p-1 text-black cursor-pointer" />
@@ -184,7 +184,7 @@ const ChatModel = ({
                 <Card>
                   <CardContent className="space-y-2 max-h-[42vh] overflow-auto">
                     <p
-                      className="w-full text-gray-500 rounded-md border cursor-pointer border-stroke bg-transparent text-[0.8rem] my-3 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      className="w-full text-gray-500 border cursor-pointer border-stroke bg-transparent text-[0.8rem] my-3 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       onClick={handleOpenQuillEditor}
                     >
                       Click here to write something...
@@ -209,7 +209,7 @@ const ChatModel = ({
                       </div>
                     )}
 
-                    <ScrollArea className="h-[34vh] rounded-md overflow-auto ">
+                    <ScrollArea className="h-[34vh] overflow-auto ">
                       <UpdateLead leadId={leadId} />
                       <UpdateOrder orderId={orderId} />
                       <UpdateTechnical technicalId={technicalId} />

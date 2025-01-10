@@ -23,7 +23,7 @@ const AddOrderFormPage: React.FC = () => {
         //     : `sm:px-4 p-0 sm:ml-64 ml-0  transition-all duration-300`
         // }
       >
-        <div className="rounded-md dark:border-gray-700">
+        <div className=" dark:border-gray-700">
           <AddOrderForm />
         </div>
       </div>

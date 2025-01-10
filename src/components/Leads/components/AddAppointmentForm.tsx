@@ -182,7 +182,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="overflow-y-auto text-[0.8rem]">
-      <div className="rounded-md  px-3 py-3">
+      <div className="px-3 py-3">
         {/* Name   */}
         <div className="mb-3">
           <label className="mb-2.5 block font-medium text-black dark:text-white">
@@ -197,7 +197,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
               onBlur={handleBlur}
               value={values.title}
               placeholder="Title"
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className=" border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
             {touched.title && errors.title ? (
               <div className="text-red-500">{errors.title}</div>
@@ -217,7 +217,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
           <div className="relative">
             <input
               type="date"
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
+              className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
               id="date"
               name="date"
               onChange={handleChange}
@@ -258,7 +258,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
                   selected={date}
                   initialFocus
                   onSelect={handleDateSelect}
-                  className="rounded-md border"
+                  className=" border"
                 />
               </PopoverContent>
             </Popover>
@@ -277,7 +277,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
             <div>
               <input
                 type="time"
-                className="rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
+                className=" border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
                 id="time"
                 name="time"
                 onChange={handleChange}
@@ -321,7 +321,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
               onBlur={handleBlur}
               value={values.content}
               placeholder="Write Here"
-              className="w-full rounded-md border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+              className="w-full border border-stroke bg-transparent py-2 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
             />
             {touched.content && errors.content ? (
               <div className="text-red-500">{errors.content}</div>
@@ -352,7 +352,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
           <Button
             type="submit"
             value="Sign In"
-            className="cursor-pointer rounded-md border border-primary bg-primary py-1 text-white transition hover:bg-opacity-90"
+            className="cursor-pointer border border-primary bg-primary py-1 text-white transition hover:bg-opacity-90"
           >
             {isUserValid ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />

@@ -114,11 +114,11 @@ const UpdateSection = React.memo(
 
     return (
       <div
-        className=" border border-[#e1e8f0] px-1 mt-1 py-1 rounded-md bg-[#fff] boxShadow"
+        className=" border border-[#e1e8f0] px-1 mt-1 py-1 bg-[#fff] boxShadow"
         style={{ width: "50%" }}
       >
-        {/* <div className="h-[64vh] rounded-md overflow-y-auto"> */}
-        <ScrollArea className="h-[64vh] rounded-md ">
+        {/* <div className="h-[64vh] overflow-y-auto"> */}
+        <ScrollArea className="h-[64vh] ">
           {Array.isArray(editorData) && editorData
             ? editorData &&
               editorData?.map((editor: any) => {
@@ -133,7 +133,7 @@ const UpdateSection = React.memo(
                       </div>
                     )}
                     <section
-                      className="bg-white text-gray-800 border border-[#e1e8f0] rounded-md  my-2"
+                      className="bg-white text-gray-800 border border-[#e1e8f0]  my-2"
                       key={editor?._id}
                       id={`editor-${editor?._id}`}
                     >
@@ -202,7 +202,7 @@ const UpdateSection = React.memo(
                                             }
                                             className="cursor-pointer flex items-center"
                                           >
-                                            <DrawingPinIcon className=" text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f]  hover:text-[white] rounded-sm" />
+                                            <DrawingPinIcon className=" text-gray-700 mr-1  h-7 w-7 p-1 hover:bg-[#29354f]  hover:text-[white]" />
                                             <span className="text-gray-700 text-[0.8rem] ml-[7px]">
                                               Unpin From Top
                                             </span>
@@ -214,7 +214,7 @@ const UpdateSection = React.memo(
                                             }
                                             className="cursor-pointer flex items-center"
                                           >
-                                            <DrawingPinIcon className=" text-gray-700 mr-1 h-7 w-7 p-1 hover:bg-[#29354f]  hover:text-[white] rounded-sm" />
+                                            <DrawingPinIcon className=" text-gray-700 mr-1 h-7 w-7 p-1 hover:bg-[#29354f]  hover:text-[white]" />
                                             <span className="text-gray-700 text-[0.8rem] ml-[8px]">
                                               Pin To Top
                                             </span>
@@ -267,7 +267,7 @@ const UpdateSection = React.memo(
                           {editor?.replies ? (
                             <div className="mx-20">
                               <p
-                                className="w-full text-gray-500 rounded-md border cursor-pointer border-stroke bg-transparent my-2 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                className="w-full text-gray-500 border cursor-pointer border-stroke bg-transparent my-2 py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                 onClick={handleOpenQuillEditor}
                               >
                                 Click here to write a reply..
@@ -296,10 +296,10 @@ const UpdateSection = React.memo(
                                 .reverse()
                                 .map((data: any) => (
                                   <section
-                                    className="text-gray-600 body-font  my-2 rounded-md "
+                                    className="text-gray-600 body-font my-2  "
                                     key={data?._id}
                                   >
-                                    <div className="px-5 py-2 mx-auto bg-gray-100 border rounded-md w-full">
+                                    <div className="px-5 py-2 mx-auto bg-gray-100 border w-full">
                                       <div className="flex flex-wrap ">
                                         <div className="md:w-full flex flex-col items-start">
                                           <div className="flex items-center justify-between w-full border-b-2 border-gray-100">
