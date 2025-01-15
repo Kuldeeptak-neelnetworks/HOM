@@ -123,7 +123,7 @@ const ActivitySection = ({ activityDetails }: any) => {
                               </div>
                             </AccordionTrigger>
 
-                            <AccordionContent className="border p-3 mb-1">
+                            <AccordionContent className="border p-3 mb-1 overflow-scroll">
                               <table className="border border-collapse w-full bg-[#f2f6fa]">
                                 <thead>
                                   <tr className="border text-center">

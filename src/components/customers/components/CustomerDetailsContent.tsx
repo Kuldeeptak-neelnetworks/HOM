@@ -274,9 +274,9 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
         <BreadcrumbSection crumbs={crumbs} />
       </div> */}
       {/* Main Customer details section  */}
-      <div className="lg:flex gap-1  justify-start h-[220px]">
-        <div className="w-full lg:w-[35%] mb-3 lg:mb-0 h-[100vh]">
-          <Card className="h-[30vh]">
+      <div className="lg:flex gap-1  justify-start ">
+        <div className="w-full lg:w-[35%] mb-3 lg:mb-0 ">
+          <Card className="h-[26vh]">
             <CardContent className="p-0">
               <div className="flex justify-end pr-4 pt-2">
                 <TooltipCommon text="Edit Customer">
@@ -416,10 +416,10 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
           </Card>
           <ActivitySection
             activityDetails={activityDetails}
-            className="w-full h-[80vh]"
+            className="w-full "
           />
         </div>
-        <div className="w-full border bg-[#fff] lg:w-[65%] h-[100vh]">
+        <div className="w-full border bg-[#fff] lg:w-[65%]">
           <Tabs defaultValue="updates" className="w-full">
             <TabsList className="grid grid-cols-4">
               <TabsTrigger value="updates" className="bg-[#fff]">
@@ -440,7 +440,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                 <CardHeader className="p-0">
                   {/* <CardTitle>Updates</CardTitle> */}
                 </CardHeader>
-                <CardContent className="p-0 space-y-2 px-2 h-[88vh] boxShadow">
+                <CardContent className="p-0 space-y-2 px-2 h-[88vh] ">
                   <div className="space-y-1 relative">
                     <QuillEdior
                       productFlowId=""
@@ -542,23 +542,6 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             </TabsContent>
           </Tabs>
         </div>
-      </div>
-      <div className="flex gap-1">
-        {/* <OrderDetailsInCustomer orderData={orderDetails && orderDetails} /> */}
-        {/* <ActivitySection activityDetails={activityDetails} /> */}
-        {/* <UpdateSection
-          editorData={editorData}
-          ReplyClick={ReplyClick}
-          likeClick={likeClick}
-          likeID={like}
-          userId={userId}
-          comments={comments}
-          showComments={showComments}
-          commentID={commentID}
-          customerId={customerId}
-          addViewsData={addViewsData}
-          handleUpdate={handleUpdate}
-        /> */}
       </div>
     </div>
   );
