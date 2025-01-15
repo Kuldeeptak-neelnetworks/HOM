@@ -276,7 +276,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       {/* Main Customer details section  */}
       <div className="lg:flex gap-1  justify-start ">
         <div className="w-full lg:w-[35%] mb-3 lg:mb-0 ">
-          <Card className="h-[26vh]">
+          <Card className="h-[230px]">
             <CardContent className="p-0">
               <div className="flex justify-end pr-4 pt-2">
                 <TooltipCommon text="Edit Customer">
