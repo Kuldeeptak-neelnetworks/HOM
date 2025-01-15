@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import BreadcrumbSection from "@/components/common/BreadcrumbSection";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -30,6 +30,7 @@ import Link from "next/link";
 import TooltipCommon from "@/components/common/TooltipCommon";
 import PDF from "../../../asset/images/pdf.png";
 import OrderDetailsInCustomer from "./OrderDetailsInCustomer";
+import ActivitySection from "./ActivitySection";
 const PDFPic = PDF.src;
 
 let userDataString: any =
@@ -115,12 +116,26 @@ interface updateFileDetailType {
   itemType: string;
   source: string;
 }
+export interface ActivityDetailsType {
+  _id: number;
+  activityType: string;
+  createdAt: string;
+  createdBy: {};
+  customerId: {};
+  description: string;
+  relatedEntity: string;
+  relatedEntityId: any;
+}
 
 const CustomerDetailsContent = ({ handleUpdate }: any) => {
   const { customerId } = useParams();
   const { fetchEditorData, editorData, loading }: any = useEditorStore();
   const [customerDetails, setCustomerDetails] =
     React.useState<CustomerDetailType | null>(null);
+
+  const [activityDetails, setActivityDetails] =
+    React.useState<ActivityDetailsType | null>(null);
+
   const [orderDetails, setOrderDetails] =
     React.useState<OrdersDetailsType | null>(null);
   const [updateFileDetails, setUpdateFileDetails] =
@@ -136,6 +151,18 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       if (result.status === 200) {
         setCustomerDetails(result?.data?.data?.customer as CustomerDetailType);
         setOrderDetails(result?.data?.data?.orders as OrdersDetailsType);
+      }
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        errorToastingFunction(error?.response?.data?.message);
+      }
+    }
+  };
+  const getActivities = async () => {
+    try {
+      const result = await baseInstance.get(`activitylogs/${customerId}`);
+      if (result.status === 200) {
+        setActivityDetails(result?.data?.data as ActivityDetailsType);
       }
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
@@ -209,6 +236,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
 
   useEffect(() => {
     getCustomerDetails();
+    getActivities();
     getUpdateFiles();
     fetchEditorData(customerId);
   }, []);
@@ -246,9 +274,9 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
         <BreadcrumbSection crumbs={crumbs} />
       </div> */}
       {/* Main Customer details section  */}
-      <div className="lg:flex gap-1  justify-start ">
-        <div className="w-full lg:w-[40vw] mb-3 lg:mb-0 ">
-          <Card className="h-full">
+      <div className="lg:flex gap-1  justify-start h-[220px]">
+        <div className="w-full lg:w-[35%] mb-3 lg:mb-0 h-[100vh]">
+          <Card className="h-[30vh]">
             <CardContent className="p-0">
               <div className="flex justify-end pr-4 pt-2">
                 <TooltipCommon text="Edit Customer">
@@ -386,15 +414,22 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               </div>
             </CardContent>
           </Card>
+          <ActivitySection
+            activityDetails={activityDetails}
+            className="w-full h-[80vh]"
+          />
         </div>
-        <div className="w-full border bg-[#fff] ">
+        <div className="w-full border bg-[#fff] lg:w-[65%] h-[100vh]">
           <Tabs defaultValue="updates" className="w-full">
-            <TabsList className="grid grid-cols-3">
+            <TabsList className="grid grid-cols-4">
               <TabsTrigger value="updates" className="bg-[#fff]">
                 Reports
               </TabsTrigger>
               <TabsTrigger value="files" className="bg-[#fff]">
                 Files
+              </TabsTrigger>
+              <TabsTrigger value="orders" className="bg-[#fff]">
+                Orders
               </TabsTrigger>
               <TabsTrigger value="invoices" className="bg-[#fff]">
                 Invoices
@@ -405,7 +440,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                 <CardHeader className="p-0">
                   {/* <CardTitle>Updates</CardTitle> */}
                 </CardHeader>
-                <CardContent className="p-0 space-y-2 px-2">
+                <CardContent className="p-0 space-y-2 px-2 h-[88vh] boxShadow">
                   <div className="space-y-1 relative">
                     <QuillEdior
                       productFlowId=""
@@ -422,7 +457,30 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                       copywriterId={""}
                       websiteContentId={""}
                     />
+                    <UpdateSection
+                      editorData={editorData}
+                      ReplyClick={ReplyClick}
+                      likeClick={likeClick}
+                      likeID={like}
+                      userId={userId}
+                      comments={comments}
+                      showComments={showComments}
+                      commentID={commentID}
+                      customerId={customerId}
+                      addViewsData={addViewsData}
+                      handleUpdate={handleUpdate}
+                    />
                   </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="orders">
+              <Card className="border-none shadow-none">
+                <CardHeader className="p-0"></CardHeader>
+                <CardContent className="p-0 space-y-2 px-2 h-[88vh] boxShadow">
+                  <OrderDetailsInCustomer
+                    orderData={orderDetails && orderDetails}
+                  />
                 </CardContent>
               </Card>
             </TabsContent>
@@ -431,7 +489,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                 <CardContent
                   className="space-y-2 px-2 p-0"
                   style={{
-                    maxHeight: "180px",
+                    maxHeight: "850px",
                     overflow: "scroll",
                   }}
                 >
@@ -445,7 +503,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                   {/* <CardTitle>Invoices</CardTitle> */}
                 </CardHeader>
                 <CardContent
-                  className="space-y-2"
+                  className="space-y-2 px-5 h-[88vh] boxShadow"
                   style={{ minHeight: "178px" }}
                 >
                   <div className="pt-3 flex">
@@ -485,9 +543,10 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
           </Tabs>
         </div>
       </div>
-      <div className="flex">
-        <OrderDetailsInCustomer orderData={orderDetails && orderDetails} />
-        <UpdateSection
+      <div className="flex gap-1">
+        {/* <OrderDetailsInCustomer orderData={orderDetails && orderDetails} /> */}
+        {/* <ActivitySection activityDetails={activityDetails} /> */}
+        {/* <UpdateSection
           editorData={editorData}
           ReplyClick={ReplyClick}
           likeClick={likeClick}
@@ -499,7 +558,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
           customerId={customerId}
           addViewsData={addViewsData}
           handleUpdate={handleUpdate}
-        />
+        /> */}
       </div>
     </div>
   );

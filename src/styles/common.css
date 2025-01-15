@@ -270,6 +270,10 @@
   border-radius: 5px;
 } */
 
+.overflowSection > div :nth-child(1) {
+  display: inline-table !important;
+}
+
 @media screen and (min-width: 1200px) and (max-width: 1454px) {
   .addFiles {
     top: 177px;

@@ -100,43 +100,13 @@ const OrdersContent = () => {
     }
   }, [orderData, router]);
 
-  // Table Instance
-  // const tableInstance = useReactTable({
-  //   data,
-  //   columns,
-  //   // initialState: {
-  //   //   pagination: {
-  //   //     pageIndex: 2,
-  //   //     pageSize: 20,
-  //   //   },
-  //   // },
-  //   state: {
-  //     sorting,
-  //     columnVisibility,
-  //     rowSelection,
-  //     globalFilter: filtering,
-  //     columnFilters,
-  //   },
-  //   onGlobalFilterChange: setFiltering,
-  //   enableRowSelection: true,
-  //   onRowSelectionChange: setRowSelection,
-  //   onSortingChange: setSorting,
-  //   onColumnFiltersChange: setColumnFilters,
-  //   onColumnVisibilityChange: setColumnVisibility,
-  //   getCoreRowModel: getCoreRowModel(),
-  //   getFilteredRowModel: getFilteredRowModel(),
-  //   getPaginationRowModel: getPaginationRowModel(),
-  //   getSortedRowModel: getSortedRowModel(),
-  //   getFacetedRowModel: getFacetedRowModel(),
-  //   getFacetedUniqueValues: getFacetedUniqueValues(),
-  // });
   const tableInstance = useReactTable({
     data,
     columns,
     initialState: {
       pagination: {
         pageIndex: 0, //custom initial page index
-        pageSize: 25, //custom default page size
+        pageSize: 20, //custom default page size
       },
     },
     state: {

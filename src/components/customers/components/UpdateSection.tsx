@@ -57,6 +57,25 @@ const UpdateSection = React.memo(
     const [reaplyId, setReplyId] = useState<string | null>(null);
     const [openQuill, setOpenQuill] = useState(false);
 
+    const formatDateOfSlash = (dateString: any) => {
+      if (dateString !== null) {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+          return <div className="text-gray-400">N/A</div>;
+        }
+        // const date = new Date(dateString);
+        const options: any = {
+          day: "2-digit",
+          month: "2-digit",
+          year: "2-digit",
+        };
+        const formattedDate = date.toLocaleDateString("en-GB", options); // Using "en-GB" for day-month-year format
+        return formattedDate;
+      } else {
+        return <div className="text-gray-400">N/A</div>;
+      }
+    };
+
     const handleOpenQuillEditor = () => {
       setOpenQuill((prevOpen) => !prevOpen);
     };
@@ -113,15 +132,13 @@ const UpdateSection = React.memo(
     };
 
     return (
-      <div
-        className=" border border-[#e1e8f0] px-1 mt-1 py-1 bg-[#fff] boxShadow"
-        style={{ width: "50%" }}
-      >
+      <div className="w-full border border-[#e1e8f0] px-1 mt-1 py-1 bg-[#fff] boxShadow h-[68vh]">
         {/* <div className="h-[64vh] overflow-y-auto"> */}
-        <ScrollArea className="h-[64vh] ">
+        <ScrollArea className="h-[64vh]">
           {Array.isArray(editorData) && editorData
             ? editorData &&
               editorData?.map((editor: any) => {
+                console.log("editoreditor", editor);
                 return (
                   <React.Fragment key={editor?._id}>
                     {editor.isPinned === true && (
@@ -160,6 +177,13 @@ const UpdateSection = React.memo(
                                   <span className="font-medium text-gray-900 text-[0.8rem]">
                                     {editor?.createdBy?.fullName
                                       ? editor?.createdBy?.fullName
+                                      : ""}
+                                  </span>
+                                </span>
+                                <span className="flex-grow flex flex-col pl-4">
+                                  <span className="font-medium text-gray-900 text-[0.8rem]">
+                                    {editor?.createdAt
+                                      ? formatDateOfSlash(editor?.createdAt)
                                       : ""}
                                   </span>
                                 </span>

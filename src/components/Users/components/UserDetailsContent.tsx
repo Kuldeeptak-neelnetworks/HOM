@@ -230,7 +230,7 @@ const UserDetailsContent = () => {
               {/* Contact Name  */}
               <div className="flex items-center pb-[10px] mb-[10px]  border-b-[#ddd] border-b text-[0.8rem]">
                 <Label htmlFor="name" className="text-right font-bold">
-                  Customer Name :
+                  User Name :
                 </Label>
                 <p className="mx-2">{userDetails?.fullName || "Loading..."}</p>
               </div>
@@ -253,11 +253,7 @@ const UserDetailsContent = () => {
                 <Label htmlFor="username" className="text-right font-bold">
                   Mobile No :
                 </Label>
-                <p className="mx-2">
-                  {userDetails?.mobileNo
-                    ? userDetails?.mobileNo
-                    : "N/A" || "Loading..."}
-                </p>
+                <p className="mx-2">{userDetails?.mobileNo || "Loading..."}</p>
               </div>
               {/* Job Title  */}
               <div className="flex items-center pb-[10px] mb-[10px]  border-b-[#ddd] border-b text-[0.8rem]">

@@ -199,7 +199,7 @@ export const columns = [
     ),
     cell: ({ row }: any) =>
       row?.original?.orderValue ? (
-        row?.original?.orderValue
+        row?.original?.orderValue?.toLocaleString("en-US")
       ) : (
         <div className="text-gray-400">N/A</div>
       ),

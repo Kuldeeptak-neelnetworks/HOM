@@ -119,19 +119,19 @@ export const timeAgo = (dateString: string): string => {
   const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
   let interval = Math.floor(seconds / 31536000); // years
-  if (interval > 1) return `${interval} years`;
+  if (interval > 1) return `${interval} years Ago`;
 
   interval = Math.floor(seconds / 2592000); // months
-  if (interval > 1) return `${interval} months`;
+  if (interval > 1) return `${interval} months Ago`;
 
   interval = Math.floor(seconds / 86400); // days
-  if (interval > 1) return `${interval} days`;
+  if (interval > 1) return `${interval} days Ago`;
 
   interval = Math.floor(seconds / 3600); // hours
-  if (interval > 1) return `${interval} h`;
+  if (interval > 1) return `${interval} h Ago`;
 
   interval = Math.floor(seconds / 60); // minutes
-  if (interval > 1) return `${interval} m`;
+  if (interval > 1) return `${interval} m Ago`;
 
-  return "just now";
+  return "Just Now";
 };

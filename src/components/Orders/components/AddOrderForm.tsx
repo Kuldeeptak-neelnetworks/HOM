@@ -1088,15 +1088,20 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                       if (signaturePad.current.isEmpty()) {
                         console.log("The signature pad is empty.");
                       } else {
-                        const signatureDataUrl =
-                          signaturePad.current.toDataURL();
-                        console.log(
-                          "User has written something:",
-                          signatureDataUrl
-                        );
-                        setUrl(signatureDataUrl);
+                        setTimeout(() => {
+                          const signatureDataUrl =
+                            signaturePad.current.toDataURL();
+                          setUrl(signatureDataUrl);
+                        }, 3000);
                       }
                     }}
+                    // onEnd={() => {
+                    //   if (!signaturePad.current.isEmpty()) {
+                    //     const signatureDataUrl =
+                    //       signaturePad.current.toDataURL();
+                    //     setUrl(signatureDataUrl); // Store the signature locally
+                    //   }
+                    // }}
                   />
                   {formik.touched.customerSignature &&
                   formik.errors.customerSignature ? (
