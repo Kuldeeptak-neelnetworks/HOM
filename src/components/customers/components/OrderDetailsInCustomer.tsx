@@ -62,7 +62,7 @@ const OrderDetailsInCustomer = ({ orderData }: any) => {
 
   return (
     <div className="border border-[#e1e8f0] px-1 mt-1 py-1  bg-[#fff] boxShadow ">
-      <ScrollArea className="h-[85vh] ">
+      <ScrollArea className="h-[70vh] ">
         {orderData
           ? orderData &&
             orderData?.map((order: any) => {
