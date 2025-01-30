@@ -250,6 +250,22 @@ const OrdersContent = () => {
         tableInstance={tableInstance}
         loading={loading}
       />
+      <div className="absolute bottom-[-15px] bg-white text-[0.89rem] boxShadow">
+        <div className="p-1">
+          <div>
+            <span className="font-bold">Total Order Value :</span>
+            <span className="px-1">
+              {orderData?.totals?.totalOrderValue.toFixed(2)}
+            </span>
+          </div>
+          <div>
+            <span className="font-bold">Total Dd Monthly :</span>
+            <span className="px-1">
+              {orderData?.totals?.totalDdMonthly.toFixed(2)}
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

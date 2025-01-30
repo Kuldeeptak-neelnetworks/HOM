@@ -343,11 +343,12 @@ const OrderDetail = () => {
                     <Label htmlFor="name" className="text-right font-bold">
                       Vat Invoice :
                     </Label>
-                    {orderDetail?.customer?.vatInvoice ? (
+
+                    {orderDetail?.vatInvoice ? (
                       <p className="mx-2">
                         <a
                           className="flex justify-center items-center hover:bg-slate-300 px-3 py-1 rounded"
-                          href={orderDetail?.customer?.vatInvoice}
+                          href={orderDetail?.vatInvoice}
                           target="_blank"
                         >
                           <span className="mr-4 text-[0.8rem]"> View PDF </span>
@@ -551,141 +552,3 @@ const OrderDetail = () => {
 };
 
 export default OrderDetail;
-
-// <div className="p-4 relative text-[0.8rem]">
-// <div className="text-xl font-semibold absolute top-[-65px]">
-//   Order Details
-// </div>
-// <div className="mb-4">
-//   <BreadcrumbSection crumbs={crumbs} />
-// </div>
-
-// <div className="flex gap-5  justify-center">
-//   <div className="w-[72%]">
-//     <Card>
-//       <CardHeader>
-//         <CardTitle className="text-center my-3">
-//           {orderDetail?.createdBy?.fullName}
-//         </CardTitle>
-//       </CardHeader>
-//       <CardContent>
-
-//         <ScrollArea className="h-[67vh]   px-3 py-3 ">
-//         <div className=" p-4 relative ">
-
-// <div className="flex gap-5 justify-center">
-// <div className=" gap-5 justify-center">
-// <div className="mt-4 ">
-// <Card className="h-[100%]">
-//   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 sm:p-10">
-//     <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//       <Label htmlFor="name" className="text-right font-bold">
-//         Contact Name:
-//       </Label>
-//       <p className="mx-2">{orderDetail?.customer?.contactName}</p>
-//     </div>
-//         {/* Company Name  */}
-
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="name" className="text-right font-bold">
-//             Company Name :
-//           </Label>
-//           <p className="mx-2">{orderDetail?.customer?.companyName}</p>
-
-//         </div>
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="name" className="text-right font-bold">
-//           Mobile No :
-//           </Label>
-//           <p className="mx-2">{orderDetail?.customer?.mobileNo}</p>
-
-//         </div>
-
-//      <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="name" className="text-right font-bold">
-//           Landline No :
-//           </Label>
-//           <p className="mx-2">{orderDetail?.customer?.landlineNo}</p>
-
-//         </div>
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="name" className="text-right font-bold">
-//           Customer Email:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.customer?.customerEmail}</p>
-
-//         </div>
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="name" className="text-right font-bold">
-//           Street No Name:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.customer?.streetNoName}</p>
-
-//         </div>
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="name" className="text-right font-bold">
-//           Town:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.customer?.town}</p>
-
-//         </div>
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="name" className="text-right font-bold">
-//           Country:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.customer?.county}</p>
-
-//         </div>
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="name" className="text-right font-bold">
-//          Post Code:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.customer?.postcode}</p>
-
-//         </div>
-
-//        <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="username" className="text-right font-bold">
-//           Order Type:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.orderType}</p>
-
-//         </div>
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="username" className="text-right font-bold">
-//           Order Value:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.orderValue}</p>
-
-//         </div>
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="username" className="text-right font-bold">
-//           Deposit:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.deposit}</p>
-
-//         </div>
-
-//         {/* Email  */}
-//         <div className="flex items-center pb-4 mb-4 border-b-[#ddd] border-b">
-//           <Label htmlFor="username" className="text-right font-bold">
-//           Building Address:
-//           </Label>
-//           <p className="mx-2">{orderDetail?.buildingAddress}</p>
-
-//         </div>
-//         </div>
-
-//     </Card>
-
-//   </div>
-
-// </div>
-
-// </div>
-//         </ScrollArea>
-//       </CardContent>
-//     </Card>
-//   </div>
-// </div>
-// </div>
