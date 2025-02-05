@@ -21,14 +21,14 @@ const MenueItem = (props: any) => {
 
   const menuItemRef = useRef<HTMLLIElement>(null);
 
-  useEffect(() => {
-    if (isActive && menuItemRef.current) {
-      menuItemRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
-  }, [isActive]);
+  // useEffect(() => {
+  //   if (isActive && menuItemRef.current) {
+  //     menuItemRef.current.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "center",
+  //     });
+  //   }
+  // }, [isActive]);
 
   return (
     <li
