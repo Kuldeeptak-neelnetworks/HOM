@@ -237,6 +237,7 @@ const LeadsContent: React.FC = () => {
         </div>
       </div>
       <DataTable
+        text=""
         queryParams={queryParams ? queryParams : ""}
         columns={columns}
         tableInstance={tableInstance}

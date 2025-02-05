@@ -2,8 +2,12 @@
 import { SearchIconSVG } from "@/utils/SVGs/SVGs";
 import React, { useState } from "react";
 
-const PageHeader = ({ tableInstance }: any) => {
+const PageHeader = ({ tableInstance, setSearchInput }: any) => {
   const { initialState, options } = tableInstance;
+
+  const searcHandler = (value: any) => {
+    setSearchInput(value);
+  };
   return (
     <div className="relative flex items-center md:mx-4 my-3 md:my-0">
       <span className="absolute pl-2">
@@ -14,8 +18,11 @@ const PageHeader = ({ tableInstance }: any) => {
         type="text"
         placeholder="Search"
         // value={initialState?.globalFilter?.filtering || ""}
-        onChange={(e) => {
-          options.onGlobalFilterChange(e.target.value);
+        // onChange={(e) => {
+        //   options.onGlobalFilterChange(e.target.value);
+        // }}
+        onChange={(e: any) => {
+          searcHandler(e.target.value);
         }}
       />
     </div>

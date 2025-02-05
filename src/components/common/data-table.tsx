@@ -23,6 +23,7 @@ interface DataTableProps<TData, TValue> {
   tableInstance: any;
   loading: boolean;
   queryParams: string;
+  text: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -30,6 +31,7 @@ export function DataTable<TData, TValue>({
   columns,
   tableInstance,
   loading,
+  text,
 }: DataTableProps<TData, TValue>) {
   // return (
   //   <div className="space-y-4 text-[#676879]">
@@ -203,7 +205,7 @@ export function DataTable<TData, TValue>({
           </Table>
         </div>
       </div>
-      <DataTablePagination table={tableInstance} />
+      {text === "orders" ? "" : <DataTablePagination table={tableInstance} />}
     </div>
   );
 }

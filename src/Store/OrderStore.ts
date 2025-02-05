@@ -53,7 +53,14 @@ export type OrderState = {
 };
 
 export type OrderActions = {
-  fetchAllOrdersData: ({ orderYear }: any) => Promise<void>;
+  fetchAllOrdersData: ({
+    page,
+    limit,
+    searchInput,
+    orderType,
+    year,
+    filters,
+  }: any) => Promise<void>;
 };
 
 export const useOrderStore = create<OrderState & OrderActions>()(
@@ -61,10 +68,19 @@ export const useOrderStore = create<OrderState & OrderActions>()(
     orderData: [],
     addedOrder: {},
     loading: false,
-    fetchAllOrdersData: async (orderYear) => {
+    fetchAllOrdersData: async ({ page, limit, searchInput, filters, year }) => {
       set({ loading: true });
       try {
-        const response = await baseInstance.get(`/orders?year=${orderYear}`);
+        const queryParams = new URLSearchParams();
+        if (page) queryParams.append("page", String(page));
+        if (limit) queryParams.append("limit", String(limit));
+        if (searchInput) queryParams.append("search", searchInput);
+        if (filters) queryParams.append("orderType", filters?.orderType);
+        if (year) queryParams.append("year", String(year));
+
+        const response = await baseInstance.get(
+          `/orders?${queryParams.toString()}`
+        );
         if (response.status === 200) {
           set({ orderData: response?.data?.data, loading: false });
         } else {
@@ -77,3 +93,24 @@ export const useOrderStore = create<OrderState & OrderActions>()(
     },
   }))
 );
+// export const useOrderStore = create<OrderState & OrderActions>()(
+//   devtools((set) => ({
+//     orderData: [],
+//     addedOrder: {},
+//     loading: false,
+//     fetchAllOrdersData: async (orderYear) => {
+//       set({ loading: true });
+//       try {
+//         const response = await baseInstance.get(`/orders?year=${orderYear}`);
+//         if (response.status === 200) {
+//           set({ orderData: response?.data?.data, loading: false });
+//         } else {
+//           set({ orderData: response?.data?.message, loading: false });
+//         }
+//       } catch (error: any) {
+//         logOutFunction(error?.response?.data?.message);
+//         set({ orderData: error?.response?.data?.message, loading: false });
+//       }
+//     },
+//   }))
+// );

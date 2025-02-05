@@ -3,7 +3,7 @@ import OrderDetail from "@/components/Orders/components/OrderDetail";
 import SideBarContent from "@/components/Sidebar/SideBarContent";
 import React, { useState } from "react";
 
-const LeadsPage: React.FC = () => {
+const OrderDetailsPage: React.FC = () => {
   const [toggleWidth, setToggleWidth] = useState<boolean>(false);
   return (
     <div className="col-span-6">
@@ -25,4 +25,4 @@ const LeadsPage: React.FC = () => {
   );
 };
 
-export default LeadsPage;
+export default OrderDetailsPage;

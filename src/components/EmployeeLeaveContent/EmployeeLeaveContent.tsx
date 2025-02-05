@@ -367,6 +367,7 @@ const EmployeeLeaveContent: React.FC = () => {
         )}
         {isShow && (
           <DataTable
+            text=""
             queryParams={queryParams ? queryParams : ""}
             columns={dynamicColumns}
             tableInstance={tableInstance}

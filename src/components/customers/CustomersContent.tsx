@@ -276,6 +276,7 @@ const CustomersContent: React.FC = () => {
       </div>
 
       <DataTable
+        text=""
         queryParams={queryParams ? queryParams : ""}
         columns={columns}
         tableInstance={tableInstance}
