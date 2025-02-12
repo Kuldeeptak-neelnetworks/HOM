@@ -130,7 +130,8 @@ export interface ActivityDetailsType {
 const CustomerDetailsContent = ({ handleUpdate }: any) => {
   const [textTab, setTextTab] = useState("activity");
   const { customerId } = useParams();
-  const { fetchEditorData,fetchacData, editorData,acData, loading }: any = useEditorStore();
+  const { fetchEditorData, fetchacData, editorData, acData, loading }: any =
+    useEditorStore();
   const [customerDetails, setCustomerDetails] =
     React.useState<CustomerDetailType | null>(null);
 
@@ -471,7 +472,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                 </CardContent>
               </Card>
             </TabsContent>
-         
+
             {textTab === "orders" && (
               <div className="w-full">
                 <OrderDetailsInCustomer
@@ -537,9 +538,27 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               </div>
             )}
             {textTab === "files" && (
-              <div className="w-full mt-1">
-                <UpdateFilesSection updateFileDetails={updateFileDetails} />
-              </div>
+              <>
+                <div className="w-full mt-1">
+                  <UpdateFilesSection updateFileDetails={updateFileDetails} />
+                  {/* <QuillEdior
+                    productFlowId=""
+                    customerId={customerId}
+                    indicatorText="post"
+                    updateId={""}
+                    handleEdit={""}
+                    orderId={""}
+                    leadId={""}
+                    technicalId={""}
+                    setOpenQuill={() => {}}
+                    setIsOpenReplyModel={() => {}}
+                    amendmentId={""}
+                    copywriterId={""}
+                    websiteContentId={""}
+                    text="file"
+                  /> */}
+                </div>
+              </>
             )}
             {/* <TabsContent value="orders">
               <Card className="border-none shadow-none">
@@ -581,6 +600,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                     amendmentId={""}
                     copywriterId={""}
                     websiteContentId={""}
+                    // text="file"
                   />
                 </CardContent>
               </Card>
@@ -602,8 +622,31 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                     amendmentId={""}
                     copywriterId={""}
                     websiteContentId={""}
+                    text="file"
                   />
                 
+                </CardContent>
+              </Card>
+            </TabsContent> */}
+            {/* <TabsContent value="updates">
+              <Card className="border-none shadow-none">
+                <CardContent className="p-0 space-y-2 px-2">
+                  <QuillEdior
+                    productFlowId=""
+                    customerId={customerId}
+                    indicatorText="post"
+                    updateId={""}
+                    handleEdit={""}
+                    orderId={""}
+                    leadId={""}
+                    technicalId={""}
+                    setOpenQuill={() => {}}
+                    setIsOpenReplyModel={() => {}}
+                    amendmentId={""}
+                    copywriterId={""}
+                    websiteContentId={""}
+                    // text="file"
+                  />
                 </CardContent>
               </Card>
             </TabsContent> */}
@@ -611,17 +654,18 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
         </div>
       </div>
       <div className="lg gap-1  justify-start">
-        {textTab === "activity" && (
+        {(textTab === "activity" ||
+          textTab === "updates" ||
+          textTab === "orders" ||
+          textTab === "invoices" ||
+          textTab === "files") && (
           <div className="w-full">
-            <ActivitySection
-              activityDetails={acData} 
-              className="w-full "
-            />
+            <ActivitySection activityDetails={acData} className="w-full" />
           </div>
         )}
 
         {/* {textTab === "updates" && ( */}
-          {/* <div className="w-full">
+        {/* <div className="w-full">
 
             <UpdateSection
               editorData={editorData}
@@ -637,22 +681,16 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               handleUpdate={handleUpdate}
             />
           </div> */}
-       {/* )} */}
-
-
-
-
-       
-
-    {/* {textTab === "orders" && ( */}
-          {/* <div className="w-full">
+        {/* )} */}
+        {/* {textTab === "orders" && ( */}
+        {/* <div className="w-full">
   
             <OrderDetailsInCustomer orderData={orderDetails && orderDetails} />
           </div> */}
         {/* )}  */}
 
-  {/* {textTab === "invoices" && ( */}
-          {/* <div className="p-3 flex bg-white w-full h-[70vh] mt-1 boxShadow border border-[#e1e8f0]">
+        {/* {textTab === "invoices" && ( */}
+        {/* <div className="p-3 flex bg-white w-full h-[70vh] mt-1 boxShadow border border-[#e1e8f0]">
             {Array.isArray(customerDetails?.vatInvoice)
               ? customerDetails?.vatInvoice?.map((item) => {
                   return item ? (
@@ -690,8 +728,8 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               : "No Data Found"}
           </div> */}
         {/* )}  */}
-    {/* {textTab === "files" && ( */}
-          {/* <div className="w-full mt-1">
+        {/* {textTab === "files" && ( */}
+        {/* <div className="w-full mt-1">
             <UpdateFilesSection updateFileDetails={updateFileDetails} />
           </div> */}
         {/* )}  */}

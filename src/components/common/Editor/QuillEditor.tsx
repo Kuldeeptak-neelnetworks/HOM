@@ -397,6 +397,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   return (
     <form onSubmit={handleAddData} className="flex gap-1 mb-1 flex-col">
       <div>
+      {/* {text !== "file" && ( */}
         <ReactQuill
           ref={quillRef}
           theme={options.theme}
@@ -405,11 +406,13 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
           onChange={(value, _, __, editor) => {
             handleChanges(value, editor);
           }}
-          onChangeSelection={updateMentionedUserIds} // Trigger update when selection changes (optional)
+          onChangeSelection={updateMentionedUserIds} 
           placeholder={options.placeholder}
         />
+  {/* //  )}  */}
       </div>
-      <div className="flex justify-start gap-2 items-center">
+      {/* */}
+      <div className="flex justify-start gap-2 items-center absolute bottom-1 right-0 ">
         <Button
           type="submit"
           className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
@@ -431,6 +434,46 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
           </TooltipCommon>
         </div>
       </div>
+      {/* { text === "file" && (
+  <>
+
+      <div className="mt-4">
+        <h3>Uploaded Files:</h3>
+        {images}
+      
+      </div>
+
+
+    <div className="flex justify-start gap-2 items-center">
+      <Button
+        type="submit"
+        className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
+      >
+        {isLoading ? (
+          <Loader2 className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
+        ) : indicatorText === "reply" ? (
+          "Reply"
+        ) : (
+          "Update"
+        )}
+      </Button>
+
+      
+      <div onClick={imageHandler} className="w-fit cursor-pointer">
+        <TooltipCommon text="Add Files">
+          <div className="hover:bg-gray-100 px-2 py-1">
+         
+            <AddFilesDarkUIconSVG />
+          </div>
+        </TooltipCommon>
+      </div>
+    </div>
+
+
+ 
+  </>
+)} */}
+
     </form>
   );
 };

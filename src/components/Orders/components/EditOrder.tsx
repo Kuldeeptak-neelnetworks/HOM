@@ -41,7 +41,7 @@ import {
   headerOptions,
   successToastingFunction,
 } from "@/common/commonFunctions";
-import { format } from "date-fns";
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 import * as Yup from "yup";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -112,7 +112,7 @@ const EditOrder = ({}) => {
   const [dateOfFirstDd, setDateOfFirstDd] = useState<Date | undefined>(
     undefined
   );
-  const [dateOfOrder, setDateOfOrder] = useState<Date | undefined>(undefined);
+  // const [dateOfOrder, setDateOfOrder] = useState<Date | undefined>(undefined);
   const { orderId } = useParams();
   const [ddMonthly, setDDmonthly] = useState(0);
   const [percentIncrease, setPercentIncrease] = useState(0);
@@ -133,9 +133,9 @@ const EditOrder = ({}) => {
   const handleRenewalDateSelect = (selectedDate: any) => {
     setRenewalDate(selectedDate);
   };
-  const handleDateOfOrderDateSelect = (selectedDate: any) => {
-    setDateOfOrder(selectedDate);
-  };
+  // const handleDateOfOrderDateSelect = (selectedDate: any) => {
+  //   setDateOfOrder(selectedDate);
+  // };
   const handleOfFirstDateSelect = (selectedDate: any) => {
     setDateOfFirstDd(selectedDate);
   };
@@ -336,6 +336,62 @@ const EditOrder = ({}) => {
     setCashFlow(+calculatedCashFlow?.toFixed(2));
   }, [orderData]);
 
+  const [dateOfOrder, setDateOfOrder] = useState<Date | undefined>(undefined);
+  const startYear = getYear(new Date()) - 100;
+  const endYear = getYear(new Date()) + 100;
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  // Generate the years array using the fixed startYear and endYear
+  const years = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => startYear + i
+  );
+
+  // Function to handle month change
+  const handleMonthChange = (month: string) => {
+    if (dateOfOrder) {
+      const newDate = setMonth(dateOfOrder, months.indexOf(month)); 
+      setDateOfOrder(newDate); 
+    } else {
+      const newDate = setMonth(new Date(), months.indexOf(month)); 
+      setDateOfOrder(newDate); 
+    }
+  };
+  const handleYearChange = (year: string) => {
+    if (dateOfOrder) {
+      const newDate = setYear(dateOfOrder, parseInt(year)); 
+      setDateOfOrder(newDate); 
+    } else {
+      const newDate = setYear(new Date(), parseInt(year)); 
+      setDateOfOrder(newDate); 
+    }
+  };
+
+  const handleDateOfOrderDateSelect = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDateOfOrder(selectedDate); 
+    }
+  };
+
+  const currentMonth = dateOfOrder
+    ? getMonth(dateOfOrder)
+    : getMonth(new Date());
+  const currentYear = dateOfOrder ? getYear(dateOfOrder) : getYear(new Date());
+ 
   return (
     <div className="sm:px-4 py-0 relative">
       <div className="text-[1rem] font-semibold absolute top-[-30px]">
@@ -479,6 +535,68 @@ const EditOrder = ({}) => {
                       <Button
                         variant={"outline"}
                         className={cn(
+                          "w-[250px] justify-start text-left font-normal",
+                          !dateOfOrder && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {dateOfOrder ? (
+                          format(dateOfOrder, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={handleMonthChange}
+                          value={months[currentMonth]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={handleYearChange}
+                          value={currentYear.toString()} 
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <Calendar
+                        mode="single"
+                        selected={dateOfOrder} 
+                        onSelect={handleDateOfOrderDateSelect}
+                        initialFocus
+                        month={dateOfOrder} 
+                        onMonthChange={setDateOfOrder} 
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  {/* <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
                           "w-[100%] justify-start text-left font-normal text-md",
                           !dateOfOrder && "text-muted-foreground"
                         )}
@@ -499,7 +617,7 @@ const EditOrder = ({}) => {
                         className=" border"
                       />
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                   {formik.touched.dateOfOrder && formik.errors.dateOfOrder ? (
                     <div className="text-red-500">
                       {formik.errors.dateOfOrder}

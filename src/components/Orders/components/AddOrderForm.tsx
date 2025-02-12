@@ -25,7 +25,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 import { useCustomerStore } from "@/Store/CustomerStore";
 
 import SignatureCanvas from "react-signature-canvas";
@@ -77,7 +77,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   }, []);
 
   const router = useRouter();
-  const [dateOfOrder, setDateOfOrder] = useState<Date | undefined>(undefined);
+
   const [userLoading, setUserLoading] = useState(false);
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
   const { userData, fetchUsersData }: any = useUserStore();
@@ -153,6 +153,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
           "Invalid email address"
         ),
+        dateOfOrder:Yup.string().required("Date Of Order Required"),
       });
 
       if (formik.values.orderType === "New Business") {
@@ -267,10 +268,6 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
     setFieldValue,
   } = formik;
 
-  const handleDateSelect = (selectedDate: any) => {
-    setDate(selectedDate);
-  };
-
   const handleClear = () => {
     if (signaturePad.current) {
       signaturePad.current.clear();
@@ -279,7 +276,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   };
 
   useEffect(() => {
-    fetchAllCustomerData();
+    fetchAllCustomerData(1,20);
   }, []);
 
   useEffect(() => {
@@ -298,6 +295,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
       //  );
     }
   }, [customerData, router]);
+
 
   // Function to convert base64 to Blob
   const base64ToBlob = (base64: string, mimeType: string) => {
@@ -341,9 +339,51 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   useEffect(() => {
     if (url) uploadSignature();
   }, [url]);
+ 
+  const [dateOfOrder, setDateOfOrder] = useState<Date | undefined>(undefined);
+  const startYear = getYear(new Date()) - 100;
+  const endYear = getYear(new Date()) + 100;
+  
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June', 
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  
 
-  console.log("url", url);
+  const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
+  
+  // Function to handle month change
+  const handleMonthChange = (month: string) => {
+    if (dateOfOrder) {
+      const newDate = setMonth(dateOfOrder, months.indexOf(month)); 
+      setDateOfOrder(newDate); 
+    } else {
 
+      const newDate = setMonth(new Date(), months.indexOf(month));  
+      setDateOfOrder(newDate);  
+    }
+  };
+  
+  // Function to handle year change
+  const handleYearChange = (year: string) => {
+    if (dateOfOrder) {
+      const newDate = setYear(dateOfOrder, parseInt(year));  
+      setDateOfOrder(newDate); 
+    } else {
+      const newDate = setYear(new Date(), parseInt(year));  
+      setDateOfOrder(newDate);  
+    }
+  };
+  
+
+  const handleSelect = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDateOfOrder(selectedDate); 
+    }
+  };
+
+  const currentMonth = dateOfOrder ? getMonth(dateOfOrder) : getMonth(new Date());
+  const currentYear = dateOfOrder ? getYear(dateOfOrder) : getYear(new Date());
   return (
     <div className="p-4 relative">
       <div className="text-[1rem] font-semibold absolute top-[-30px]">
@@ -363,6 +403,67 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                 </label>
                 <div className="relative">
                   <Popover>
+                  <PopoverTrigger asChild>
+    <Button
+      variant={"outline"}
+      className={cn(
+        "w-[250px] justify-start text-left font-normal",
+        !dateOfOrder && "text-muted-foreground"
+      )}
+    >
+      <CalendarIcon className="mr-2 h-4 w-4" />
+      {dateOfOrder ? format(dateOfOrder, "PPP") : <span>Pick a date</span>}
+    </Button>
+  </PopoverTrigger>
+  <PopoverContent className="w-auto p-0">
+    <div className="flex justify-between p-2">
+      <Select
+        onValueChange={handleMonthChange}
+        value={months[currentMonth]}  
+      >
+        <SelectTrigger className="w-[110px]">
+          <SelectValue placeholder="Month" />
+        </SelectTrigger>
+        <SelectContent>
+          {months.map((month) => (
+            <SelectItem key={month} value={month}>
+              {month}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
+        onValueChange={handleYearChange}
+        value={currentYear.toString()} 
+      >
+        <SelectTrigger className="w-[110px]">
+          <SelectValue placeholder="Year" />
+        </SelectTrigger>
+        <SelectContent>
+          {years.map((year) => (
+            <SelectItem key={year} value={year.toString()}>
+              {year}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+
+    <Calendar
+      mode="single"
+      selected={dateOfOrder}  // Ensure selected date is set
+      onSelect={handleSelect}
+      initialFocus
+      month={dateOfOrder}  // Ensure month is set based on selected date
+      onMonthChange={setDateOfOrder}  // Update the month when user interacts with calendar
+    />
+  </PopoverContent>
+</Popover>
+{touched.dateOfOrder && errors.dateOfOrder ? (
+                    <div className="text-red-500">{errors?.dateOfOrder}</div>
+                  ) : null}
+                  {/* <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={"outline"}
@@ -388,7 +489,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                         className=" border"
                       />
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                 </div>
               </div>
               {/* Customer Name */}
