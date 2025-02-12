@@ -46,24 +46,34 @@ export type CustomerState = {
   loading: boolean | any;
 };
 
+
 export type CustomerActions = {
-  fetchAllCustomerData: (page: number, limit: number) => Promise<void>;
+  fetchAllCustomerData: ({
+    page,
+    limit,
+    searchInput,
+    filters,
+  }: any) => Promise<void>;
 };
 
 export const useCustomerStore = create<CustomerState & CustomerActions>()(
-  devtools((set: any) => ({
-    customerData: {
-      customers: [],
-    },
+  devtools((set) => ({
+    customerData: [],
+    addedOrder: {},
     loading: false,
-
-    fetchAllCustomerData: async (page: number, limit: number) => {
+    fetchAllCustomerData: async ({ page, limit, searchInput, filters}) => {
       set({ loading: true });
       try {
-        const response = await baseInstance.get("/customers", {
-          params: { page, limit },
-        });
+        const queryParams = new URLSearchParams();
+        if (page) queryParams.append("page", String(page));
+        if (limit) queryParams.append("limit", String(limit));
+        if (searchInput) queryParams.append("search", searchInput);
+        if (filters) queryParams.append("status", filters?.status);
+    
 
+        const response = await baseInstance.get(
+          `/customers?${queryParams.toString()}`
+        );
         if (response.status === 200) {
           set({ customerData: response?.data?.data, loading: false });
         } else {
@@ -76,6 +86,33 @@ export const useCustomerStore = create<CustomerState & CustomerActions>()(
     },
   }))
 );
+
+// export const useCustomerStore = create<CustomerState & CustomerActions>()(
+//   devtools((set: any) => ({
+//     customerData: {
+//       customers: [],
+//     },
+//     loading: false,
+
+//     fetchAllCustomerData: async (page: number, limit: number) => {
+//       set({ loading: true });
+//       try {
+//         const response = await baseInstance.get("/customers", {
+//           params: { page, limit },
+//         });
+
+//         if (response.status === 200) {
+//           set({ customerData: response?.data?.data, loading: false });
+//         } else {
+//           set({ customerData: response?.data?.message, loading: false });
+//         }
+//       } catch (error: any) {
+//         logOutFunction(error?.response?.data?.message);
+//         set({ customerData: error?.response?.data?.message, loading: false });
+//       }
+//     },
+//   }))
+// );
 
 // export const useCustomerStore = create<CustomerState & CustomerActions>()(
 //   devtools((set: any) => ({

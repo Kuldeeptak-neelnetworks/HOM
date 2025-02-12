@@ -205,7 +205,7 @@ export function DataTable<TData, TValue>({
           </Table>
         </div>
       </div>
-      {text === "orders" ? "" : <DataTablePagination table={tableInstance} />}
+      {text === "orders" || text === "cutomer"? "" : <DataTablePagination table={tableInstance} />}
     </div>
   );
 }

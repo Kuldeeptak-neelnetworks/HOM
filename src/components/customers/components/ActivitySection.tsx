@@ -1,6 +1,6 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import React from "react";
+import React, { useEffect } from "react";
 import { ActivityDetailsType } from "./CustomerDetailsContent";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Logo from "../../../asset/images/companydummylog.png";
@@ -11,9 +11,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useEditorStore } from "@/Store/EditorStore";
 const companyLogo = Logo.src;
 
-const ActivitySection = ({ activityDetails }: any) => {
+const ActivitySection = ({ activityDetails ,}: any) => {
   const formatDateOfSlash = (dateString: any) => {
     if (dateString !== null) {
       const date = new Date(dateString);
@@ -32,7 +33,10 @@ const ActivitySection = ({ activityDetails }: any) => {
       return <div className="text-gray-400">N/A</div>;
     }
   };
-
+ const { fetchEditorData }: any = useEditorStore();
+//  useEffect(()=>{
+//   fetchEditorData()
+//  })
   return (
     <div className="overflow-x-hidden border border-[#e1e8f0] px-1 mt-1 py-1  bg-[#fff] boxShadow w-full h-[70vh]">
       <div className="font-bold ml-3 bg-[#e1e8f0] w-fit px-3">Activity</div>

@@ -49,6 +49,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   const { fetchCopywriterData } = useCopywriterStore();
   const {
     fetchEditorData,
+    fetchacData,
     fetchLeadsEditorData,
     fetchOrderEditorData,
     fetchTechnicalUpdateData,
@@ -340,6 +341,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
 
             // Use the helper function to reduce repetition
             callIfValidString(customerId, fetchEditorData, "customerId");
+            callIfValidString(customerId, fetchacData, "customerId");
+            
             callIfValidString(orderId, fetchOrderEditorData, "orderId");
             callIfValidString(leadId, fetchLeadsEditorData, "leadId");
             callIfValidString(

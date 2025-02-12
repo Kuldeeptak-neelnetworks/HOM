@@ -32,7 +32,7 @@ const UpdateFilesSection = ({
   };
 
   return (
-    <ScrollArea className="flex flex-col overflow-y-auto bg-white h-[70vh] border border-[#e1e8f0]">
+    <div className="flex flex-col overflow-y-auto bg-white border border-[#e1e8f0] max-h-[176px] min-h-[176px] overflow-scroll">
       {updateFileDetails && updateFileDetails.length > 0 ? (
         updateFileDetails.map((editData: any, index: number) => {
           let fileExtension = "";
@@ -203,7 +203,7 @@ const UpdateFilesSection = ({
           No data found !
         </div>
       )}
-    </ScrollArea>
+    </div>
   );
 };
 

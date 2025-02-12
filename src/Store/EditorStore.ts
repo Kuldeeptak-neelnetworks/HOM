@@ -22,6 +22,7 @@ export type EditorDataType = {
 
 export type EditorState = {
   editorData: EditorDataType[] | any;
+  acData:EditorDataType[] | any;
   orderEditorData: EditorDataType[] | any;
   leadsEditorData: EditorDataType[] | any;
   technicalUpdateData: EditorDataType[] | any;
@@ -35,6 +36,7 @@ export type EditorState = {
 
 export type EditorActions = {
   fetchEditorData: (customerId: string) => Promise<void>;
+  fetchacData :(customerId: string) => Promise<void>;
   fetchOrderEditorData: (orderId: string) => Promise<void>;
   fetchLeadsEditorData: (leadId: string) => Promise<void>;
   fetchTechnicalUpdateData: (technicalId: string) => Promise<void>;
@@ -48,6 +50,7 @@ export type EditorActions = {
 export const useEditorStore = create<EditorState & EditorActions>()(
   devtools((set) => ({
     editorData: [],
+    acData:[],
     orderEditorData: [],
     leadsEditorData: [],
     technicalUpdateData: [],
@@ -71,6 +74,25 @@ export const useEditorStore = create<EditorState & EditorActions>()(
           }
         } catch (error: any) {
           set({ editorData: error?.response?.data?.message, loading: false });
+        }
+      }
+    },
+
+
+    fetchacData: async (customerId: string) => {
+      if (customerId) {
+        set({ loading: true });
+        try {
+          const response = await baseInstance.get(
+            `/activitylogs/${customerId}`
+          );
+          if (response.status === 200) {
+            set({ acData: response?.data?.data, loading: false });
+          } else {
+            set({ acData: response.data?.message, loading: false });
+          }
+        } catch (error: any) {
+          set({ acData: error?.response?.data?.message, loading: false });
         }
       }
     },

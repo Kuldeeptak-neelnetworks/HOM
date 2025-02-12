@@ -130,7 +130,7 @@ export interface ActivityDetailsType {
 const CustomerDetailsContent = ({ handleUpdate }: any) => {
   const [textTab, setTextTab] = useState("activity");
   const { customerId } = useParams();
-  const { fetchEditorData, editorData, loading }: any = useEditorStore();
+  const { fetchEditorData,fetchacData, editorData,acData, loading }: any = useEditorStore();
   const [customerDetails, setCustomerDetails] =
     React.useState<CustomerDetailType | null>(null);
 
@@ -164,6 +164,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       const result = await baseInstance.get(`activitylogs/${customerId}`);
       if (result.status === 200) {
         setActivityDetails(result?.data?.data as ActivityDetailsType);
+        fetchacData(customerId);
       }
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
@@ -239,6 +240,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
     getCustomerDetails();
     getActivities();
     getUpdateFiles();
+    fetchacData(customerId);
     fetchEditorData(customerId);
   }, []);
 
@@ -276,7 +278,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       </div> */}
       {/* Main Customer details section  */}
       <div className="lg:flex gap-1  justify-start">
-        <div className="w-full lg:w-[35%] mb-3 lg:mb-0 ">
+        <div className="w-full lg:w-[50%] mb-3 lg:mb-0 ">
           <Card className="h-[230px]">
             <CardContent className="p-0">
               <div className="flex justify-end pr-4 pt-2">
@@ -420,7 +422,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             className="w-full "
           /> */}
         </div>
-        <div className="w-full border bg-[#fff] lg:w-[65%]">
+        <div className="w-full border bg-[#fff] lg:w-[50%]">
           <Tabs
             value={textTab}
             onValueChange={setTextTab}
@@ -429,27 +431,25 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
           >
             <TabsList className="grid grid-cols-5">
               <TabsTrigger value="activity" className="bg-[#fff]">
-                Activity
+                Update
               </TabsTrigger>
-              <TabsTrigger value="updates" className="bg-[#fff]">
-                Reports
-              </TabsTrigger>
-
               <TabsTrigger value="orders" className="bg-[#fff]">
                 Orders
               </TabsTrigger>
               <TabsTrigger value="invoices" className="bg-[#fff]">
                 Invoices
               </TabsTrigger>
+              <TabsTrigger value="updates" className="bg-[#fff]">
+                Reports
+              </TabsTrigger>
+
               <TabsTrigger value="files" className="bg-[#fff]">
                 Files
               </TabsTrigger>
             </TabsList>
             <TabsContent value="activity">
               <Card className="border-none shadow-none">
-                <CardHeader className="p-0">
-                  {/* <CardTitle>Updates</CardTitle> */}
-                </CardHeader>
+                <CardHeader className="p-0"></CardHeader>
                 <CardContent className="p-0 space-y-2 px-2  ">
                   <div className="space-y-1 relative">
                     <QuillEdior
@@ -471,43 +471,77 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                 </CardContent>
               </Card>
             </TabsContent>
-            <TabsContent value="updates">
-              <Card className="border-none shadow-none">
-                <CardContent className="p-0 space-y-2 px-2 ">
-                  <div className="space-y-1 relative">
-                    <QuillEdior
-                      productFlowId=""
-                      customerId={customerId}
-                      indicatorText="post"
-                      updateId={""}
-                      handleEdit={""}
-                      orderId={""}
-                      leadId={""}
-                      technicalId={""}
-                      setOpenQuill={() => {}}
-                      setIsOpenReplyModel={() => {}}
-                      amendmentId={""}
-                      copywriterId={""}
-                      websiteContentId={""}
-                    />
-                    {/* <UpdateSection
-                      editorData={editorData}
-                      ReplyClick={ReplyClick}
-                      likeClick={likeClick}
-                      likeID={like}
-                      userId={userId}
-                      comments={comments}
-                      showComments={showComments}
-                      commentID={commentID}
-                      customerId={customerId}
-                      addViewsData={addViewsData}
-                      handleUpdate={handleUpdate}
-                    /> */}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="orders">
+         
+            {textTab === "orders" && (
+              <div className="w-full">
+                <OrderDetailsInCustomer
+                  orderData={orderDetails && orderDetails}
+                />
+              </div>
+            )}
+
+            {textTab === "invoices" && (
+              <div className="p-3 flex bg-white w-full max-h-[176px] min-h-[176px] overflow-scroll mt-1 boxShadow border border-[#e1e8f0]">
+                {Array.isArray(customerDetails?.vatInvoice)
+                  ? customerDetails?.vatInvoice?.map((item) => {
+                      return item ? (
+                        <div className="border border-[#e1e8f0] h-[70px] p-2 flex justify-center align-middle items-center">
+                          <div>
+                            <a
+                              href={item ? item : ""}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title={item}
+                            >
+                              <img
+                                //   src={fileIcons[fileType]}
+                                src={PDFPic}
+                                alt="PDF"
+                                className="h-[50px] w-[50px] object-cover"
+                              />
+                            </a>
+                          </div>
+                          <div className="">
+                            <a
+                              href={item ? item : ""}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title={item}
+                            >
+                              {item}
+                            </a>
+                          </div>
+                        </div>
+                      ) : (
+                        "No Invoice Found"
+                      );
+                    })
+                  : "No Data Found"}
+              </div>
+            )}
+            {textTab === "updates" && (
+              <div className="w-full">
+                <UpdateSection
+                  editorData={editorData}
+                  ReplyClick={ReplyClick}
+                  likeClick={likeClick}
+                  likeID={like}
+                  userId={userId}
+                  comments={comments}
+                  showComments={showComments}
+                  commentID={commentID}
+                  customerId={customerId}
+                  addViewsData={addViewsData}
+                  handleUpdate={handleUpdate}
+                />
+              </div>
+            )}
+            {textTab === "files" && (
+              <div className="w-full mt-1">
+                <UpdateFilesSection updateFileDetails={updateFileDetails} />
+              </div>
+            )}
+            {/* <TabsContent value="orders">
               <Card className="border-none shadow-none">
                 <CardHeader className="p-0"></CardHeader>
                 <CardContent className="p-0 space-y-2 px-2  boxShadow">
@@ -526,13 +560,11 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                     copywriterId={""}
                     websiteContentId={""}
                   />
-                  {/* <OrderDetailsInCustomer
-                    orderData={orderDetails && orderDetails}
-                  /> */}
+               
                 </CardContent>
               </Card>
-            </TabsContent>
-            <TabsContent value="invoices">
+            </TabsContent> */}
+            {/* <TabsContent value="invoices">
               <Card className="border-none">
                 <CardContent className="p-0 space-y-2 px-2 ">
                   <QuillEdior
@@ -552,8 +584,8 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                   />
                 </CardContent>
               </Card>
-            </TabsContent>
-            <TabsContent value="files">
+            </TabsContent> */}
+            {/* <TabsContent value="files">
               <Card className="border-none shadow-none">
                 <CardContent className="p-0 space-y-2 px-2">
                   <QuillEdior
@@ -571,27 +603,26 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                     copywriterId={""}
                     websiteContentId={""}
                   />
-                  {/* <OrderDetailsInCustomer
-                    orderData={orderDetails && orderDetails}
-                  /> */}
+                
                 </CardContent>
               </Card>
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </div>
       </div>
-      <div className="lg:flex gap-1  justify-start">
+      <div className="lg gap-1  justify-start">
         {textTab === "activity" && (
           <div className="w-full">
             <ActivitySection
-              activityDetails={activityDetails}
+              activityDetails={acData} 
               className="w-full "
             />
           </div>
         )}
 
-        {textTab === "updates" && (
-          <div className="w-full">
+        {/* {textTab === "updates" && ( */}
+          {/* <div className="w-full">
+
             <UpdateSection
               editorData={editorData}
               ReplyClick={ReplyClick}
@@ -605,17 +636,23 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               addViewsData={addViewsData}
               handleUpdate={handleUpdate}
             />
-          </div>
-        )}
+          </div> */}
+       {/* )} */}
 
-        {textTab === "orders" && (
-          <div className="w-full">
+
+
+
+       
+
+    {/* {textTab === "orders" && ( */}
+          {/* <div className="w-full">
+  
             <OrderDetailsInCustomer orderData={orderDetails && orderDetails} />
-          </div>
-        )}
+          </div> */}
+        {/* )}  */}
 
-        {textTab === "invoices" && (
-          <div className="p-3 flex bg-white w-full h-[70vh] mt-1 boxShadow border border-[#e1e8f0]">
+  {/* {textTab === "invoices" && ( */}
+          {/* <div className="p-3 flex bg-white w-full h-[70vh] mt-1 boxShadow border border-[#e1e8f0]">
             {Array.isArray(customerDetails?.vatInvoice)
               ? customerDetails?.vatInvoice?.map((item) => {
                   return item ? (
@@ -651,13 +688,13 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                   );
                 })
               : "No Data Found"}
-          </div>
-        )}
-        {textTab === "files" && (
-          <div className="w-full mt-1">
+          </div> */}
+        {/* )}  */}
+    {/* {textTab === "files" && ( */}
+          {/* <div className="w-full mt-1">
             <UpdateFilesSection updateFileDetails={updateFileDetails} />
-          </div>
-        )}
+          </div> */}
+        {/* )}  */}
       </div>
     </div>
   );

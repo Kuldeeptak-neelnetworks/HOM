@@ -132,9 +132,9 @@ const UpdateSection = React.memo(
     };
 
     return (
-      <div className="w-full border border-[#e1e8f0] px-1 mt-1 py-1 bg-[#fff] boxShadow h-[68vh]">
+      <div className="w-full border border-[#e1e8f0] px-1 mt-1 py-1 bg-[#fff] boxShadow ">
         {/* <div className="h-[64vh] overflow-y-auto"> */}
-        <ScrollArea className="h-[64vh]">
+        <div className="max-h-[176px] min-h-[176px] overflow-scroll">
           {Array.isArray(editorData) && editorData
             ? editorData &&
               editorData?.map((editor: any) => {
@@ -446,7 +446,7 @@ const UpdateSection = React.memo(
                 );
               })
             : "No Data Available"}
-        </ScrollArea>
+        </div>
       </div>
     );
   }
