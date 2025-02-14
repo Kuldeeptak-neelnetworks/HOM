@@ -241,7 +241,7 @@ export default function SideDrawer({
                       </div>
                     </div>
 
-                    <div className="p-8 ">
+                    <div className="p-8 model-update-btn">
                       <CardTitle>{customerName}</CardTitle>
                       <div className="w-full mt-2">
                         <Tabs defaultValue="updates" className="w-full">
@@ -267,6 +267,7 @@ export default function SideDrawer({
                                 </p>
                                 {openQuill && (
                                   <div className="space-y-1">
+                                    
                                     <QuillEditor
                                       amendmentId={amendmentId || ""}
                                       orderId={orderId || ""}
@@ -281,6 +282,7 @@ export default function SideDrawer({
                                       setIsOpenReplyModel={() => {}}
                                       copywriterId={copywriterId || ""}
                                       websiteContentId={websiteContentId || ""}
+                                      // text=""
                                     />
                                   </div>
                                 )}

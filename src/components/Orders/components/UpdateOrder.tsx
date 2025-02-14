@@ -317,6 +317,7 @@ const UpdateOrder = ({ orderId }: any) => {
                             amendmentId={""}
                             copywriterId={""}
                             websiteContentId={""}
+                            text={""}
                           />
                         </div>
                       )}
@@ -438,6 +439,7 @@ const UpdateOrder = ({ orderId }: any) => {
                                   amendmentId={""}
                                   copywriterId={""}
                                   websiteContentId={""}
+                                  text={""}
                                 />
                               </div>
                             )}

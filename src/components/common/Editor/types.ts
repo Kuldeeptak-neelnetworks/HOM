@@ -10,6 +10,7 @@ export interface QuillEditorProps {
   copywriterId?: string | string[];
   amendmentId?: string | string[];
   websiteContentId?: string | string[];
+  text?: string | string[];
   setIsOpenReplyModel: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenQuill: React.Dispatch<React.SetStateAction<boolean>>;
 }

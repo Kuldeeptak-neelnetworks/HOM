@@ -324,6 +324,7 @@ const UpdateAmendment = ({ amendmentId }: any) => {
                             handleEdit={""}
                             copywriterId={""}
                             websiteContentId={""}
+                     
                           />
                         </div>
                       )}
@@ -446,6 +447,7 @@ const UpdateAmendment = ({ amendmentId }: any) => {
                                   handleEdit={""}
                                   copywriterId={""}
                                   websiteContentId={""}
+                         
                                 />
                               </div>
                             )}

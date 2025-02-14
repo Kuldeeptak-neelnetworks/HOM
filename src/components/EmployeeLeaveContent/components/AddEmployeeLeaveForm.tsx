@@ -14,7 +14,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CalendarIcon, Loader2 } from "lucide-react";
-import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -35,6 +34,7 @@ import { useUserStore } from "@/Store/UserStore";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
 import { useEmployeeLeaveStore } from "@/Store/EmployeeLeaveStore";
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 
 interface UserData {
   fullName?: string;
@@ -61,16 +61,6 @@ const AddEmployeeLeaveForm: React.FC = () => {
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [returnDate, setReturnDate] = useState<Date | undefined>(undefined);
   const [userDetails, setUserDetails] = useState<UserData | null>(null);
-
-  const handleStartDate = (selectedDate: any) => {
-    setStartDate(selectedDate);
-  };
-  const handleEndDate = (selectedDate: any) => {
-    setEndDate(selectedDate);
-  };
-  const handleReturnDate = (selectedDate: any) => {
-    setReturnDate(selectedDate);
-  };
 
   const fetchUserData = async () => {
     try {
@@ -119,7 +109,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
 
         const isSuccess = await addEmployeeLeaveData(data);
         if (isSuccess) {
-          router.push("/employeeLeaveManagement"); // Navigate only if the data was successfully added
+          router.push("/employeeLeaveManagement"); 
         }
       } catch (error: any) {
         console.log("Unexpected error", error);
@@ -138,7 +128,100 @@ const AddEmployeeLeaveForm: React.FC = () => {
     setFieldValue,
     setFieldTouched,
   } = formik;
+  const startYear = getYear(new Date()) - 100;
+  const endYear = getYear(new Date()) + 100;
 
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const years = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => startYear + i
+  );
+  const handleMonthChange = (
+    month: string,
+    target: "start" | "end" | "returnDate"
+  ) => {
+    const monthIndex = months.indexOf(month);
+
+    if (monthIndex === -1) return;
+
+    const currentDate =
+      {
+        start: startDate,
+        end: endDate,
+        returnDate: returnDate,
+      }[target] || new Date();
+
+    const newDate = setMonth(currentDate, monthIndex);
+
+    if (target === "start") {
+      setStartDate(newDate);
+    } else if (target === "end") {
+      setEndDate(newDate);
+    } else if (target === "returnDate") {
+      setReturnDate(newDate);
+    }
+  };
+  const handleYearChange = (
+    year: string,
+    target: "start" | "end" | "returnDate"
+  ) => {
+    const yearNumber = parseInt(year);
+
+    if (isNaN(yearNumber)) return;
+
+    const currentDate =
+      {
+        start: startDate,
+        end: endDate,
+        returnDate: returnDate,
+      }[target] || new Date();
+
+    const newDate = setYear(currentDate, yearNumber);
+
+    if (target === "start") {
+      setStartDate(newDate);
+    } else if (target === "end") {
+      setEndDate(newDate);
+    } else if (target === "returnDate") {
+      setReturnDate(newDate);
+    }
+  };
+  const currentMonthStart = startDate
+    ? getMonth(startDate)
+    : getMonth(new Date());
+  const currentYearStart = startDate ? getYear(startDate) : getYear(new Date());
+  const currentYearReturnDate = returnDate
+    ? getYear(returnDate)
+    : getYear(new Date());
+  const currentMonthReturnDate = returnDate
+    ? getMonth(returnDate)
+    : getMonth(new Date());
+  const currentMonthEnd = endDate ? getMonth(endDate) : getMonth(new Date());
+  const currentYearEnd = endDate ? getYear(endDate) : getYear(new Date());
+
+  const handleStartDate = (selectedDate: Date | undefined) => {
+    setStartDate(selectedDate);
+  };
+  const handleEndDate = (selectedDate: Date | undefined) => {
+    setEndDate(selectedDate);
+  };
+  const handleReturnDate = (selectedDate: Date | undefined) => {
+    setReturnDate(selectedDate);
+  };
   return (
     <ScrollArea className=" w-[100%] xl:w-[56vw]  p-7 my-5 border boxShadow bg-[#fff]">
       <form onSubmit={handleSubmit} className="text-[0.8rem] ">
@@ -214,7 +297,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                   <Button
                     variant={"outline"}
                     className={cn(
-                      "w-[100%] justify-start text-left font-normal text-md",
+                      "w-[250px] justify-start text-left font-normal",
                       !startDate && "text-muted-foreground"
                     )}
                   >
@@ -227,12 +310,49 @@ const AddEmployeeLeaveForm: React.FC = () => {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
+                  <div className="flex justify-between p-2">
+                    <Select
+                      onValueChange={(month) =>
+                        handleMonthChange(month, "start")
+                      }
+                      value={months[currentMonthStart]}
+                    >
+                      <SelectTrigger className="w-[110px]">
+                        <SelectValue placeholder="Month" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {months.map((month) => (
+                          <SelectItem key={month} value={month}>
+                            {month}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    <Select
+                      onValueChange={(year) => handleYearChange(year, "start")}
+                      value={currentYearStart.toString()}
+                    >
+                      <SelectTrigger className="w-[110px]">
+                        <SelectValue placeholder="Year" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {years.map((year) => (
+                          <SelectItem key={year} value={year.toString()}>
+                            {year}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
                   <Calendar
                     mode="single"
                     selected={startDate}
-                    initialFocus
                     onSelect={handleStartDate}
-                    className="border"
+                    initialFocus
+                    month={startDate}
+                    onMonthChange={(date) => setStartDate(date)}
                   />
                 </PopoverContent>
               </Popover>
@@ -248,7 +368,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                   <Button
                     variant={"outline"}
                     className={cn(
-                      "w-[100%] justify-start text-left font-normal text-md",
+                      "w-[250px] justify-start text-left font-normal",
                       !endDate && "text-muted-foreground"
                     )}
                   >
@@ -261,12 +381,47 @@ const AddEmployeeLeaveForm: React.FC = () => {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
+                  <div className="flex justify-between p-2">
+                    <Select
+                      onValueChange={(month) => handleMonthChange(month, "end")}
+                      value={months[currentMonthEnd]}
+                    >
+                      <SelectTrigger className="w-[110px]">
+                        <SelectValue placeholder="Month" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {months.map((month) => (
+                          <SelectItem key={month} value={month}>
+                            {month}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+
+                    <Select
+                      onValueChange={(year) => handleYearChange(year, "end")}
+                      value={currentYearEnd.toString()}
+                    >
+                      <SelectTrigger className="w-[110px]">
+                        <SelectValue placeholder="Year" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {years.map((year) => (
+                          <SelectItem key={year} value={year.toString()}>
+                            {year}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
                   <Calendar
                     mode="single"
                     selected={endDate}
-                    initialFocus
                     onSelect={handleEndDate}
-                    className=" border"
+                    initialFocus
+                    month={endDate}
+                    onMonthChange={(date) => setEndDate(date)}
                   />
                 </PopoverContent>
               </Popover>
@@ -283,7 +438,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "w-[100%] justify-start text-left font-normal text-md",
+                    "w-[250px] justify-start text-left font-normal",
                     !returnDate && "text-muted-foreground"
                   )}
                 >
@@ -296,12 +451,51 @@ const AddEmployeeLeaveForm: React.FC = () => {
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0">
+                <div className="flex justify-between p-2">
+                  <Select
+                    onValueChange={(month) =>
+                      handleMonthChange(month, "returnDate")
+                    }
+                    value={months[currentMonthReturnDate]}
+                  >
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {months.map((month) => (
+                        <SelectItem key={month} value={month}>
+                          {month}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <Select
+                    onValueChange={(year) =>
+                      handleYearChange(year, "returnDate")
+                    }
+                    value={currentYearReturnDate.toString()}
+                  >
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {years.map((year) => (
+                        <SelectItem key={year} value={year.toString()}>
+                          {year}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 <Calendar
                   mode="single"
                   selected={returnDate}
-                  initialFocus
                   onSelect={handleReturnDate}
-                  className=" border"
+                  initialFocus
+                  month={returnDate}
+                  onMonthChange={(date) => setReturnDate(date)}
                 />
               </PopoverContent>
             </Popover>

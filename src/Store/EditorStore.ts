@@ -23,6 +23,8 @@ export type EditorDataType = {
 export type EditorState = {
   editorData: EditorDataType[] | any;
   acData:EditorDataType[] | any;
+  customerFileData:EditorDataType[] | any;
+  fileData:EditorDataType[] | any;
   orderEditorData: EditorDataType[] | any;
   leadsEditorData: EditorDataType[] | any;
   technicalUpdateData: EditorDataType[] | any;
@@ -37,6 +39,8 @@ export type EditorState = {
 export type EditorActions = {
   fetchEditorData: (customerId: string) => Promise<void>;
   fetchacData :(customerId: string) => Promise<void>;
+  fetchCutomerFileData:(customerId: string) => Promise<void>;
+  fetchFileData:(customerId: string) => Promise<void>;
   fetchOrderEditorData: (orderId: string) => Promise<void>;
   fetchLeadsEditorData: (leadId: string) => Promise<void>;
   fetchTechnicalUpdateData: (technicalId: string) => Promise<void>;
@@ -51,6 +55,8 @@ export const useEditorStore = create<EditorState & EditorActions>()(
   devtools((set) => ({
     editorData: [],
     acData:[],
+    fileData:[],
+    customerFileData:[],
     orderEditorData: [],
     leadsEditorData: [],
     technicalUpdateData: [],
@@ -97,6 +103,41 @@ export const useEditorStore = create<EditorState & EditorActions>()(
       }
     },
 
+    fetchCutomerFileData: async (customerId: string) => {
+      if (customerId) {
+        set({ loading: true });
+        try {
+          const response = await baseInstance.get(
+            `/files/customer/${customerId}?flag=ReportFile`
+          );
+          if (response.status === 200) {
+            set({ customerFileData: response?.data?.data?.files, loading: false });
+          } else {
+            set({ customerFileData: response.data?.message, loading: false });
+          }
+        } catch (error: any) {
+          set({ customerFileData: error?.response?.data?.message, loading: false });
+        }
+      }
+    },
+
+    fetchFileData: async (customerId: string) => {
+      if (customerId) {
+        set({ loading: true });
+        try {
+          const response = await baseInstance.get(
+            `/files/customer/${customerId}`
+          );
+          if (response.status === 200) {
+            set({ fileData: response?.data?.data?.files, loading: false });
+          } else {
+            set({ fileData: response.data?.message, loading: false });
+          }
+        } catch (error: any) {
+          set({ fileData: error?.response?.data?.message, loading: false });
+        }
+      }
+    },
     fetchOrderEditorData: async (orderId: string) => {
       if (orderId) {
         set({ loading: true });

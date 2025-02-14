@@ -360,37 +360,103 @@ const EditOrder = ({}) => {
     { length: endYear - startYear + 1 },
     (_, i) => startYear + i
   );
+  const handleMonthChange = (
+    month: string,
+    target: "firstDd" | "order" | "renewalDate"
+  ) => {
+    const monthIndex = months.indexOf(month);
 
-  // Function to handle month change
-  const handleMonthChange = (month: string) => {
-    if (dateOfOrder) {
-      const newDate = setMonth(dateOfOrder, months.indexOf(month)); 
-      setDateOfOrder(newDate); 
+    if (monthIndex === -1) return; 
+
+    if (target === "firstDd") {
+      const newDate = dateOfFirstDd
+        ? setMonth(dateOfFirstDd, monthIndex)
+        : setMonth(new Date(), monthIndex);
+      setDateOfFirstDd(newDate);
+    } else if (target === "order") {
+      const newDate = dateOfOrder
+        ? setMonth(dateOfOrder, monthIndex)
+        : setMonth(new Date(), monthIndex);
+      setDateOfOrder(newDate);
     } else {
-      const newDate = setMonth(new Date(), months.indexOf(month)); 
-      setDateOfOrder(newDate); 
+      const newDate = renewalDate
+        ? setMonth(renewalDate, monthIndex)
+        : setMonth(new Date(), monthIndex);
+      setRenewalDate(newDate);
     }
   };
-  const handleYearChange = (year: string) => {
-    if (dateOfOrder) {
-      const newDate = setYear(dateOfOrder, parseInt(year)); 
-      setDateOfOrder(newDate); 
+
+  // Handler for year change (for both dates)
+  const handleYearChange = (
+    year: string,
+    target: "firstDd" | "order" | "renewalDate"
+  ) => {
+    const yearNumber = parseInt(year);
+    if (isNaN(yearNumber)) return;
+
+    if (target === "firstDd") {
+      const newDate = dateOfFirstDd
+        ? setYear(dateOfFirstDd, yearNumber)
+        : setYear(new Date(), yearNumber);
+      setDateOfFirstDd(newDate);
+    } else if (target === "order") {
+      const newDate = dateOfOrder
+        ? setYear(dateOfOrder, yearNumber)
+        : setYear(new Date(), yearNumber);
+      setDateOfOrder(newDate);
     } else {
-      const newDate = setYear(new Date(), parseInt(year)); 
-      setDateOfOrder(newDate); 
+      const newDate = renewalDate
+        ? setYear(renewalDate, yearNumber)
+        : setYear(new Date(), yearNumber);
+      setRenewalDate(newDate);
     }
   };
 
-  const handleDateOfOrderDateSelect = (selectedDate: Date | undefined) => {
+  // Handle selecting a date for dateOfOrder
+  const handleSelectOrder = (selectedDate: Date | undefined) => {
     if (selectedDate) {
-      setDateOfOrder(selectedDate); 
+      setDateOfOrder(selectedDate);
     }
   };
 
-  const currentMonth = dateOfOrder
+  // Handle selecting a date for dateOfFirstDd
+  const handleSelectFirstDd = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDateOfFirstDd(selectedDate);
+    }
+  };
+  const handleSelectRenewalDate = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setRenewalDate(selectedDate);
+    }
+  };
+
+  // Current month and year logic for both dates
+  const currentMonthOrder = dateOfOrder
     ? getMonth(dateOfOrder)
     : getMonth(new Date());
-  const currentYear = dateOfOrder ? getYear(dateOfOrder) : getYear(new Date());
+
+  const currentYearOrder = dateOfOrder
+    ? getYear(dateOfOrder)
+    : getYear(new Date());
+
+  const currentMonthFirstDd = dateOfFirstDd
+    ? getMonth(dateOfFirstDd)
+    : getMonth(new Date());
+
+  const currentYearFirstDd = dateOfFirstDd
+    ? getYear(dateOfFirstDd)
+    : getYear(new Date());
+    
+
+    const currentMonthRenewalDate = renewalDate
+    ? getMonth(renewalDate)
+    : getMonth(new Date());
+
+  const currentYearRenewalDate= renewalDate
+    ? getYear(renewalDate)
+    : getYear(new Date());
+
  
   return (
     <div className="sm:px-4 py-0 relative">
@@ -530,7 +596,73 @@ const EditOrder = ({}) => {
                   Date Of Order
                 </label>
                 <div className="relative">
-                  <Popover>
+                <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[250px] justify-start text-left font-normal",
+                          !dateOfOrder && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {dateOfOrder ? (
+                          format(dateOfOrder,  "yyyy-MM-dd")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "order")
+                          }
+                          value={months[currentMonthOrder]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "order")
+                          }
+                          value={currentYearOrder.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <Calendar
+                        mode="single"
+                        selected={dateOfOrder}
+                        onSelect={handleSelectOrder}
+                        initialFocus
+                        month={dateOfOrder}
+                        onMonthChange={(date) => setDateOfOrder(date)} 
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  {/* <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={"outline"}
@@ -591,7 +723,7 @@ const EditOrder = ({}) => {
                         onMonthChange={setDateOfOrder} 
                       />
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                   {/* <Popover>
                     <PopoverTrigger asChild>
                       <Button
@@ -1083,7 +1215,73 @@ const EditOrder = ({}) => {
                   Date Of First Dd
                 </label>
                 <div className="relative">
-                  <Popover>
+                <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[250px] justify-start text-left font-normal",
+                          !dateOfFirstDd && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {dateOfFirstDd ? (
+                          format(dateOfFirstDd,  "yyyy-MM-dd")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "firstDd")
+                          }
+                          value={months[currentMonthFirstDd]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "firstDd")
+                          }
+                          value={currentYearFirstDd.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <Calendar
+                        mode="single"
+                        selected={dateOfFirstDd}
+                        onSelect={handleSelectFirstDd}
+                        initialFocus
+                        month={dateOfFirstDd}
+                        onMonthChange={(date) => setDateOfFirstDd(date)} 
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  {/* <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={"outline"}
@@ -1108,7 +1306,7 @@ const EditOrder = ({}) => {
                         className=" border"
                       />
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                 </div>
                 {formik.touched.dateOfFirstDd && formik.errors.dateOfFirstDd ? (
                   <div className="text-red-500">
@@ -1235,7 +1433,73 @@ const EditOrder = ({}) => {
                   Renewal Date 2024
                 </label>
                 <div className="relative">
-                  <Popover>
+                <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[250px] justify-start text-left font-normal",
+                          !renewalDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {renewalDate ? (
+                          format(renewalDate,  "yyyy-MM-dd")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "renewalDate")
+                          }
+                          value={months[currentMonthRenewalDate]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "renewalDate")
+                          }
+                          value={currentYearRenewalDate.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <Calendar
+                        mode="single"
+                        selected={renewalDate}
+                        onSelect={handleSelectRenewalDate}
+                        initialFocus
+                        month={renewalDate}
+                        onMonthChange={(date) => setRenewalDate(date)} 
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  {/* <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={"outline"}
@@ -1260,7 +1524,7 @@ const EditOrder = ({}) => {
                         className=" border"
                       />
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
 
                   {formik.touched.renewalDate2024 &&
                   formik.errors.renewalDate2024 ? (

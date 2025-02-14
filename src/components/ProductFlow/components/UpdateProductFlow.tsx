@@ -319,6 +319,7 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                             amendmentId={""}
                             copywriterId={""}
                             websiteContentId={""}
+                            text={""}
                           />
                         </div>
                       )}
@@ -442,6 +443,7 @@ const UpdateProductFlow = ({ productFlowId }: any) => {
                                   amendmentId={""}
                                   copywriterId={""}
                                   websiteContentId={""}
+                                  text={""}
                                 />
                               </div>
                             )}

@@ -191,7 +191,7 @@ const ChatModel = ({
                     </p>
                     {openQuill && (
                       <div className="space-y-1">
-                        <QuillEdior
+                        <QuillEdior  text={""}
                           amendmentId={amendmentId || ""}
                           orderId={orderId || ""}
                           customerId={""}

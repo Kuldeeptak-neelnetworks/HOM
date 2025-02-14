@@ -218,7 +218,7 @@ const OrdersContent = () => {
           filters,
         });
     }, 500),
-    [fetchAllOrdersData, orderYear, filters, page, limit] // Add necessary dependencies
+    [fetchAllOrdersData, orderYear, filters, page, limit] 
   );
 
   useEffect(() => {

@@ -50,6 +50,7 @@
 .react-select-custom-styling {
   border-color: #e1e8f0;
 }
+
 .sidebar-margin {
   margin-left: 17rem;
 }
@@ -150,7 +151,7 @@
 
 /* =================================== */
 .ql-container {
-  min-height: 100px;
+  min-height: 130px;
 }
 
 .updates {
@@ -261,7 +262,22 @@
   resize: both; /* Allow resizing */
   overflow: hidden;
 }
+.update .update-btn{
+  position: absolute;
+  bottom:4px;
+  right: 0px;
+}
+.update .file-1 .update-btn{
+  position: relative;
 
+  justify-content: end;
+}
+.model-update-btn .update-btn{
+  bottom: 4px;
+  position: absolute;
+  /* justify-content: end; */
+  right: 0;
+}
 /* .quill-uploaded-image {
   width: 130px;
   height: 130px;

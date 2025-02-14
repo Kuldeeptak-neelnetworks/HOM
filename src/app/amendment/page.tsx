@@ -43,3 +43,4 @@ const AmendmentPage: React.FC = () => {
 };
 
 export default AmendmentPage;
+

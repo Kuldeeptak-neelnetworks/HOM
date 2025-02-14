@@ -308,6 +308,7 @@ const UpdateLead = ({ leadId }: any) => {
                             amendmentId={""}
                             copywriterId={""}
                             websiteContentId={""}
+                            text={""}
                           />
                         </div>
                       )}
@@ -430,6 +431,7 @@ const UpdateLead = ({ leadId }: any) => {
                                   amendmentId={""}
                                   copywriterId={""}
                                   websiteContentId={""}
+                                  text={""}
                                 />
                               </div>
                             )}

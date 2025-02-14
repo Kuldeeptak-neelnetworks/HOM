@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import BreadcrumbSection from "@/components/common/BreadcrumbSection";
-import { format } from "date-fns";
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 import {
   BuildingIconSVG,
   EmailIconSVG,
@@ -196,19 +196,121 @@ const EditProductFlow = () => {
     errors,
     setFieldValue,
   } = formik;
-  const handleLiveDate = (selectedDate: any) => {
-    setLiveDate(selectedDate);
-  };
-  const handlePhase1Instructed = (selectedDate: any) => {
-    setDatePhase1Instructed(selectedDate);
-  };
-  const handlePhase2Instructed = (selectedDate: any) => {
-    setDatePhase2Instructed(selectedDate);
-  };
-  const handleDemoCompletedDate = (selectedDate: any) => {
-    setDemoCompletedDate(selectedDate);
-  };
-
+  // const handleLiveDate = (selectedDate: any) => {
+  //   setLiveDate(selectedDate);
+  // };
+  // const handlePhase1Instructed = (selectedDate: any) => {
+  //   setDatePhase1Instructed(selectedDate);
+  // };
+  // const handlePhase2Instructed = (selectedDate: any) => {
+  //   setDatePhase2Instructed(selectedDate);
+  // };
+  // const handleDemoCompletedDate = (selectedDate: any) => {
+  //   setDemoCompletedDate(selectedDate);
+  // };
+  const handlePhase1Instructed = (selectedDate: Date | undefined) => {
+      if (selectedDate) {
+        setDatePhase1Instructed(selectedDate);
+      }
+    };
+  
+    const handlePhase2Instructed = (selectedDate: Date | undefined) => {
+      if (selectedDate) {
+        setDatePhase2Instructed(selectedDate);
+      }
+    };
+  
+    const handleDemoCompletedDate = (selectedDate: Date | undefined) => {
+      if (selectedDate) {
+        setDemoCompletedDate(selectedDate);
+      }
+    };
+  
+    const handleLiveDate = (selectedDate: Date | undefined) => {
+      if (selectedDate) {
+        setLiveDate(selectedDate);
+      }
+    };
+  
+    const startYear = getYear(new Date()) - 100;
+    const endYear = getYear(new Date()) + 100;
+  
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+  
+    // Generate the years array using the fixed startYear and endYear
+    const years = Array.from(
+      { length: endYear - startYear + 1 },
+      (_, i) => startYear + i
+    );
+    const handleMonthChange = (month: string, target: "phase1" | "phase2" | "demo" | "live") => {
+      const monthIndex = months.indexOf(month);
+      if (monthIndex === -1) return;
+    
+      const dateMap = {
+        phase1: setDatePhase1Instructed,
+        phase2: setDatePhase2Instructed,
+        demo: setDemoCompletedDate,
+        live: setLiveDate,
+      };
+    
+      const currentDate = {
+        phase1: datePhase1Instructed,
+        phase2: datePhase2Instructed,
+        demo: demoCompletedDate,
+        live: liveDate,
+      }[target];
+    
+      const newDate = currentDate ? setMonth(currentDate, monthIndex) : setMonth(new Date(), monthIndex);
+    
+      dateMap[target](newDate);
+    };
+   const handleYearChange = (year: string, target: "phase1" | "phase2" | "demo" | "live") => {
+      const yearNumber = parseInt(year);
+      if (isNaN(yearNumber)) return;
+    
+      const dateMap = {
+        phase1: setDatePhase1Instructed,
+        phase2: setDatePhase2Instructed,
+        demo: setDemoCompletedDate,
+        live: setLiveDate,
+      };
+    
+      const currentDate = {
+        phase1: datePhase1Instructed,
+        phase2: datePhase2Instructed,
+        demo: demoCompletedDate,
+        live: liveDate,
+      }[target];
+    
+      const newDate = currentDate ? setYear(currentDate, yearNumber) : setYear(new Date(), yearNumber);
+      
+      dateMap[target](newDate);
+    };
+  const getCurrentMonthAndYear = (date: Date | undefined) => ({
+    month: date ? getMonth(date) : getMonth(new Date()),
+    year: date ? getYear(date) : getYear(new Date()),
+  });
+  const { month: currentMonthPhase1, year: currentYearPhase1 } =
+    getCurrentMonthAndYear(datePhase1Instructed);
+  const { month: currentMonthPhase2, year: currentYearPhase2 } =
+    getCurrentMonthAndYear(datePhase2Instructed);
+  const { month: currentMonthDemo, year: currentYearDemo } =
+    getCurrentMonthAndYear(demoCompletedDate);
+  const { month: currentMonthLive, year: currentYearLive } =
+    getCurrentMonthAndYear(liveDate);
   return (
     <div className="p-4 relative text-[0.8rem]">
       <div className="text-[1rem] font-semibold absolute top-[-50px] ">
@@ -227,8 +329,8 @@ const EditProductFlow = () => {
             className="border p-6 bg-[#fff]  boxShadow"
           >
             <div className="lg:flex gap-5">
-              <div className="mb-5 w-full">
-                <label className="mb-2.5 block font-medium text-[#29354f] dark:text-white">
+              <div className="mb-3 w-full">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Date Phase 1 Instructed
                 </label>
                 <div className="relative">
@@ -237,31 +339,71 @@ const EditProductFlow = () => {
                       <Button
                         variant={"outline"}
                         className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
+                          "w-[250px] justify-start text-left font-normal",
                           !datePhase1Instructed && "text-muted-foreground"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {datePhase1Instructed
-                          ? format(datePhase1Instructed, "yyyy-MM-dd")
-                          : "Pick a date"}
+                        {datePhase1Instructed ? (
+                          format(datePhase1Instructed, "yyyy-MM-dd")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "phase1")
+                          }
+                          value={months[currentMonthPhase1]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "phase1")
+                          }
+                          value={currentYearPhase1.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
                       <Calendar
-                        defaultMonth={datePhase1Instructed}
                         mode="single"
                         selected={datePhase1Instructed}
-                        initialFocus
                         onSelect={handlePhase1Instructed}
-                        className=" border"
+                        initialFocus
+                        month={datePhase1Instructed}
+                        onMonthChange={(date) => setDatePhase1Instructed(date)}
                       />
                     </PopoverContent>
                   </Popover>
                 </div>
               </div>
-              <div className="mb-5 w-full">
-                <label className="mb-2.5 block font-medium text-[#29354f] dark:text-white">
+              <div className="mb-3 w-full">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Date Phase 2 Instructed
                 </label>
                 <div className="relative">
@@ -270,24 +412,64 @@ const EditProductFlow = () => {
                       <Button
                         variant={"outline"}
                         className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
+                          "w-[250px] justify-start text-left font-normal",
                           !datePhase2Instructed && "text-muted-foreground"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {datePhase2Instructed
-                          ? format(datePhase2Instructed, "yyyy-MM-dd")
-                          : "Pick a date"}
+                        {datePhase2Instructed ? (
+                          format(datePhase2Instructed, "yyyy-MM-dd")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "phase2")
+                          }
+                          value={months[currentMonthPhase2]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "phase2")
+                          }
+                          value={currentYearPhase2.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
                       <Calendar
-                        defaultMonth={datePhase2Instructed}
                         mode="single"
                         selected={datePhase2Instructed}
-                        initialFocus
                         onSelect={handlePhase2Instructed}
-                        className=" border"
+                        initialFocus
+                        month={datePhase2Instructed}
+                        onMonthChange={(date) => setDatePhase2Instructed(date)}
                       />
                     </PopoverContent>
                   </Popover>
@@ -295,8 +477,83 @@ const EditProductFlow = () => {
               </div>
             </div>
             <div className="lg:flex gap-5">
-              <div className="mb-5 w-full">
-                <label className="mb-2.5 block font-medium text-[#29354f] dark:text-white">
+              <div className="mb-3 w-full">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  Demo Completed Date
+                </label>
+
+                <div className="relative">
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[250px] justify-start text-left font-normal",
+                          !demoCompletedDate && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {demoCompletedDate ? (
+                          format(demoCompletedDate, "yyyy-MM-dd")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "demo")
+                          }
+                          value={months[currentMonthDemo]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "demo")
+                          }
+                          value={currentYearDemo.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <Calendar
+                        mode="single"
+                        selected={demoCompletedDate}
+                        onSelect={handleDemoCompletedDate}
+                        initialFocus
+                        month={demoCompletedDate}
+                        onMonthChange={(date) => setDemoCompletedDate(date)}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              </div>
+
+              <div className="mb-3 w-full">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Live Date
                 </label>
                 <div className="relative">
@@ -305,57 +562,64 @@ const EditProductFlow = () => {
                       <Button
                         variant={"outline"}
                         className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
+                          "w-[250px] justify-start text-left font-normal",
                           !liveDate && "text-muted-foreground"
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {liveDate
-                          ? format(liveDate, "yyyy-MM-dd")
-                          : "Pick a date"}
+                        {liveDate ? (
+                          format(liveDate, "yyyy-MM-dd")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "live")
+                          }
+                          value={months[currentMonthLive]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "live")
+                          }
+                          value={currentYearLive.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
                       <Calendar
-                        defaultMonth={liveDate}
                         mode="single"
                         selected={liveDate}
-                        initialFocus
                         onSelect={handleLiveDate}
-                        className=" border"
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              </div>
-              <div className="mb-5 w-full">
-                <label className="mb-2.5 block font-medium text-[#29354f] dark:text-white">
-                  Demo Completed Date
-                </label>
-                <div className="relative">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
-                          !demoCompletedDate && "text-muted-foreground"
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {demoCompletedDate
-                          ? format(demoCompletedDate, "yyyy-MM-dd")
-                          : "Pick a date"}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        defaultMonth={demoCompletedDate}
-                        mode="single"
-                        selected={demoCompletedDate}
                         initialFocus
-                        onSelect={handleDemoCompletedDate}
-                        className=" border"
+                        month={liveDate}
+                        onMonthChange={(date) => setLiveDate(date)}
                       />
                     </PopoverContent>
                   </Popover>

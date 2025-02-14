@@ -1,6 +1,7 @@
 "use client";
 import BreadcrumbSection from "@/components/common/BreadcrumbSection";
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -16,7 +17,7 @@ import {
   formatDate,
   successToastingFunction,
 } from "@/common/commonFunctions";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { useParams } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
 // import QuillEdior from "./QuillEditor";
@@ -24,13 +25,23 @@ import QuillEdior from "../../common/Editor/QuillEditor";
 import { useEditorStore } from "@/Store/EditorStore";
 import UpdateSection from "./UpdateSection";
 import UpdateFilesSection from "../../common/Editor/UpdateFilesSection";
-import { EditCustomerIconSVG } from "@/utils/SVGs/SVGs";
+import { AddFilesDarkUIconSVG, EditCustomerIconSVG } from "@/utils/SVGs/SVGs";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import TooltipCommon from "@/components/common/TooltipCommon";
 import PDF from "../../../asset/images/pdf.png";
 import OrderDetailsInCustomer from "./OrderDetailsInCustomer";
 import ActivitySection from "./ActivitySection";
+import { Loader } from "lucide-react";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import XLSX from "../../../asset/images/xlsx.png";
+import VIDEO from "../../../asset/images/video.png";
+import WORD from "../../../asset/images/word.png";
+import Logo from "../../../asset/images/companydummylog.png";
+import User from "../../../asset/images/user.png";
+import ReportFileSection from "@/components/common/Editor/ReportFileSection";
+const UserLogo = User.src;
 const PDFPic = PDF.src;
 
 let userDataString: any =
@@ -130,8 +141,17 @@ export interface ActivityDetailsType {
 const CustomerDetailsContent = ({ handleUpdate }: any) => {
   const [textTab, setTextTab] = useState("activity");
   const { customerId } = useParams();
-  const { fetchEditorData, fetchacData, editorData, acData, loading }: any =
-    useEditorStore();
+  const {
+    fetchEditorData,
+    fetchacData,
+    editorData,
+    acData,
+    loading,
+    fetchCutomerFileData,
+    customerFileData,
+    fetchFileData,
+    fileData,
+  }: any = useEditorStore();
   const [customerDetails, setCustomerDetails] =
     React.useState<CustomerDetailType | null>(null);
 
@@ -242,6 +262,8 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
     getActivities();
     getUpdateFiles();
     fetchacData(customerId);
+    fetchFileData(customerId);
+    fetchCutomerFileData(customerId);
     fetchEditorData(customerId);
   }, []);
 
@@ -262,7 +284,103 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       setCommentID(commentId);
     }
   };
+  const [value, setValue] = useState<string>("");
+  const [images, setImages] = useState<File[]>([]); // To store the files
+  const [isLoading, setIsLoading] = useState<boolean>(false); // To show loading state
 
+  const handleFileUpload = async (files: FileList | null) => {
+    if (files) {
+      const fileList = Array.from(files);
+
+      // Loop through each file and upload
+      for (const file of fileList) {
+        const formData = new FormData();
+        formData.append("files", file); // Directly append the file (binary)
+
+        try {
+          // Upload the file directly as binary data to the backend
+          const response = await baseInstance.post("/users/upload", formData);
+
+          // Handle the response from the API
+          if (response.status === 200) {
+            // If the API successfully handled the file, store it in the state (if needed)
+            setImages((prevImages) => [...prevImages, file]); // Store the file object, not the URL
+          } else {
+            errorToastingFunction("File upload failed.");
+          }
+        } catch (error) {
+          errorToastingFunction("File upload failed.");
+        }
+      }
+    }
+  };
+
+  // Open file dialog and handle file selection
+  const imageHandler = () => {
+    const inputImage = document.createElement("input");
+    inputImage.setAttribute("type", "file");
+    inputImage.setAttribute(
+      "accept",
+      "image/*, video/*, .pdf, .xlsx, .doc, .docx"
+    );
+    inputImage.setAttribute("multiple", "true");
+    inputImage.click();
+
+    inputImage.onchange = () => {
+      handleFileUpload(inputImage.files); // Handle file upload on file selection
+    };
+  };
+  const handleClear = () => {
+    setValue("");
+    setImages([]);
+  };
+
+  // Handle form submission
+  const handleAddData = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Only submit if there is text or images
+    if (images.length > 0) {
+      try {
+        setIsLoading(true);
+        const formData = new FormData();
+
+        // Append the selected images (files) to the FormData
+        images.forEach((image) => formData.append("files", image));
+
+        if (customerId) {
+          // Send the files directly (as binary) to the backend without URL conversion
+          const response = await baseInstance.post(
+            `/files/customer/${customerId}/gallery?flag=ReportFile`,
+            formData
+          );
+
+          if (response.status === 201) {
+            successToastingFunction(response?.data?.message);
+            fetchCutomerFileData(customerId);
+            handleClear();
+          }
+        }
+      } catch (error) {
+        errorToastingFunction(error);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      errorToastingFunction("Please enter text or upload an image to submit.");
+    }
+  };
+  const PDFPic = PDF.src;
+  const XLSXPic = XLSX.src;
+  const VIDEOPic = VIDEO.src;
+  const WORDPic = WORD.src;
+  const companyLogo = Logo.src;
+  const getFilenameFromURL = (url: string) => {
+    // Splitting the URL by '/' and getting the last part
+    const parts = url.split("/");
+    const filename = parts[parts.length - 1];
+    return filename;
+  };
   return (
     <div className="px-4 py-0 relative text-[0.8rem] bg-[#f2f6fa]">
       {/* <div className="text-xl font-semibold absolute top-[-50px]">
@@ -423,7 +541,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             className="w-full "
           /> */}
         </div>
-        <div className="w-full border bg-[#fff] lg:w-[50%]">
+        <div className="w-full border bg-[#fff] lg:w-[50%] update">
           <Tabs
             value={textTab}
             onValueChange={setTextTab}
@@ -452,7 +570,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               <Card className="border-none shadow-none">
                 <CardHeader className="p-0"></CardHeader>
                 <CardContent className="p-0 space-y-2 px-2  ">
-                  <div className="space-y-1 relative">
+                  <div className="space-y-1 relative ">
                     <QuillEdior
                       productFlowId=""
                       customerId={customerId}
@@ -522,7 +640,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             )}
             {textTab === "updates" && (
               <div className="w-full">
-                <UpdateSection
+                {/* <UpdateSection
                   editorData={editorData}
                   ReplyClick={ReplyClick}
                   likeClick={likeClick}
@@ -534,14 +652,15 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                   customerId={customerId}
                   addViewsData={addViewsData}
                   handleUpdate={handleUpdate}
-                />
+                /> */}
               </div>
             )}
             {textTab === "files" && (
               <>
-                <div className="w-full mt-1">
-                  <UpdateFilesSection updateFileDetails={updateFileDetails} />
-                  {/* <QuillEdior
+                <div className="w-full mt-1 file-1">
+                  <UpdateFilesSection fileData={fileData} />
+
+                  <QuillEdior
                     productFlowId=""
                     customerId={customerId}
                     indicatorText="post"
@@ -556,7 +675,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                     copywriterId={""}
                     websiteContentId={""}
                     text="file"
-                  /> */}
+                  />
                 </div>
               </>
             )}
@@ -628,10 +747,10 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                 </CardContent>
               </Card>
             </TabsContent> */}
-            {/* <TabsContent value="updates">
+            <TabsContent value="updates">
               <Card className="border-none shadow-none">
                 <CardContent className="p-0 space-y-2 px-2">
-                  <QuillEdior
+                  {/* <QuillEdior
                     productFlowId=""
                     customerId={customerId}
                     indicatorText="post"
@@ -645,11 +764,101 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                     amendmentId={""}
                     copywriterId={""}
                     websiteContentId={""}
-                    // text="file"
-                  />
+                    text="file"
+                  /> */}
+                  <div className="w-full mt-1">
+                    <ReportFileSection customerFileData={customerFileData} />
+                  </div>
+
+                  {/* <div>
+                    {images.length > 0 && (
+                      <ul>
+                        {images.map((file, index) => (
+                          <li key={index}>{file.name}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div> */}
+
+                  {/* <div className="flex justify-end gap-2 items-center right-0 ">
+                    <form onSubmit={handleAddData}>
+                      <button
+                        type="submit"
+                        className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <Loader className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
+                        ) : (
+                          "Update"
+                        )}
+                      </button>
+                    </form>
+
+                    <div
+                      onClick={imageHandler}
+                      className="w-fit cursor-pointer"
+                    >
+                      <TooltipCommon text="Add Files">
+                        <div className="hover:bg-gray-100 px-2 py-1">
+                          <AddFilesDarkUIconSVG />
+                        </div>
+                      </TooltipCommon>
+                    </div>
+                  </div> */}
+
+                  <div className="flex justify-between items-center">
+                    {/* File List Section */}
+
+                    <div className="ml-5">
+                      <ul>
+                        {images.length > 0 && (
+                          <ul>
+                            {images.map((file, index) => (
+                              <li key={index}>{file.name}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </ul>
+                    </div>
+
+                    {/* Button Section */}
+                    <form onSubmit={handleAddData}>
+                    <div className="flex justify-end gap-2 items-center right-0 ">
+                      <>
+                  
+                      <button
+                        type="submit"
+                        className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <Loader className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
+                        ) : (
+                          "Update"
+                        )}
+                      </button>
+
+                      <div
+                        onClick={imageHandler}
+                        className="w-fit cursor-pointer"
+                      >
+                        <TooltipCommon text="Add Files">
+                          <div className="hover:bg-gray-100 px-2 py-1">
+                            <AddFilesDarkUIconSVG />
+                          </div>
+                        </TooltipCommon>
+                      </div>
+                
+                   
+                      </>
+                    </div>
+                    </form>
+                    
+                  </div>
                 </CardContent>
               </Card>
-            </TabsContent> */}
+            </TabsContent>
           </Tabs>
         </div>
       </div>

@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { format } from "date-fns";
+
 import SelectReactSelect from "react-select";
 import { errorToastingFunction } from "@/common/commonFunctions";
 import { CalendarIcon, Loader2 } from "lucide-react";
@@ -30,7 +30,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { useUserStore } from "@/Store/UserStore";
 import { useCustomerStore } from "@/Store/CustomerStore";
 import { useCopywriterStore } from "@/Store/CopywriterStore";
-
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 const AddCopywriterForm = ({}: any) => {
   const router = useRouter();
   const [customerLoading, setCustomerLoading] = useState(false);
@@ -109,10 +109,60 @@ const AddCopywriterForm = ({}: any) => {
   useEffect(() => {
     fetchAllCustomerData();
   }, []);
+  const startYear = getYear(new Date()) - 100;
+  const endYear = getYear(new Date()) + 100;
 
-  const handleDateComplete = (selectedDate: any) => {
-    setDateComplete(selectedDate);
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const years = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => startYear + i
+  );
+  // Function to handle month change
+  const handleMonthChange = (month: string) => {
+    if (dateComplete) {
+      const newDate = setMonth(dateComplete, months.indexOf(month));
+      setDateComplete(newDate);
+    } else {
+      const newDate = setMonth(new Date(), months.indexOf(month));
+      setDateComplete(newDate);
+    }
   };
+
+  // Function to handle year change
+  const handleYearChange = (year: string) => {
+    if (dateComplete) {
+      const newDate = setYear(dateComplete, parseInt(year));
+      setDateComplete(newDate);
+    } else {
+      const newDate = setYear(new Date(), parseInt(year));
+      setDateComplete(newDate);
+    }
+  };
+
+  const handleComplateDateSelect = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDateComplete(selectedDate);
+    }
+  };
+
+  const currentMonth = dateComplete
+    ? getMonth(dateComplete)
+    : getMonth(new Date());
+  const currentYear = dateComplete ? getYear(dateComplete) : getYear(new Date());
 
   return (
     <div className="p-4 relative">
@@ -223,33 +273,75 @@ const AddCopywriterForm = ({}: any) => {
                 </label>
 
                 <div className="relative">
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
-                          !dateComplete && "text-muted-foreground"
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {dateComplete ? (
-                          format(dateComplete, "yyyy-MM-dd")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={dateComplete}
-                        initialFocus
-                        onSelect={handleDateComplete}
-                        className=" border"
-                      />
-                    </PopoverContent>
-                  </Popover>
+                      <Popover>
+                                      <PopoverTrigger asChild>
+                                      <Button
+                                          variant={"outline"}
+                                          className={cn(
+                                            "w-[250px] justify-start text-left font-normal",
+                                            !dateComplete && "text-muted-foreground"
+                                          )}
+                                        >
+                                          <CalendarIcon className="mr-2 h-4 w-4" />
+                                          {dateComplete &&
+                                          dateComplete.toISOString() !==
+                                            "1970-01-01T00:00:00.000Z"
+                                            ? format(dateComplete, "yyyy-MM-dd")
+                                            : "Pick a date"}
+                                        </Button>
+                                      </PopoverTrigger>
+                  
+                                      <PopoverContent className="w-auto p-0">
+                                        <div className="flex justify-between p-2">
+                                          <Select
+                                            onValueChange={(month) =>
+                                              handleMonthChange(month)
+                                            }
+                                            value={months[currentMonth]}
+                                          >
+                                            <SelectTrigger className="w-[110px]">
+                                              <SelectValue placeholder="Month" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                              {months.map((month) => (
+                                                <SelectItem key={month} value={month}>
+                                                  {month}
+                                                </SelectItem>
+                                              ))}
+                                            </SelectContent>
+                                          </Select>
+                  
+                                          <Select
+                                            onValueChange={(year) =>
+                                              handleYearChange(year)
+                                            }
+                                            value={currentYear.toString()}
+                                          >
+                                            <SelectTrigger className="w-[110px]">
+                                              <SelectValue placeholder="Year" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                              {years.map((year) => (
+                                                <SelectItem key={year} value={year.toString()}>
+                                                  {year}
+                                                </SelectItem>
+                                              ))}
+                                            </SelectContent>
+                                          </Select>
+                                        </div>
+                                     
+                  
+                                        <Calendar
+                                          mode="single"
+                                          selected={dateComplete}
+                                          onSelect={handleComplateDateSelect}
+                                          initialFocus
+                                          month={dateComplete}
+                                          onMonthChange={(date) => setDateComplete(date)}
+                                        />
+                                      </PopoverContent>
+                                    </Popover>
+                 
                 </div>
               </div>
             </div>

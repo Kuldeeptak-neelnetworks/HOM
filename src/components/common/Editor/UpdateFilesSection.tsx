@@ -20,7 +20,7 @@ const WORDPic = WORD.src;
 const companyLogo = Logo.src;
 
 const UpdateFilesSection = ({
-  updateFileDetails,
+  fileData,
   getUpdateFiles,
   productFlowId,
 }: any) => {
@@ -33,8 +33,8 @@ const UpdateFilesSection = ({
 
   return (
     <div className="flex flex-col overflow-y-auto bg-white border border-[#e1e8f0] max-h-[176px] min-h-[176px] overflow-scroll">
-      {updateFileDetails && updateFileDetails.length > 0 ? (
-        updateFileDetails.map((editData: any, index: number) => {
+      {fileData && fileData.length > 0 ? (
+        fileData.map((editData: any, index: number) => {
           let fileExtension = "";
           if (editData?.fileUrl) {
             const fileNameParts = editData?.fileUrl.split(".");

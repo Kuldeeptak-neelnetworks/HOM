@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { format } from "date-fns";
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -145,9 +145,62 @@ const EditCopywriter = () => {
     setFieldValue,
   } = formik;
 
-  const handleCompletedDate = (selectedDate: any) => {
-    setDateComplete(selectedDate);
+  const startYear = getYear(new Date()) - 100;
+  const endYear = getYear(new Date()) + 100;
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const years = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => startYear + i
+  );
+  // Function to handle month change
+  const handleMonthChange = (month: string) => {
+    if (dateComplete) {
+      const newDate = setMonth(dateComplete, months.indexOf(month));
+      setDateComplete(newDate);
+    } else {
+      const newDate = setMonth(new Date(), months.indexOf(month));
+      setDateComplete(newDate);
+    }
   };
+
+  // Function to handle year change
+  const handleYearChange = (year: string) => {
+    if (dateComplete) {
+      const newDate = setYear(dateComplete, parseInt(year));
+      setDateComplete(newDate);
+    } else {
+      const newDate = setYear(new Date(), parseInt(year));
+      setDateComplete(newDate);
+    }
+  };
+
+  const handleComplateDateSelect = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDateComplete(selectedDate);
+    }
+  };
+
+  const currentMonth = dateComplete
+    ? getMonth(dateComplete)
+    : getMonth(new Date());
+  const currentYear = dateComplete
+    ? getYear(dateComplete)
+    : getYear(new Date());
   return (
     <div className="p-4 relative text-[0.8rem]">
       <div className="text-[1rem] font-semibold absolute top-[-50px] ">
@@ -229,24 +282,60 @@ const EditCopywriter = () => {
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[100%] justify-start text-left font-normal text-md",
+                        "w-[250px] justify-start text-left font-normal",
                         !dateComplete && "text-muted-foreground"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {dateComplete
+                      {dateComplete &&
+                      dateComplete.toISOString() !== "1970-01-01T00:00:00.000Z"
                         ? format(dateComplete, "yyyy-MM-dd")
                         : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
+
                   <PopoverContent className="w-auto p-0">
+                    <div className="flex justify-between p-2">
+                      <Select
+                        onValueChange={(month) => handleMonthChange(month)}
+                        value={months[currentMonth]}
+                      >
+                        <SelectTrigger className="w-[110px]">
+                          <SelectValue placeholder="Month" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {months.map((month) => (
+                            <SelectItem key={month} value={month}>
+                              {month}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+
+                      <Select
+                        onValueChange={(year) => handleYearChange(year)}
+                        value={currentYear.toString()}
+                      >
+                        <SelectTrigger className="w-[110px]">
+                          <SelectValue placeholder="Year" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {years.map((year) => (
+                            <SelectItem key={year} value={year.toString()}>
+                              {year}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
                     <Calendar
-                      defaultMonth={dateComplete}
                       mode="single"
                       selected={dateComplete}
+                      onSelect={handleComplateDateSelect}
                       initialFocus
-                      onSelect={handleCompletedDate}
-                      className="border"
+                      month={dateComplete}
+                      onMonthChange={(date) => setDateComplete(date)}
                     />
                   </PopoverContent>
                 </Popover>

@@ -30,6 +30,17 @@ const MenueItem = (props: any) => {
   //   }
   // }, [isActive]);
 
+  // const handleMenuItemClick = (e: React.MouseEvent) => {
+  //   e.preventDefault(); // Prevent default scrolling
+  //   window.scrollTo(0, 0); // Optionally reset scroll position
+  //   setClickedTitleName(label);
+  //   setOpen(label);
+  // }
+  // const handleMenuItemClick = (e: React.MouseEvent) => {
+  //   window.scrollTo(0, 0); // Scroll to the top
+  //   setClickedTitleName(label);
+  // };
+  
   return (
     <li
       ref={menuItemRef}
@@ -37,7 +48,9 @@ const MenueItem = (props: any) => {
     >
       <div className="relative">
         <Link href={href} className="flex justify-center">
-          <button
+          {/* <button onClick={handleMenuItemClick}
+           */}
+            <button
             type="button"
             // className={`${
             //   isActive

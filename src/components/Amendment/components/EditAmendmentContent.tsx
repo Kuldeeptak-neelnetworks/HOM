@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import BreadcrumbSection from "@/components/common/BreadcrumbSection";
-import { format } from "date-fns";
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 import {
   BuildingIconSVG,
   EmailIconSVG,
@@ -148,12 +148,12 @@ const EditAmendmentContent = () => {
     return `${year}-${month}-${day}`;
   }
 
-  const handleDateSelect = (selectedDate: any) => {
-    setDate(selectedDate);
-  };
-  const handleComplateDateSelect = (selectedDate: any) => {
-    setComplateDate(selectedDate);
-  };
+  // const handleDateSelect = (selectedDate: any) => {
+  //   setDate(selectedDate);
+  // };
+  // const handleComplateDateSelect = (selectedDate: any) => {
+  //   setComplateDate(selectedDate);
+  // };
 
   useEffect(() => {
     getAmendmentDetails();
@@ -238,6 +238,83 @@ const EditAmendmentContent = () => {
     errors,
     setFieldTouched,
   } = formik;
+  const startYear = getYear(new Date()) - 100;
+  const endYear = getYear(new Date()) + 100;
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const years = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => startYear + i
+  );
+
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
+  const handleComplateDateSelect = (selectedDate: any) => {
+    if (selectedDate) {
+    setComplateDate(selectedDate);
+    }
+  };
+
+  const currentMonth = date ? getMonth(date) : getMonth(new Date());
+  const currentYear = date ? getYear(date) : getYear(new Date());
+  const currentMonthCompleteDate = completeDate ? getMonth(completeDate) : getMonth(new Date());
+  const currentYearCompleteDate = completeDate ? getYear(completeDate) : getYear(new Date());
+
+  const handleMonthChange = (
+    month: string,
+    target: "date" | "completeDate" 
+  ) => {
+    const monthIndex = months.indexOf(month);
+
+    if (monthIndex === -1) return;
+
+    if (target === "date") {
+      const newDate = date
+        ? setMonth(date, monthIndex)
+        : setMonth(new Date(), monthIndex);
+      setDate(newDate);
+    } else if (target === "completeDate") {
+      const newDate = completeDate
+        ? setMonth(completeDate, monthIndex)
+        : setMonth(new Date(), monthIndex);
+      setComplateDate(newDate);
+    }
+  };
+
+  // Handler for year change (for both dates)
+  const handleYearChange = (year: string, target: "date" | "completeDate") => {
+    const yearNumber = parseInt(year);
+    if (isNaN(yearNumber)) return;
+
+    if (target === "date") {
+      const newDate = date
+        ? setYear(date, yearNumber)
+        : setYear(new Date(), yearNumber);
+      setDate(newDate);
+    } else if (target === "completeDate") {
+      const newDate = completeDate
+        ? setYear(completeDate, yearNumber)
+        : setYear(new Date(), yearNumber);
+      setComplateDate(newDate);
+    }
+  };
   return (
     <div className="px-4 py-0  relative text-[0.8rem]">
       <div className="text-[1rem] font-semibold absolute top-[-35px] text-wrap">
@@ -266,6 +343,73 @@ const EditAmendmentContent = () => {
                       <Button
                         variant={"outline"}
                         className={cn(
+                          "w-[250px] justify-start text-left font-normal",
+                          !date && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date ? (
+                          format(date, "yyyy-MM-dd")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+
+                    <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "date")
+                          }
+                          value={months[currentMonth]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "date")
+                          }
+                          value={currentYear.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={handleDateSelect}
+                        initialFocus
+                        month={date}
+                        onMonthChange={(date) => setDate(date)}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  {/* <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
                           "w-[100%] justify-start text-left font-normal text-md",
                           !date && "text-muted-foreground"
                         )}
@@ -283,7 +427,7 @@ const EditAmendmentContent = () => {
                         className=" border"
                       />
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                 </div>
               </div>
               {/* Complete Date */}
@@ -294,10 +438,10 @@ const EditAmendmentContent = () => {
                 <div className="relative">
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button
+                    <Button
                         variant={"outline"}
                         className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
+                          "w-[250px] justify-start text-left font-normal",
                           !completeDate && "text-muted-foreground"
                         )}
                       >
@@ -309,16 +453,58 @@ const EditAmendmentContent = () => {
                           : "Pick a date"}
                       </Button>
                     </PopoverTrigger>
+
                     <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) =>
+                            handleMonthChange(month, "completeDate")
+                          }
+                          value={months[currentMonthCompleteDate]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) =>
+                            handleYearChange(year, "completeDate")
+                          }
+                          value={currentYearCompleteDate.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                   
+
                       <Calendar
                         mode="single"
                         selected={completeDate}
-                        initialFocus
                         onSelect={handleComplateDateSelect}
-                        className=" border"
+                        initialFocus
+                        month={completeDate}
+                        onMonthChange={(date) => setComplateDate(date)}
                       />
                     </PopoverContent>
                   </Popover>
+                
                 </div>
               </div>
             </div>
