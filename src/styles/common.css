@@ -51,6 +51,15 @@
   border-color: #e1e8f0;
 }
 
+.calendar-container .h-9{
+  height: 1.75rem;
+}
+.calendar-container {
+  padding: 0px;
+  height: 300px; /* Set the fixed height you want */
+  /* overflow-y: auto;  */
+}
+
 .sidebar-margin {
   margin-left: 17rem;
 }
