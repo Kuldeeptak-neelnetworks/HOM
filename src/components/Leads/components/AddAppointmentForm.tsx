@@ -34,11 +34,11 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 import { cn } from "@/lib/utils";
 import { CalendarIcon, Loader2 } from "lucide-react";
 import { PhoneIconSVG, UserIconSVG } from "@/utils/SVGs/SVGs";
-import { format } from "date-fns";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import moment from "moment";
 import { useRouter } from "next/navigation";
@@ -71,10 +71,6 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
   const [isUserValid, setIsUserValid] = useState(false);
   const [value, setValue] = useState();
   console.log("valueeeee", value);
-
-  const handleDateSelect = (selectedDate: any) => {
-    setDate(selectedDate);
-  };
 
   function formatDate(date: any) {
     const d = new Date(date);
@@ -133,7 +129,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
     }),
 
     onSubmit: async (values) => {
-      console.log("value", values);
+      // console.log("value", values);
       try {
         setIsUserValid(() => true);
         const formData = {
@@ -144,7 +140,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
           // date: values.date,
         };
 
-        console.log("formData", formData);
+        // console.log("formData", formData);
 
         const response = await baseInstance.post(
           `/leads/appointments/${leadId}`,
@@ -179,6 +175,59 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
 
   const { handleChange, handleBlur, handleSubmit, values, touched, errors } =
     formik;
+
+  const startYear = getYear(new Date()) - 100;
+  const endYear = getYear(new Date()) + 100;
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const years = Array.from(
+    { length: endYear - startYear + 1 },
+    (_, i) => startYear + i
+  );
+  // Function to handle month change
+  const handleMonthChange = (month: string) => {
+    if (date) {
+      const newDate = setMonth(date, months.indexOf(month));
+      setDate(newDate);
+    } else {
+      const newDate = setMonth(new Date(), months.indexOf(month));
+      setDate(newDate);
+    }
+  };
+
+  // Function to handle year change
+  const handleYearChange = (year: string) => {
+    if (date) {
+      const newDate = setYear(date, parseInt(year));
+      setDate(newDate);
+    } else {
+      const newDate = setYear(new Date(), parseInt(year));
+      setDate(newDate);
+    }
+  };
+
+  const handleDateSelect = (selectedDate: Date | undefined) => {
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  };
+
+  const currentMonth = date ? getMonth(date) : getMonth(new Date());
+  const currentYear = date ? getYear(date) : getYear(new Date());
 
   return (
     <form onSubmit={handleSubmit} className="overflow-y-auto text-[0.8rem]">
@@ -233,10 +282,72 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
         {/*  Date  */}
         <div className="mb-3">
           <label className="mb-2.5 block font-medium text-black dark:text-white">
-            Date
+          Appointment Date
           </label>
           <div className="relative">
             <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-[250px] justify-start text-left font-normal",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {date && date.toISOString() !== "1970-01-01T00:00:00.000Z"
+                    ? format(date, "yyyy-MM-dd")
+                    : "Pick a date"}
+                </Button>
+              </PopoverTrigger>
+
+              <PopoverContent className="w-auto p-0">
+                <div className="flex justify-between p-2">
+                  <Select
+                    onValueChange={(month) => handleMonthChange(month)}
+                    value={months[currentMonth]}
+                  >
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {months.map((month) => (
+                        <SelectItem key={month} value={month}>
+                          {month}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <Select
+                    onValueChange={(year) => handleYearChange(year)}
+                    value={currentYear.toString()}
+                  >
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {years.map((year) => (
+                        <SelectItem key={year} value={year.toString()}>
+                          {year}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="calendar-container">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={handleDateSelect}
+                    initialFocus
+                    month={date}
+                    onMonthChange={(date) => setDate(date)}
+                  />
+                </div>
+              </PopoverContent>
+            </Popover>
+            {/* <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
@@ -253,6 +364,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
                 className="w-auto p-0 z-50"
                 onClick={(e) => e.stopPropagation()}
               >
+                      <div className="calendar-container">
                 <Calendar
                   mode="single"
                   selected={date}
@@ -260,8 +372,9 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
                   onSelect={handleDateSelect}
                   className=" border"
                 />
+                </div>
               </PopoverContent>
-            </Popover>
+            </Popover> */}
             {touched.date && errors.date ? (
               <div className="text-red-500">{errors.date}</div>
             ) : null}

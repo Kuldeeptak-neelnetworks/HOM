@@ -21,11 +21,14 @@ const MenueItem = (props: any) => {
 
   const menuItemRef = useRef<HTMLLIElement>(null);
 
+  
+
   // useEffect(() => {
   //   if (isActive && menuItemRef.current) {
   //     menuItemRef.current.scrollIntoView({
   //       behavior: "smooth",
   //       block: "center",
+  //       window.scrollTo(0, 0);
   //     });
   //   }
   // }, [isActive]);
@@ -36,11 +39,23 @@ const MenueItem = (props: any) => {
   //   setClickedTitleName(label);
   //   setOpen(label);
   // }
-  // const handleMenuItemClick = (e: React.MouseEvent) => {
-  //   window.scrollTo(0, 0); // Scroll to the top
-  //   setClickedTitleName(label);
-  // };
+  const handleMenuItemClick = (e: React.MouseEvent) => {
+    window.scrollTo(0, 0); // Scroll to the top
+    setClickedTitleName(label);
+  };
+  useEffect(() => {
+    if (isActive && menuItemRef.current) {
+      menuItemRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center", // This will scroll the element to the center of the viewport
+      });
   
+      // If you want to scroll the window to the top, you can do it separately:
+      window.scrollTo(0, 0); // This will scroll the window to the top
+     
+    }
+    
+  }, [isActive]);
   return (
     <li
       ref={menuItemRef}
@@ -51,6 +66,7 @@ const MenueItem = (props: any) => {
           {/* <button onClick={handleMenuItemClick}
            */}
             <button
+             onClick={handleMenuItemClick}
             type="button"
             // className={`${
             //   isActive

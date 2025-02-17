@@ -621,6 +621,7 @@ const EditCustomerContent = () => {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
+                    <div className="calendar-container">
                       <Calendar
                         defaultMonth={date}
                         mode="single"
@@ -629,6 +630,7 @@ const EditCustomerContent = () => {
                         onSelect={handleDateSelect}
                         className=" border"
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>

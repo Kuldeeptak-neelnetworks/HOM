@@ -27,7 +27,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
+import { format, getMonth, getYear, setMonth, setYear } from "date-fns";
 import { Dispatch, SetStateAction } from "react";
 
 import { cn } from "@/lib/utils";
@@ -37,7 +37,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useParams, useRouter } from "next/navigation";
 import moment from "moment";
-import { format } from "date-fns";
+
 
 type EditAppointmentFormProps = {
   // getAppointmentsAtSelectedDate: () => void;
@@ -185,6 +185,67 @@ any) => {
     setAppointmentDate(selectedDate);
   };
 
+
+
+  
+            const startYear = getYear(new Date()) - 100;
+            const endYear = getYear(new Date()) + 100;
+          
+            const months = [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December",
+            ];
+          
+            const years = Array.from(
+              { length: endYear - startYear + 1 },
+              (_, i) => startYear + i
+            );
+            // Function to handle month change
+            const handleMonthChange = (month: string) => {
+              if (appointmentDate) {
+                const newDate = setMonth(appointmentDate, months.indexOf(month));
+                setAppointmentDate(newDate);
+              } else {
+                const newDate = setMonth(new Date(), months.indexOf(month));
+                setAppointmentDate(newDate);
+              }
+            };
+          
+            // Function to handle year change
+            const handleYearChange = (year: string) => {
+              if (appointmentDate) {
+                const newDate = setYear(appointmentDate, parseInt(year));
+                setAppointmentDate(newDate);
+              } else {
+                const newDate = setYear(new Date(), parseInt(year));
+                setAppointmentDate(newDate);
+              }
+            };
+          
+            const handleDateSelect = (selectedDate: Date | undefined) => {
+              if (selectedDate) {
+                setAppointmentDate(selectedDate);
+              }
+            };
+      
+       
+          
+            const currentMonth = appointmentDate
+              ? getMonth(appointmentDate)
+              : getMonth(new Date());
+            const currentYear = appointmentDate
+              ? getYear(appointmentDate)
+              : getYear(new Date());
   return (
     <>
       <div className="text-[1rem] font-semibold absolute sm:top-[10px] top-[60px] px-2">
@@ -251,10 +312,72 @@ any) => {
                 {/*  Appointment Date  */}
                 <div className="mb-3">
                   <label className="mb-2.5 block text-black font-[600] dark:text-white">
-                    Date
+                  Appointment Date
                   </label>
                   <div className="relative">
-                    <Popover>
+                  <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-[250px] justify-start text-left font-normal",
+                    !appointmentDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {appointmentDate && appointmentDate.toISOString() !== "1970-01-01T00:00:00.000Z"
+                    ? format(appointmentDate, "yyyy-MM-dd")
+                    : "Pick a date"}
+                </Button>
+              </PopoverTrigger>
+
+              <PopoverContent className="w-auto p-0">
+                <div className="flex justify-between p-2">
+                  <Select
+                    onValueChange={(month) => handleMonthChange(month)}
+                    value={months[currentMonth]}
+                  >
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue placeholder="Month" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {months.map((month) => (
+                        <SelectItem key={month} value={month}>
+                          {month}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <Select
+                    onValueChange={(year) => handleYearChange(year)}
+                    value={currentYear.toString()}
+                  >
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue placeholder="Year" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {years.map((year) => (
+                        <SelectItem key={year} value={year.toString()}>
+                          {year}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="calendar-container">
+                  <Calendar
+                    mode="single"
+                    selected={appointmentDate}
+                    onSelect={handleDateSelect}
+                    initialFocus
+                    month={appointmentDate}
+                    onMonthChange={(date) => setAppointmentDate(date)}
+                  />
+                </div>
+              </PopoverContent>
+            </Popover>
+                    {/* <Popover>
                       <PopoverTrigger asChild>
                         <Button
                           variant={"outline"}
@@ -270,6 +393,7 @@ any) => {
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0 z-50">
+                      <div className="calendar-container">
                         <Calendar
                           mode="single"
                           selected={appointmentDate}
@@ -278,8 +402,9 @@ any) => {
                           className=" border"
                           defaultMonth={appointmentDate}
                         />
+                        </div>
                       </PopoverContent>
-                    </Popover>
+                    </Popover> */}
                     {touched.date && errors.date ? (
                       <div className="text-red-500">{errors.date}</div>
                     ) : null}

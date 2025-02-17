@@ -394,7 +394,7 @@ const EditAmendmentContent = () => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={date}
@@ -403,31 +403,10 @@ const EditAmendmentContent = () => {
                         month={date}
                         onMonthChange={(date) => setDate(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
-                  {/* <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
-                          !date && "text-muted-foreground"
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {date ? format(date, "yyyy-MM-dd") : "Pick a date"}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={date}
-                        initialFocus
-                        onSelect={handleDateSelect}
-                        className=" border"
-                      />
-                    </PopoverContent>
-                  </Popover> */}
+              
                 </div>
               </div>
               {/* Complete Date */}
@@ -493,7 +472,7 @@ const EditAmendmentContent = () => {
                         </Select>
                       </div>
                    
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={completeDate}
@@ -502,6 +481,7 @@ const EditAmendmentContent = () => {
                         month={completeDate}
                         onMonthChange={(date) => setComplateDate(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 

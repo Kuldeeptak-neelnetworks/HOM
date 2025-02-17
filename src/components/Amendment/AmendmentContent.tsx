@@ -32,6 +32,8 @@ import {
 } from "@tanstack/react-table";
 import { useAmendmentStore } from "@/Store/AmendmentStore";
 import AddAmendmentDialoge from "./components/AddAmendmentDialoge";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 const animatedComponents = makeAnimated();
 
 // Crumbs Array
@@ -229,7 +231,18 @@ const AmendmentContent: React.FC = () => {
         ) : (
           ""
         )}
-        <AddAmendmentDialoge getAllAmendment={fetchAmendmentData} />
+        {/* <AddAmendmentDialoge getAllAmendment={fetchAmendmentData} />
+         */}
+          <div className="flex justify-normal lg:justify-end">
+          <Link href={"/amendment/addAmendment"}>
+            <Button
+              variant="outline"
+              className=" text-[0.8rem] text-white bg-[#29354f] hover:bg-[#fff] hover:text-[#29354f] boxShadow"
+            >
+              New Amendment
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <DataTable

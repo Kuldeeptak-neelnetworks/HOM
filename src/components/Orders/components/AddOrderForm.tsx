@@ -371,7 +371,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   ) => {
     const monthIndex = months.indexOf(month);
 
-    if (monthIndex === -1) return; 
+    if (monthIndex === -1) return;
 
     if (target === "firstDd") {
       const newDate = dateOfFirstDd
@@ -452,17 +452,14 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   const currentYearFirstDd = dateOfFirstDd
     ? getYear(dateOfFirstDd)
     : getYear(new Date());
-    
 
-    const currentMonthRenewalDate = renewalDate
+  const currentMonthRenewalDate = renewalDate
     ? getMonth(renewalDate)
     : getMonth(new Date());
 
-  const currentYearRenewalDate= renewalDate
+  const currentYearRenewalDate = renewalDate
     ? getYear(renewalDate)
     : getYear(new Date());
-    
-
 
   return (
     <div className="p-4 relative">
@@ -482,7 +479,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                   Date Of Order
                 </label>
                 <div className="relative">
-                <Popover>
+                  <Popover>
                     <PopoverTrigger asChild>
                       <Button
                         variant={"outline"}
@@ -538,92 +535,23 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                         </Select>
                       </div>
                       <div className="calendar-container">
-                      <Calendar
-                        mode="single"
-                        selected={dateOfOrder}
-                        onSelect={handleSelectOrder}
-                        initialFocus
-                        month={dateOfOrder}
-                        onMonthChange={(date) => setDateOfOrder(date)} 
-                      />
+                        <Calendar
+                          mode="single"
+                          selected={dateOfOrder}
+                          onSelect={handleSelectOrder}
+                          initialFocus
+                          month={dateOfOrder}
+                          onMonthChange={(date) => setDateOfOrder(date)}
+                        />
                       </div>
                     </PopoverContent>
                   </Popover>
 
-                  {/* <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[250px] justify-start text-left font-normal",
-                          !dateOfOrder && "text-muted-foreground"
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {dateOfOrder ? (
-                          format(dateOfOrder, "yyyy-MM-dd")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <div className="flex justify-between p-2">
-                        <Select
-                          onValueChange={(month) =>
-                            handleMonthChange(month, "order")
-                          }
-                          value={months[currentMonthOrder]}
-                        >
-                          <SelectTrigger className="w-[110px]">
-                            <SelectValue placeholder="Month" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {months.map((month) => (
-                              <SelectItem key={month} value={month}>
-                                {month}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-
-                        <Select
-                          onValueChange={(year) =>
-                            handleYearChange(year, "order")
-                          }
-                          value={currentYearOrder.toString()}
-                        >
-                          <SelectTrigger className="w-[110px]">
-                            <SelectValue placeholder="Year" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {years.map((year) => (
-                              <SelectItem key={year} value={year.toString()}>
-                                {year}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="calendar-container">
-                      <Calendar
-                        mode="single"
-                        selected={dateOfOrder}
-                        onSelect={handleSelectOrder}
-                        initialFocus
-                        month={dateOfOrder}
-                        onMonthChange={(date) => setDateOfOrder(date)} 
-                      />
-                      </div>
-                    </PopoverContent>
-                  </Popover> */}
-                
                   {formik.touched.dateOfOrder && formik.errors.dateOfOrder ? (
                     <div className="text-red-500">
                       {formik.errors.dateOfOrder}
                     </div>
                   ) : null}
-                  
                 </div>
               </div>
               {/* Customer Name */}
@@ -1272,44 +1200,18 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                           </SelectContent>
                         </Select>
                       </div>
-
-                      <Calendar
-                        mode="single"
-                        selected={dateOfFirstDd}
-                        onSelect={handleSelectFirstDd}
-                        initialFocus
-                        month={dateOfFirstDd}
-                        onMonthChange={(date) => setDateOfFirstDd(date)} // Ensure it's updating dateOfFirstDd only
-                      />
+                      <div className="calendar-container">
+                        <Calendar
+                          mode="single"
+                          selected={dateOfFirstDd}
+                          onSelect={handleSelectFirstDd}
+                          initialFocus
+                          month={dateOfFirstDd}
+                          onMonthChange={(date) => setDateOfFirstDd(date)}
+                        />
+                      </div>
                     </PopoverContent>
                   </Popover>
-                  {/* <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
-                          !dateOfFirstDd && "text-muted-foreground"
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {dateOfFirstDd ? (
-                          format(dateOfFirstDd, "dd-MM-yyyy")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={dateOfFirstDd}
-                        initialFocus
-                        onSelect={handleOfFirstDateSelect}
-                        className=" border"
-                      />
-                    </PopoverContent>
-                  </Popover> */}
                 </div>
                 {formik.touched.dateOfFirstDd && formik.errors.dateOfFirstDd ? (
                   <div className="text-red-500">
@@ -1340,7 +1242,11 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                         )}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
+                    <PopoverContent
+                      side="bottom"
+                      sideOffset={5}
+                      className="w-auto p-0 z-50"
+                    >
                       <div className="flex justify-between p-2">
                         <Select
                           onValueChange={(month) =>
@@ -1378,46 +1284,20 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                           </SelectContent>
                         </Select>
                       </div>
-
-                      <Calendar
-                        mode="single"
-                        selected={renewalDate}
-                        onSelect={handleSelectRenewalDate}
-                        initialFocus
-                        month={renewalDate}
-                        onMonthChange={(date) => setRenewalDate(date)} // Ensure it's updating dateOfFirstDd only
-                      />
+                      <div className="calendar-container">
+                        <Calendar
+                          mode="single"
+                          selected={renewalDate}
+                          onSelect={handleSelectRenewalDate}
+                          initialFocus
+                          month={renewalDate}
+                          onMonthChange={(date) => setRenewalDate(date)}
+                        />
+                      </div>
                     </PopoverContent>
                   </Popover>
-                  {/* <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[100%] justify-start text-left font-normal text-md",
-                          !renewalDate && "text-muted-foreground"
-                        )}
-                        onClick={() => console.log("Current Date of renewalDate:", renewalDate)} 
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {renewalDate ? (
-                          // format(renewalDate, "yyyy-MM-dd")
-                          format(renewalDate, "dd-MM-yyyy")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={renewalDate}
-                        initialFocus
-                        onSelect={handleRenewalDateSelect}
-                        className=" border"
-                      />
-                    </PopoverContent>
-                  </Popover> */}
+
+              
                   {formik.touched.renewalDate2024 &&
                   formik.errors.renewalDate2024 ? (
                     <div className="text-red-500">

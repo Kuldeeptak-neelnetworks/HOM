@@ -197,6 +197,7 @@ const EditTechnical = () => {
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0">
+                    <div className="calendar-container">
                       <Calendar
                         defaultMonth={completeDate}
                         mode="single"
@@ -205,6 +206,7 @@ const EditTechnical = () => {
                         onSelect={handleCompleteDateSelect}
                         className=" border"
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>

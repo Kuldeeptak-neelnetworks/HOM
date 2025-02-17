@@ -330,7 +330,7 @@ const AddCopywriterForm = ({}: any) => {
                                           </Select>
                                         </div>
                                      
-                  
+                                        <div className="calendar-container">
                                         <Calendar
                                           mode="single"
                                           selected={dateComplete}
@@ -339,6 +339,7 @@ const AddCopywriterForm = ({}: any) => {
                                           month={dateComplete}
                                           onMonthChange={(date) => setDateComplete(date)}
                                         />
+                                        </div>
                                       </PopoverContent>
                                     </Popover>
                  

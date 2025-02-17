@@ -651,7 +651,7 @@ const EditOrder = ({}) => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={dateOfOrder}
@@ -660,6 +660,7 @@ const EditOrder = ({}) => {
                         month={dateOfOrder}
                         onMonthChange={(date) => setDateOfOrder(date)} 
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                   {/* <Popover>
@@ -1270,7 +1271,7 @@ const EditOrder = ({}) => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={dateOfFirstDd}
@@ -1279,6 +1280,7 @@ const EditOrder = ({}) => {
                         month={dateOfFirstDd}
                         onMonthChange={(date) => setDateOfFirstDd(date)} 
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                   {/* <Popover>
@@ -1488,7 +1490,7 @@ const EditOrder = ({}) => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={renewalDate}
@@ -1497,6 +1499,7 @@ const EditOrder = ({}) => {
                         month={renewalDate}
                         onMonthChange={(date) => setRenewalDate(date)} 
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                   {/* <Popover>

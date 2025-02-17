@@ -440,7 +440,7 @@ const EditEmployeeLeaveForm = () => {
         </SelectContent>
       </Select>
     </div>
-
+    <div className="calendar-container">
     <Calendar
       mode="single"
       selected={startDate}
@@ -449,6 +449,7 @@ const EditEmployeeLeaveForm = () => {
       month={startDate}
       onMonthChange={(date) => setStartDate(date)}
     />
+    </div>
   </PopoverContent>
 </Popover>
 
@@ -511,7 +512,7 @@ const EditEmployeeLeaveForm = () => {
                       </SelectContent>
                     </Select>
                   </div>
-
+                  <div className="calendar-container">
                   <Calendar
                     mode="single"
                     selected={endDate}
@@ -520,6 +521,7 @@ const EditEmployeeLeaveForm = () => {
                     month={endDate}
                     onMonthChange={(date) => setEndDate(date)}
                   />
+                  </div>
                 </PopoverContent>
               </Popover>
                 </div>
@@ -587,7 +589,7 @@ const EditEmployeeLeaveForm = () => {
                     </SelectContent>
                   </Select>
                 </div>
-
+                <div className="calendar-container">
                 <Calendar
                   mode="single"
                   selected={returnDate}
@@ -596,6 +598,7 @@ const EditEmployeeLeaveForm = () => {
                   month={returnDate}
                   onMonthChange={(date) => setReturnDate(date)}
                 />
+                </div>
               </PopoverContent>
             </Popover>
                 </div>

@@ -84,6 +84,7 @@ export function LeadsShowMoreDialoge({ row }: any) {
             {/* ==================================== */}
           </div>
           <div className="flex gap-4" onClick={(e) => e.stopPropagation()}>
+          <div className="calendar-container">
             <Calendar
               mode="single"
               selected={date}
@@ -91,6 +92,7 @@ export function LeadsShowMoreDialoge({ row }: any) {
               className=" border"
               onDayClick={() => openEventModelFunction()}
             />
+            </div>
             {showEventBox ? (
               <EventComponentBox setShowEventBox={setShowEventBox} />
             ) : (

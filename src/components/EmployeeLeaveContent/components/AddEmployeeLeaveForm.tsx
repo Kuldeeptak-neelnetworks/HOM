@@ -345,7 +345,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                       </SelectContent>
                     </Select>
                   </div>
-
+                  <div className="calendar-container">
                   <Calendar
                     mode="single"
                     selected={startDate}
@@ -354,6 +354,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                     month={startDate}
                     onMonthChange={(date) => setStartDate(date)}
                   />
+                  </div>
                 </PopoverContent>
               </Popover>
             </div>
@@ -414,7 +415,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                       </SelectContent>
                     </Select>
                   </div>
-
+                  <div className="calendar-container">
                   <Calendar
                     mode="single"
                     selected={endDate}
@@ -423,6 +424,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                     month={endDate}
                     onMonthChange={(date) => setEndDate(date)}
                   />
+                  </div>
                 </PopoverContent>
               </Popover>
             </div>
@@ -488,7 +490,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                     </SelectContent>
                   </Select>
                 </div>
-
+                <div className="calendar-container">
                 <Calendar
                   mode="single"
                   selected={returnDate}
@@ -497,6 +499,7 @@ const AddEmployeeLeaveForm: React.FC = () => {
                   month={returnDate}
                   onMonthChange={(date) => setReturnDate(date)}
                 />
+                </div>
               </PopoverContent>
             </Popover>
           </div>

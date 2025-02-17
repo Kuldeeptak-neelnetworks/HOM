@@ -494,7 +494,7 @@ const AddProductFlowForm = ({}: any) => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={datePhase1Instructed}
@@ -503,6 +503,7 @@ const AddProductFlowForm = ({}: any) => {
                         month={datePhase1Instructed}
                         onMonthChange={(date) => setDatePhase1Instructed(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -567,7 +568,7 @@ const AddProductFlowForm = ({}: any) => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={datePhase2Instructed}
@@ -576,6 +577,7 @@ const AddProductFlowForm = ({}: any) => {
                         month={datePhase2Instructed}
                         onMonthChange={(date) => setDatePhase2Instructed(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -643,7 +645,7 @@ const AddProductFlowForm = ({}: any) => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={demoCompletedDate}
@@ -652,6 +654,7 @@ const AddProductFlowForm = ({}: any) => {
                         month={demoCompletedDate}
                         onMonthChange={(date) => setDemoCompletedDate(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -717,7 +720,7 @@ const AddProductFlowForm = ({}: any) => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={liveDate}
@@ -726,6 +729,7 @@ const AddProductFlowForm = ({}: any) => {
                         month={liveDate}
                         onMonthChange={(date) => setLiveDate(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>

@@ -389,7 +389,7 @@ const EditProductFlow = () => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={datePhase1Instructed}
@@ -398,6 +398,7 @@ const EditProductFlow = () => {
                         month={datePhase1Instructed}
                         onMonthChange={(date) => setDatePhase1Instructed(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -462,7 +463,7 @@ const EditProductFlow = () => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={datePhase2Instructed}
@@ -471,6 +472,7 @@ const EditProductFlow = () => {
                         month={datePhase2Instructed}
                         onMonthChange={(date) => setDatePhase2Instructed(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -538,7 +540,7 @@ const EditProductFlow = () => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={demoCompletedDate}
@@ -547,6 +549,7 @@ const EditProductFlow = () => {
                         month={demoCompletedDate}
                         onMonthChange={(date) => setDemoCompletedDate(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>
@@ -612,7 +615,7 @@ const EditProductFlow = () => {
                           </SelectContent>
                         </Select>
                       </div>
-
+                      <div className="calendar-container">
                       <Calendar
                         mode="single"
                         selected={liveDate}
@@ -621,6 +624,7 @@ const EditProductFlow = () => {
                         month={liveDate}
                         onMonthChange={(date) => setLiveDate(date)}
                       />
+                      </div>
                     </PopoverContent>
                   </Popover>
                 </div>
