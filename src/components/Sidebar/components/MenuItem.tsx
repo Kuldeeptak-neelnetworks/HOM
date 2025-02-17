@@ -75,11 +75,17 @@ const MenueItem = (props: any) => {
             // }
 
             // `}
+
             className={
               isActive
-                ? "w-full bg-gray-400 text-gray-700 dark:text-white dark:hover:bg-gray-700 hover:text-gray-700 transition duration-75  p-1"
-                : "w-full hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 hover:text-gray-700 transition duration-75  p-1"
+                ? "w-full bg-white text-gray-700 dark:text-white transition duration-75 p-1"
+                : "w-full  transition duration-75  p-1"
             }
+            // className={
+            //   isActive
+            //     ? "w-full bg-gray-400 text-gray-700 dark:text-white dark:hover:bg-gray-700 hover:text-gray-700 transition duration-75  p-1"
+            //     : "w-full hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 hover:text-gray-700 transition duration-75  p-1"
+            // }
             aria-controls="dropdown-example"
             data-collapse-toggle="dropdown-example"
           >
