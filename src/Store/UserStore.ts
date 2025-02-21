@@ -13,7 +13,15 @@ export type UserDataType = {
   isComplete: boolean;
   message: any;
 };
-
+export type UserOrderDataType = {
+  id: number;
+  additionalData: string;
+  email: string;
+  name: string;
+  userRoles: string;
+  isComplete: boolean;
+  message: any;
+};
 export type FetchedUserType = {
   message: string;
   users_data: any[];
@@ -21,6 +29,7 @@ export type FetchedUserType = {
 
 export type UserState = {
   userData: UserDataType[] | any;
+  userTotalOrderData:UserOrderDataType[] | any;
   message?: string;
   loading: boolean;
 };
@@ -33,6 +42,7 @@ export type UserActions = {
 export const useUserStore = create<UserState & UserActions>()(
   devtools((set) => ({
     userData: [],
+    userTotalOrderData:[],
     loading: false,
     addNewUser: (data: UserDataType) =>
       set((state) => ({
@@ -53,5 +63,24 @@ export const useUserStore = create<UserState & UserActions>()(
         set({ userData: error?.response?.data?.message, loading: false });
       }
     },
+
+
+    fetchUsersToatlOrders: async () => {
+      set({ loading: true });
+      try {
+        const response = await baseInstance.get("/users/dashboard");
+        if (response.status === 200) {
+          set({ userTotalOrderData: response.data?.data, loading: false });
+        } else {
+          set({ userTotalOrderData: response.data?.message, loading: false });
+        }
+      } catch (error: any) {
+        logOutFunction(error?.response?.data?.message);
+        set({ userTotalOrderData: error?.response?.data?.message, loading: false });
+      }
+    },
   }))
 );
+
+
+

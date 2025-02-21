@@ -57,7 +57,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     fetchAmendmentUpdateData,
     fetchProductFlowUpdateData,
     fetchWebsiteContentUpdateData,
-    fetchCopywriterUpdateData,fetchFileData
+    fetchCopywriterUpdateData,
+    fetchFileData,
   } = useEditorStore();
   const { fetchUsersData, userData, loading } = useUserStore();
 
@@ -329,40 +330,39 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     }
 
     return "No filename available";
-  
   };
   return (
     <>
-    
-    <form onSubmit={handleAddData} className="flex gap-1 mb-1 flex-col relative">
-      <div>
-        {text !== "file" && (
-          <ReactQuill
-            ref={quillRef}
-            theme={options.theme}
-            modules={options.modules}
-            value={value}
-            onChange={(value, _, __, editor) => {
-              handleChanges(value, editor);
-            }}
-            onChangeSelection={updateMentionedUserIds}
-            placeholder={options.placeholder}
-          />
-        )}
-        
-      </div>
+      <form
+        onSubmit={handleAddData}
+        className="flex gap-1 mb-1 flex-col relative"
+      >
+        <div>
+          {text !== "file" && (
+            <ReactQuill
+              ref={quillRef}
+              theme={options.theme}
+              modules={options.modules}
+              value={value}
+              onChange={(value, _, __, editor) => {
+                handleChanges(value, editor);
+              }}
+              onChangeSelection={updateMentionedUserIds}
+              placeholder={options.placeholder}
+            />
+          )}
+        </div>
 
-      {/* <h3>Uploaded Filesqq:</h3> */}
-     
+        {/* <h3>Uploaded Filesqq:</h3> */}
 
-      {/* <div className="flex justify-start gap-2 items-center absolute bottom-1 right-0 "> */}
-      {/* <div
+        {/* <div className="flex justify-start gap-2 items-center absolute bottom-1 right-0 "> */}
+        {/* <div
         className={`flex justify-start gap-2 items-center ${
           text !== "file" ? "absolute bottom-1 right-0" : " "
         }`}
       > */}
-      {/* <div  className={`flex justify-start gap-2 items-center ${text === "file" ? " flex justify-end bottom-1 right-0" : "absolute bottom-1 right-0"}`}>  */}
-{/* 
+        {/* <div  className={`flex justify-start gap-2 items-center ${text === "file" ? " flex justify-end bottom-1 right-0" : "absolute bottom-1 right-0"}`}>  */}
+        {/* 
       {text === "file" && (
       <div className="ml-5">
         <ul>
@@ -377,7 +377,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
         </ul>
       </div>
       )} */}
-      {/* <div className="flex justify-start gap-2 items-center update-btn">
+        {/* <div className="flex justify-start gap-2 items-center update-btn">
 
 
         
@@ -402,49 +402,49 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
           </TooltipCommon>
         </div>
       </div> */}
-      <div className="flex justify-between items-center">
-  {/* File List Section */}
-  {text === "file" && (
-    <div className="ml-5">
-      <ul>
-        {images.flat().map((file, index) => {
-          console.log("File at index " + index + ": ", file);
-          return (
-            <li key={index}>
-              <p>{getFilenameFromURL(file)}</p>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  )}
+        {/* <div className="flex justify-start items-center "> */}
+        {/* File List Section */}
 
-  {/* Button Section */}
-  <div className="flex justify-start gap-2 items-center update-btn">
-    <Button
-      type="submit"
-      className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
-    >
-      {isLoading ? (
-        <Loader2 className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
-      ) : indicatorText === "reply" ? (
-        "Reply"
-      ) : (
-        "Update"
-      )}
-    </Button>
+        {images && images.length > 0 && text === "file" ? (
+          <div className="update-file">
+            <ul>
+              {images.flat().map((file, index) => {
+                console.log("File at index " + index + ": ", file);
+                return (
+                  <li key={index}>
+                    <p>{getFilenameFromURL(file)}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : null}
 
-    <div onClick={imageHandler} className="w-fit cursor-pointer">
-      <TooltipCommon text="Add Files">
-        <div className="hover:bg-gray-100 px-2 py-1">
-          <AddFilesDarkUIconSVG />
+        {/* Button Section */}
+        <div className="flex justify-start gap-2 items-center update-btn">
+          <Button
+            type="submit"
+            className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
+          >
+            {isLoading ? (
+              <Loader2 className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
+            ) : indicatorText === "reply" ? (
+              "Reply"
+            ) : (
+              "Update"
+            )}
+          </Button>
+
+          <div onClick={imageHandler} className="w-fit cursor-pointer">
+            <TooltipCommon text="Add Files">
+              <div className="hover:bg-gray-100 px-2 py-1">
+                <AddFilesDarkUIconSVG />
+              </div>
+            </TooltipCommon>
+          </div>
         </div>
-      </TooltipCommon>
-    </div>
-  </div>
-</div>
-
-    </form>
+        {/* </div> */}
+      </form>
     </>
   );
 };

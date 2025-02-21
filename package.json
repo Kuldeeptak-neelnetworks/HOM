@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
     "@emoji-mart/data": "^1.2.1",
@@ -72,7 +71,8 @@
     "react-hook-form": "^7.51.2",
     "react-mentions": "^4.4.10",
     "react-quill": "^2.0.0",
-    "react-select": "^5.8.0",
+    "react-select": "^5.10.0",
+    "react-select-async-paginate": "^0.7.9",
     "react-signature-canvas": "^1.0.6",
     "react-timezone-select": "^3.2.5",
     "react-tooltip": "^5.26.3",

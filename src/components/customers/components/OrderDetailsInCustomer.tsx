@@ -62,13 +62,13 @@ const OrderDetailsInCustomer = ({ orderData }: any) => {
 
   return (
     <div className="border border-[#e1e8f0] px-1 mt-1 py-1  bg-[#fff] boxShadow ">
-      <div className="max-h-[176px] min-h-[176px] overflow-scroll flex gap-3">
+      <div className="max-h-[174px] min-h-[174px] overflow-scroll flex gap-3 flex-col">
         {orderData
           ? orderData &&
             orderData?.map((order: any) => {
               return (
                 <section
-                  className="bg-white text-gray-800 border border-[#e1e8f0]  my-2  max-w-[400px] min-w-[400px]"
+                  className="bg-white text-gray-800 border border-[#e1e8f0]  my-2"
                   key={order?._id}
                   id={`editor-${order?._id}`}
                 >

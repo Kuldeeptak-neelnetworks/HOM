@@ -36,6 +36,7 @@ import { useUserStore } from "@/Store/UserStore";
 import SelectReactSelect from "react-select";
 import { ValueType } from "tailwindcss/types/config";
 import { LoaderIconSVG } from "@/utils/SVGs/SVGs";
+import { AsyncPaginate } from "react-select-async-paginate";
 
 interface FormData {
   dateOfOrder: string;
@@ -279,7 +280,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   };
 
   useEffect(() => {
-    fetchAllCustomerData(1, 20);
+    fetchAllCustomerData();
   }, []);
 
   useEffect(() => {
@@ -298,6 +299,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
       //  );
     }
   }, [customerData, router]);
+  console.log("customerData", customerData);
 
   // Function to convert base64 to Blob
   const base64ToBlob = (base64: string, mimeType: string) => {
@@ -460,6 +462,117 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   const currentYearRenewalDate = renewalDate
     ? getYear(renewalDate)
     : getYear(new Date());
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1); // Page state
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1); // Set to page 1 when the component mounts
+  }, []);
+  const [customerOptions, setCustomerOptions] = useState([]);
+  const loadOptions = async (loadedOptions: { options: any; }, { page }: any) => {
+    console.log("Loading page:", page); // Debug to check if page is received correctly
+
+    // Default to page 1 if page is undefined
+    page = page || currentPage; // Ensure we have a valid page number
+    setCurrentPage(page + 1);
+
+    try {
+      setLoading(true); // Set loading state to true
+
+      // Fetch customer data from the API with pagination parameters
+      const response = await baseInstance.get("/customers", {
+        params: {
+          page, // Dynamically use the page number
+          limit: 20, // Number of items per page
+        },
+      });
+
+      // Map the data to the format needed for AsyncPaginate
+      const transformedData = response.data?.data?.customers.map(
+        (customer: { _id: any; companyName: any; }) => ({
+          value: customer._id,
+          label: customer.companyName, // Use company name as the label
+        })
+      );
+
+      // Combine the previous options and new options to support infinite scrolling
+      const combinedOptions =
+        page === 1
+          ? transformedData
+          : [...(loadedOptions?.options || []), ...transformedData];
+
+      // Check if there are more pages to load
+      const hasMore = response.data?.data?.hasMore ?? false;
+      setCustomerOptions(response.data?.data?.customers);
+      // Return combined options, hasMore flag, and incremented page number
+      return {
+        options: combinedOptions,
+        hasMore: hasMore,
+        additional: {
+          page: page + 1, // Increment page number for the next request
+        },
+      };
+    } catch (error) {
+      console.error("Error fetching customers:", error);
+      return {
+        options: [], // Return empty options if there's an error
+        hasMore: false, // No more pages
+      };
+    } finally {
+      setLoading(false); // Set loading state to false once data is loaded
+    }
+  };
+
+  // const handleCustomerChange = (selectedOption: { value: string; }) => {
+  //   const selectedCustomerId = selectedOption?.value || "";
+
+  //   // Find the selected customer in the fetched options
+  //   const selectedCustomer = customerOptions.find(
+  //     (customer) => customer._id === selectedCustomerId // Matching by _id instead of value
+  //   );
+
+  //   console.log("selectedCustomerId", selectedCustomerId);
+  //   console.log("customerOptions", customerOptions);
+
+  //   if (selectedCustomer) {
+  //     // Update Formik values with the selected customer's details
+  //     formik.setValues({
+  //       ...formik.values,
+  //       town: selectedCustomer?.town || "", // Town
+  //       county: selectedCustomer?.county || "", // County
+  //       postcode: selectedCustomer?.postcode || "", // Postcode
+  //       customerEmail: selectedCustomer?.customerEmail || "", // Email
+  //       streetNoName: selectedCustomer?.streetNoName || "", // Street name/number
+  //       customerName: selectedCustomer?.companyName || "", // Company Name as Customer Name
+  //     });
+
+  //     setSelectedCustomerId(selectedCustomerId); // Optionally store selected ID in local state
+  //   }
+  // };
+
+  // const handleCustomerChange = (selectedOption: { value: string }) => {
+  //   const selectedCustomerId = selectedOption?.value || "";
+
+  //   // Find the selected customer in the fetched options
+  //   const selectedCustomer = customerOptions.find(
+  //     (customer) => customer._id === selectedCustomerId // Use '_id' for matching
+  //   );
+
+  //   if (selectedCustomer) {
+  //     formik.setValues({
+  //       ...formik.values,
+  //       town: selectedCustomer.town || "", // Town
+  //       county: selectedCustomer.county || "", // County
+  //       postcode: selectedCustomer.postcode || "", // Postcode
+  //       customerEmail: selectedCustomer.customerEmail || "", // Email
+  //       streetNoName: selectedCustomer.streetNoName || "", // Street name/number
+  //       customerName: selectedCustomer.companyName || "", // Company Name as Customer Name
+  //     });
+
+  //     setSelectedCustomerId(selectedCustomerId); // Optionally store selected ID in local state
+  //   }
+  // };
 
   return (
     <div className="p-4 relative">
@@ -560,6 +673,43 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                   Company Name <span style={{ opacity: "0.5" }}> * </span>
                 </label>
                 <div className="relative">
+                  {/* {customerData?.customers?.length > 0 && ( */}
+                  {/* <AsyncPaginate
+                    loadOptions={loadOptions} // Function to load customer options asynchronously
+                    closeMenuOnSelect={true} // Close the dropdown when an option is selected
+                    isClearable={true} // Make the dropdown clearable
+                    isLoading={loading} // Show a loading spinner while options are being loaded
+                    additional={{ page }} // Pass the page number to the loadOptions function
+                    onChange={(
+                      selectedOption: { value: any; label: string } | null
+                    ) => {
+                      const selectedCustomerId = selectedOption?.value || "";
+
+                      formik.setFieldValue(
+                        "selectedCustomerId",
+                        selectedCustomerId
+                      );
+                      setSelectedCustomerId(selectedCustomerId);
+
+                      const selectedCustomer = customerOptions.find(
+                        (customer: { _id: any }) =>
+                          customer._id === selectedCustomerId
+                      );
+
+                      formik.setValues({
+                        ...formik.values,
+                        town: selectedCustomer?.town || "",
+                        county: selectedCustomer?.county || "",
+                        postcode: selectedCustomer?.postcode || "",
+                        customerEmail: selectedCustomer?.customerEmail || "",
+                        streetNoName: selectedCustomer?.streetNoName || "",
+                        customerName: selectedCustomerId,
+                      });
+                    }}
+                    placeholder="Select a Company"
+                  /> */}
+
+                  {/* )} */}
                   {customerData?.customers?.length > 0 && (
                     <SelectReactSelect
                       closeMenuOnSelect={true}
@@ -603,6 +753,48 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                   {touched.customerName && errors.customerName ? (
                     <div className="text-red-500">{errors?.customerName}</div>
                   ) : null}
+
+                  {/* <AsyncPaginate
+              isClearable={true}
+              className="react-select-custom-styling__container"
+              classNamePrefix="react-select-custom-styling"
+              value={filters.bpoNo}
+              loadOptions={LoadClientsBpoOptions}
+              onChange={(option) => onFilterChange("bpoNo", option)}
+              additional={{
+                page: 1,
+              }}
+              placeholder={`Select Bpo no`}
+              debounceTimeout={300}
+              noOptionsMessage={({ inputValue }) =>
+                inputValue
+                  ? `No BPO no found for "${inputValue}"`
+                  : "No BPO no found"
+              }
+              onError={(error) => {
+                ReactHotToast("Error loading clients", "error");
+                console.error("Async Paginate Error:", error);
+              }}
+              styles={{
+                option: (provided, state) => ({
+                  ...provided,
+                  backgroundColor: state.isSelected
+                    ? "#007bff"
+                    : state.isFocused
+                    ? "#e0e0e0"
+                    : "white",
+                  cursor: "pointer",
+                  color: state.isSelected ? "white" : "black",
+                  ":hover": {
+                    backgroundColor: state.isSelected ? "#0056b3" : "#f1f3f5",
+                  },
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                  color: "black",
+                }),
+              }}
+            /> */}
                 </div>
               </div>
               {/*  Customer Email */}
@@ -706,6 +898,15 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                 </label>
                 <div className="relative">
                   <input
+                    value={formik.values.town || ""} // Bind Formik's value
+                    type="text"
+                    onChange={formik.handleChange} // Handle the change event
+                    onBlur={formik.handleBlur} // Handle blur event for validation
+                    id="town"
+                    name="town"
+                    className="w-full border border-stroke bg-transparent py-2 pl-3 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  />
+                  {/* <input
                     value={formik.values.town || ""}
                     type="text"
                     onChange={formik.handleChange}
@@ -713,7 +914,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     id="town"
                     name="town"
                     className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  />
+                  /> */}
 
                   {/* {formik.touched.town && formik.errors.town ? (
                 <div className="text-red-500">{formik.errors.town}</div>
@@ -1297,7 +1498,6 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                     </PopoverContent>
                   </Popover>
 
-              
                   {formik.touched.renewalDate2024 &&
                   formik.errors.renewalDate2024 ? (
                     <div className="text-red-500">

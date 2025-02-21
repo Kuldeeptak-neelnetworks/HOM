@@ -600,42 +600,165 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             )}
 
             {textTab === "invoices" && (
-              <div className="p-3 flex bg-white w-full max-h-[176px] min-h-[176px] overflow-scroll mt-1 boxShadow border border-[#e1e8f0]">
-                {Array.isArray(customerDetails?.vatInvoice)
-                  ? customerDetails?.vatInvoice?.map((item) => {
-                      return item ? (
-                        <div className="border border-[#e1e8f0] h-[70px] p-2 flex justify-center align-middle items-center">
-                          <div>
-                            <a
-                              href={item ? item : ""}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              title={item}
-                            >
+              <div className="flex flex-col overflow-y-auto bg-white border border-[#e1e8f0] max-h-[180px] min-h-[180px] overflow-scroll mt-2 ml-2">
+                {Array.isArray(customerDetails?.vatInvoice) &&
+                customerDetails.vatInvoice.length > 0 ? (
+                  customerDetails.vatInvoice.map((item, index) => {
+                    let fileExtension = "";
+                    const fileNameParts = item.split(".");
+                    if (fileNameParts.length > 1) {
+                      fileExtension = fileNameParts.pop()?.toLowerCase() || "";
+                    }
+console.log("customerDetails",customerDetails)
+                    // Only render PDFs
+                    if (fileExtension === "pdf") {
+                      return (
+                        <div
+                          key={index}
+                          className="border flex items-center h-24 mx-2 hover:bg-zinc-100 my-1 p-2"
+                        >
+                          {/* <div className="flex flex-col items-center justify-center w-full"> */}
+
+                          <a
+                            className="w-[100px]"
+                            href={item}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200 ml-1">
                               <img
-                                //   src={fileIcons[fileType]}
-                                src={PDFPic}
-                                alt="PDF"
-                                className="h-[50px] w-[50px] object-cover"
+                                src={PDFPic} // Use fallback image
+                                alt="PDF Preview"
+                                className="h-[60px] w-[60px] object-cover"
                               />
-                            </a>
+                            </div>
+                          </a>
+
+                          <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
+                            <div className="font-bold hover:bg-slate-100 px-3">
+                              <a
+                                href={item}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {getFilenameFromURL(item)}
+                              </a>
+                            </div>
+                            <div className="flex items-center gap-3 ml-3">
+                              {/* <span>
+                                <TooltipCommon text="Uploaded by user">
+                                  <Avatar className="cursor-pointer w-6 h-6">
+                                    <AvatarImage
+                                      src={UserLogo}
+                                      className="h-6"
+                                      alt="companyLogo"
+                                    />
+                                    <AvatarFallback>
+                                      <img
+                                        src={UserLogo}
+                                        className="h-6"
+                                        alt="companyLogo"
+                                      />
+                                    </AvatarFallback>
+                                  </Avatar>
+                                </TooltipCommon>
+                              </span> */}
+                              <span>{new Date().toLocaleDateString()}</span>
+                            </div>
                           </div>
-                          <div className="">
-                            <a
-                              href={item ? item : ""}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              title={item}
-                            >
-                              {item}
-                            </a>
-                          </div>
+
+                          {/* </div> */}
                         </div>
-                      ) : (
-                        "No Invoice Found"
                       );
-                    })
-                  : "No Data Found"}
+                    }
+
+                    return null; // Skip non-PDF files
+                  })
+                ) : (
+                  <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
+                    No Data Found
+                  </div>
+                )}
+                {/* {customerDetails && customerDetails.length > 0 ? (
+  customerDetails.map((item) => {
+    if (item.vatInvoice && Array.isArray(item.vatInvoice) && item.vatInvoice.length > 0) {
+      console.log('Rendering invoices for:', item);
+      return item.vatInvoice.map((invoiceUrl, index) => {
+        let fileExtension = "";
+        const fileNameParts = invoiceUrl.split(".");
+        if (fileNameParts.length > 1) {
+          fileExtension = fileNameParts.pop()?.toLowerCase() || "";
+        }
+
+        // Only render PDFs
+        if (fileExtension === "pdf") {
+          const content = (
+            <a href={invoiceUrl} target="_blank" rel="noopener noreferrer">
+              <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
+                <img
+                  src={PDFPic} // Use fallback image
+                  alt="PDF Preview"
+                  className="h-[60px] w-[60px] object-cover"
+                />
+              </div>
+            </a>
+          );
+
+          return (
+            <div
+              className="border flex items-center h-24 mx-2 hover:bg-zinc-100 my-1"
+              key={invoiceUrl}
+            >
+              <div className="flex flex-col items-center justify-center w-full">
+                <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
+                  {content}
+                </div>
+
+                <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
+                  <div className="font-bold hover:bg-slate-100 px-3 ">
+                    <a href={invoiceUrl} target="_blank" rel="noopener noreferrer">
+                      {getFilenameFromURL(invoiceUrl)}
+                    </a>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span>
+                      <TooltipCommon text="Uploaded by user">
+                        <Avatar className="cursor-pointer w-6 h-6">
+                          <AvatarImage
+                            src={UserLogo}
+                            className="h-6"
+                            alt="companyLogo"
+                          />
+                          <AvatarFallback>
+                            <img
+                              src={UserLogo}
+                              className="h-6"
+                              alt="companyLogo"
+                            />
+                          </AvatarFallback>
+                        </Avatar>
+                      </TooltipCommon>
+                    </span>
+                    <span>{new Date().toLocaleDateString()}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        }
+        return null; // Skip non-PDF files
+      });
+    }
+
+    // If vatInvoice is empty or not available
+    return <div>No invoices available</div>;
+  })
+) : (
+  <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
+    No data found!
+  </div>
+)}
+ */}
               </div>
             )}
             {textTab === "updates" && (
@@ -768,93 +891,53 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                   /> */}
                   <div className="w-full mt-1">
                     <ReportFileSection customerFileData={customerFileData} />
-                  </div>
 
-                  {/* <div>
-                    {images.length > 0 && (
-                      <ul>
-                        {images.map((file, index) => (
-                          <li key={index}>{file.name}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div> */}
+                    <div className="flex justify-end items-center report-btn right-0 absolute">
+                      {/* Button Section */}
 
-                  {/* <div className="flex justify-end gap-2 items-center right-0 ">
-                    <form onSubmit={handleAddData}>
-                      <button
-                        type="submit"
-                        className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? (
-                          <Loader className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
-                        ) : (
-                          "Update"
-                        )}
-                      </button>
-                    </form>
+                      <form onSubmit={handleAddData}>
+                        <div className="flex justify-end gap-2 right-0 ">
+                          <>
+                            <button
+                              type="submit"
+                              className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
+                              disabled={isLoading}
+                            >
+                              {isLoading ? (
+                                <Loader className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
+                              ) : (
+                                "Update"
+                              )}
+                            </button>
 
-                    <div
-                      onClick={imageHandler}
-                      className="w-fit cursor-pointer"
-                    >
-                      <TooltipCommon text="Add Files">
-                        <div className="hover:bg-gray-100 px-2 py-1">
-                          <AddFilesDarkUIconSVG />
+                            <div
+                              onClick={imageHandler}
+                              className="w-fit cursor-pointer"
+                            >
+                              <TooltipCommon text="Add Files">
+                                <div className="hover:bg-gray-100 px-2 py-1">
+                                  <AddFilesDarkUIconSVG />
+                                </div>
+                              </TooltipCommon>
+                            </div>
+                          </>
                         </div>
-                      </TooltipCommon>
-                    </div>
-                  </div> */}
-
-                  <div className="flex justify-between items-center">
-                    {/* File List Section */}
-
-                    <div className="ml-5">
-                      <ul>
-                        {images.length > 0 && (
+                        {images && images.length > 0 ? (
+                        <div className="report-files">
                           <ul>
-                            {images.map((file, index) => (
-                              <li key={index}>{file.name}</li>
-                            ))}
+                            {images.length > 0 && (
+                              <ul>
+                                {images.map((file, index) => (
+                                  <li key={index}>{file.name}</li>
+                                ))}
+                              </ul>
+                            )}
                           </ul>
-                        )}
-                      </ul>
+                        
+                        </div>
+                        ) : null}
+                      </form>
                     </div>
-
-                    {/* Button Section */}
-                    <form onSubmit={handleAddData}>
-                    <div className="flex justify-end gap-2 items-center right-0 ">
-                      <>
-                  
-                      <button
-                        type="submit"
-                        className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? (
-                          <Loader className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
-                        ) : (
-                          "Update"
-                        )}
-                      </button>
-
-                      <div
-                        onClick={imageHandler}
-                        className="w-fit cursor-pointer"
-                      >
-                        <TooltipCommon text="Add Files">
-                          <div className="hover:bg-gray-100 px-2 py-1">
-                            <AddFilesDarkUIconSVG />
-                          </div>
-                        </TooltipCommon>
-                      </div>
-                
-                   
-                      </>
-                    </div>
-                    </form>
-                    
                   </div>
                 </CardContent>
               </Card>

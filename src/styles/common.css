@@ -271,15 +271,39 @@
   resize: both; /* Allow resizing */
   overflow: hidden;
 }
+.update-file{
+  position: absolute;
+  right: 150px;
+  bottom: 0;
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+.report-files{
+  width: 200%;
+  position: absolute;
+  right: 150px;
+  bottom: 0;
+  background-color: aliceblue;
+  padding: 10px; 
+}
+.report-btn{
+  right:39px ;
+  top:192px ;
+
+}
 .update .update-btn{
   position: absolute;
-  bottom:4px;
+  bottom:8px;
   right: 0px;
 }
 .update .file-1 .update-btn{
-  position: relative;
+  position: absolute;
+  bottom: 5px;
 
+  right: 14px;
   justify-content: end;
+
 }
 .model-update-btn .update-btn{
   bottom: 4px;

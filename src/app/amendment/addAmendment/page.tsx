@@ -23,6 +23,7 @@ const AddAmendmentFormPage: React.FC = () => {
           {/* <AddAmendmentForm />
           A */}
         <AddAmendmentForm/>
+        
         </div>
       </div>
     </div>

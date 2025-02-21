@@ -32,6 +32,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ReactSelect from "react-select";
 import { useLeadStore } from "@/Store/LeadStore";
+import { AsyncPaginate } from "react-select-async-paginate";
 
 type Customer = {
   id: number;
@@ -172,6 +173,70 @@ const AddLeadForm: React.FC = () => {
   useEffect(() => {
     fetchAllCustomerData();
   }, []);
+
+
+
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1); // Page state
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1); // Set to page 1 when the component mounts
+  }, []);
+  // const [customerOptions, setCustomerOptions] = useState([]);
+  // const loadOptions = async (loadedOptions: { options: any; }, { page }: any) => {
+  //   console.log("Loading page:", page); // Debug to check if page is received correctly
+
+  //   // Default to page 1 if page is undefined
+  //   page = page || currentPage; // Ensure we have a valid page number
+  //   setCurrentPage(page + 1);
+
+  //   try {
+  //     setLoading(true); // Set loading state to true
+
+  //     // Fetch customer data from the API with pagination parameters
+  //     const response = await baseInstance.get("/customers", {
+  //       params: {
+  //         page, // Dynamically use the page number
+  //         limit: 20, // Number of items per page
+  //       },
+  //     });
+
+  //     // Map the data to the format needed for AsyncPaginate
+  //     const transformedData = response.data?.data?.customers.map(
+  //       (customer) => ({
+  //         value: customer._id,
+  //         label: customer.companyName, // Use company name as the label
+  //       })
+  //     );
+
+  //     // Combine the previous options and new options to support infinite scrolling
+  //     const combinedOptions =
+  //       page === 1
+  //         ? transformedData
+  //         : [...(loadedOptions?.options || []), ...transformedData];
+
+  //     // Check if there are more pages to load
+  //     const hasMore = response.data?.data?.hasMore ?? false;
+  //     setCustomerOptions(response.data?.data?.customers);
+  //     // Return combined options, hasMore flag, and incremented page number
+  //     return {
+  //       options: combinedOptions,
+  //       hasMore: hasMore,
+  //       additional: {
+  //         page: page + 1, // Increment page number for the next request
+  //       },
+  //     };
+  //   } catch (error) {
+  //     console.error("Error fetching customers:", error);
+  //     return {
+  //       options: [], // Return empty options if there's an error
+  //       hasMore: false, // No more pages
+  //     };
+  //   } finally {
+  //     setLoading(false); // Set loading state to false once data is loaded
+  //   }
+  // };
   return (
     <ScrollArea className=" p-7 w-full lg:w-[70%] border my-5 bg-[#fff] boxShadow">
       <form onSubmit={handleSubmit} className="text-[0.8rem] ">
@@ -217,7 +282,7 @@ const AddLeadForm: React.FC = () => {
                 Company Name <span style={{ opacity: "0.5" }}> * </span>
               </label>
               <div className="relative">
-                {/* {customerData?.customers?.length > 0 && (
+                {customerData?.customers?.length > 0 && (
                 <Select
                   onValueChange={(value: any) => {
                     setSelectedCustomerId(value);
@@ -242,8 +307,34 @@ const AddLeadForm: React.FC = () => {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
-              )} */}
-                {customerData?.customers?.length > 0 && (
+              )}
+               {/* <AsyncPaginate
+                    loadOptions={loadOptions} // Function to load customer options asynchronously
+                    closeMenuOnSelect={true} // Close the dropdown when an option is selected
+                    isClearable={true} // Make the dropdown clearable
+                    isLoading={loading} // Show a loading spinner while options are being loaded
+                    additional={{ page }} // Pass the page number to the loadOptions function
+                    onChange={(
+                      selectedOption: { value: any; label: string } | null
+                    ) => {
+                      const selectedCustomerId = selectedOption?.value || "";
+
+                      formik.setFieldValue(
+                        "selectedCustomerId",
+                        selectedCustomerId
+                      );
+                      setSelectedCustomerId(selectedCustomerId);
+
+                      const selectedCustomer = customerOptions.find(
+                        (customer: { _id: any }) =>
+                          customer._id === selectedCustomerId
+                      );
+;
+                    }}
+                    placeholder="Select a Company"
+                  /> */}
+
+                {/* {customerData?.customers?.length > 0 && (
                   <ReactSelect
                     closeMenuOnSelect={true}
                     isClearable={true}
@@ -263,7 +354,7 @@ const AddLeadForm: React.FC = () => {
                     value={customerData.selectedCustomerId}
                     placeholder="Select a company name"
                   />
-                )}
+                )} */}
               </div>
             </div>
           )}

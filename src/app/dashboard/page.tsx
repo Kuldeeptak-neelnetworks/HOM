@@ -40,7 +40,8 @@ const DashBoardPage: React.FC = () => {
   const { fetchAllLeadData, leadData }: any = useLeadStore();
   const { fetchAllOrdersData, orderData }: any = useOrderStore();
   const { fetchAllCustomerData, customerData }: any = useCustomerStore();
-  const { fetchUsersData, userData }: any = useUserStore();
+  const { fetchUsersData, userData ,userTotalOrderData,fetchUsersToatlOrders}: any = useUserStore();
+
   const router = useRouter();
   const [toggleWidth, setToggleWidth] = useState<boolean>(false);
   const [allLeads, setAllLeads] = useState<any[]>([]);
@@ -66,6 +67,7 @@ const DashBoardPage: React.FC = () => {
     fetchAllOrdersData();
     fetchAmendmentData();
     fetchAllCustomerData();
+    fetchUsersToatlOrders()
     userRole === "salesman" ? "" : fetchUsersData();
   }, []);
 
@@ -81,6 +83,10 @@ const DashBoardPage: React.FC = () => {
       router.push("/auth/login");
     }
   }, [allLeads, leadData]);
+
+
+
+  console.log("userTotalOrderData",userTotalOrderData)
 
   return (
     <div className="col-span-6">
@@ -117,7 +123,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {allLeads ? allLeads.length : ""}
+                  {userTotalOrderData.totalLeads}
                   </CardContent>
                 </Card>
                 <Card className="sm:w-[25%] h-[100px] xl:h-[120px] boxShadow mb-5">
@@ -127,9 +133,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {customerData?.customers
-                      ? customerData?.customers?.length
-                      : ""}
+                  {userTotalOrderData.totalCustomers}
                   </CardContent>
                 </Card>
                 <Card className="sm:w-[25%] h-[100px] xl:h-[120px] boxShadow mb-5">
@@ -139,7 +143,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {allOrders ? allOrders.length : ""}
+                  {userTotalOrderData.totalOrders}
                   </CardContent>
                 </Card>
                 <Card className="sm:w-[25%] h-[100px] xl:h-[120px] boxShadow mb-5">
@@ -149,7 +153,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {allAmendments ? allAmendments.length : ""}
+                  {userTotalOrderData.totalAmendments}
                   </CardContent>
                 </Card>
               </div>
@@ -162,7 +166,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {allLeads ? allLeads.length : ""}
+                    {userTotalOrderData.totalLeads}
                   </CardContent>
                 </Card>
                 <Card className="sm:w-[20%] h-[100px] xl:h-[120px] boxShadow mb-5">
@@ -172,9 +176,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {customerData?.customers
-                      ? customerData?.customers?.length
-                      : ""}
+                  {userTotalOrderData.totalCustomers}
                   </CardContent>
                 </Card>
                 <Card className="sm:w-[20%] h-[100px] xl:h-[120px] boxShadow mb-5">
@@ -184,7 +186,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {allOrders ? allOrders.length : ""}
+                  {userTotalOrderData.totalOrders}
                   </CardContent>
                 </Card>
                 <Card className="sm:w-[20%] h-[100px] xl:h-[120px] boxShadow mb-5">
@@ -194,7 +196,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {allAmendments ? allAmendments.length : ""}
+                  {userTotalOrderData.totalAmendments}
                   </CardContent>
                 </Card>
                 <Card className="sm:w-[20%] h-[100px] xl:h-[120px] boxShadow mb-5">
@@ -204,7 +206,7 @@ const DashBoardPage: React.FC = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-[1rem] xl:text-[1.5rem] font-bold">
-                    {userData ? userData.length : ""}
+                  {userTotalOrderData.totalUsers}
                   </CardContent>
                 </Card>
               </div>
