@@ -600,85 +600,129 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               </div>
             )}
 
-            {textTab === "invoices" && (
-              <div className="w-full">
-                <div className="flex flex-col overflow-y-auto bg-white max-h-[180px] min-h-[180px] overflow-scroll mt-2">
-                  {Array.isArray(customerDetails?.vatInvoice) &&
-                  customerDetails.vatInvoice.length > 0 ? (
-                    customerDetails.vatInvoice.map((item, index) => {
-                      let fileExtension = "";
-                      const fileNameParts = item.split(".");
-                      if (fileNameParts.length > 1) {
-                        fileExtension =
-                          fileNameParts.pop()?.toLowerCase() || "";
-                      }
-
-                      if (fileExtension === "pdf") {
-                        return (
-                          <div
-                            key={index}
-                            className="border flex items-center h-24 mx-2 hover:bg-zinc-100 my-1 p-2"
-                          >
-                            <a
-                              href={item}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200 ml-1">
-                                <img
-                                  src={PDFPic}
-                                  alt="PDF Preview"
-                                  className="h-[60px] w-[60px] object-cover"
-                                />
-                              </div>
-                            </a>
-
-                            <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-                              <div className="font-bold hover:bg-slate-100 px-3">
-                                <a
-                                  href={item}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  {getFilenameFromURL(item)}
-                                </a>
-                              </div>
-                              <div className="flex items-center gap-3 ml-3">
-                                <span>
-                                  <TooltipCommon text="Uploaded by user">
-                                    <Avatar className="cursor-pointer w-6 h-6">
-                                      <AvatarImage
-                                        src={UserLogo}
-                                        className="h-6"
-                                        alt="companyLogo"
-                                      />
-                                      <AvatarFallback>
-                                        <img
-                                          src={UserLogo}
-                                          className="h-6"
-                                          alt="companyLogo"
-                                        />
-                                      </AvatarFallback>
-                                    </Avatar>
-                                  </TooltipCommon>
-                                </span>
-                                <span>{new Date().toLocaleDateString()}</span>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      }
-
-                      return null;
-                    })
-                  ) : (
-                    <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
-                      No Data Found
-                    </div>
-                  )}
+            {/* {textTab === "invoices" && (
+    <div className="w-full">
+    <div className="flex flex-col overflow-y-auto bg-white max-h-[176px] min-h-[176px] overflow-scroll">
+      {Array.isArray(customerDetails?.vatInvoice) && customerDetails.vatInvoice.length > 0 ? (
+        customerDetails.vatInvoice.map((editData: any, index: number) => {
+          let fileExtension = "";
+          if (editData?.fileUrl) {
+            const fileNameParts = editData?.fileUrl.split(".");
+            if (fileNameParts.length > 1) {
+              fileExtension = fileNameParts.pop()?.toLowerCase() || "";
+            }
+          }
+  console.log("customerDetails.vatInvoice",customerDetails.vatInvoice)
+          // Determine the type of the file based on fileExtension
+          let fileType = "unknown";
+  
+          switch (fileExtension) {
+            case "pdf":
+              fileType = "pdf";
+              break;
+            case "jpg":
+            case "jpeg":
+            case "png":
+              fileType = "image";
+              break;
+            case "xlsx":
+              fileType = "xlsx";
+              break;
+            case "mp4":
+              fileType = "video";
+              break;
+            case "docx":
+              fileType = "word";
+              break;
+            default:
+              fileType = "unknown";
+              break;
+          }
+  
+          // Prepare the content based on fileType
+          let content;
+          if (fileType === "pdf") {
+            content = (
+              <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
+                  <img src={PDFPic} alt="PDF" className="h-[60px] w-[60px] object-cover" />
+                </div>
+              </a>
+            );
+          } else if (fileType === "image") {
+            content = (
+              <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
+                  <img key={index} src={editData?.fileUrl} alt="Image" className="h-[60px] w-[60px] object-cover" />
+                </div>
+              </a>
+            );
+          } else if (fileType === "word") {
+            content = (
+              <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
+                  <img src={WORDPic} alt="Word" className="h-[60px] w-[60px] object-cover" />
+                </div>
+              </a>
+            );
+          } else if (fileType === "xlsx") {
+            content = (
+              <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
+                  <img src={XLSXPic} alt="XLSX" className="h-[60px] w-[60px] object-cover" />
+                </div>
+              </a>
+            );
+          } else if (fileType === "video") {
+            content = (
+              <video className="h-[100px] w-[135px]" src={editData?.fileUrl} width={400} controls></video>
+            );
+          } else {
+            content = (
+              <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
+                <span className="text-gray-600 text-lg">Unknown</span>
+              </div>
+            );
+          }
+  
+          return (
+            <div className="border flex items-center h-24 hover:bg-zinc-100 my-1" key={editData?._id}>
+              <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
+                {content}
+              </div>
+  
+              <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
+                <div className="font-bold hover:bg-slate-100">
+                  <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
+                    {getFilenameFromURL(editData)}
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span>
+                    <TooltipCommon text={editData.uploadedBy?.fullName}>
+                      <Avatar className="cursor-pointer w-6 h-6">
+                        <AvatarImage src={editData?.uploadedBy?.avatar} className="h-6" alt="companyLogo" />
+                        <AvatarFallback>
+                          <img src={UserLogo} className="h-6" alt="companyLogo" />
+                        </AvatarFallback>
+                      </Avatar>
+                    </TooltipCommon>
+                  </span>
+                  <span>{formatDate(editData?.createdAt)}</span>
                 </div>
               </div>
-            )}
+            </div>
+          );
+        })
+      ) : (
+        <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
+          No data found!
+        </div>
+      )}
+    </div>
+  </div>
+            )} */}
+
             {textTab === "updates" && (
               <div className="w-full">
                 {/* <UpdateSection
@@ -743,28 +787,79 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                 </CardContent>
               </Card>
             </TabsContent> */}
-            {/* <TabsContent value="invoices">
+            <TabsContent value="invoices">
               <Card className="border-none">
                 <CardContent className="p-0 space-y-2 px-2 ">
-                  <QuillEdior
-                    productFlowId=""
-                    customerId={customerId}
-                    indicatorText="post"
-                    updateId={""}
-                    handleEdit={""}
-                    orderId={""}
-                    leadId={""}
-                    technicalId={""}
-                    setOpenQuill={() => {}}
-                    setIsOpenReplyModel={() => {}}
-                    amendmentId={""}
-                    copywriterId={""}
-                    websiteContentId={""}
-                    // text="file"
+                  <div className="w-full">
+                  <div className="flex flex-col overflow-y-auto bg-white max-h-[176px] min-h-[176px] overflow-scroll">
+  {Array.isArray(customerDetails?.vatInvoice) && customerDetails.vatInvoice.length > 0 ? (
+    customerDetails.vatInvoice.map((editData: any, index: number) => {
+      let fileExtension = "";
+      if (editData) {
+        const fileNameParts = editData.split(".");
+        if (fileNameParts.length > 1) {
+          fileExtension = fileNameParts.pop()?.toLowerCase() || "";
+        }
+      }
+
+      // Handle only PDF file type
+      if (fileExtension === "pdf") {
+        return (
+          <div className="border flex items-center h-24 hover:bg-zinc-100 my-1" key={editData?._id}>
+            <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
+              {/* PDF Content */}
+              <a href={editData} target="_blank" rel="noopener noreferrer">
+                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
+                  <img
+                    src={PDFPic}
+                    alt="PDF"
+                    className="h-[60px] w-[60px] object-cover"
                   />
+                </div>
+              </a>
+            </div>
+
+            <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
+              <div className="font-bold hover:bg-slate-100">
+                <a href={editData} target="_blank" rel="noopener noreferrer">
+                  {getFilenameFromURL(editData)}
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <span>
+                  <TooltipCommon text={editData.uploadedBy?.fullName}>
+                    <Avatar className="cursor-pointer w-6 h-6">
+                      <AvatarImage
+                        src={editData?.uploadedBy?.avatar}
+                        className="h-6"
+                        alt="companyLogo"
+                      />
+                      <AvatarFallback>
+                        <img src={UserLogo} className="h-6" alt="companyLogo" />
+                      </AvatarFallback>
+                    </Avatar>
+                  </TooltipCommon>
+                </span>
+                <span>{formatDate(editData?.createdAt)}</span>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      return null; // Return null for non-PDF files (i.e., other file types)
+    })
+  ) : (
+    <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
+      No data found!
+    </div>
+  )}
+</div>
+
+                  </div>
                 </CardContent>
               </Card>
-            </TabsContent> */}
+            </TabsContent>
             {/* <TabsContent value="files">
               <Card className="border-none shadow-none">
                 <CardContent className="p-0 space-y-2 px-2">
