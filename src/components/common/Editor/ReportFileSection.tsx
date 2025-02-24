@@ -31,7 +31,7 @@ const ReportFileSection = ({
   };
 
   return (
-    <div className="flex flex-col overflow-y-auto bg-white border border-[#e1e8f0] max-h-[176px] min-h-[176px] overflow-scroll">
+    <div className="flex flex-col overflow-y-auto bg-white max-h-[176px] min-h-[176px] overflow-scroll">
     {customerFileData && customerFileData.length > 0 ? (
       customerFileData.map((editData: any, index: number) => {
         let fileExtension = "";
@@ -158,7 +158,7 @@ const ReportFileSection = ({
 
         return (
           <div
-            className=" border flex items-center h-24 mx-2 hover:bg-zinc-100 my-1"
+            className=" border flex items-center h-24  hover:bg-zinc-100 my-1"
             key={editData?._id}
           >
             <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
@@ -166,13 +166,16 @@ const ReportFileSection = ({
             </div>
 
             <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-              <div className="font-bold hover:bg-slate-100 px-3 ">
+              <div className="font-bold hover:bg-slate-100 ">
                 <a
                   href={editData?.fileUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
+                  
                   {getFilenameFromURL(editData?.fileUrl)}
+
+                  
                 </a>
               </div>
               <div className="flex items-center gap-3">

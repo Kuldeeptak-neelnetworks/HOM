@@ -32,7 +32,7 @@ const UpdateFilesSection = ({
   };
 
   return (
-    <div className="flex flex-col overflow-y-auto bg-white border border-[#e1e8f0] max-h-[176px] min-h-[176px] overflow-scroll">
+    <div className="flex flex-col overflow-y-auto bg-white max-h-[176px] min-h-[176px] overflow-scroll">
       {fileData && fileData.length > 0 ? (
         fileData.map((editData: any, index: number) => {
           let fileExtension = "";
@@ -164,7 +164,7 @@ const UpdateFilesSection = ({
               </div>
 
               <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-                <div className="font-bold hover:bg-slate-100 px-3 ">
+                <div className="font-bold hover:bg-slate-100">
                   <a
                     href={editData?.fileUrl}
                     target="_blank"

@@ -377,10 +377,11 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
   const companyLogo = Logo.src;
   const getFilenameFromURL = (url: string) => {
     // Splitting the URL by '/' and getting the last part
-    const parts = url.split("/");
+    const parts = url.split("/invoice_");
     const filename = parts[parts.length - 1];
     return filename;
   };
+
   return (
     <div className="px-4 py-0 relative text-[0.8rem] bg-[#f2f6fa]">
       {/* <div className="text-xl font-semibold absolute top-[-50px]">
@@ -570,7 +571,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               <Card className="border-none shadow-none">
                 <CardHeader className="p-0"></CardHeader>
                 <CardContent className="p-0 space-y-2 px-2  ">
-                  <div className="space-y-1 relative ">
+                  <div className="space-y-1 relative mt-1 ">
                     <QuillEdior
                       productFlowId=""
                       customerId={customerId}
@@ -600,165 +601,82 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             )}
 
             {textTab === "invoices" && (
-              <div className="flex flex-col overflow-y-auto bg-white border border-[#e1e8f0] max-h-[180px] min-h-[180px] overflow-scroll mt-2 ml-2">
-                {Array.isArray(customerDetails?.vatInvoice) &&
-                customerDetails.vatInvoice.length > 0 ? (
-                  customerDetails.vatInvoice.map((item, index) => {
-                    let fileExtension = "";
-                    const fileNameParts = item.split(".");
-                    if (fileNameParts.length > 1) {
-                      fileExtension = fileNameParts.pop()?.toLowerCase() || "";
-                    }
-console.log("customerDetails",customerDetails)
-                    // Only render PDFs
-                    if (fileExtension === "pdf") {
-                      return (
-                        <div
-                          key={index}
-                          className="border flex items-center h-24 mx-2 hover:bg-zinc-100 my-1 p-2"
-                        >
-                          {/* <div className="flex flex-col items-center justify-center w-full"> */}
+              <div className="w-full">
+                <div className="flex flex-col overflow-y-auto bg-white max-h-[180px] min-h-[180px] overflow-scroll mt-2">
+                  {Array.isArray(customerDetails?.vatInvoice) &&
+                  customerDetails.vatInvoice.length > 0 ? (
+                    customerDetails.vatInvoice.map((item, index) => {
+                      let fileExtension = "";
+                      const fileNameParts = item.split(".");
+                      if (fileNameParts.length > 1) {
+                        fileExtension =
+                          fileNameParts.pop()?.toLowerCase() || "";
+                      }
 
-                          <a
-                            className="w-[100px]"
-                            href={item}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                      if (fileExtension === "pdf") {
+                        return (
+                          <div
+                            key={index}
+                            className="border flex items-center h-24 mx-2 hover:bg-zinc-100 my-1 p-2"
                           >
-                            <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200 ml-1">
-                              <img
-                                src={PDFPic} // Use fallback image
-                                alt="PDF Preview"
-                                className="h-[60px] w-[60px] object-cover"
-                              />
-                            </div>
-                          </a>
+                            <a
+                              href={item}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200 ml-1">
+                                <img
+                                  src={PDFPic}
+                                  alt="PDF Preview"
+                                  className="h-[60px] w-[60px] object-cover"
+                                />
+                              </div>
+                            </a>
 
-                          <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-                            <div className="font-bold hover:bg-slate-100 px-3">
-                              <a
-                                href={item}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {getFilenameFromURL(item)}
-                              </a>
-                            </div>
-                            <div className="flex items-center gap-3 ml-3">
-                              {/* <span>
-                                <TooltipCommon text="Uploaded by user">
-                                  <Avatar className="cursor-pointer w-6 h-6">
-                                    <AvatarImage
-                                      src={UserLogo}
-                                      className="h-6"
-                                      alt="companyLogo"
-                                    />
-                                    <AvatarFallback>
-                                      <img
+                            <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
+                              <div className="font-bold hover:bg-slate-100 px-3">
+                                <a
+                                  href={item}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  {getFilenameFromURL(item)}
+                                </a>
+                              </div>
+                              <div className="flex items-center gap-3 ml-3">
+                                <span>
+                                  <TooltipCommon text="Uploaded by user">
+                                    <Avatar className="cursor-pointer w-6 h-6">
+                                      <AvatarImage
                                         src={UserLogo}
                                         className="h-6"
                                         alt="companyLogo"
                                       />
-                                    </AvatarFallback>
-                                  </Avatar>
-                                </TooltipCommon>
-                              </span> */}
-                              <span>{new Date().toLocaleDateString()}</span>
+                                      <AvatarFallback>
+                                        <img
+                                          src={UserLogo}
+                                          className="h-6"
+                                          alt="companyLogo"
+                                        />
+                                      </AvatarFallback>
+                                    </Avatar>
+                                  </TooltipCommon>
+                                </span>
+                                <span>{new Date().toLocaleDateString()}</span>
+                              </div>
                             </div>
                           </div>
+                        );
+                      }
 
-                          {/* </div> */}
-                        </div>
-                      );
-                    }
-
-                    return null; // Skip non-PDF files
-                  })
-                ) : (
-                  <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
-                    No Data Found
-                  </div>
-                )}
-                {/* {customerDetails && customerDetails.length > 0 ? (
-  customerDetails.map((item) => {
-    if (item.vatInvoice && Array.isArray(item.vatInvoice) && item.vatInvoice.length > 0) {
-      console.log('Rendering invoices for:', item);
-      return item.vatInvoice.map((invoiceUrl, index) => {
-        let fileExtension = "";
-        const fileNameParts = invoiceUrl.split(".");
-        if (fileNameParts.length > 1) {
-          fileExtension = fileNameParts.pop()?.toLowerCase() || "";
-        }
-
-        // Only render PDFs
-        if (fileExtension === "pdf") {
-          const content = (
-            <a href={invoiceUrl} target="_blank" rel="noopener noreferrer">
-              <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
-                <img
-                  src={PDFPic} // Use fallback image
-                  alt="PDF Preview"
-                  className="h-[60px] w-[60px] object-cover"
-                />
-              </div>
-            </a>
-          );
-
-          return (
-            <div
-              className="border flex items-center h-24 mx-2 hover:bg-zinc-100 my-1"
-              key={invoiceUrl}
-            >
-              <div className="flex flex-col items-center justify-center w-full">
-                <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
-                  {content}
+                      return null;
+                    })
+                  ) : (
+                    <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
+                      No Data Found
+                    </div>
+                  )}
                 </div>
-
-                <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-                  <div className="font-bold hover:bg-slate-100 px-3 ">
-                    <a href={invoiceUrl} target="_blank" rel="noopener noreferrer">
-                      {getFilenameFromURL(invoiceUrl)}
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span>
-                      <TooltipCommon text="Uploaded by user">
-                        <Avatar className="cursor-pointer w-6 h-6">
-                          <AvatarImage
-                            src={UserLogo}
-                            className="h-6"
-                            alt="companyLogo"
-                          />
-                          <AvatarFallback>
-                            <img
-                              src={UserLogo}
-                              className="h-6"
-                              alt="companyLogo"
-                            />
-                          </AvatarFallback>
-                        </Avatar>
-                      </TooltipCommon>
-                    </span>
-                    <span>{new Date().toLocaleDateString()}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        }
-        return null; // Skip non-PDF files
-      });
-    }
-
-    // If vatInvoice is empty or not available
-    return <div>No invoices available</div>;
-  })
-) : (
-  <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
-    No data found!
-  </div>
-)}
- */}
               </div>
             )}
             {textTab === "updates" && (
@@ -780,7 +698,7 @@ console.log("customerDetails",customerDetails)
             )}
             {textTab === "files" && (
               <>
-                <div className="w-full mt-1 file-1">
+                <div className="w-full mt-2 file-1">
                   <UpdateFilesSection fileData={fileData} />
 
                   <QuillEdior
@@ -923,18 +841,17 @@ console.log("customerDetails",customerDetails)
                           </>
                         </div>
                         {images && images.length > 0 ? (
-                        <div className="report-files">
-                          <ul>
-                            {images.length > 0 && (
-                              <ul>
-                                {images.map((file, index) => (
-                                  <li key={index}>{file.name}</li>
-                                ))}
-                              </ul>
-                            )}
-                          </ul>
-                        
-                        </div>
+                          <div className="report-files">
+                            <ul>
+                              {images.length > 0 && (
+                                <ul>
+                                  {images.map((file, index) => (
+                                    <li key={index}>{file.name}</li>
+                                  ))}
+                                </ul>
+                              )}
+                            </ul>
+                          </div>
                         ) : null}
                       </form>
                     </div>
