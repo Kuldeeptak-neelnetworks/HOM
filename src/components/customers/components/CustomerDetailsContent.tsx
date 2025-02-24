@@ -327,7 +327,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
     inputImage.click();
 
     inputImage.onchange = () => {
-      handleFileUpload(inputImage.files); // Handle file upload on file selection
+      handleFileUpload(inputImage.files); 
     };
   };
   const handleClear = () => {
@@ -338,18 +338,13 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
   // Handle form submission
   const handleAddData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Only submit if there is text or images
     if (images.length > 0) {
       try {
         setIsLoading(true);
         const formData = new FormData();
-
-        // Append the selected images (files) to the FormData
         images.forEach((image) => formData.append("files", image));
 
         if (customerId) {
-          // Send the files directly (as binary) to the backend without URL conversion
           const response = await baseInstance.post(
             `/files/customer/${customerId}/gallery?flag=ReportFile`,
             formData
@@ -376,7 +371,6 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
   const WORDPic = WORD.src;
   const companyLogo = Logo.src;
   const getFilenameFromURL = (url: string) => {
-    // Splitting the URL by '/' and getting the last part
     const parts = url.split("/invoice_");
     const filename = parts[parts.length - 1];
     return filename;
@@ -600,146 +594,9 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               </div>
             )}
 
-            {/* {textTab === "invoices" && (
-    <div className="w-full">
-    <div className="flex flex-col overflow-y-auto bg-white max-h-[176px] min-h-[176px] overflow-scroll">
-      {Array.isArray(customerDetails?.vatInvoice) && customerDetails.vatInvoice.length > 0 ? (
-        customerDetails.vatInvoice.map((editData: any, index: number) => {
-          let fileExtension = "";
-          if (editData?.fileUrl) {
-            const fileNameParts = editData?.fileUrl.split(".");
-            if (fileNameParts.length > 1) {
-              fileExtension = fileNameParts.pop()?.toLowerCase() || "";
-            }
-          }
-  console.log("customerDetails.vatInvoice",customerDetails.vatInvoice)
-          // Determine the type of the file based on fileExtension
-          let fileType = "unknown";
-  
-          switch (fileExtension) {
-            case "pdf":
-              fileType = "pdf";
-              break;
-            case "jpg":
-            case "jpeg":
-            case "png":
-              fileType = "image";
-              break;
-            case "xlsx":
-              fileType = "xlsx";
-              break;
-            case "mp4":
-              fileType = "video";
-              break;
-            case "docx":
-              fileType = "word";
-              break;
-            default:
-              fileType = "unknown";
-              break;
-          }
-  
-          // Prepare the content based on fileType
-          let content;
-          if (fileType === "pdf") {
-            content = (
-              <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
-                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
-                  <img src={PDFPic} alt="PDF" className="h-[60px] w-[60px] object-cover" />
-                </div>
-              </a>
-            );
-          } else if (fileType === "image") {
-            content = (
-              <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
-                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
-                  <img key={index} src={editData?.fileUrl} alt="Image" className="h-[60px] w-[60px] object-cover" />
-                </div>
-              </a>
-            );
-          } else if (fileType === "word") {
-            content = (
-              <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
-                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
-                  <img src={WORDPic} alt="Word" className="h-[60px] w-[60px] object-cover" />
-                </div>
-              </a>
-            );
-          } else if (fileType === "xlsx") {
-            content = (
-              <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
-                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
-                  <img src={XLSXPic} alt="XLSX" className="h-[60px] w-[60px] object-cover" />
-                </div>
-              </a>
-            );
-          } else if (fileType === "video") {
-            content = (
-              <video className="h-[100px] w-[135px]" src={editData?.fileUrl} width={400} controls></video>
-            );
-          } else {
-            content = (
-              <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
-                <span className="text-gray-600 text-lg">Unknown</span>
-              </div>
-            );
-          }
-  
-          return (
-            <div className="border flex items-center h-24 hover:bg-zinc-100 my-1" key={editData?._id}>
-              <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
-                {content}
-              </div>
-  
-              <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-                <div className="font-bold hover:bg-slate-100">
-                  <a href={editData?.fileUrl} target="_blank" rel="noopener noreferrer">
-                    {getFilenameFromURL(editData)}
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span>
-                    <TooltipCommon text={editData.uploadedBy?.fullName}>
-                      <Avatar className="cursor-pointer w-6 h-6">
-                        <AvatarImage src={editData?.uploadedBy?.avatar} className="h-6" alt="companyLogo" />
-                        <AvatarFallback>
-                          <img src={UserLogo} className="h-6" alt="companyLogo" />
-                        </AvatarFallback>
-                      </Avatar>
-                    </TooltipCommon>
-                  </span>
-                  <span>{formatDate(editData?.createdAt)}</span>
-                </div>
-              </div>
-            </div>
-          );
-        })
-      ) : (
-        <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
-          No data found!
-        </div>
-      )}
-    </div>
-  </div>
-            )} */}
 
-            {textTab === "updates" && (
-              <div className="w-full">
-                {/* <UpdateSection
-                  editorData={editorData}
-                  ReplyClick={ReplyClick}
-                  likeClick={likeClick}
-                  likeID={like}
-                  userId={userId}
-                  comments={comments}
-                  showComments={showComments}
-                  commentID={commentID}
-                  customerId={customerId}
-                  addViewsData={addViewsData}
-                  handleUpdate={handleUpdate}
-                /> */}
-              </div>
-            )}
+
+        
             {textTab === "files" && (
               <>
                 <div className="w-full mt-2 file-1">
@@ -802,7 +659,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
         }
       }
 
-      // Handle only PDF file type
+   
       if (fileExtension === "pdf") {
         return (
           <div className="border flex items-center h-24 hover:bg-zinc-100 my-1" key={editData?._id}>
@@ -847,7 +704,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
         );
       }
 
-      return null; // Return null for non-PDF files (i.e., other file types)
+      return null; 
     })
   ) : (
     <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
@@ -906,10 +763,8 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
                     <ReportFileSection customerFileData={customerFileData} />
 
                     <div className="flex justify-end items-center report-btn right-0 absolute">
-                      {/* Button Section */}
-
                       <form onSubmit={handleAddData}>
-                        <div className="flex justify-end gap-2 right-0 ">
+                        <div className="flex justify-start gap-2 items-center ">
                           <>
                             <button
                               type="submit"
