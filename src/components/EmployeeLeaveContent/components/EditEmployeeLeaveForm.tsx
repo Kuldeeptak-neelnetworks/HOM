@@ -472,7 +472,7 @@ const EditEmployeeLeaveForm = () => {
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {endDate ? (
-                      format(endDate, "yyyy-MM-dd")
+                      format(endDate, "dd-MM-yyyy")
                     ) : (
                       <span>Pick a date</span>
                     )}
@@ -545,7 +545,7 @@ const EditEmployeeLeaveForm = () => {
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {returnDate ? (
-                    format(returnDate, "yyyy-MM-dd")
+                    format(returnDate, "dd-MM-yyyy")
                   ) : (
                     <span>Pick a date</span>
                   )}

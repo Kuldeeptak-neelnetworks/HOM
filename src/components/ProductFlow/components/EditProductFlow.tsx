@@ -345,7 +345,7 @@ const EditProductFlow = () => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {datePhase1Instructed ? (
-                          format(datePhase1Instructed, "yyyy-MM-dd")
+                          format(datePhase1Instructed, "dd-MM-yyyy")
                         ) : (
                           <span>Pick a date</span>
                         )}
@@ -419,7 +419,7 @@ const EditProductFlow = () => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {datePhase2Instructed ? (
-                          format(datePhase2Instructed, "yyyy-MM-dd")
+                          format(datePhase2Instructed, "dd-MM-yyyy")
                         ) : (
                           <span>Pick a date</span>
                         )}
@@ -496,7 +496,7 @@ const EditProductFlow = () => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {demoCompletedDate ? (
-                          format(demoCompletedDate, "yyyy-MM-dd")
+                          format(demoCompletedDate, "dd-MM-yyyy")
                         ) : (
                           <span>Pick a date</span>
                         )}
@@ -571,7 +571,7 @@ const EditProductFlow = () => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {liveDate ? (
-                          format(liveDate, "yyyy-MM-dd")
+                          format(liveDate, "dd-MM-yyyy")
                         ) : (
                           <span>Pick a date</span>
                         )}

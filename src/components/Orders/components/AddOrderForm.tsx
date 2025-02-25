@@ -603,7 +603,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {dateOfOrder ? (
-                          format(dateOfOrder, "yyyy-MM-dd")
+                          format(dateOfOrder, "dd-MM-yyyy")
                         ) : (
                           <span>Pick a date</span>
                         )}
@@ -1357,7 +1357,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {dateOfFirstDd ? (
-                          format(dateOfFirstDd, "yyyy-MM-dd")
+                          format(dateOfFirstDd, "dd-MM-yyyy")
                         ) : (
                           <span>Pick a date</span>
                         )}
@@ -1437,7 +1437,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {renewalDate ? (
-                          format(renewalDate, "yyyy-MM-dd")
+                          format(renewalDate, "dd-MM-yyyy")
                         ) : (
                           <span>Pick a date</span>
                         )}

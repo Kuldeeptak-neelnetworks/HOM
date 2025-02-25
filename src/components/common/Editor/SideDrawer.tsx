@@ -245,16 +245,16 @@ export default function SideDrawer({
                       <CardTitle>{customerName}</CardTitle>
                       <div className="w-full mt-2">
                         <Tabs defaultValue="updates" className="w-full">
-                          <TabsList className="grid grid-cols-3">
+                          <TabsList className="grid grid-cols-2">
                             <TabsTrigger value="updates" className="bg-[#fff]">
                               Updates
                             </TabsTrigger>
                             <TabsTrigger value="files" className="bg-[#fff]">
                               Files
                             </TabsTrigger>
-                            <TabsTrigger value="invoices" className="bg-[#fff]">
+                            {/* <TabsTrigger value="invoices" className="bg-[#fff]">
                               Invoices
-                            </TabsTrigger>
+                            </TabsTrigger> */}
                           </TabsList>
                           <TabsContent value="updates">
                             <Card>
@@ -266,7 +266,7 @@ export default function SideDrawer({
                                   Click here to write something...
                                 </p>
                                 {openQuill && (
-                                  <div className="space-y-1">
+                                  <div className="space-y-1 ">
                                     
                                     <QuillEditor
                                       amendmentId={amendmentId || ""}
@@ -282,6 +282,7 @@ export default function SideDrawer({
                                       setIsOpenReplyModel={() => {}}
                                       copywriterId={copywriterId || ""}
                                       websiteContentId={websiteContentId || ""}
+                                      quillSize="size"
                                       // text=""
                                     />
                                   </div>
@@ -318,60 +319,10 @@ export default function SideDrawer({
                               </CardContent>
                             </Card>
                           </TabsContent>
-                          <TabsContent value="invoices">
+                          {/* <TabsContent value="invoices">
                             <Card>
                               <CardContent className="overflow-y-auto mt-4 flex items-center">
-                                {/* {updateFileDetails.length > 0
-                                  ? updateFileDetails.map((file, index) => {
-                                      console.log("rrrrr", file);
-                                      return (
-                                        <div key={index} className="">
-                                          <a
-                                            href={
-                                              file?.fileUrl ? file?.fileUrl : ""
-                                            }
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            title={file?.fileUrl}
-                                          >
-                                            <img
-                                              //   src={fileIcons[fileType]}
-                                              src={PDFPic}
-                                              alt="PDF"
-                                              className="h-[50px] w-[50px] object-cover rounded"
-                                            />
-                                          </a>
-                                        </div>
-                                      );
-                                    })
-                                  : "No Data Found!"} */}
-                                {/* {Array.isArray(invoice) &&
-                                invoice.length > 0 ? (
-                                  invoice.map((file, index) => {
-                                    return (
-                                      <div key={index} className="">
-                                        <a
-                                          href={
-                                            file?.fileUrl ? file?.fileUrl : ""
-                                          }
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          title={file?.fileUrl}
-                                        >
-                                          <img
-                                            src={PDFPic}
-                                            alt="PDF"
-                                            className="h-[50px] w-[50px] object-cover rounded"
-                                          />
-                                        </a>
-                                      </div>
-                                    );
-                                  })
-                                ) : invoice ? (
-                                  <div>{invoice}</div>
-                                ) : (
-                                  "No Data Found!"
-                                )} */}
+                             
 
                                 {invoice && (
                                   <div className="">
@@ -394,7 +345,7 @@ export default function SideDrawer({
                                 )}
                               </CardContent>
                             </Card>
-                          </TabsContent>
+                          </TabsContent> */}
                         </Tabs>
                       </div>
                     </div>

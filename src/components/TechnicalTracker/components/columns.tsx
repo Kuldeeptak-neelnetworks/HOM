@@ -109,7 +109,7 @@ export const columns = [
       <DataTableColumnHeader column={column} title="Update" />
     ),
     cell: ({ row }: any) => {
-      console.log("cvbnm,", row.original);
+      // console.log("cvbnm,", row.original);
       return (
         <SideDrawer
           technicalId={row?.original?._id}

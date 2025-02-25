@@ -286,7 +286,7 @@ const AddCopywriterForm = ({}: any) => {
                                           {dateComplete &&
                                           dateComplete.toISOString() !==
                                             "1970-01-01T00:00:00.000Z"
-                                            ? format(dateComplete, "yyyy-MM-dd")
+                                            ? format(dateComplete, "dd-MM-yyyy")
                                             : "Pick a date"}
                                         </Button>
                                       </PopoverTrigger>

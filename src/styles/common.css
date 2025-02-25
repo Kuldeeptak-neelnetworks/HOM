@@ -311,6 +311,25 @@
   /* justify-content: end; */
   right: 0;
 }
+.custom-quill-container .ql-container .ql-snow.size {
+  height: 400px;
+}
+
+
+/* Custom React Quill editor size */
+
+/* For setting size on specific component container, you can use a custom class */
+/* Custom styles for different Quill sizes */
+/* .custom-quill-container .ql-container {
+  width: 100%;
+  height: 400px; 
+}
+
+.custom-quill-container .size {
+  height: 400px; /* This could be any size you want for the 'size' prop */
+
+
+
 /* .quill-uploaded-image {
   width: 130px;
   height: 130px;

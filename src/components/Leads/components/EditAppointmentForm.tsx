@@ -326,7 +326,7 @@ any) => {
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {appointmentDate && appointmentDate.toISOString() !== "1970-01-01T00:00:00.000Z"
-                    ? format(appointmentDate, "yyyy-MM-dd")
+                    ? format(appointmentDate, "dd-MM-yyyy")
                     : "Pick a date"}
                 </Button>
               </PopoverTrigger>

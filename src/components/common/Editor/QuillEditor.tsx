@@ -38,8 +38,11 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   amendmentId,
   copywriterId,
   websiteContentId,
-  text,
+  text,quillSize
 }) => {
+
+
+  
   const [value, setValue] = useState<string>("");
   const [images, setImages] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -349,61 +352,16 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
               }}
               onChangeSelection={updateMentionedUserIds}
               placeholder={options.placeholder}
+              style={{
+                height: quillSize === "size" ? "300px" : "", 
+                marginBottom: quillSize === "size" ? "42px":"",
+              }}
+              // className={`custom-quill-container${quillSize || ""}`} 
             />
           )}
         </div>
 
-        {/* <h3>Uploaded Filesqq:</h3> */}
-
-        {/* <div className="flex justify-start gap-2 items-center absolute bottom-1 right-0 "> */}
-        {/* <div
-        className={`flex justify-start gap-2 items-center ${
-          text !== "file" ? "absolute bottom-1 right-0" : " "
-        }`}
-      > */}
-        {/* <div  className={`flex justify-start gap-2 items-center ${text === "file" ? " flex justify-end bottom-1 right-0" : "absolute bottom-1 right-0"}`}>  */}
-        {/* 
-      {text === "file" && (
-      <div className="ml-5">
-        <ul>
-          {images.flat().map((file, index) => {
-            console.log("File at index " + index + ": ", file);
-            return (
-              <li key={index}>
-                <p>{getFilenameFromURL(file)}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      )} */}
-        {/* <div className="flex justify-start gap-2 items-center update-btn">
-
-
-        
-        <Button
-          type="submit"
-          className="cursor-pointer h-[24px] border border-primary bg-primary px-4 text-white transition hover:bg-opacity-90"
-        >
-          {isLoading ? (
-            <Loader2 className="mr-2 h-6 w-6 animate-spin text-[#fff]" />
-          ) : indicatorText === "reply" ? (
-            "Reply"
-          ) : (
-            "Update"
-          )}
-        </Button>
-
-        <div onClick={imageHandler} className="w-fit cursor-pointer">
-          <TooltipCommon text="Add Files">
-            <div className="hover:bg-gray-100 px-2 py-1">
-              <AddFilesDarkUIconSVG />
-            </div>
-          </TooltipCommon>
-        </div>
-      </div> */}
-        {/* <div className="flex justify-start items-center "> */}
-        {/* File List Section */}
+      
 
         {images && images.length > 0 && text === "file" ? (
           <div className="update-file">

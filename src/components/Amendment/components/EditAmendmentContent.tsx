@@ -428,7 +428,7 @@ const EditAmendmentContent = () => {
                         {completeDate &&
                         completeDate.toISOString() !==
                           "1970-01-01T00:00:00.000Z"
-                          ? format(completeDate, "yyyy-MM-dd")
+                          ? format(completeDate, "dd-MM-yyyy")
                           : "Pick a date"}
                       </Button>
                     </PopoverTrigger>

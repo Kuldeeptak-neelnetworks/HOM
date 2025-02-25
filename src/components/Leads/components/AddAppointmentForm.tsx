@@ -296,7 +296,7 @@ const AddAppointmentForm: React.FC<AddAppointmentFormProps> = ({
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
                   {date && date.toISOString() !== "1970-01-01T00:00:00.000Z"
-                    ? format(date, "yyyy-MM-dd")
+                    ? format(date, "dd-MM-yyyy")
                     : "Pick a date"}
                 </Button>
               </PopoverTrigger>

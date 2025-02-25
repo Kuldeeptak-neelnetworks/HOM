@@ -595,37 +595,35 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             )}
 
             {/* {textTab === "files" && ( */}
-              <>
+            <>
               <TabsContent value="files">
-              <Card className="border-none shadow-none">
-                <CardHeader className="p-0"></CardHeader>
-                <CardContent className="p-0 space-y-2 px-1">
-               
-                  <div className="w-full  file-1 ">
-                    <UpdateFilesSection fileData={fileData} />
+                <Card className="border-none shadow-none">
+                  <CardHeader className="p-0"></CardHeader>
+                  <CardContent className="p-0 space-y-2 px-1">
+                    <div className="w-full  file-1 ">
+                      <UpdateFilesSection fileData={fileData} />
 
-                    <QuillEdior
-                      productFlowId=""
-                      customerId={customerId}
-                      indicatorText="post"
-                      updateId={""}
-                      handleEdit={""}
-                      orderId={""}
-                      leadId={""}
-                      technicalId={""}
-                      setOpenQuill={() => {}}
-                      setIsOpenReplyModel={() => {}}
-                      amendmentId={""}
-                      copywriterId={""}
-                      websiteContentId={""}
-                      text="file"
-                    />
-                  
-                </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-              </>
+                      <QuillEdior
+                        productFlowId=""
+                        customerId={customerId}
+                        indicatorText="post"
+                        updateId={""}
+                        handleEdit={""}
+                        orderId={""}
+                        leadId={""}
+                        technicalId={""}
+                        setOpenQuill={() => {}}
+                        setIsOpenReplyModel={() => {}}
+                        amendmentId={""}
+                        copywriterId={""}
+                        websiteContentId={""}
+                        text="file"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </>
             {/* )} */}
             {/* <TabsContent value="orders">
               <Card className="border-none shadow-none">
@@ -849,76 +847,6 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             <ActivitySection activityDetails={acData} className="w-full" />
           </div>
         )}
-
-        {/* {textTab === "updates" && ( */}
-        {/* <div className="w-full">
-
-            <UpdateSection
-              editorData={editorData}
-              ReplyClick={ReplyClick}
-              likeClick={likeClick}
-              likeID={like}
-              userId={userId}
-              comments={comments}
-              showComments={showComments}
-              commentID={commentID}
-              customerId={customerId}
-              addViewsData={addViewsData}
-              handleUpdate={handleUpdate}
-            />
-          </div> */}
-        {/* )} */}
-        {/* {textTab === "orders" && ( */}
-        {/* <div className="w-full">
-  
-            <OrderDetailsInCustomer orderData={orderDetails && orderDetails} />
-          </div> */}
-        {/* )}  */}
-
-        {/* {textTab === "invoices" && ( */}
-        {/* <div className="p-3 flex bg-white w-full h-[70vh] mt-1 boxShadow border border-[#e1e8f0]">
-            {Array.isArray(customerDetails?.vatInvoice)
-              ? customerDetails?.vatInvoice?.map((item) => {
-                  return item ? (
-                    <div className="border border-[#e1e8f0] h-[70px] p-2 flex justify-center align-middle items-center">
-                      <div>
-                        <a
-                          href={item ? item : ""}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title={item}
-                        >
-                          <img
-                            //   src={fileIcons[fileType]}
-                            src={PDFPic}
-                            alt="PDF"
-                            className="h-[50px] w-[50px] object-cover"
-                          />
-                        </a>
-                      </div>
-                      <div className="">
-                        <a
-                          href={item ? item : ""}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          title={item}
-                        >
-                          {item}
-                        </a>
-                      </div>
-                    </div>
-                  ) : (
-                    "No Invoice Found"
-                  );
-                })
-              : "No Data Found"}
-          </div> */}
-        {/* )}  */}
-        {/* {textTab === "files" && ( */}
-        {/* <div className="w-full mt-1">
-            <UpdateFilesSection updateFileDetails={updateFileDetails} />
-          </div> */}
-        {/* )}  */}
       </div>
     </div>
   );

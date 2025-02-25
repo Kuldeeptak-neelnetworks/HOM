@@ -192,7 +192,7 @@ const EditTechnical = () => {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {completeDate
-                          ? format(completeDate, "yyyy-MM-dd")
+                          ? format(completeDate, "dd-MM-yyyy")
                           : "Pick a date"}
                       </Button>
                     </PopoverTrigger>
