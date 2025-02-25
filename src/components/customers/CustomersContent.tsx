@@ -320,7 +320,7 @@ const CustomersContent: React.FC = () => {
         tableInstance={tableInstance}
         loading={loading}
       />
-          <div className="absolute bottom-[-20px] bg-white text-[0.89rem] boxShadow">
+          {/* <div className="absolute bottom-[-20px] bg-white text-[0.89rem] boxShadow">
         <div className="p-1">
           <div>
             <span className="font-bold">Total Order Value :</span>
@@ -335,7 +335,7 @@ const CustomersContent: React.FC = () => {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex justify-end mr-10 items-start gap-5">
         <div className="flex justify-end items-center gap-2 mt-2">

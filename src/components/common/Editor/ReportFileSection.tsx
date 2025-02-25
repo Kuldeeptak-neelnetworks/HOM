@@ -158,7 +158,7 @@ const ReportFileSection = ({
 
         return (
           <div
-            className=" border flex items-center h-24  hover:bg-zinc-100 my-1"
+            className=" border flex items-center h-24  hover:bg-zinc-100 my-1 mx-1"
             key={editData?._id}
           >
             <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">

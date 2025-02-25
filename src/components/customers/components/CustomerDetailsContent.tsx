@@ -327,7 +327,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
     inputImage.click();
 
     inputImage.onchange = () => {
-      handleFileUpload(inputImage.files); 
+      handleFileUpload(inputImage.files);
     };
   };
   const handleClear = () => {
@@ -594,33 +594,39 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
               </div>
             )}
 
-
-
-        
-            {textTab === "files" && (
+            {/* {textTab === "files" && ( */}
               <>
-                <div className="w-full mt-2 file-1">
-                  <UpdateFilesSection fileData={fileData} />
+              <TabsContent value="files">
+              <Card className="border-none shadow-none">
+                <CardHeader className="p-0"></CardHeader>
+                <CardContent className="p-0 space-y-2 px-1">
+               
+                  <div className="w-full  file-1 ">
+                    <UpdateFilesSection fileData={fileData} />
 
-                  <QuillEdior
-                    productFlowId=""
-                    customerId={customerId}
-                    indicatorText="post"
-                    updateId={""}
-                    handleEdit={""}
-                    orderId={""}
-                    leadId={""}
-                    technicalId={""}
-                    setOpenQuill={() => {}}
-                    setIsOpenReplyModel={() => {}}
-                    amendmentId={""}
-                    copywriterId={""}
-                    websiteContentId={""}
-                    text="file"
-                  />
+                    <QuillEdior
+                      productFlowId=""
+                      customerId={customerId}
+                      indicatorText="post"
+                      updateId={""}
+                      handleEdit={""}
+                      orderId={""}
+                      leadId={""}
+                      technicalId={""}
+                      setOpenQuill={() => {}}
+                      setIsOpenReplyModel={() => {}}
+                      amendmentId={""}
+                      copywriterId={""}
+                      websiteContentId={""}
+                      text="file"
+                    />
+                  
                 </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
               </>
-            )}
+            {/* )} */}
             {/* <TabsContent value="orders">
               <Card className="border-none shadow-none">
                 <CardHeader className="p-0"></CardHeader>
@@ -646,73 +652,94 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             </TabsContent> */}
             <TabsContent value="invoices">
               <Card className="border-none">
-                <CardContent className="p-0 space-y-2 px-2 ">
+                <CardContent className="p-0 space-y-2 px-1">
                   <div className="w-full">
-                  <div className="flex flex-col overflow-y-auto bg-white max-h-[176px] min-h-[176px] overflow-scroll">
-  {Array.isArray(customerDetails?.vatInvoice) && customerDetails.vatInvoice.length > 0 ? (
-    customerDetails.vatInvoice.map((editData: any, index: number) => {
-      let fileExtension = "";
-      if (editData) {
-        const fileNameParts = editData.split(".");
-        if (fileNameParts.length > 1) {
-          fileExtension = fileNameParts.pop()?.toLowerCase() || "";
-        }
-      }
+                    <div className="flex flex-col overflow-y-auto bg-white max-h-[176px] min-h-[176px] overflow-scroll">
+                      {Array.isArray(customerDetails?.vatInvoice) &&
+                      customerDetails.vatInvoice.length > 0 ? (
+                        customerDetails.vatInvoice.map(
+                          (editData: any, index: number) => {
+                            let fileExtension = "";
+                            if (editData) {
+                              const fileNameParts = editData.split(".");
+                              if (fileNameParts.length > 1) {
+                                fileExtension =
+                                  fileNameParts.pop()?.toLowerCase() || "";
+                              }
+                            }
 
-   
-      if (fileExtension === "pdf") {
-        return (
-          <div className="border flex items-center h-24 hover:bg-zinc-100 my-1" key={editData?._id}>
-            <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
-              {/* PDF Content */}
-              <a href={editData} target="_blank" rel="noopener noreferrer">
-                <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
-                  <img
-                    src={PDFPic}
-                    alt="PDF"
-                    className="h-[60px] w-[60px] object-cover"
-                  />
-                </div>
-              </a>
-            </div>
+                            if (fileExtension === "pdf") {
+                              return (
+                                <div
+                                  className="border flex items-center h-24 hover:bg-zinc-100 my-1 mx-1"
+                                  key={editData?._id}
+                                >
+                                  <div className="border m-3 flex items-center hover:border-b-zinc-600 hover:shadow-lg">
+                                    {/* PDF Content */}
+                                    <a
+                                      href={editData}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
+                                        <img
+                                          src={PDFPic}
+                                          alt="PDF"
+                                          className="h-[60px] w-[60px] object-cover"
+                                        />
+                                      </div>
+                                    </a>
+                                  </div>
 
-            <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
-              <div className="font-bold hover:bg-slate-100">
-                <a href={editData} target="_blank" rel="noopener noreferrer">
-                  {getFilenameFromURL(editData)}
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <span>
-                  <TooltipCommon text={editData.uploadedBy?.fullName}>
-                    <Avatar className="cursor-pointer w-6 h-6">
-                      <AvatarImage
-                        src={editData?.uploadedBy?.avatar}
-                        className="h-6"
-                        alt="companyLogo"
-                      />
-                      <AvatarFallback>
-                        <img src={UserLogo} className="h-6" alt="companyLogo" />
-                      </AvatarFallback>
-                    </Avatar>
-                  </TooltipCommon>
-                </span>
-                <span>{formatDate(editData?.createdAt)}</span>
-              </div>
-            </div>
-          </div>
-        );
-      }
+                                  <div className="m-3 flex flex-col justify-around gap-2 text-[0.8rem]">
+                                    <div className="font-bold hover:bg-slate-100">
+                                      <a
+                                        href={editData}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        {getFilenameFromURL(editData)}
+                                      </a>
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                      <span>
+                                        <TooltipCommon
+                                          text={editData.uploadedBy?.fullName}
+                                        >
+                                          <Avatar className="cursor-pointer w-6 h-6">
+                                            <AvatarImage
+                                              src={editData?.uploadedBy?.avatar}
+                                              className="h-6"
+                                              alt="companyLogo"
+                                            />
+                                            <AvatarFallback>
+                                              <img
+                                                src={UserLogo}
+                                                className="h-6"
+                                                alt="companyLogo"
+                                              />
+                                            </AvatarFallback>
+                                          </Avatar>
+                                        </TooltipCommon>
+                                      </span>
+                                      <span>
+                                        {formatDate(editData?.createdAt)}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            }
 
-      return null; 
-    })
-  ) : (
-    <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
-      No data found!
-    </div>
-  )}
-</div>
-
+                            return null;
+                          }
+                        )
+                      ) : (
+                        <div className="text-center text-gray-600 flex items-center justify-center h-[90px]">
+                          No data found!
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -742,7 +769,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
             </TabsContent> */}
             <TabsContent value="updates">
               <Card className="border-none shadow-none">
-                <CardContent className="p-0 space-y-2 px-2">
+                <CardContent className="p-0 space-y-2 px-1">
                   {/* <QuillEdior
                     productFlowId=""
                     customerId={customerId}
