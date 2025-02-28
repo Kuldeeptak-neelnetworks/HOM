@@ -206,7 +206,7 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
         }
       >
         {/* Notification section  */}
-        <DropdownMenu>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <div className="text-[#29354f] mr-5 relative cursor-pointer mt-1">
               <div className="h-4 w-4 rounded-full bg-red-600 absolute flex justify-center items-center right-3 -top-1">
@@ -219,23 +219,13 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
               <NotificationBellIconSVG />
             </div>
 
-            {/* <Button variant="outline">Open</Button> */}
+   
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mr-20 bg-slate-400">
             <Card className="">
               <CardHeader>
                 <CardTitle>Notifications</CardTitle>
-                {/* <CardDescription>
-                  You have{" "}
-                  <span className="font-bold">
-                    {
-                      notificationData?.notifications?.filter((e) =>
-                        e.isRead ? "0" : "0"
-                      ).length
-                    }
-                  </span>{" "}
-                  unread messages.
-                </CardDescription> */}
+              
                 <CardDescription>
                   You have{" "}
                   <span className="font-bold">
@@ -249,14 +239,7 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
               <CardContent className="grid gap-2">
                 <div className="h-[500px]">
                   <Tabs defaultValue="All" className="w-[700px] ">
-                    <TabsList className="grid w-full grid-cols-3 bg-[#ffffff] boxShadow">
-                      <TabsTrigger value="All">All</TabsTrigger>
-                      <TabsTrigger value="Mentioned">Mentioned</TabsTrigger>
-                      <TabsTrigger value="Assigned to me">
-                        Assigned to me
-                      </TabsTrigger>
-                    </TabsList>
-
+             
                     <TabsContent value="All">
                       <Card>
                         <CardContent className="overflow-y-auto text-[0.8rem] py-2 px-5 my-2">
@@ -281,74 +264,13 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
                       </Card>
                     </TabsContent>
 
-                    <TabsContent value="Mentioned">
-                      <Card>
-                        <CardContent className="overflow-y-auto text-[0.8rem] py-2 px-5 my-2">
-                          {notificationData?.notifications?.filter(
-                            (notification: any) =>
-                              notification.category === "i_was_mentioned"
-                          ).length > 0 ? (
-                            <div className="h-[430px]">
-                              {notificationData.notifications
-                                .filter(
-                                  (notification: any) =>
-                                    notification.category === "i_was_mentioned"
-                                )
-                                .map((notification: any) => (
-                                  <NotificationCard
-                                    notification={notification}
-                                    key={notification?._id}
-                                    singleNotificationfecthHandler={
-                                      singleNotificationfecthHandler
-                                    }
-                                  />
-                                ))}
-                            </div>
-                          ) : (
-                            <div>No Data found</div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-
-                    <TabsContent value="Assigned to me">
-                      <Card>
-                        <CardContent className="overflow-y-auto text-[0.8rem] py-2 px-5 my-2">
-                          {notificationData?.notifications?.filter(
-                            (notification: any) =>
-                              notification.category === "assigned_to_me"
-                          ).length > 0 ? (
-                            <div className="h-[430px]">
-                              {notificationData.notifications
-                                .filter(
-                                  (notification: any) =>
-                                    notification.category === "assigned_to_me"
-                                )
-                                .map((notification: any) => (
-                                  <NotificationCard
-                                    notification={notification}
-                                    key={notification?._id}
-                                    singleNotificationfecthHandler={
-                                      singleNotificationfecthHandler
-                                    }
-                                  />
-                                ))}
-                            </div>
-                          ) : (
-                            <div>No Data found</div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
                   </Tabs>
                 </div>
               </CardContent>
-              {/* <CardFooter>
-                <Button className="w-full">Show all Notifications</Button>
-              </CardFooter> */}
+            
             </Card>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
 
         {/* User Profile DropDown section */}
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">

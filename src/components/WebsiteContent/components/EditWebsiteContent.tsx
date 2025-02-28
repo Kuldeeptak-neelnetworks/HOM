@@ -196,12 +196,12 @@ const EditWebsiteContent = () => {
             ([_, value]) => value !== "" && value != null
           )
         );
-        console.log("filteredData", filteredData);
+        // console.log("filteredData", filteredData);
         const response = await baseInstance.patch(
           `/newwebsite/${websiteContentId}`,
           filteredData
         );
-        console.log("filteredData", filteredData);
+        // console.log("filteredData", filteredData);
         if (response?.status === 200) {
           successToastingFunction(response?.data?.message);
           setIsWebsiteContentValid(() => false);

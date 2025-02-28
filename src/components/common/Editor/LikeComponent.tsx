@@ -18,9 +18,7 @@ const LikeComponent: React.FC<LikeStatusProps> = ({
     return Array.isArray(likes) && likes.some((like) => like?._id === userId);
   }, [likes, userId]);
 
-  console.log("isLiked", isLiked);
-  console.log("likes", likes);
-  console.log("userId", userId);
+
 
   return (
     <div

@@ -367,7 +367,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
           <div className="update-file">
             <ul>
               {images.flat().map((file, index) => {
-                console.log("File at index " + index + ": ", file);
+
                 return (
                   <li key={index}>
                     <p>{getFilenameFromURL(file)}</p>

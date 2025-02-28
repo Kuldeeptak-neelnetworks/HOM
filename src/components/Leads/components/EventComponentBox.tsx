@@ -85,7 +85,7 @@ const EventComponentBox = ({
                 const formattedDate = moment(date)
                   .tz(moment.tz.guess())
                   .format("YYYY-MM-DD");
-                console.log("formattedDate", formattedDate);
+        
                 return (
                   <Card
                     key={item._id}

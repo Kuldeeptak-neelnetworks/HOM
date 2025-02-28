@@ -316,6 +316,23 @@ export default function SideDrawer({
                                   updateFileDetails={updateFileDetails}
                                   getUpdateFiles={getUpdateFiles}
                                 />
+                                {/* <QuillEditor
+                                      amendmentId={amendmentId || ""}
+                                      orderId={orderId || ""}
+                                      customerId={""}
+                                      indicatorText="post"
+                                      technicalId={technicalId || ""}
+                                      leadId={leadId || ""}
+                                      updateId={updateId || ""}
+                                      productFlowId={productFlowId || ""}
+                                      handleEdit={""}
+                                      setOpenQuill={setOpenQuill}
+                                      setIsOpenReplyModel={() => {}}
+                                      copywriterId={copywriterId || ""}
+                                      websiteContentId={websiteContentId || ""}
+                                      quillSize="size"
+                                      // text=""
+                                    /> */}
                               </CardContent>
                             </Card>
                           </TabsContent>

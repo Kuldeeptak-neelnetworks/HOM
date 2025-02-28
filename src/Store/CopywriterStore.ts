@@ -48,7 +48,7 @@ export const useCopywriterStore = create<CopywriterState & CopywriterActions>()(
             ...(limit && { limit }),
           },
         });
-        console.log("response", response);
+        // console.log("response", response);
         if (response.status === 200) {
           set({
             copywriterData: response.data?.data?.copywriterTrackers,

@@ -151,7 +151,7 @@ const UpdateAmendment = ({ amendmentId }: any) => {
   const likeClick = (likeId: string) => {
     if (likeId) addLikesData(likeId);
     setLike((prev) => !prev);
-    console.log("likeId", likeId);
+    // console.log("likeId", likeId);
   };
 
   const ReplyClick = (id: string) => {

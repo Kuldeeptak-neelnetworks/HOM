@@ -86,7 +86,7 @@ const DashBoardPage: React.FC = () => {
 
 
 
-  console.log("userTotalOrderData",userTotalOrderData)
+
 
   return (
     <div className="col-span-6">

@@ -1,5 +1,3 @@
-
-
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import {
@@ -15,15 +13,36 @@ import {
   ProductFlowLogoSVG,
   NewWebsiteContentLogoSVG,
   EmployeeLeaveLogoSVG,
-  SalesIconSVG,
+  SalesIconSVG,NotificationBellIconSVG
 } from "@/utils/SVGs/SVGs";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+// import { NotificationBellIconSVG } from "@/utils/SVGs/SVGs";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Appbar from "../Appbar/Appbar";
 import Link from "next/link";
 import Logo from "../../asset/images/logo.png";
 import MiniLogo from "../../asset/images/mini-logo.png";
 import "../../styles/common.css";
-import MenuItem from "./components/MenuItem"; 
-
+import MenuItem from "./components/MenuItem";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import NotificationCard from "../Appbar/components/NotificationCard";
+import { useNotificationStore } from "@/Store/NotificationStore";
+import { useRouter } from "next/navigation";
 interface MenuItemIF {
   id: string;
   title: string;
@@ -36,25 +55,25 @@ interface SubMenuItem {
   subtitle: string;
 }
 
-const SideBarContent: React.FC<{ setToggleWidth: any }> = ({ setToggleWidth }) => {
+const SideBarContent: React.FC<{ setToggleWidth: any }> = ({
+  setToggleWidth,
+}) => {
   const [toggleSider, setToggleSider] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const [openSmallSideBar, setOpenSmallSideBar] = useState(false);
-  const sidebarRef = useRef<HTMLDivElement>(null); 
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   const logoSrc = Logo.src;
   const MiniLogoSrc = MiniLogo.src;
 
   const togglerFunction = () => {
     setToggleSider((prev) => !prev);
-    setToggleWidth((prev:any) => !prev);
+    setToggleWidth((prev: any) => !prev);
   };
-
 
   let userDetails: any =
     typeof window !== "undefined" ? localStorage?.getItem("user") : null;
   let userRole = JSON.parse(userDetails)?.role;
-
 
   const showSmallSideBar = () => {
     setOpenSmallSideBar((prev) => !prev);
@@ -69,9 +88,89 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({ setToggleWidth }) =
 
   const handleScroll = () => {
     if (sidebarRef.current) {
-      localStorage.setItem("sidebarScroll", sidebarRef.current.scrollTop.toString());
+      localStorage.setItem(
+        "sidebarScroll",
+        sidebarRef.current.scrollTop.toString()
+      );
     }
   };
+  const {
+    fetchNotificationData,
+    notificationData,
+    fetchSingleNotificationData,
+    notificationSingleData,
+    fetchSingleReadNotificationData,
+    notificationReadData,
+  } = useNotificationStore();
+  const [notificationTriggered, setNotificationTriggered] = useState(false);
+  const router = useRouter();
+  const [openDropDown, setOpenDropDown] = useState<boolean>(false);
+
+  useEffect(() => {
+    fetchNotificationData();
+  }, []);
+
+  const singleNotificationfecthHandler = async (notificationId: string) => {
+    await fetchSingleNotificationData(notificationId);
+    await fetchSingleReadNotificationData(notificationId);
+    setNotificationTriggered(true); // Trigger the effect
+  };
+
+  useEffect(() => {
+    if (notificationTriggered) {
+      // Only run when triggered
+      if (
+        notificationSingleData &&
+        Object.keys(notificationSingleData).length > 0
+      ) {
+        const itemType = notificationSingleData?.itemType;
+
+        console.log("itemType", itemType);
+
+        const queryData = {
+          id: notificationSingleData?.item,
+        };
+
+        const queryString = new URLSearchParams(queryData).toString();
+        const idValue = queryString.split("=")[1];
+        if (itemType === "Amendment") {
+          router.push(`/amendment`);
+        } else if (itemType === "Customer") {
+          router.push(`/customers`);
+        } else if (itemType === "Order") {
+          router.push(`/orders`);
+        } else if (itemType === "Lead") {
+          router.push(`/leads`);
+        } else if (itemType === "NewWebsiteContent") {
+          router.push(`/websiteContent`);
+        } else if (itemType === "CopywriterTracker") {
+          router.push(`/copywriter`);
+        } else if (itemType === "TechnicalTracker") {
+          router.push(`/technical`);
+        } else if (itemType === "ProductFlow") {
+          router.push(`/productFlow`);
+        }
+
+        // if (itemType === "Amendment") {
+        //   router.push("/amendment");
+        // } else if (itemType === "Customer") {
+        //   router.push("/customers");
+        // } else if (itemType === "Order") {
+        //   router.push("/orders");
+        // } else if (itemType === "Lead") {
+        //   router.push("/leads");
+        // } else if (itemType === "NewWebsiteContent") {
+        //   router.push("/websiteContent");
+        // }
+      }
+
+      setNotificationTriggered(false); // Reset the trigger state
+    }
+  }, [notificationTriggered, notificationSingleData]); // Include notificationSingleData if needed
+
+  useEffect(() => {
+    fetchNotificationData();
+  }, [notificationReadData]);
 
   return (
     <>
@@ -109,15 +208,19 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({ setToggleWidth }) =
         className={`fixed top-0 left-0 z-40 text-[0.8rem] ${
           toggleSider
             ? "w-[17rem] closedSidebar"
-            : `w-[6rem] OpenedSidebar ${openSmallSideBar ? "" : "-translate-x-full"}`
+            : `w-[6rem] OpenedSidebar ${
+                openSmallSideBar ? "" : "-translate-x-full"
+              }`
         } h-screen transition-transform sm:translate-x-0`}
         style={{ transition: "all 300ms" }}
         aria-label="Sidebar"
       >
         <div
-          ref={sidebarRef} 
-          onScroll={handleScroll} 
-          className={`h-full ${toggleSider ? "px-3" : ""} pb-4 overflow-y-auto bg-[#29354f] dark:bg-gray-800 text-[#fffff5]`}
+          ref={sidebarRef}
+          onScroll={handleScroll}
+          className={`h-full ${
+            toggleSider ? "px-3" : ""
+          } pb-4 overflow-y-auto bg-[#29354f] dark:bg-gray-800 text-[#fffff5]`}
         >
           {/* Logo Section */}
           <div
@@ -131,7 +234,9 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({ setToggleWidth }) =
               </Link>
             </div>
             <div
-              className={`${toggleSider ? "ml-[2.2rem] p-2" : "ml-2 p-1"} cursor-pointer bg-[#4b9437] hover:bg-gray-400`}
+              className={`${
+                toggleSider ? "ml-[2.2rem] p-2" : "ml-2 p-1"
+              } cursor-pointer bg-[#4b9437] hover:bg-gray-400`}
               onClick={() => togglerFunction()}
             >
               <SidebarToggler />
@@ -139,7 +244,30 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({ setToggleWidth }) =
           </div>
 
           {/* Menu Section */}
-          <ul className={`${toggleSider ? "" : "space-y-2"} font-medium mt-[1rem] mainSidebar`}>
+          <ul
+            className={`${
+              toggleSider ? "" : "space-y-2"
+            } font-medium mt-[1rem] mainSidebar`}
+          >
+            <MenuItem
+              label="Inbox"
+              href="/inbox"
+              isSidebarOpen={toggleSider}
+
+              icon={
+                <div className="relative cursor-pointer">
+                  <NotificationBellIconSVG  cssClass={"sidebar-icon-svg"} />
+                  <div className="absolute top-0 right-3 h-4 w-4 rounded-full bg-red-600 flex justify-center items-center">
+                    <span className="font-bold text-white text-[10px]">
+                      {notificationData?.notifications?.filter(
+                        (notification: any) => !notification.isRead
+                      ).length || 0}
+                    </span>
+                  </div>
+                </div>
+              }
+            />
+
             <MenuItem
               label="Dashboard"
               href="/dashboard"
@@ -248,7 +376,3 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({ setToggleWidth }) =
 };
 
 export default SideBarContent;
-
-
-
-

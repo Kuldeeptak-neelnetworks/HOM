@@ -13,7 +13,7 @@ const NotificationCard = ({
   notification,
   singleNotificationfecthHandler,
 }: any) => {
-  console.log("notification", notification);
+  // console.log("notification", notification);
   return (
     <div
       onClick={() => singleNotificationfecthHandler(notification?._id)}

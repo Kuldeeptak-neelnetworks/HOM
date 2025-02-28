@@ -90,7 +90,7 @@ export const useEmployeeLeaveStore = create<
       }
     },
     fetchEmployeeData: async (employeeId) => {
-      console.log("in Store", employeeId);
+      // console.log("in Store", employeeId);
       set({ loading: true });
       try {
         const response = await baseInstance.get(

@@ -225,7 +225,7 @@ const EditLeads = ({}) => {
     setFieldValue,
   } = formik;
 
-  console.log("leadData", leadData);
+
 
   return (
     <div className="px-4 py-0 relative text-[0.8rem]">

@@ -195,7 +195,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
 
     onSubmit: async (values: any) => {
       try {
-        console.log("Form values being submitted:", values);
+        // console.log("Form values being submitted:", values);
         setOrder(() => true);
         const formData = new FormData();
         formData.append("customerName", values.customerName);
@@ -299,7 +299,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
       //  );
     }
   }, [customerData, router]);
-  console.log("customerData", customerData);
+  // console.log("customerData", customerData);
 
   // Function to convert base64 to Blob
   const base64ToBlob = (base64: string, mimeType: string) => {
@@ -471,7 +471,7 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   }, []);
   const [customerOptions, setCustomerOptions] = useState([]);
   const loadOptions = async (loadedOptions: { options: any; }, { page }: any) => {
-    console.log("Loading page:", page); // Debug to check if page is received correctly
+    // console.log("Loading page:", page); // Debug to check if page is received correctly
 
     // Default to page 1 if page is undefined
     page = page || currentPage; // Ensure we have a valid page number

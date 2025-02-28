@@ -138,7 +138,7 @@ const UpdateSection = React.memo(
           {Array.isArray(editorData) && editorData
             ? editorData &&
               editorData?.map((editor: any) => {
-                console.log("editoreditor", editor);
+          
                 return (
                   <React.Fragment key={editor?._id}>
                     {editor.isPinned === true && (

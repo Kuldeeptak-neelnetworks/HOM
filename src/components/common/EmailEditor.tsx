@@ -56,7 +56,7 @@ const EmailEditor = () => {
   // console.log("newPara", newPara);
 
   const toggleBold = () => {
-    console.log("mmmm");
+    // console.log("mmmm");
     setBold(!bold);
   };
 
