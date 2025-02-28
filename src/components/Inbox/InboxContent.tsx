@@ -61,15 +61,27 @@ const InboxContent: React.FC = () => {
 
         const queryData = { id: notificationSingleData?.item };
         const queryString = new URLSearchParams(queryData).toString();
-        const idValue = queryString.split("=")[1];
+        const idValue = queryString.split("=")[1]
 
-        if (itemType === "Lead") {
+
+        if (itemType === "Amendment") {
+          router.push(`/amendment`);
+        } else if (itemType === "Customer") {
+          router.push(`/customers`);
+        } else if (itemType === "Order") {
+          router.push(`/orders`);
+        } else if (itemType === "Lead") {
           router.push(`/leads`);
+        } else if (itemType === "NewWebsiteContent") {
+          router.push(`/websiteContent`);
         } else if (itemType === "CopywriterTracker") {
           router.push(`/copywriter`);
+        } else if (itemType === "TechnicalTracker") {
+          router.push(`/technical`);
         } else if (itemType === "ProductFlow") {
           router.push(`/productFlow`);
         }
+
       }
 
       setNotificationTriggered(false);
@@ -142,9 +154,9 @@ const InboxContent: React.FC = () => {
                         />
                       </AvatarFallback>
                     </Avatar>
-                    {notification?.assignedTo?.fullName && (
+                    {notification?.assignedBy?.fullName && (
                       <span className="text-md font-medium text-black">
-                        {notification?.assignedTo?.fullName}
+                        {notification?.assignedBy?.fullName}
                       </span>
                     )}
                   </div>
