@@ -51,7 +51,7 @@ export const useAmendmentStore = create<AmendmentState & AmendmentActions>()(
       try {
         const response = await baseInstance.get("/amendments");
         if (response.status === 200) {
-          set({ amendmentData: response.data?.data, loading: false });
+          set({ amendmentData: response.data?.data?.amendments, loading: false });
         } else {
           set({ amendmentData: response.data?.message, loading: false });
         }
