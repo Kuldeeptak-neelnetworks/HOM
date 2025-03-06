@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEditorStore } from "@/Store/EditorStore";
+import SideDrawer from "@/components/common/Editor/SideDrawer";
 const companyLogo = Logo.src;
 
 const ActivitySection = ({ activityDetails ,}: any) => {
@@ -69,6 +70,47 @@ const ActivitySection = ({ activityDetails ,}: any) => {
                     </td>
                     <td className="border py-1 px-4 h-10">
                       {activity?.description || "N/A"}
+                    </td>
+                    <td className="border py-1 px-4 h-10">
+                  <SideDrawer
+                                         length={activity?.relatedEntityId?.updates?.length || 0} 
+                                         {...{
+                                           amendmentId:
+                                           activity.relatedEntity === "Amendment"
+                                               ? activity.relatedEntityId?._id
+                                               : undefined,
+
+                                               customerId:
+                                           activity.relatedEntity === "Customer"
+                                               ? activity.relatedEntityId?._id
+                                               : undefined,
+                                               
+                                           technicalId:
+                                           activity.relatedEntity === "TechnicalTracker"
+                                               ? activity.relatedEntityId?._id
+                                               : undefined,
+                                           orderId:
+                                           activity.relatedEntity === "Order"
+                                               ? activity.relatedEntityId?._id
+                                               : undefined,
+                                           leadId:
+                                           activity.relatedEntity === "Lead"
+                                               ? activity.relatedEntityId?._id
+                                               : undefined,
+                                           productFlowId:
+                                           activity.relatedEntity === "ProductFlow"
+                                               ? activity.relatedEntityId?._id
+                                               : undefined,
+                                           websiteContentId:
+                                           activity.relatedEntity === "WebsiteContent"
+                                               ? activity.relatedEntityId?._id
+                                               : undefined,
+                                           copywriterId:
+                                           activity.relatedEntity === "Copywriter"
+                                               ? activity.relatedEntityId?._id
+                                               : undefined,
+                                         }}
+                                       />
                     </td>
                     <td className="border py-1 px-4 h-10">
                       {activity?.relatedEntity || "N/A"}

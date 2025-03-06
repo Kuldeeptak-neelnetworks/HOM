@@ -26,6 +26,7 @@ import UpdateLead from "@/components/Leads/components/UpdateLead";
 import PDF from "../../../asset/images/pdf.png";
 import { PlusCircleIcon } from "lucide-react";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
+import UpdateSection from "@/components/customers/components/UpdateSection";
 const PDFPic = PDF.src;
 
 interface TeamMember {
@@ -109,9 +110,9 @@ export default function SideDrawer({
     fetchCopywriterUpdateData,
     fetchProductFlowUpdateData,
     fetchWebsiteContentUpdateData,
-    copywriterUpdateData,
+    copywriterUpdateData,fetchEditorData
   }: any = useEditorStore();
-  console.log("Rendering SideDrawer");
+
   const [open, setOpen] = useState<boolean>(false);
   const openSideDrawer = () => {
     setOpen((prev) => !prev);
@@ -138,6 +139,7 @@ export default function SideDrawer({
           baseInstance.get(`/files/productflow/${productFlowId}`),
         copywriterId &&
           baseInstance.get(`/files/copywritertracker/${copywriterId}`),
+
       ].filter(Boolean) as Promise<any>[];
 
       const responses = await Promise.all(requests);
@@ -170,7 +172,7 @@ export default function SideDrawer({
     if (
       open &&
       (orderId ||
-        leadId ||
+        leadId || customerId||
         technicalId ||
         amendmentId ||
         productFlowId ||
@@ -184,6 +186,8 @@ export default function SideDrawer({
       fetchCopywriterUpdateData(copywriterId);
       fetchProductFlowUpdateData(productFlowId);
       fetchWebsiteContentUpdateData(websiteContentId);
+      fetchEditorData(customerId)
+      
 
       getUpdateFiles();
     }
@@ -271,7 +275,7 @@ export default function SideDrawer({
                                     <QuillEditor
                                       amendmentId={amendmentId || ""}
                                       orderId={orderId || ""}
-                                      customerId={""}
+                                      customerId={customerId||""}
                                       indicatorText="post"
                                       technicalId={technicalId || ""}
                                       leadId={leadId || ""}
@@ -302,6 +306,8 @@ export default function SideDrawer({
                                   <UpdateWebsiteContent
                                     websiteContentId={websiteContentId}
                                   />
+                                 
+                                  <UpdateSection customerId={customerId}/>
                                 </ScrollArea>
                               </CardContent>
                             </Card>

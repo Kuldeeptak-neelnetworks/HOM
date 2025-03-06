@@ -15,7 +15,7 @@ const AddDialoge = () => {
           variant="outline"
           className="text-[0.8rem] text-white bg-[#29354f] hover:bg-[#fff] hover:text-[#29354f]"
         >
-          New Add
+    Compose
         </Button>
       </DialogTrigger>
 

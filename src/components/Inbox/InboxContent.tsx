@@ -189,7 +189,7 @@ const InboxContent: React.FC = () => {
 
   return (
     <>
-      <div className="md:flex justify-center sm:justify-end my-2">
+      <div className="md:flex justify-center sm:justify-end my-2 px-4">
         <AddDialoge />
       </div>
       {/* <div className="px-4 py-0 relative">
@@ -260,14 +260,14 @@ const InboxContent: React.FC = () => {
 
                   <TableCell className="text-left text-sm text-black py-4">
                     <div className="font-semibold">
-                      {notification?.mentionedUsers && (
+                      {/* {notification?.mentionedUsers && (
                         <span className="text-[#1f76c2] text-xs">
                           {notification.mentionedUsers
                             .map((mention: any) => `@${mention?.fullName}`)
                             .join(", ")}
                         </span>
                       )}{" "}
-                      {""}
+                      {""} */}
                       {notification.title}
                     </div>
                     <div className="text-xs text-gray-600">
