@@ -186,12 +186,7 @@ const InboxContent: React.FC = () => {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedNotification, setSelectedNotification] = useState<any>(null);
-  const handleRowClick = (notification: any) => {
-    setSelectedNotification(notification);
-    setIsDrawerOpen(true);
-  };
+
   return (
     <>
       <div className="md:flex justify-center sm:justify-end my-2">
@@ -231,10 +226,10 @@ const InboxContent: React.FC = () => {
               notificationData.notifications.map((notification: any) => (
                 <TableRow
                   key={notification._id}
-                  // onClick={() =>
-                  //   singleNotificationfecthHandler(notification?._id)
-                  // }
-                  onClick={() => handleRowClick(notification)}
+                  onClick={() =>
+                    singleNotificationfecthHandler(notification?._id)
+                  }
+             
                   className={`${
                     notification?.isRead
                       ? "bg-white text-gray-700 hover:bg-gray-50"
@@ -339,47 +334,7 @@ const InboxContent: React.FC = () => {
           <TableFooter></TableFooter>
         </Table>
 
-        {isDrawerOpen && selectedNotification && (
-  <SideDrawer
-    length={selectedNotification?.updates?.length || 0}
-    amendmentId={
-      selectedNotification.itemType === "Amendment"
-        ? selectedNotification.item?._id
-        : undefined
-    }
-    technicalId={
-      selectedNotification.itemType === "TechnicalTracker"
-        ? selectedNotification.item?._id
-        : undefined
-    }
-    orderId={
-      selectedNotification.itemType === "Order"
-        ? selectedNotification.item?._id
-        : undefined
-    }
-    leadId={
-      selectedNotification.itemType === "Lead"
-        ? selectedNotification.item?._id
-        : undefined
-    }
-    productFlowId={
-      selectedNotification.itemType === "ProductFlow"
-        ? selectedNotification.item?._id
-        : undefined
-    }
-    websiteContentId={
-      selectedNotification.itemType === "WebsiteContent"
-        ? selectedNotification.item?._id
-        : undefined
-    }
-    copywriterId={
-      selectedNotification.itemType === "Copywriter"
-        ? selectedNotification.item?._id
-        : undefined
-    }
-    onClose={() => setIsDrawerOpen(false)} // Close handler for the SideDrawer
-  />
-)}
+       
 
       </div>
     </>
