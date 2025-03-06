@@ -20,6 +20,7 @@ import "../../../styles/common.css";
 import "../../../styles/editor.css";
 import { useUserStore } from "@/Store/UserStore";
 import { atValues } from "./mentions";
+import { useNotificationStore } from "@/Store/NotificationStore";
 
 // Register Quill modules
 Quill.register("modules/imageResize", ImageResize);
@@ -179,7 +180,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     });
     return mentions;
   };
-
+const { fetchNotificationData } = useNotificationStore();
   // Function to update mentioned user IDs in state
   const updateMentionedUserIds = () => {
     const editor = quillRef.current?.getEditor();
@@ -302,6 +303,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
             setIsOpenReplyModel(false);
             setOpenQuill(false);
             handleClear();
+            fetchNotificationData();
           }
         });
       } catch (error) {

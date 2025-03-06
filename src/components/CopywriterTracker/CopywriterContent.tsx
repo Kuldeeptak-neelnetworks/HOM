@@ -71,6 +71,8 @@ const CopywriterContent: React.FC = () => {
     }
   }, [copywriterData, router]);
 
+  console.log("allCopywriter222222222222",allCopywriter)
+
   const statusOptions = [
     { label: "Homepage In Process", value: "Homepage In Process" },
     { label: "Rework", value: "Rework" },
@@ -144,25 +146,7 @@ const CopywriterContent: React.FC = () => {
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  // const tableInstance = useTableInstance({
-  //   data,
-  //   columns,
-  //   state: {
-  //     sorting,
-  //     columnVisibility,
-  //     rowSelection,
-  //     globalFilter: filtering,
-  //     columnFilters,
-  //   },
-  //   setState: {
-  //     setFiltering,
-  //     setRowSelection,
-  //     setSorting,
-  //     setColumnFilters,
-  //     setColumnVisibility,
-  //   },
-  // });
-
+ 
   return (
     <div className="px-4 py-0 relative">
       {/* <div className="text-xl font-semibold absolute top-[-52px]">

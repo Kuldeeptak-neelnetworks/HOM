@@ -29,6 +29,7 @@ export type AmendmentDataType = {
 
 export type AmendmentState = {
   amendmentData: AmendmentDataType[] | any;
+  addMultipleFormData: AmendmentDataType[] | any;
   message?: string;
   loading: boolean;
 };
@@ -36,11 +37,13 @@ export type AmendmentState = {
 export type AmendmentActions = {
   fetchAmendmentData: () => void;
   addAmendmentData: (data: any, customerId: string) => void;
+  addMultipleForm: (data: any,customerId: string) => void;
 };
 
 export const useAmendmentStore = create<AmendmentState & AmendmentActions>()(
   devtools((set) => ({
     amendmentData: [],
+    addMultipleFormData:[],
     loading: false,
 
     fetchAmendmentData: async () => {
@@ -79,5 +82,31 @@ export const useAmendmentStore = create<AmendmentState & AmendmentActions>()(
         errorToastingFunction(error?.response?.data?.message);
       }
     },
+
+
+
+
+    addMultipleForm: async (data: any,customerId: string) => {
+      set({ loading: true });
+      try {
+        const response = await baseInstance.post(
+          `/inboxs/${customerId}`,
+          data
+        );
+        if (response?.status === 201) {
+          set({ addMultipleFormData: response.data?.data, loading: false });
+          successToastingFunction(response.data.message);
+        } else {
+          errorToastingFunction("Something Went Wrong"),
+            set({
+              loading: false,
+            });
+        }
+      } catch (error: any) {
+        set({ loading: false });
+        errorToastingFunction(error?.response?.data?.message);
+      }
+    },
+
   }))
 );

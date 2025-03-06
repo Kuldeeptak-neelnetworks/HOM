@@ -205,6 +205,7 @@ const Appbar: React.FC<NavBarProps> = ({ toggleSider }) => {
             : `pl-[18rem] pr-3 flex flex-wrap items-center justify-end mx-auto py-[0.2rem]  transition-all duration-300 h-[100%]`
         }
       >
+
         {/* Notification section  */}
         {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>

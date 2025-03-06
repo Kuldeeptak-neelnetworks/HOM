@@ -297,37 +297,7 @@ const AddProductFlowForm = ({}: any) => {
   const { month: currentMonthLive, year: currentYearLive } =
     getCurrentMonthAndYear(liveDate);
 
-  //   const currentMonthPhase1 = datePhase1Instructed
-  //   ? getMonth(datePhase1Instructed)
-  //   : getMonth(new Date());
 
-  // const currentYearPhase1 = datePhase1Instructed
-  //   ? getYear(datePhase1Instructed)
-  //   : getYear(new Date());
-
-  // const currentMonthPhase2 = datePhase2Instructed
-  //   ? getMonth(datePhase2Instructed)
-  //   : getMonth(new Date());
-
-  // const currentYearPhase2 = datePhase2Instructed
-  //   ? getYear(datePhase2Instructed)
-  //   : getYear(new Date());
-
-  // const currentMonthDemo = demoCompletedDate
-  //   ? getMonth(demoCompletedDate)
-  //   : getMonth(new Date());
-
-  // const currentYearDemo = demoCompletedDate
-  //   ? getYear(demoCompletedDate)
-  //   : getYear(new Date());
-
-  // const currentMonthLive = liveDate
-  //   ? getMonth(liveDate)
-  //   : getMonth(new Date());
-
-  // const currentYearLive = liveDate
-  //   ? getYear(liveDate)
-  //   : getYear(new Date());
 
   return (
     <div className="p-4 relative">

@@ -104,17 +104,6 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({
   } = useNotificationStore();
   const [notificationTriggered, setNotificationTriggered] = useState(false);
   const router = useRouter();
-  const [openDropDown, setOpenDropDown] = useState<boolean>(false);
-
-  useEffect(() => {
-    fetchNotificationData();
-  }, []);
-
-  const singleNotificationfecthHandler = async (notificationId: string) => {
-    await fetchSingleNotificationData(notificationId);
-    await fetchSingleReadNotificationData(notificationId);
-    setNotificationTriggered(true); // Trigger the effect
-  };
 
   useEffect(() => {
     if (notificationTriggered) {
@@ -171,7 +160,9 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({
   useEffect(() => {
     fetchNotificationData();
   }, [notificationReadData]);
-
+  useEffect(() => {
+    fetchNotificationData();
+  }, []);
   return (
     <>
       {/* Mobile toggle button */}

@@ -111,7 +111,7 @@ export default function SideDrawer({
     fetchWebsiteContentUpdateData,
     copywriterUpdateData,
   }: any = useEditorStore();
-
+  console.log("Rendering SideDrawer");
   const [open, setOpen] = useState<boolean>(false);
   const openSideDrawer = () => {
     setOpen((prev) => !prev);

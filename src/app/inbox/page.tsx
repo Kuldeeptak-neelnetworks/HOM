@@ -1,9 +1,7 @@
 "use client";
-import InboxContent from "@/components/Inbox/InboxContent";
-// import LeadsContent from "@/components/Leads/LeadsContent";
 import SideBarContent from "@/components/Sidebar/SideBarContent";
 import dynamic from "next/dynamic";
-const LeadsContent = dynamic(() => import("@/components/Leads/LeadsContent"), {
+const InboxContent = dynamic(() => import("@/components/Inbox/InboxContent"), {
   ssr: false,
 });
 import React, { useEffect, useState } from "react";

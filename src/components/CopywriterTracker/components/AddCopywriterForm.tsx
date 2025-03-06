@@ -162,7 +162,9 @@ const AddCopywriterForm = ({}: any) => {
   const currentMonth = dateComplete
     ? getMonth(dateComplete)
     : getMonth(new Date());
-  const currentYear = dateComplete ? getYear(dateComplete) : getYear(new Date());
+  const currentYear = dateComplete
+    ? getYear(dateComplete)
+    : getYear(new Date());
 
   return (
     <div className="p-4 relative">
@@ -273,76 +275,71 @@ const AddCopywriterForm = ({}: any) => {
                 </label>
 
                 <div className="relative">
-                      <Popover>
-                                      <PopoverTrigger asChild>
-                                      <Button
-                                          variant={"outline"}
-                                          className={cn(
-                                            "w-[250px] justify-start text-left font-normal",
-                                            !dateComplete && "text-muted-foreground"
-                                          )}
-                                        >
-                                          <CalendarIcon className="mr-2 h-4 w-4" />
-                                          {dateComplete &&
-                                          dateComplete.toISOString() !==
-                                            "1970-01-01T00:00:00.000Z"
-                                            ? format(dateComplete, "dd-MM-yyyy")
-                                            : "Pick a date"}
-                                        </Button>
-                                      </PopoverTrigger>
-                  
-                                      <PopoverContent className="w-auto p-0">
-                                        <div className="flex justify-between p-2">
-                                          <Select
-                                            onValueChange={(month) =>
-                                              handleMonthChange(month)
-                                            }
-                                            value={months[currentMonth]}
-                                          >
-                                            <SelectTrigger className="w-[110px]">
-                                              <SelectValue placeholder="Month" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                              {months.map((month) => (
-                                                <SelectItem key={month} value={month}>
-                                                  {month}
-                                                </SelectItem>
-                                              ))}
-                                            </SelectContent>
-                                          </Select>
-                  
-                                          <Select
-                                            onValueChange={(year) =>
-                                              handleYearChange(year)
-                                            }
-                                            value={currentYear.toString()}
-                                          >
-                                            <SelectTrigger className="w-[110px]">
-                                              <SelectValue placeholder="Year" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                              {years.map((year) => (
-                                                <SelectItem key={year} value={year.toString()}>
-                                                  {year}
-                                                </SelectItem>
-                                              ))}
-                                            </SelectContent>
-                                          </Select>
-                                        </div>
-                                     
-                                        <div className="calendar-container">
-                                        <Calendar
-                                          mode="single"
-                                          selected={dateComplete}
-                                          onSelect={handleComplateDateSelect}
-                                          initialFocus
-                                          month={dateComplete}
-                                          onMonthChange={(date) => setDateComplete(date)}
-                                        />
-                                        </div>
-                                      </PopoverContent>
-                                    </Popover>
-                 
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[250px] justify-start text-left font-normal",
+                          !dateComplete && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {dateComplete &&
+                        dateComplete.toISOString() !==
+                          "1970-01-01T00:00:00.000Z"
+                          ? format(dateComplete, "dd-MM-yyyy")
+                          : "Pick a date"}
+                      </Button>
+                    </PopoverTrigger>
+
+                    <PopoverContent className="w-auto p-0">
+                      <div className="flex justify-between p-2">
+                        <Select
+                          onValueChange={(month) => handleMonthChange(month)}
+                          value={months[currentMonth]}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Month" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {months.map((month) => (
+                              <SelectItem key={month} value={month}>
+                                {month}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+
+                        <Select
+                          onValueChange={(year) => handleYearChange(year)}
+                          value={currentYear.toString()}
+                        >
+                          <SelectTrigger className="w-[110px]">
+                            <SelectValue placeholder="Year" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {years.map((year) => (
+                              <SelectItem key={year} value={year.toString()}>
+                                {year}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="calendar-container">
+                        <Calendar
+                          mode="single"
+                          selected={dateComplete}
+                          onSelect={handleComplateDateSelect}
+                          initialFocus
+                          month={dateComplete}
+                          onMonthChange={(date) => setDateComplete(date)}
+                        />
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
             </div>
