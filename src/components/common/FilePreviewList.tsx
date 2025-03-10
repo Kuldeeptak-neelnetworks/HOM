@@ -45,6 +45,9 @@ const getFileType = (fileExtension: string) => {
 };
 
 const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
+  {
+    console.log("files", files);
+  }
   return (
     <div
       className={`flex gap-4  ${

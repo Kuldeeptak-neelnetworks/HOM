@@ -32,6 +32,7 @@ export type EditorState = {
   productFlowUpdateData: EditorDataType[] | any;
   copywriterUpdateData: EditorDataType[] | any;
   websiteContentUpdateData:EditorDataType[]|any;
+  userUpdateData:EditorDataType[]|any;
   
   loading: boolean;
 };
@@ -45,6 +46,7 @@ export type EditorActions = {
   fetchLeadsEditorData: (leadId: string) => Promise<void>;
   fetchTechnicalUpdateData: (technicalId: string) => Promise<void>;
   fetchAmendmentUpdateData: (amendmentId: string) => Promise<void>;
+  fetchUserUpdateData:(userId: string) => Promise<void>;
   fetchProductFlowUpdateData: (productFlowId: string) => Promise<void>;
   fetchCopywriterUpdateData: (copywriterId: string) => Promise<void>;
   fetchWebsiteContentUpdateData:(websiteContentId: string) => Promise<void>;
@@ -64,6 +66,7 @@ export const useEditorStore = create<EditorState & EditorActions>()(
     productFlowUpdateData: [],
     copywriterUpdateData: [],
     websiteContentUpdateData:[],
+    userUpdateData:[],
     loading: false,
 
     fetchEditorData: async (customerId: string) => {
@@ -261,6 +264,36 @@ export const useEditorStore = create<EditorState & EditorActions>()(
         } catch (error: any) {
           set({
             technicalUpdateData: error?.response?.data?.message,
+            loading: false,
+          });
+        }
+      }
+    },
+
+
+
+    fetchUserUpdateData: async (userId: string) => {
+      if (userId) {
+        set({ loading: true });
+        try {
+          const response = await baseInstance.get(
+            `/updates/user/${userId}`
+          );
+          if (response.status === 200) {
+            set({
+              userUpdateData: response?.data?.data?.updates,
+              loading: false,
+            });
+       
+          } else {
+            set({
+              userUpdateData: response.data?.message,
+              loading: false,
+            });
+          }
+        } catch (error: any) {
+          set({
+            userUpdateData: error?.response?.data?.message,
             loading: false,
           });
         }

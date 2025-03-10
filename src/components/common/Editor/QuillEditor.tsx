@@ -38,7 +38,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   indicatorText,
   amendmentId,
   copywriterId,
-  websiteContentId,
+  websiteContentId,userId,
   text,quillSize
 }) => {
 
@@ -63,6 +63,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     fetchWebsiteContentUpdateData,
     fetchCopywriterUpdateData,
     fetchFileData,
+    fetchUserUpdateData
   } = useEditorStore();
   const { fetchUsersData, userData, loading } = useUserStore();
 
@@ -238,7 +239,9 @@ const { fetchNotificationData } = useNotificationStore();
                 formData
               ),
             amendmentId &&
-              baseInstance.post(`/updates/amendment/${amendmentId}`, formData)
+              baseInstance.post(`/updates/amendment/${amendmentId}`, formData),
+              userId &&
+              baseInstance.post(`/updates/user/${userId}`, formData)
           );
         }
 
@@ -288,6 +291,11 @@ const { fetchNotificationData } = useNotificationStore();
               amendmentId,
               fetchAmendmentUpdateData,
               "amendmentId"
+            );
+            callIfValidString(
+              amendmentId,
+              fetchUserUpdateData,
+              "userId"
             );
             callIfValidString(
               productFlowId,

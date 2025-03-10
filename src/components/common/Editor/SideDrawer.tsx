@@ -27,6 +27,7 @@ import PDF from "../../../asset/images/pdf.png";
 import { PlusCircleIcon } from "lucide-react";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import UpdateSection from "@/components/customers/components/UpdateSection";
+import UpdateUser from "@/components/Users/components/UpdateUser";
 const PDFPic = PDF.src;
 
 interface TeamMember {
@@ -96,14 +97,14 @@ export default function SideDrawer({
   technicalId,
   copywriterId,
   websiteContentId,
-  invoice,
+  invoice,userId
 }: any) {
   const {
     fetchOrderEditorData,
     orderEditorData,
     technicalUpdateData,
     fetchLeadsEditorData,
-    fetchAmendmentUpdateData,
+    fetchAmendmentUpdateData,fetchUserUpdateData,
     leadsEditorData,
     amendmentUpdateData,
     fetchTechnicalUpdateData,
@@ -176,13 +177,14 @@ export default function SideDrawer({
         technicalId ||
         amendmentId ||
         productFlowId ||
-        websiteContentId ||
+        websiteContentId || userId||
         copywriterId)
     ) {
       fetchLeadsEditorData(leadId);
       fetchOrderEditorData(orderId);
       fetchTechnicalUpdateData(technicalId);
       fetchAmendmentUpdateData(amendmentId);
+      fetchUserUpdateData(userId)
       fetchCopywriterUpdateData(copywriterId);
       fetchProductFlowUpdateData(productFlowId);
       fetchWebsiteContentUpdateData(websiteContentId);
@@ -193,7 +195,7 @@ export default function SideDrawer({
     }
   }, [
     open,
-    orderId,
+    orderId,userId,
     leadId,
     technicalId,
     amendmentId,
@@ -249,13 +251,13 @@ export default function SideDrawer({
                       <CardTitle>{customerName}</CardTitle>
                       <div className="w-full mt-2">
                         <Tabs defaultValue="updates" className="w-full">
-                          <TabsList className="grid grid-cols-2">
+                          <TabsList className="">
                             <TabsTrigger value="updates" className="bg-[#fff]">
                               Updates
                             </TabsTrigger>
-                            <TabsTrigger value="files" className="bg-[#fff]">
+                            {/* <TabsTrigger value="files" className="bg-[#fff]">
                               Files
-                            </TabsTrigger>
+                            </TabsTrigger> */}
                             {/* <TabsTrigger value="invoices" className="bg-[#fff]">
                               Invoices
                             </TabsTrigger> */}
@@ -297,6 +299,7 @@ export default function SideDrawer({
                                   <UpdateOrder orderId={orderId} />
                                   <UpdateTechnical technicalId={technicalId} />
                                   <UpdateAmendment amendmentId={amendmentId} />
+                                
                                   <UpdateProductFlow
                                     productFlowId={productFlowId}
                                   />
@@ -306,7 +309,7 @@ export default function SideDrawer({
                                   <UpdateWebsiteContent
                                     websiteContentId={websiteContentId}
                                   />
-                                 
+                                   <UpdateUser userId={userId} />
                                   <UpdateSection customerId={customerId}/>
                                 </ScrollArea>
                               </CardContent>

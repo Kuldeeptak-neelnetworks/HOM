@@ -284,6 +284,13 @@ const InboxContent: React.FC = () => {
                             notification.itemType === "Amendment"
                               ? notification.item?._id
                               : undefined,
+                              userId:
+                            notification.itemType === "User"
+                              ? notification.item?._id
+                              : undefined,
+
+
+                              
                           technicalId:
                             notification.itemType === "TechnicalTracker"
                               ? notification.item?._id

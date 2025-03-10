@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useFormik } from "formik";
+import { LoadOptions } from 'react-select-async-paginate';
 import * as Yup from "yup";
 import {
   Select,
@@ -469,110 +470,201 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
   useEffect(() => {
     setCurrentPage(1); // Set to page 1 when the component mounts
   }, []);
-  const [customerOptions, setCustomerOptions] = useState([]);
-  const loadOptions = async (loadedOptions: { options: any; }, { page }: any) => {
-    // console.log("Loading page:", page); // Debug to check if page is received correctly
+//   interface Customer {
+//     _id: string;
+//     companyName: string;
+//     town: string;
+//     county: string;
+//     postcode: string;
+//     customerEmail: string;
+//     streetNoName: string;
+//   }
+  
+//   interface LoadedOptions {
+//     options: { value: string; label: string }[];
+//   }
+//   const [customerOptions, setCustomerOptions] = useState<Customer[]>([]); 
+//   // Define the loadOptions function type to match AsyncPaginate expectations
+// interface Customer {
+//   _id: string;
+//   companyName: string;
+//   town: string;
+//   county: string;
+//   postcode: string;
+//   customerEmail: string;
+//   streetNoName: string;
+// }
 
-    // Default to page 1 if page is undefined
-    page = page || currentPage; // Ensure we have a valid page number
-    setCurrentPage(page + 1);
+// // Define LoadedOptions interface
+// interface LoadedOptions {
+//   options: { value: string; label: string }[];
+// }
 
-    try {
-      setLoading(true); // Set loading state to true
+// // Define LoadOptionsResponse interface for return value
+// interface LoadOptionsResponse {
+//   options: { value: string; label: string }[];
+//   hasMore: boolean;
+//   additional: {
+//     page: number;
+//   };
+// }
+//   // Define the loadOptions function type to match AsyncPaginate expectations
+//   interface Customer {
+//     _id: string;
+//     companyName: string;
+//     town: string;
+//     county: string;
+//     postcode: string;
+//     customerEmail: string;
+//     streetNoName: string;
+//   }
+  
+//   // Define LoadedOptions interface
+//   interface LoadedOptions {
+//     options: { value: string; label: string }[];
+//   }
+  
+//   // Define LoadOptionsResponse interface for return value
+//   interface Option {
+//     value: string;
+//     label: string;
+//   }
+//   const loadOptions = async (inputValue: string, loadedOptions: Option[], additional: { page: number }) => {
+//     setLoading(true); // Set loading state to true
+  
+//     // Destructure `additional` with a fallback to an empty object and default page value
+//     const { page = 1 } = additional || {};  // Default to page 1 if `additional` is undefined
+//     setCurrentPage(page); 
+  
+//     try {
+//       // Fetch customer data from the API with pagination parameters
+//       const response = await baseInstance.get("/customers", {
+//         params: {
+//           page: currentPage,
+//           limit: 20, // Number of items per page
+//         },
+//       });
+  
+//       // Map the API response to the format required for AsyncPaginate
+//       const transformedData = response.data?.data?.customers.map((customer: Customer) => ({
+//         value: customer._id,
+//         label: customer.companyName, // Use company name as the label
+//       }));
+  
+//       // Use the `options` property safely
+//       const combinedOptions = currentPage === 1
+//         ? transformedData
+//         : [...(loadedOptions?.options || []), ...transformedData]; // Fallback to empty array if options is undefined
+  
+//       // Check if there are more pages available
+//       const hasMore = response.data?.data?.hasMore ?? false;
+  
+//       // Set customer options in state (if needed)
+//       setCustomerOptions(response.data?.data?.customers);
+  
+//       // Return the result in the expected format for AsyncPaginate
+//       return {
+//         options: combinedOptions,
+//         hasMore: hasMore,
+//         additional: {
+//           page: currentPage + 1, // Increment page for the next request
+//         },
+//       };
+//     } catch (error) {
+//       console.error("Error fetching customers:", error);
+//       return {
+//         options: [], // Return empty options in case of an error
+//         hasMore: false, // No more data to load
+//       };
+//     } finally {
+//       setLoading(false); // Stop loading
+//     }
+//   };
+  
 
-      // Fetch customer data from the API with pagination parameters
-      const response = await baseInstance.get("/customers", {
-        params: {
-          page, // Dynamically use the page number
-          limit: 20, // Number of items per page
-        },
-      });
+// const loadOptions: LoadOptions<any, any, { page: number }> = async (
+//   inputValue,   // Search term entered by the user
+//   loadedOptions,  // Previously loaded options (holds the current set of options)
+//   additional  // `additional` is passed here
+// ) => {
+//   setLoading(true); // Set loading state to true
 
-      // Map the data to the format needed for AsyncPaginate
-      const transformedData = response.data?.data?.customers.map(
-        (customer: { _id: any; companyName: any; }) => ({
-          value: customer._id,
-          label: customer.companyName, // Use company name as the label
-        })
-      );
-
-      // Combine the previous options and new options to support infinite scrolling
-      const combinedOptions =
-        page === 1
-          ? transformedData
-          : [...(loadedOptions?.options || []), ...transformedData];
-
-      // Check if there are more pages to load
-      const hasMore = response.data?.data?.hasMore ?? false;
-      setCustomerOptions(response.data?.data?.customers);
-      // Return combined options, hasMore flag, and incremented page number
-      return {
-        options: combinedOptions,
-        hasMore: hasMore,
-        additional: {
-          page: page + 1, // Increment page number for the next request
-        },
-      };
-    } catch (error) {
-      console.error("Error fetching customers:", error);
-      return {
-        options: [], // Return empty options if there's an error
-        hasMore: false, // No more pages
-      };
-    } finally {
-      setLoading(false); // Set loading state to false once data is loaded
-    }
-  };
-
-  // const handleCustomerChange = (selectedOption: { value: string; }) => {
-  //   const selectedCustomerId = selectedOption?.value || "";
-
+//   // Destructure `additional` with a fallback to an empty object and default page value
+//   const { page = 1 } = additional || {};  // Default to page 1 if `additional` is undefined
+//   setCurrentPage(page); 
+  
+//     try {
+//       // Fetch customer data from the API with pagination parameters
+//       const response = await baseInstance.get("/customers", {
+//         params: {
+//           page: currentPage,
+//           limit: 20, // Number of items per page
+//         },
+//       });
+  
+//       // Map the API response to the format required for AsyncPaginate
+//       const transformedData = response.data?.data?.customers.map((customer: Customer) => ({
+//         value: customer._id,
+//         label: customer.companyName, // Use company name as the label
+//       }));
+  
+//       // Combine the previous options and new options (support infinite scrolling)
+//       const combinedOptions =
+//         currentPage === 1
+//           ? transformedData
+//           : [...(loadedOptions?.options || []), ...transformedData];
+  
+//       // Check if there are more pages available
+//       const hasMore = response.data?.data?.hasMore ?? false;
+  
+//       // Set customer options in state (if needed)
+//       setCustomerOptions(response.data?.data?.customers);
+  
+//       // Return the result in the expected format for AsyncPaginate
+//       return {
+//         options: combinedOptions,
+//         hasMore: hasMore,
+//         additional: {
+//           page: currentPage + 1, // Increment page for the next request
+//         },
+//       };
+//     } catch (error) {
+//       console.error("Error fetching customers:", error);
+//       return {
+//         options: [], // Return empty options in case of an error
+//         hasMore: false, // No more data to load
+//       };
+//     } finally {
+//       setLoading(false); // Stop loading
+//     }
+//   };
+  
+  
+  
+  
+  // const handleCustomerChange = (newValue: { value: string } | null) => {
+  //   const selectedCustomerId = newValue?.value || "";
+  
   //   // Find the selected customer in the fetched options
   //   const selectedCustomer = customerOptions.find(
-  //     (customer) => customer._id === selectedCustomerId // Matching by _id instead of value
+  //     (customer) => customer._id === selectedCustomerId
   //   );
-
-  //   console.log("selectedCustomerId", selectedCustomerId);
-  //   console.log("customerOptions", customerOptions);
-
-  //   if (selectedCustomer) {
-  //     // Update Formik values with the selected customer's details
-  //     formik.setValues({
-  //       ...formik.values,
-  //       town: selectedCustomer?.town || "", // Town
-  //       county: selectedCustomer?.county || "", // County
-  //       postcode: selectedCustomer?.postcode || "", // Postcode
-  //       customerEmail: selectedCustomer?.customerEmail || "", // Email
-  //       streetNoName: selectedCustomer?.streetNoName || "", // Street name/number
-  //       customerName: selectedCustomer?.companyName || "", // Company Name as Customer Name
-  //     });
-
-  //     setSelectedCustomerId(selectedCustomerId); // Optionally store selected ID in local state
-  //   }
-  // };
-
-  // const handleCustomerChange = (selectedOption: { value: string }) => {
-  //   const selectedCustomerId = selectedOption?.value || "";
-
-  //   // Find the selected customer in the fetched options
-  //   const selectedCustomer = customerOptions.find(
-  //     (customer) => customer._id === selectedCustomerId // Use '_id' for matching
-  //   );
-
+  
   //   if (selectedCustomer) {
   //     formik.setValues({
   //       ...formik.values,
-  //       town: selectedCustomer.town || "", // Town
-  //       county: selectedCustomer.county || "", // County
-  //       postcode: selectedCustomer.postcode || "", // Postcode
-  //       customerEmail: selectedCustomer.customerEmail || "", // Email
-  //       streetNoName: selectedCustomer.streetNoName || "", // Street name/number
-  //       customerName: selectedCustomer.companyName || "", // Company Name as Customer Name
+  //       town: selectedCustomer.town || "",
+  //       county: selectedCustomer.county || "",
+  //       postcode: selectedCustomer.postcode || "",
+  //       customerEmail: selectedCustomer.customerEmail || "",
+  //       streetNoName: selectedCustomer.streetNoName || "",
+  //       customerName: selectedCustomer.companyName || "",
   //     });
-
-  //     setSelectedCustomerId(selectedCustomerId); // Optionally store selected ID in local state
+  
+  //     setSelectedCustomerId(selectedCustomerId);
   //   }
   // };
+  
 
   return (
     <div className="p-4 relative">
@@ -675,11 +767,12 @@ const AddOrderForm = ({ fetchAllOrdersData }: any) => {
                 <div className="relative">
                   {/* {customerData?.customers?.length > 0 && ( */}
                   {/* <AsyncPaginate
-                    loadOptions={loadOptions} // Function to load customer options asynchronously
-                    closeMenuOnSelect={true} // Close the dropdown when an option is selected
-                    isClearable={true} // Make the dropdown clearable
-                    isLoading={loading} // Show a loading spinner while options are being loaded
-                    additional={{ page }} // Pass the page number to the loadOptions function
+                 loadOptions={loadOptions} // Function to load customer options asynchronously
+                 closeMenuOnSelect={true} // Close the dropdown when an option is selected
+                 isClearable={true} // Make the dropdown clearable
+                 isLoading={loading} // Show a loading spinner while options are being loaded
+                 additional={{ page: currentPage }} // Additional parameters (e.g., pagination)
+                 onChange={handleCustomerChange} // Pass the page number to the loadOptions function
                     onChange={(
                       selectedOption: { value: any; label: string } | null
                     ) => {

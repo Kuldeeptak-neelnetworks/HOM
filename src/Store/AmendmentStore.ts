@@ -44,8 +44,32 @@ export const useAmendmentStore = create<AmendmentState & AmendmentActions>()(
   devtools((set) => ({
     amendmentData: [],
     addMultipleFormData:[],
+    
     loading: false,
 
+    addMultipleForm: async (data: any, customerId: string) => {
+      set({ loading: true });
+      try {
+        // Construct the query parameters
+        const queryParams = new URLSearchParams();
+        queryParams.append('customerId', customerId);
+        
+        // Make the API call with the customerId query parameter
+        const response = await baseInstance.post(`/inboxs?${queryParams.toString()}`,data);
+        
+        if (response?.status === 201) {
+          set({ addMultipleFormData: response.data?.data, loading: false });
+          successToastingFunction(response.data.message);
+        } else {
+          errorToastingFunction("Something Went Wrong");
+          set({ loading: false });
+        }
+      } catch (error: any) {
+        set({ loading: false });
+        errorToastingFunction(error?.response?.data?.message);
+      }
+    },
+    
     fetchAmendmentData: async () => {
       set({ loading: true });
       try {
@@ -86,27 +110,7 @@ export const useAmendmentStore = create<AmendmentState & AmendmentActions>()(
 
 
 
-    addMultipleForm: async (data: any,customerId: string) => {
-      set({ loading: true });
-      try {
-        const response = await baseInstance.post(
-          `/inboxs/${customerId}`,
-          data
-        );
-        if (response?.status === 201) {
-          set({ addMultipleFormData: response.data?.data, loading: false });
-          successToastingFunction(response.data.message);
-        } else {
-          errorToastingFunction("Something Went Wrong"),
-            set({
-              loading: false,
-            });
-        }
-      } catch (error: any) {
-        set({ loading: false });
-        errorToastingFunction(error?.response?.data?.message);
-      }
-    },
+   
 
   }))
 );

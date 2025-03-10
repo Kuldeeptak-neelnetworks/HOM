@@ -12,6 +12,7 @@ export interface QuillEditorProps {
   websiteContentId?: string | string[];
   text?: string | string[];
   quillSize?: string | string[];
+  userId?: string | string[];
   setIsOpenReplyModel: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenQuill: React.Dispatch<React.SetStateAction<boolean>>;
 }

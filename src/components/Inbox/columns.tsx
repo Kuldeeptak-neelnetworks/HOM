@@ -17,37 +17,10 @@ import TooltipCommon from "@/components/common/TooltipCommon";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import SideDrawer from "@/components/common/Editor/SideDrawer";
-const ChatModel = dynamic(
-  () => import("@/components/common/Editor/ChatModel"),
-  { ssr: false }
-);
+
 const columnHelper = createColumnHelper();
 
-const copywriterStatusStyles: { [key: string]: string } = {
-  Rework: "border-l-[#873600]",
-  COMPLETED: "border-l-[#4338ca] ",
-  "Homepage In Process": "border-l-[#3A5276]",
-  "Additional Pages in Process": "border-l-[#1O6776]",
-  "Remaining Pages in Processe": "border-l-[#1B5276]",
-  "Homepage Complete": "border-l-[#1C9276] ",
-  "In Query": "border-l-[#1H5276] ",
-  "Held for Critical": "border-l-[#fb7185]",
-  "Waiting on Info": "border-l-[#14b8a6]",
-  "COMPLETED REWORK": "border-l-[#0369a1] ",
-  "Area Pages Remaining": "border-l-[#4469a1] ",
-  "Blog pages": "border-l-[#0899a1] ",
-  "Extra Pages": "border-l-[#fb7185] ",
-};
 
-const renderCopywriterStatus = (copywriterTaskStatus: string) => (
-  <div
-    className={`p-1 text-center font-bold border border-l-8 w-[190px] text-nowrap ${
-      copywriterStatusStyles[copywriterTaskStatus] || ""
-    }`}
-  >
-    {copywriterTaskStatus}
-  </div>
-);
 
 const formatDate = (dateString: any) => {
   if (dateString !== null) {
@@ -61,7 +34,7 @@ const formatDate = (dateString: any) => {
       month: "2-digit",
       year: "2-digit",
     };
-    const formattedDate = date.toLocaleDateString("en-GB", options); // Using "en-GB" for day-month-year format
+    const formattedDate = date.toLocaleDateString("en-GB", options);
     return formattedDate;
   } else {
     return <div className="text-gray-400">N/A</div>;
@@ -93,7 +66,7 @@ export const columns = [
       const message = row?.original?.message;
       const title = row?.original?.title;
       const mentionedUsers = row?.original?.mentionedUsers;
-      const itemType = row?.original?.itemType; // Example: "Amendment"
+      const itemType = row?.original?.itemType;
 
       const mentionedText = mentionedUsers
         ? mentionedUsers.map((user: any) => `@${user.fullName}`).join(", ")
@@ -151,15 +124,11 @@ export const columns = [
       <DataTableColumnHeader column={column} title="Update" />
     ),
     cell: ({ row }: any) => {
-      const itemType = row?.original?.itemType; // Get the itemType
-
-      // Initialize the properties to pass to SideDrawer
+      const itemType = row?.original?.itemType; 
       const sideDrawerProps: any = {
         length: row?.original?.updates?.length,
         customerName: row?.original?.customer?.companyName || "",
       };
-
-      // Conditionally add the ID property based on the itemType
       if (itemType === "Amendment") {
         sideDrawerProps.amendmentId = row?.original?.item?._id;
       } else if (itemType === "TechnicalTracker") {
@@ -175,8 +144,6 @@ export const columns = [
       } else if (itemType === "Copywriter") {
         sideDrawerProps.copywriterId = row?.original?.item?._id;
       }
-
-      // Return the SideDrawer with the appropriate props
       return <SideDrawer {...sideDrawerProps} />;
     },
   },
