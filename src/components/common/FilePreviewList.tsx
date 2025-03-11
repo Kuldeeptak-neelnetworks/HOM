@@ -152,7 +152,7 @@ const FilePreviewList: React.FC<FilePreviewListProps> = ({ files }) => {
             default:
               content = (
                 <div className="flex items-center justify-center h-[50px] w-[50px] bg-gray-200 ">
-                  <span className="text-gray-600 text-lg">Unknown</span>
+                  <span className="text-gray-600 text-xs">Unknown</span>
                 </div>
               );
               break;

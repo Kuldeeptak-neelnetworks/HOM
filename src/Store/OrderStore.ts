@@ -68,7 +68,13 @@ export const useOrderStore = create<OrderState & OrderActions>()(
     orderData: [],
     addedOrder: {},
     loading: false,
-    fetchAllOrdersData: async ({ page, limit, searchInput, filters, year }) => {
+    fetchAllOrdersData: async ({
+      page = 1,
+      limit = 10,
+      searchInput = "",
+      filters = [],
+      year,
+    } = {}) => {
       set({ loading: true });
       try {
         const queryParams = new URLSearchParams();

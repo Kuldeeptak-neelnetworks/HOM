@@ -21,6 +21,7 @@ import "../../../styles/editor.css";
 import { useUserStore } from "@/Store/UserStore";
 import { atValues } from "./mentions";
 import { useNotificationStore } from "@/Store/NotificationStore";
+import { useParams } from "next/navigation";
 
 // Register Quill modules
 Quill.register("modules/imageResize", ImageResize);
@@ -38,12 +39,12 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   indicatorText,
   amendmentId,
   copywriterId,
-  websiteContentId,userId,
-  text,quillSize
+  websiteContentId,
+  userId,
+  text,
+  quillSize,cust
 }) => {
 
-
-  
   const [value, setValue] = useState<string>("");
   const [images, setImages] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -63,13 +64,16 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     fetchWebsiteContentUpdateData,
     fetchCopywriterUpdateData,
     fetchFileData,
-    fetchUserUpdateData
+    fetchUserUpdateData,
   } = useEditorStore();
   const { fetchUsersData, userData, loading } = useUserStore();
-
+  
+  //  const { customerId } = useParams();
   useEffect(() => {
     fetchUsersData();
+    
   }, []);
+  
 
   useEffect(() => {
     userData?.forEach((item: any) => {
@@ -181,7 +185,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
     });
     return mentions;
   };
-const { fetchNotificationData } = useNotificationStore();
+  const { fetchNotificationData } = useNotificationStore();
   // Function to update mentioned user IDs in state
   const updateMentionedUserIds = () => {
     const editor = quillRef.current?.getEditor();
@@ -240,8 +244,7 @@ const { fetchNotificationData } = useNotificationStore();
               ),
             amendmentId &&
               baseInstance.post(`/updates/amendment/${amendmentId}`, formData),
-              userId &&
-              baseInstance.post(`/updates/user/${userId}`, formData)
+            userId && baseInstance.post(`/updates/user/${userId}`, formData)
           );
         }
 
@@ -268,11 +271,13 @@ const { fetchNotificationData } = useNotificationStore();
 
         responses.forEach((response: any) => {
           if (response.status === 201) {
+            
             successToastingFunction(response?.data?.message);
 
             // Use the helper function to reduce repetition
             callIfValidString(customerId, fetchEditorData, "customerId");
-            callIfValidString(customerId, fetchacData, "customerId");
+            callIfValidString(customerId, fetchacData, "fetchacData");
+            callIfValidString(cust, fetchacData, "fetchacData");
             callIfValidString(customerId, fetchFileData, "customerId");
 
             callIfValidString(orderId, fetchOrderEditorData, "orderId");
@@ -292,11 +297,7 @@ const { fetchNotificationData } = useNotificationStore();
               fetchAmendmentUpdateData,
               "amendmentId"
             );
-            callIfValidString(
-              amendmentId,
-              fetchUserUpdateData,
-              "userId"
-            );
+            callIfValidString(userId, fetchUserUpdateData,"userId");
             callIfValidString(
               productFlowId,
               fetchProductFlowUpdateData,
@@ -307,11 +308,14 @@ const { fetchNotificationData } = useNotificationStore();
               fetchWebsiteContentUpdateData,
               "websiteContentId"
             );
-
+           
+            // fetchacData(customerId);
+            
             setIsOpenReplyModel(false);
             setOpenQuill(false);
             handleClear();
             fetchNotificationData();
+          
           }
         });
       } catch (error) {
@@ -363,21 +367,18 @@ const { fetchNotificationData } = useNotificationStore();
               onChangeSelection={updateMentionedUserIds}
               placeholder={options.placeholder}
               style={{
-                height: quillSize === "size" ? "300px" : "", 
-                marginBottom: quillSize === "size" ? "42px":"",
+                height: quillSize === "size" ? "300px" : "",
+                marginBottom: quillSize === "size" ? "42px" : "",
               }}
-              // className={`custom-quill-container${quillSize || ""}`} 
+              // className={`custom-quill-container${quillSize || ""}`}
             />
           )}
         </div>
-
-      
 
         {images && images.length > 0 && text === "file" ? (
           <div className="update-file">
             <ul>
               {images.flat().map((file, index) => {
-
                 return (
                   <li key={index}>
                     <p>{getFilenameFromURL(file)}</p>

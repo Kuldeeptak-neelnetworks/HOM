@@ -36,6 +36,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { useUserStore } from "@/Store/UserStore";
 import { useCustomerStore } from "@/Store/CustomerStore";
 import { useAmendmentStore } from "@/Store/AmendmentStore";
+import { AsyncPaginate } from "react-select-async-paginate";
 
 interface AddAmendmentFormProps {
   setOpen: (newValue: boolean | ((prevCount: boolean) => boolean)) => void;
@@ -55,6 +56,25 @@ type User = {
 interface ITimezone {
   label: string;
   value: string;
+}
+
+interface Option {
+  value: number;
+  label: string;
+}
+
+interface LoadOptionsParams {
+  inputValue: string;
+  options: readonly Option[];
+  additional: { page: number };
+}
+
+interface AdditionalParams {
+  page: number;
+}
+
+interface Filters {
+  status?: string;
 }
 
 const AddAmendmentForm = ({}: any) => {
@@ -144,10 +164,6 @@ const AddAmendmentForm = ({}: any) => {
     setFieldTouched,
   } = formik;
 
-  useEffect(() => {
-    fetchAllCustomerData();
-  }, []);
-
   const startYear = getYear(new Date()) - 100;
   const endYear = getYear(new Date()) + 100;
 
@@ -202,6 +218,78 @@ const AddAmendmentForm = ({}: any) => {
   const currentMonthDate = date ? getMonth(date) : getMonth(new Date());
   const currentYearDate = date ? getYear(date) : getYear(new Date());
 
+  // =========================================================
+
+  const [customerOptions, setCustomerOptions] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const loadCustomerOptions = async (
+    search: any,
+    loadedOptions: any,
+    { page }: any
+  ) => {
+    // Default to page 1 if undefined
+    const currentPageNumber = page || currentPage;
+    setCurrentPage(currentPageNumber + 1);
+
+    try {
+      setLoading(true);
+
+      // Build params dynamically
+      const params: Record<string, any> = {
+        page: currentPageNumber,
+        limit: 20,
+        ...(search && { search: search }),
+      };
+
+      console.log("params", params);
+
+      const response = await baseInstance.get("/customers", { params });
+
+      const customers = response.data?.data?.customers || [];
+
+      // Transform the response data
+      const transformedData = customers.map(
+        (customer: { _id: any; companyName: any }) => ({
+          value: customer._id,
+          label: customer.companyName,
+        })
+      );
+
+      // Merge options for infinite scroll
+      const combinedOptions =
+        currentPageNumber === 1
+          ? transformedData
+          : [...(loadedOptions?.options || []), ...transformedData];
+
+      // Handle pagination flag
+      const hasMore = response.data?.data?.hasMore ?? false;
+
+      setCustomerOptions(customers);
+
+      return {
+        options: combinedOptions,
+        hasMore,
+        additional: JSON.stringify({ page: currentPageNumber + 1 }), // Convert to string
+      };
+    } catch (error) {
+      console.error("Error fetching customers:", error);
+      return {
+        options: [],
+        hasMore: false,
+      };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // =========================================================
+
+  const handleDropDown = (field: string, selectedOption: any | null) => {
+    console.log(`${field}:`, selectedOption);
+  };
+
   return (
     <div className="p-4 relative">
       <div className="text-[1rem] font-semibold absolute top-[-50px]">
@@ -225,19 +313,61 @@ const AddAmendmentForm = ({}: any) => {
                     <span className="px-2">Loading...</span>
                   </div>
                 ) : (
-                  <SelectReactSelect
-                    closeMenuOnSelect={true}
-                    isClearable={true}
-                    options={customerData.customers.map((customer: any) => ({
-                      value: customer._id,
-                      label: customer.companyName,
-                    }))}
-                    onChange={(selectedOption: { value: any } | null) => {
+                  // <SelectReactSelect
+                  //   closeMenuOnSelect={true}
+                  //   isClearable={true}
+                  //   options={customerData.customers.map((customer: any) => ({
+                  //     value: customer._id,
+                  //     label: customer.companyName,
+                  //   }))}
+                  //   onChange={(selectedOption: { value: any } | null) => {
+                  //     setSelectedCustomerId(
+                  //       selectedOption ? selectedOption.value : null
+                  //     );
+                  //   }}
+                  //   placeholder="Select a Company"
+                  // />
+                  <AsyncPaginate
+                    className="react-select-custom-styling__container"
+                    classNamePrefix="react-select-custom-styling"
+                    value={customerOptions}
+                    loadOptions={loadCustomerOptions}
+                    onChange={(selectedOption: any) => {
+                      setCustomerOptions(selectedOption);
                       setSelectedCustomerId(
                         selectedOption ? selectedOption.value : null
                       );
+                      handleDropDown("CompanyId", selectedOption);
                     }}
-                    placeholder="Select a Company"
+                    additional={{ page: 1 }}
+                    placeholder="Select Company"
+                    debounceTimeout={300}
+                    noOptionsMessage={({ inputValue }) =>
+                      inputValue
+                        ? `No Company found for "${inputValue}"`
+                        : "No Company found"
+                    }
+                    // onError={(error: any) => {
+                    //   errorToastingFunction("Error loading Client");
+                    //   console.error("Async Paginate Client:", error);
+                    // }}
+                    styles={{
+                      option: (provided, state) => ({
+                        ...provided,
+                        backgroundColor: state.isSelected ? "#007bff" : "white",
+                        cursor: "pointer",
+                        color: state.isSelected ? "white" : "black",
+                        ":hover": {
+                          backgroundColor: state.isSelected
+                            ? "#007bff"
+                            : "#f1f3f5",
+                        },
+                      }),
+                      singleValue: (provided) => ({
+                        ...provided,
+                        color: "black",
+                      }),
+                    }}
                   />
                 )}
                 {/* )}  */}
@@ -359,7 +489,6 @@ const AddAmendmentForm = ({}: any) => {
                     </div>
                   </PopoverContent>
                 </Popover>
-           
               </div>
             </div>
             {/*  Customer Status */}

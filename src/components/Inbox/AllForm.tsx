@@ -335,6 +335,65 @@ const AllForm = ({
         setUserLoading(() => true);
         setIsUserValid(() => true);
         const subject = values.subject;
+
+        let payload = {};
+        if (statusValue === "Amendment") {
+          payload = {
+            // company: selectedCustomerId,
+            assignedTo: values.mentions,
+            mentions: values.mentions || [], 
+            content: value,
+            files: updatedUrls || [],
+            priority: values.priority,
+            subject: values.subject || "Amendment",
+            customer_status: values.customer_status,
+            live_url: values.liveUrl,
+            demo_url: values.demoUrl,
+            date_current: formatDate(date),
+            
+            
+          };
+        }
+
+        if (statusValue === "Technical") {
+          payload = {
+            mentions: values.mentions || [], 
+            // assignedTo: values.mentions,
+            content: value,
+            files: updatedUrls || [],
+            priority: values.priority,
+            subject: values.subject || "TechnicalTracker",
+            live_url: values.liveUrl,
+            demo_url: values.demoUrl,
+            // technicalTask: values.technicalTask,
+          };
+        }
+
+        if (statusValue === "Copy Writer Tracker") {
+          payload = {
+            mentions: values.mentions || [], 
+            assignedTo: values.mentions,
+            content: value,
+            files: updatedUrls || [],
+            status: values.status,
+            priority: values.priority,
+            live_url: values.liveUrl,
+            
+            demo_url: values.demoUrl,
+            subject: values.subject,
+            dateComplete: formatDate(dateComplete),
+          };
+        }
+
+        if (statusValue === "Other") {
+          payload = {
+            mentions: values.mentions || [], 
+            assignedTo: values.mentions,
+            content: value,
+            files: updatedUrls || [],
+            subject: values.subject,
+          };
+        }
         const data = {
           content: value,
           files: updatedUrls || [],
@@ -349,11 +408,9 @@ const AllForm = ({
           date_current: formatDate(date),
           // generated_by: values.generated_by,
           customer_name: values.customerName,
-
           timeTakenMinutes: values.timeTakenMinutes,
           status: values.status,
           technicalTask: values.technicalTask,
-
           currentStage: values.currentStage,
           datePhase1Instructed: formatDate(datePhase1Instructed),
           datePhase2Instructed: formatDate(datePhase2Instructed),
@@ -361,12 +418,11 @@ const AllForm = ({
           demoCompletedDate: formatDate(demoCompletedDate),
           liveDate: formatDate(liveDate),
           notes: values.notes,
-
           dateComplete: formatDate(dateComplete),
         };
 
         // Send the data as JSON
-        await addMultipleForm(data, selectedCustomerId);
+        await addMultipleForm(payload, selectedCustomerId);
 
         // Fetch updated data after the submission
         fetchNotificationData();
@@ -1928,6 +1984,110 @@ const AllForm = ({
 
             <div className="mb-3">
               <label className="mb-2.5 block font-medium text-black dark:text-white">
+                Priority
+              </label>
+              <div className="relative">
+                <Select
+                  onValueChange={(value: any) =>
+                    formik.setFieldValue("priority", value)
+                  }
+                  // onBlur={formik.handleBlur}
+                  value={formik.values.priority}
+                  name="priority"
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a Priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Select</SelectLabel>
+                      <SelectItem value="Standard">Standard</SelectItem>
+                      <SelectItem value="Urgent">Urgent</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+                {touched.priority && errors.priority ? (
+                  <div className="text-red-500">{errors.priority}</div>
+                ) : null}
+              </div>
+            </div>
+            <div className="lg:flex gap-5">
+              <div className="mb-3  w-[50%]">
+                <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  Customer Status
+                </label>
+                <div className="relative">
+                  <Select
+                    onValueChange={(value: any) =>
+                      formik.setFieldValue("customer_status", value)
+                    }
+                    // onBlur={formik.handleBlur}
+                    value={formik.values.customer_status}
+                    // id="userRoles"
+                    name="customer_status"
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Customer Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectLabel>Select</SelectLabel>
+                        <SelectItem value="Live Site">Live Site</SelectItem>
+                        <SelectItem value="Demo Link">Demo Link</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                  {touched.customer_status && errors.customer_status ? (
+                    <div className="text-red-500">{errors.customer_status}</div>
+                  ) : null}
+                </div>
+              </div>
+              {formik.values.customer_status === "Live Site" && (
+                <>
+                  <div className="mb-3  w-[50%]">
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      live Url
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.liveUrl}
+                        id="liveUrl"
+                        name="liveUrl"
+                        placeholder="Enter Url"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+              {formik.values.customer_status === "Demo Link" && (
+                <>
+                  <div className="mb-3  w-[50%]">
+                    <label className="mb-2.5 block font-medium text-black dark:text-white">
+                      Demo Url
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.demoUrl}
+                        id="demoUrl"
+                        name="demoUrl"
+                        placeholder="Enter Url"
+                        className="w-full  border border-stroke bg-transparent py-2 pl-3 pr-10  outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div className="mb-3">
+              <label className="mb-2.5 block font-medium text-black dark:text-white">
                 Update
               </label>
               <div className="relative">
@@ -2128,7 +2288,7 @@ const AllForm = ({
               </div>
             </div> */}
             {/*   Priority */}
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label className="mb-2.5 block font-medium text-black dark:text-white">
                 Priority
               </label>
@@ -2137,7 +2297,7 @@ const AllForm = ({
                   onValueChange={(value: any) =>
                     formik.setFieldValue("priority", value)
                   }
-                  // onBlur={formik.handleBlur}
+                
                   value={formik.values.priority}
                   name="priority"
                 >
@@ -2156,8 +2316,8 @@ const AllForm = ({
                   <div className="text-red-500">{errors.priority}</div>
                 ) : null}
               </div>
-            </div>
-            <div className="lg:flex gap-5">
+            </div> */}
+            {/* <div className="lg:flex gap-5">
               <div className="mb-3  w-[50%]">
                 <label className="mb-2.5 block font-medium text-black dark:text-white">
                   Customer Status
@@ -2167,9 +2327,9 @@ const AllForm = ({
                     onValueChange={(value: any) =>
                       formik.setFieldValue("customer_status", value)
                     }
-                    // onBlur={formik.handleBlur}
+    
                     value={formik.values.customer_status}
-                    // id="userRoles"
+       
                     name="customer_status"
                   >
                     <SelectTrigger>
@@ -2230,7 +2390,7 @@ const AllForm = ({
                   </div>
                 </>
               )}
-            </div>
+            </div> */}
 
             <div className="mb-3">
               <label className="mb-2.5 block font-medium text-black dark:text-white">

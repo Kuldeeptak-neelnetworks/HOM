@@ -844,7 +844,7 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
           textTab === "invoices" ||
           textTab === "files") && (
           <div className="w-full">
-            <ActivitySection activityDetails={acData} className="w-full" />
+            <ActivitySection activityDetails={acData}className="w-full" />
           </div>
         )}
       </div>

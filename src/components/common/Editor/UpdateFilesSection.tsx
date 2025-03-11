@@ -149,7 +149,7 @@ const UpdateFilesSection = ({
       // Handle unknown file types or default case
       content = (
         <div className="flex items-center justify-center h-[70px] w-[100px] bg-gray-200">
-          <span className="text-gray-600 text-lg">Unknown</span>
+          <span className="text-gray-600 text-xs">Unknown</span>
         </div>
       );
     }

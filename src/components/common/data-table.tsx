@@ -205,7 +205,11 @@ export function DataTable<TData, TValue>({
           </Table>
         </div>
       </div>
-      {text === "orders" || text === "cutomer"? "" : <DataTablePagination table={tableInstance} />}
+      {text === "orders" || text === "cutomer" || text === "amendment" ? (
+        ""
+      ) : (
+        <DataTablePagination table={tableInstance} />
+      )}
     </div>
   );
 }
@@ -229,7 +233,7 @@ export function DataTable<TData, TValue>({
 // import SideDrawer from "./Editor/SideDrawer";
 
 // interface DataTableProps<TData, TValue> {
-//   columns: ColumnDef<TData, TValue>[]; 
+//   columns: ColumnDef<TData, TValue>[];
 //   tableInstance: any;
 //   loading: boolean;
 //   queryParams: string; // Query params that will match the row for highlighting and opening SideDrawer
@@ -256,10 +260,10 @@ export function DataTable<TData, TValue>({
 //         prevQueryParams.current = queryParams;
 //       }
 //     }, 300); // Delay the opening to avoid rapid triggering
-  
+
 //     return () => clearTimeout(debounceTimeout); // Clean up previous timeouts
 //   }, [queryParams]);
-  
+
 //   return (
 //     <div className="space-y-4 text-[#676879]">
 //       <div className="border">

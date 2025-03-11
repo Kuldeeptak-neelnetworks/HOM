@@ -69,6 +69,27 @@ export const useEditorStore = create<EditorState & EditorActions>()(
     userUpdateData:[],
     loading: false,
 
+
+
+
+    fetchacData: async (customerId: string) => {
+      console.log(customerId,"fsjhdfhhdjfhk")
+      if (customerId) {
+        set({ loading: true });
+        try {
+          const response = await baseInstance.get(
+            `/activitylogs/${customerId}`
+          );
+          if (response.status === 200) {
+            set({ acData: response?.data?.data, loading: false });
+          } else {
+            set({ acData: response.data?.message, loading: false });
+          }
+        } catch (error: any) {
+          set({ acData: error?.response?.data?.message, loading: false });
+        }
+      }
+    },
     fetchEditorData: async (customerId: string) => {
       if (customerId) {
         set({ loading: true });
@@ -88,23 +109,7 @@ export const useEditorStore = create<EditorState & EditorActions>()(
     },
 
 
-    fetchacData: async (customerId: string) => {
-      if (customerId) {
-        set({ loading: true });
-        try {
-          const response = await baseInstance.get(
-            `/activitylogs/${customerId}`
-          );
-          if (response.status === 200) {
-            set({ acData: response?.data?.data, loading: false });
-          } else {
-            set({ acData: response.data?.message, loading: false });
-          }
-        } catch (error: any) {
-          set({ acData: error?.response?.data?.message, loading: false });
-        }
-      }
-    },
+
 
     fetchCutomerFileData: async (customerId: string) => {
       if (customerId) {

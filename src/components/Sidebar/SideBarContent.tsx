@@ -13,7 +13,8 @@ import {
   ProductFlowLogoSVG,
   NewWebsiteContentLogoSVG,
   EmployeeLeaveLogoSVG,
-  SalesIconSVG,NotificationBellIconSVG
+  SalesIconSVG,
+  NotificationBellIconSVG,
 } from "@/utils/SVGs/SVGs";
 import {
   Card,
@@ -244,11 +245,10 @@ const SideBarContent: React.FC<{ setToggleWidth: any }> = ({
               label="Inbox"
               href="/inbox"
               isSidebarOpen={toggleSider}
-
               icon={
                 <div className="relative cursor-pointer">
-                  <NotificationBellIconSVG  cssClass={"sidebar-icon-svg"} />
-                  <div className="absolute top-0 right-3 h-4 w-4 rounded-full bg-red-600 flex justify-center items-center">
+                  <NotificationBellIconSVG cssClass={"sidebar-icon-svg"} />
+                  <div className="absolute top-0 left-3 h-4 w-4 rounded-full bg-red-600 flex justify-center items-center">
                     <span className="font-bold text-white text-[10px]">
                       {notificationData?.notifications?.filter(
                         (notification: any) => !notification.isRead

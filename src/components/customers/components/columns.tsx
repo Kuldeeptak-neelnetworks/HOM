@@ -112,10 +112,10 @@ export const columns = [
         if (row?.original?.createdBy?.avatar !== "") {
           return (
             <div className="flex items-center">
-              <TooltipCommon text={row?.original?.createdBy?.fullName}>
+              <TooltipCommon text={row?.original?.createdBy[0]?.fullName}>
                 <Avatar className="cursor-pointer">
                   <AvatarImage
-                    src={row?.original?.createdBy?.avatar}
+                    src={row?.original?.createdBy[0]?.avatar}
                     className=""
                   />
                   <AvatarFallback>
@@ -155,10 +155,10 @@ export const columns = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }: any) => {
-      if (row?.original?.status) {
+      if (row?.original?.status !== "Unknown") {
         return renderStatus(row?.original?.status);
       } else {
-        return <div className="text-gray-400">-</div>;
+        return <div className="text-gray-400">N/A</div>;
       }
     },
   },

@@ -22,22 +22,31 @@ export type AmendmentDataType = {
   message: any;
 };
 
-// export type FetchedUserType = {
-//   message: string;
-//   users_data: any[];
-// };
-
 export type AmendmentState = {
-  amendmentData: AmendmentDataType[] | any;
+  amendmentData:
+    | {
+        amendments: AmendmentDataType[];
+        totalPages: number;
+        totalCount: number;
+        currentPage: number;
+        pageSize: number;
+        limit: number;
+      }
+    | any;
   addMultipleFormData: AmendmentDataType[] | any;
   message?: string;
-  loading: boolean;
+  loading: boolean | any;
 };
 
 export type AmendmentActions = {
-  fetchAmendmentData: () => void;
+  fetchAmendmentData: ({
+    page,
+    limit,
+    searchInput,
+    filters,
+  }: any) => Promise<void>;
   addAmendmentData: (data: any, customerId: string) => void;
-  addMultipleForm: (data: any,customerId: string) => void;
+  addMultipleForm: (data: any, customerId: string) => void;
 };
 
 export const useAmendmentStore = create<AmendmentState & AmendmentActions>()(
@@ -70,12 +79,30 @@ export const useAmendmentStore = create<AmendmentState & AmendmentActions>()(
       }
     },
     
-    fetchAmendmentData: async () => {
+    fetchAmendmentData: async (params) => {
       set({ loading: true });
+      const {
+        page = 1,
+        limit = 10,
+        searchInput = "",
+        filters = [],
+      } = params || {};
+
       try {
-        const response = await baseInstance.get("/amendments");
+        const queryParams = new URLSearchParams();
+        if (page) queryParams.append("page", String(page));
+        if (limit) queryParams.append("limit", String(limit));
+        if (searchInput) queryParams.append("search", searchInput);
+        if (filters) queryParams.append("status", filters?.status);
+
+        const response = await baseInstance.get(
+          `/amendments?${queryParams.toString()}`
+        );
         if (response.status === 200) {
-          set({ amendmentData: response.data?.data?.amendments, loading: false });
+          set({
+            amendmentData: response.data?.data,
+            loading: false,
+          });
         } else {
           set({ amendmentData: response.data?.message, loading: false });
         }
@@ -84,7 +111,6 @@ export const useAmendmentStore = create<AmendmentState & AmendmentActions>()(
         set({ amendmentData: error?.response?.data?.message, loading: false });
       }
     },
-
     addAmendmentData: async (data: any, customerId: string) => {
       set({ loading: true });
       try {

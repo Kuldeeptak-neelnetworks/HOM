@@ -42,6 +42,7 @@ import {
 import { DataTable } from "../common/data-table";
 import { columns } from "./columns";
 import SideDrawer from "../common/Editor/SideDrawer";
+import DeleteDialoge from "../Orders/components/DeleteDialoge";
 
 const UserPic = User.src;
 
@@ -215,8 +216,12 @@ const InboxContent: React.FC = () => {
               <TableHead className="text-sm font-semibold text-white py-3 ">
                 Update
               </TableHead>
-              <TableHead className="text-sm font-semibold text-white py-3 text-right">
+              <TableHead className="text-sm font-semibold text-white py-3">
+   
                 Time
+              </TableHead>
+              <TableHead className="text-sm font-semibold text-white py-3 text-right">
+                Delete
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -229,7 +234,6 @@ const InboxContent: React.FC = () => {
                   onClick={() =>
                     singleNotificationfecthHandler(notification?._id)
                   }
-             
                   className={`${
                     notification?.isRead
                       ? "bg-white text-gray-700 hover:bg-gray-50"
@@ -278,19 +282,17 @@ const InboxContent: React.FC = () => {
                   <TableCell className="text-right text-sm text-muted-foreground py-4">
                     <span className="text-[0.8rem]">
                       <SideDrawer
-                        length={notification?.updates?.length || 0} 
+                        length={notification?.updates?.length || 0}
                         {...{
                           amendmentId:
                             notification.itemType === "Amendment"
                               ? notification.item?._id
                               : undefined,
-                              userId:
+                          userId:
                             notification.itemType === "User"
                               ? notification.item?._id
                               : undefined,
 
-
-                              
                           technicalId:
                             notification.itemType === "TechnicalTracker"
                               ? notification.item?._id
@@ -319,9 +321,22 @@ const InboxContent: React.FC = () => {
                       />
                     </span>
                   </TableCell>
-                  <TableCell className="text-right text-sm text-muted-foreground py-4">
+              
+                  <TableCell className="text-left text-sm text-muted-foreground py-4">
                     <span className="text-[0.8rem]">
                       {timeAgo(notification.createdAt)}
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-right text-sm text-muted-foreground py-4">
+                    <span className="text-[0.8rem]">
+                      <DeleteDialoge
+                        id={notification._id}
+                        entity="notifications"
+                        // setIsModalOpen={setIsModalOpen}
+                        // setIsCommentOpen={setIsCommentOpen}
+                        fetchAllFunction={() => fetchNotificationData()}
+                        // deleteText="Delete Notification"
+                      />
                     </span>
                   </TableCell>
                 </TableRow>
@@ -340,9 +355,6 @@ const InboxContent: React.FC = () => {
 
           <TableFooter></TableFooter>
         </Table>
-
-       
-
       </div>
     </>
   );
@@ -760,3 +772,157 @@ export default InboxContent;
 // };
 
 // export default InboxContent;
+// const [limit, setLimit] = useState(20);
+// const [teamData, setTeamData] = useState([]); // Data state
+// const [loadingMore, setLoadingMore] = useState(false); // Loading state for pagination
+// const [hasMore, setHasMore] = useState(true); // To control if there are more pages to load
+// const [page, setPage] = useState(1); // Current page for pagination
+
+// // Fetch data on component mount
+// const fetchNotificationList = async (page: number) => {
+//   setLoadingMore(true); // Set loading state while fetching data
+//   console.log(`Fetching data for page: ${page}`);
+
+//   try {
+//     const response = await baseInstance.get(`/customers?page=${page}&limit=${limit}`);
+//     const newData = response?.data?.data?.customers || [];
+
+//     console.log("Fetched data:", newData);
+
+//     // Check if newData is not empty
+
+//       setTeamData((prevData) => (page === 1 ? newData : [...prevData, ...newData]));
+
+//     // Update `hasMore` based on response
+//     const hasMore = response?.data?.data?.hasMore || false;
+//     setHasMore(hasMore); // If `hasMore` is false, stop fetching
+//     if (response?.data?.data?.hasMore && newData.length === 0) {
+//       setPage(page + 1);
+//       fetchNotificationList(page + 1);
+//     }
+//     console.log("hasMore:", hasMore);
+
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     setHasMore(false);
+//   } finally {
+//     setLoadingMore(false);
+//   }
+// };
+
+// // Effect to fetch initial data
+// useEffect(() => {
+//   console.log("Fetching data for page:", page);
+//   fetchNotificationList(page); // Fetch data when the page number changes
+// }, [page]);
+// // const loadMoreData = () => {
+// //   if (hasMore && !loadingMore) {
+// //     setPage((prevPage) => prevPage + 1); // Increment page number
+// //   }
+// // };
+
+// console.log("teamData.length",teamData.length)
+// return (
+//   <>
+//     <div className="md:flex justify-center sm:justify-end my-2 px-4">
+//       <AddDialoge />
+//     </div>
+{
+  /* <div className="px-4 py-0 relative">
+      <DataTable
+      
+        text=""
+        queryParams={queryParams ? queryParams : ""}
+        columns={columns}
+        tableInstance={tableInstance}
+        loading={loading}
+      />
+    </div> */
+}
+{
+  /* <div className="px-4 py-0 relative">
+ <InfiniteScroll
+        dataLength={teamData.length}
+        next={() => {
+          setPage(page + 1);
+          fetchNotificationList(page + 1);
+        }}
+        hasMore={hasMore}
+        loader={
+          loadingMore ? (
+            <div className="text-center py-2">
+             sdgfjhgsdhjfgjhsdfg
+            </div>
+          ) : null
+        }
+        scrollThreshold={0.9}
+        scrollableTarget="scrollable-table-container"
+        style={{ overflow: "visible" }}
+      >
+      <Table className="shadow-md rounded-lg border border-gray-300" id="notification-table">
+        <TableHeader>
+          <TableRow className="bg-gray-100">
+            <TableHead className="text-sm font-semibold text-white py-3">Assigned By</TableHead>
+            <TableHead className="text-sm font-semibold text-white py-3">Message</TableHead>
+            <TableHead className="text-sm font-semibold text-white py-3">Update</TableHead>
+            <TableHead className="text-sm font-semibold text-white py-3 text-right">Time</TableHead>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
+          {teamData.length > 0 ? (
+            teamData.map((notification: any, index: number) => (
+              <TableRow
+                key={notification._id}
+                className={`${
+                  notification?.isRead
+                    ? "bg-white text-gray-700 hover:bg-gray-50"
+                    : "bg-blue-50 text-blue-800 hover:bg-blue-100"
+                } transition-all duration-300 ease-in-out cursor-pointer`}
+              >
+                <TableCell className="font-semibold text-sm text-gray-800 py-4">
+                  <div className="flex items-center space-x-2">
+                    <Avatar className="cursor-pointer rounded-full shadow-md w-8 h-8">
+                      <AvatarImage src={notification?.assignedBy?.avatar || UserPic} />
+                      <AvatarFallback>
+                        <img
+                          src={UserPic}
+                          alt="User Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      </AvatarFallback>
+                    </Avatar>
+                    {notification?.assignedBy?.fullName && (
+                      <span className="text-md font-medium text-black">
+                        {notification?.assignedBy?.fullName}
+                      </span>
+                    )}
+                  </div>
+                </TableCell>
+
+                <TableCell className="text-left text-sm text-black py-4">
+                  <div className="font-semibold">{notification.title}</div>
+                  <div className="text-xs text-gray-600">{notification.message}</div>
+                </TableCell>
+
+                <TableCell className="text-right text-sm text-muted-foreground py-4">
+                  {/* Render the appropriate side drawer content */
+}
+//               </TableCell>
+
+//               <TableCell className="text-right text-sm text-muted-foreground py-4">
+//                 <span className="text-[0.8rem]">{timeAgo(notification.createdAt)}</span>
+//               </TableCell>
+//             </TableRow>
+//           ))
+//         ) : (
+//           <TableRow>
+//             <TableCell colSpan={4} className="text-center font-semibold text-lg text-gray-500 py-4">
+//               No Notifications Found
+//             </TableCell>
+//           </TableRow>
+//         )}
+//       </TableBody>
+//     </Table>
+//   </InfiniteScroll>
+// </div> */}

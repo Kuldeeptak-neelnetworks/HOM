@@ -46,7 +46,6 @@ export type CustomerState = {
   loading: boolean | any;
 };
 
-
 export type CustomerActions = {
   fetchAllCustomerData: ({
     page,
@@ -61,15 +60,22 @@ export const useCustomerStore = create<CustomerState & CustomerActions>()(
     customerData: [],
     addedOrder: {},
     loading: false,
-    fetchAllCustomerData: async ({ page, limit, searchInput, filters}) => {
+    fetchAllCustomerData: async (params) => {
       set({ loading: true });
+      const {
+        page = 1,
+        limit = 10,
+        searchInput = "",
+        filters = [],
+      } = params || {};
       try {
         const queryParams = new URLSearchParams();
         if (page) queryParams.append("page", String(page));
         if (limit) queryParams.append("limit", String(limit));
-        if (searchInput) queryParams.append("search", searchInput);
-        if (filters) queryParams.append("status", filters?.status);
-    
+        if (searchInput && searchInput !== "" && searchInput !== undefined)
+          queryParams.append("search", searchInput);
+        if (filters?.status !== undefined)
+          queryParams.append("status", filters?.status);
 
         const response = await baseInstance.get(
           `/customers?${queryParams.toString()}`

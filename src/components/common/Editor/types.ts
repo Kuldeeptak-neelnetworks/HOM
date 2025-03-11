@@ -5,6 +5,7 @@ export interface QuillEditorProps {
   handleEdit?: string | string[];
   orderId?: string | string[];
   productFlowId?: string | string[];
+  cust?: string | string[];
   leadId?: string | string[];
   technicalId?: string | string[];
   copywriterId?: string | string[];
