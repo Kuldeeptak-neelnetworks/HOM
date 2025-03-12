@@ -21,9 +21,9 @@ const AddDialoge = () => {
 
       {/* Form Section */}
       <DialogContent className="sm:max-w-[700px]">
-        {/* <DialogHeader>
+        <DialogHeader>
           <DialogTitle>New Add</DialogTitle>
-        </DialogHeader> */}
+        </DialogHeader>
         <AllForm setOpen={setOpen} />
       </DialogContent>
     </Dialog>
