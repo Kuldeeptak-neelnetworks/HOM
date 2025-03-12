@@ -111,25 +111,25 @@ const InboxContent: React.FC = () => {
   useEffect(() => {
     fetchNotificationData();
   }, []);
-
-  // useEffect(() => {
-  //   // if (
-  //   //   notificationData === "Invalid refresh token" ||
-  //   //   notificationData === "User not found" ||
-  //   //   notificationData === "Invalid User Access Token" ||
-  //   //   notificationData === "Invalid access token" ||
-  //   //   notificationData === "Unauthorized request: No access or refresh token"
-  //   // ) {
-  //   //   router.push("/auth/login");
-  //   // } else {
-  //   // setLoader(false);
-  //   setNotificationList(
-  //     notificationData?.notifications
-  //       ? notificationData.notifications || []
-  //       : []
-  //   );
-  //   // }
-  // }, [notificationData, router]);
+  const [loader, setLoader] = useState(true);
+  useEffect(() => {
+    if (
+      notificationData === "Invalid refresh token" ||
+      notificationData === "User not found" ||
+      notificationData === "Invalid User Access Token" ||
+      notificationData === "Invalid access token" ||
+      notificationData === "Unauthorized request: No access or refresh token"
+    ) {
+      router.push("/auth/login");
+    } else {
+    setLoader(false);
+    setNotificationList(
+      notificationData?.notifications
+        ? notificationData.notifications || []
+        : []
+    );
+    }
+  }, [notificationData, router]);
   const searchParams = useSearchParams();
   const queryParams = searchParams.get("id");
   const pathname = usePathname();
@@ -157,6 +157,9 @@ const InboxContent: React.FC = () => {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+
+
+
 
   const tableInstance = useReactTable({
     data,
