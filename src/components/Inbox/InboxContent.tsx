@@ -284,6 +284,7 @@ const InboxContent: React.FC = () => {
 
                   <TableCell className="text-right text-sm text-muted-foreground py-4">
                     <span className="text-[0.8rem]">
+                  
                       <SideDrawer
                         length={notification?.updates?.length || 0}
                         {...{
@@ -313,11 +314,11 @@ const InboxContent: React.FC = () => {
                               ? notification.item?._id
                               : undefined,
                           websiteContentId:
-                            notification.itemType === "WebsiteContent"
+                            notification.itemType === "NewWebsiteContent"
                               ? notification.item?._id
                               : undefined,
                           copywriterId:
-                            notification.itemType === "Copywriter"
+                            notification.itemType === "CopywriterTracker"
                               ? notification.item?._id
                               : undefined,
                         }}
