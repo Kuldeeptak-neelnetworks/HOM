@@ -1,6 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import AllForm from "./AllForm";
 
@@ -15,15 +21,16 @@ const AddDialoge = () => {
           variant="outline"
           className="text-[0.8rem] text-white bg-[#29354f] hover:bg-[#fff] hover:text-[#29354f]"
         >
-    Compose
+          Compose
         </Button>
       </DialogTrigger>
 
       {/* Form Section */}
-      <DialogContent className="sm:max-w-[700px]">
-        <DialogHeader>
+      <DialogContent   className="sm:max-w-[700px]"
+        aria-describedby="dialog-description">
+        {/* <DialogHeader>
           <DialogTitle>New Add</DialogTitle>
-        </DialogHeader>
+        </DialogHeader> */}
         <AllForm setOpen={setOpen} />
       </DialogContent>
     </Dialog>
