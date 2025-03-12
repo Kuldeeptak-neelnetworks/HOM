@@ -43,13 +43,14 @@ import {
   headerOptions,
   successToastingFunction,
 } from "@/common/commonFunctions";
-import { CalendarIcon, Loader2 } from "lucide-react";
+import { CalendarIcon, Loader2, XIcon } from "lucide-react";
 import { LoaderIconSVG, PhoneIconSVG, UserIconSVG } from "@/utils/SVGs/SVGs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCustomerStore } from "@/Store/CustomerStore";
 import { useAmendmentStore } from "@/Store/AmendmentStore";
 import { useRouter } from "next/navigation";
 import { useNotificationStore } from "@/Store/NotificationStore";
+import { AsyncPaginate } from "react-select-async-paginate";
 // Register Quill modules
 Quill.register("modules/imageResize", ImageResize);
 Quill.register("modules/mention", QuillMention);
@@ -70,18 +71,23 @@ const AllForm = ({
   const [userLoading, setUserLoading] = useState(false);
   const [isUserValid, setIsUserValid] = useState(false);
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
+  const [selectedUserId, setSelectedUserId] = useState("");
   const [date, setDate] = useState<Date | undefined>(new Date());
   const { fetchAllCustomerData, customerData }: any = useCustomerStore();
   const { fetchUsersData, userData }: any = useUserStore();
   const { addMultipleForm }: any = useAmendmentStore();
   function formatDate(date: any) {
+    if (!date) {
+      return "";
+    }
+
     const d = new Date(date);
     const year = d.getFullYear();
     let month = (d.getMonth() + 1).toString().padStart(2, "0");
     let day = d.getDate().toString().padStart(2, "0");
     return `${year}-${month}-${day}`;
   }
-
+ 
   const handleDateSelect = (selectedDate: any) => {
     setDate(selectedDate);
   };
@@ -89,9 +95,7 @@ const AllForm = ({
   useEffect(() => {
     fetchUsersData();
   }, []);
-  useEffect(() => {
-    fetchAllCustomerData(1, 20);
-  }, []);
+
   const [isCustomerValid, setIsCustomerValid] = useState(false);
 
   useEffect(() => {
@@ -295,7 +299,9 @@ const AllForm = ({
     { label: "Other", value: "Other" },
     // { label: "New Website Content", value: "New Website Content" },
   ];
+
   const [dateComplete, setDateComplete] = useState<Date | undefined>(undefined);
+
   const [datePhase1Instructed, setDatePhase1Instructed] = useState<
     Date | undefined
   >(undefined);
@@ -325,6 +331,7 @@ const AllForm = ({
       liveDate: "",
       notes: "",
       selectedCustomerId: "",
+      selectedUserId: "",
       liveUrl: "",
       demoUrl: "",
       mentions: [] as string[],
@@ -341,7 +348,7 @@ const AllForm = ({
           payload = {
             // company: selectedCustomerId,
             assignedTo: values.mentions,
-            mentions: values.mentions || [], 
+            mentions: values.mentions || [],
             content: value,
             files: updatedUrls || [],
             priority: values.priority,
@@ -350,14 +357,12 @@ const AllForm = ({
             live_url: values.liveUrl,
             demo_url: values.demoUrl,
             date_current: formatDate(date),
-            
-            
           };
         }
 
         if (statusValue === "Technical") {
           payload = {
-            mentions: values.mentions || [], 
+            mentions: values.mentions || [],
             // assignedTo: values.mentions,
             content: value,
             files: updatedUrls || [],
@@ -371,14 +376,14 @@ const AllForm = ({
 
         if (statusValue === "Copy Writer Tracker") {
           payload = {
-            mentions: values.mentions || [], 
+            mentions: values.mentions || [],
             assignedTo: values.mentions,
             content: value,
             files: updatedUrls || [],
             status: values.status,
             priority: values.priority,
             live_url: values.liveUrl,
-            
+
             demo_url: values.demoUrl,
             subject: values.subject,
             dateComplete: formatDate(dateComplete),
@@ -387,7 +392,7 @@ const AllForm = ({
 
         if (statusValue === "Other") {
           payload = {
-            mentions: values.mentions || [], 
+            mentions: values.mentions || [],
             assignedTo: values.mentions,
             content: value,
             files: updatedUrls || [],
@@ -465,6 +470,11 @@ const AllForm = ({
   const handleStatusChange = (selectedOption: any) => {
     const selectedStatus = selectedOption?.value || "Amendment";
     setStatusValue(selectedStatus);
+    setCustomerOptions([]);
+    formik.setFieldValue("selectedCustomerId", null);
+    formik.setFieldValue("customerName", "");
+
+    formik.resetForm();
     if (selectedStatus === "Amendment") {
       formik.setFieldValue("subject", "Amendment");
     } else if (selectedStatus === "Technical") {
@@ -563,7 +573,9 @@ const AllForm = ({
       setDemoCompletedDate(selectedDate);
     }
   };
-
+  const clearDate = () => {
+    setDateComplete(undefined);
+  };
   const handleLiveDate = (selectedDate: Date | undefined) => {
     if (selectedDate) {
       setLiveDate(selectedDate);
@@ -582,6 +594,138 @@ const AllForm = ({
   const currentYear = dateComplete
     ? getYear(dateComplete)
     : getYear(new Date());
+
+  const [customerOptions, setCustomerOptions] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  const loadCustomerOptions = async (
+    search: any,
+    loadedOptions: any,
+    { page }: any
+  ) => {
+    const currentPageNumber = page || currentPage;
+    setCurrentPage(currentPageNumber + 1);
+
+    try {
+      setLoading(true);
+
+      // Build params dynamically
+      const params: Record<string, any> = {
+        page: currentPageNumber,
+        limit: 20,
+        ...(search && { search: search }),
+      };
+
+      console.log("params", params);
+
+      const response = await baseInstance.get("/customers", { params });
+
+      const customers = response.data?.data?.customers || [];
+
+      // Transform the response data
+      const transformedData = customers.map(
+        (customer: { _id: any; companyName: any }) => ({
+          value: customer._id,
+          label: customer.companyName,
+        })
+      );
+
+      // Merge options for infinite scroll
+      const combinedOptions =
+        currentPageNumber === 1
+          ? transformedData
+          : [...(loadedOptions?.options || []), ...transformedData];
+
+      // Handle pagination flag
+      const hasMore = response.data?.data?.hasMore ?? false;
+
+      setCustomerOptions(customers);
+
+      return {
+        options: combinedOptions,
+        hasMore,
+        additional: JSON.stringify({ page: currentPageNumber + 1 }), // Convert to string
+      };
+    } catch (error) {
+      console.error("Error fetching customers:", error);
+      return {
+        options: [],
+        hasMore: false,
+      };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // =========================================================
+
+  const handleDropDown = (field: string, selectedOption: any | null) => {
+    console.log(`${field}:`, selectedOption);
+  };
+
+  const [userOptions, setUserOptions] = useState([]);
+
+  const loadUserOptions = async (
+    search: any,
+    loadedOptions: any,
+    { page }: any
+  ) => {
+    const currentPageNumber = page || currentPage;
+    setCurrentPage(currentPageNumber + 1);
+
+    try {
+      setLoading(true);
+
+
+      const params: Record<string, any> = {
+        page: currentPageNumber,
+        limit: 20,
+        ...(search && { search: search }),
+      };
+
+      const response = await baseInstance.get("/users", { params });
+      const users = response.data?.data?.users || [];
+
+      // Transform the response data
+      const transformedData = users.map(
+        (user: { _id: any; fullName: any }) => ({
+          value: user._id,
+          label: user.fullName,
+        })
+      );
+
+      // Merge options for infinite scroll
+      const combinedOptions =
+        currentPageNumber === 1
+          ? transformedData
+          : [...(loadedOptions?.options || []), ...transformedData];
+
+      const hasMore = response.data?.data?.hasMore ?? false;
+
+      setUserOptions(users);
+
+      return {
+        options: combinedOptions,
+        hasMore,
+        additional: { page: currentPageNumber + 1 }, 
+      };
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      return { options: [], hasMore: false };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle the selection change in AsyncPaginate
+  const handleSelectChange = (selectedOptions: any) => {
+    formik.setFieldValue(
+      "mentions",
+      selectedOptions ? selectedOptions.map((option: any) => option.value) : []
+    );
+  };
+
   return (
     <>
       <div className="w-[644px] px-4">
@@ -604,11 +748,55 @@ const AllForm = ({
             onSubmit={handleSubmit}
             className="border p-6 text-[0.8rem] bg-[#fff]"
           >
-            <div className="mb-3 mt-1">
+            <div className="mb-3">
               <label className="mb-2.5 block font-medium text-black dark:text-white">
                 Select Company <span style={{ opacity: "0.5" }}> * </span>
               </label>
               <div className="relative">
+                <AsyncPaginate
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={customerOptions}
+                  loadOptions={loadCustomerOptions}
+                  onChange={(selectedOption: any) => {
+                    setCustomerOptions(selectedOption);
+                    setSelectedCustomerId(
+                      selectedOption ? selectedOption.value : null
+                    );
+                    // handleDropDown("CompanyId", selectedOption);
+                  }}
+                  additional={{ page: 1 }}
+                  placeholder="Select Company"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No Company found for "${inputValue}"`
+                      : "No Company found"
+                  }
+                  // onError={(error: any) => {
+                  //   errorToastingFunction("Error loading Client");
+                  //   console.error("Async Paginate Client:", error);
+                  // }}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                  }}
+                />
+              </div>
+              {/* <div className="relative">
                 {!customerData?.customers ? (
                   <div className="flex justify-start">
                     <LoaderIconSVG />
@@ -630,8 +818,8 @@ const AllForm = ({
                     placeholder="Select a Company"
                   />
                 )}
-                {/* )}  */}
-              </div>
+            
+              </div> */}
             </div>
 
             <div className="mb-3 w-full">
@@ -639,7 +827,56 @@ const AllForm = ({
                 Assigned To
               </label>
               <div className="relative">
-                {!userLoading && userData?.length === 0 ? (
+                <AsyncPaginate
+                  isMulti
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={userOptions
+                    .filter((user: { _id: any }) =>
+                      formik.values.mentions.includes(user._id)
+                    )
+                    .map((user: any) => ({
+                      value: user._id,
+                      label: user.fullName,
+                    }))}
+                  loadOptions={loadUserOptions}
+                  onChange={handleSelectChange}
+                  additional={{ page: 1 }}
+                  placeholder="Select Users"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No users found for "${inputValue}"`
+                      : "No users found"
+                  }
+                  isLoading={loading}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+             
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                    menuList: (provided, state) => ({
+                      ...provided,
+                      maxHeight: state.options.length * 28,
+                      overflowY: 'auto',
+                    }),
+         
+                    
+                  }}
+                />
+                {/* {!userLoading && userData?.length === 0 ? (
                   <div className="flex justify-start">
                     <LoaderIconSVG />
                     <span className="px-2">Loading...</span>
@@ -677,7 +914,7 @@ const AllForm = ({
                         : []
                     }
                   />
-                )}
+                )} */}
               </div>
             </div>
 
@@ -915,29 +1152,48 @@ const AllForm = ({
                 Select Company <span style={{ opacity: "0.5" }}> * </span>
               </label>
               <div className="relative">
-                {!customerData?.customers ? (
-                  <div className="flex justify-start">
-                    <LoaderIconSVG />
-                    <span className="px-2">Loading...</span>
-                  </div>
-                ) : (
-                  <SelectReactSelect
-                    // className="text-[0.8rem] p-0 m-0 h-2"
-                    closeMenuOnSelect={true}
-                    isClearable={true}
-                    options={customerData.customers.map((customer: any) => ({
-                      value: customer._id,
-                      label: customer.companyName,
-                    }))}
-                    onChange={(selectedOption: { value: any } | null) => {
-                      setSelectedCustomerId(
-                        selectedOption ? selectedOption.value : null
-                      );
-                    }}
-                    placeholder="Select a Company"
-                  />
-                )}
-                {/* )}  */}
+                <AsyncPaginate
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={customerOptions}
+                  loadOptions={loadCustomerOptions}
+                  onChange={(selectedOption: any) => {
+                    setCustomerOptions(selectedOption);
+                    setSelectedCustomerId(
+                      selectedOption ? selectedOption.value : null
+                    );
+                    // handleDropDown("CompanyId", selectedOption);
+                  }}
+                  additional={{ page: 1 }}
+                  placeholder="Select Company"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No Company found for "${inputValue}"`
+                      : "No Company found"
+                  }
+                  // onError={(error: any) => {
+                  //   errorToastingFunction("Error loading Client");
+                  //   console.error("Async Paginate Client:", error);
+                  // }}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                  }}
+                />
               </div>
             </div>
             <div className="mb-3 w-full">
@@ -945,45 +1201,55 @@ const AllForm = ({
                 Assigned To
               </label>
               <div className="relative">
-                {!userLoading && userData?.length === 0 ? (
-                  <div className="flex justify-start">
-                    <LoaderIconSVG />
-                    <span className="px-2">Loading...</span>
-                  </div>
-                ) : (
-                  <SelectReactSelect
-                    name="mentions"
-                    isMulti
-                    closeMenuOnSelect={false}
-                    isClearable={true}
-                    options={userData?.map(
-                      (user: { _id: any; fullName: any }) => ({
-                        value: user?._id,
-                        label: user?.fullName,
-                      })
-                    )}
-                    onChange={(selectedOptions) => {
-                      formik.setFieldValue(
-                        "mentions",
-                        selectedOptions
-                          ? selectedOptions.map((option) => option.value)
-                          : []
-                      );
-                    }}
-                    value={
-                      formik.values.mentions
-                        ? userData
-                            .filter((user: { _id: string }) =>
-                              formik.values.mentions.includes(user._id)
-                            )
-                            .map((user: { _id: any; fullName: any }) => ({
-                              value: user._id,
-                              label: user.fullName,
-                            }))
-                        : []
-                    }
-                  />
-                )}
+              <AsyncPaginate
+                  isMulti
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={userOptions
+                    .filter((user: { _id: any }) =>
+                      formik.values.mentions.includes(user._id)
+                    )
+                    .map((user: any) => ({
+                      value: user._id,
+                      label: user.fullName,
+                    }))}
+                  loadOptions={loadUserOptions}
+                  onChange={handleSelectChange}
+                  additional={{ page: 1 }}
+                  placeholder="Select Users"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No users found for "${inputValue}"`
+                      : "No users found"
+                  }
+                  isLoading={loading}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+             
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                    menuList: (provided, state) => ({
+                      ...provided,
+                      maxHeight: state.options.length * 28,
+                      overflowY: 'auto',
+                    }),
+         
+                    
+                  }}
+                />
               </div>
             </div>
 
@@ -1236,35 +1502,58 @@ const AllForm = ({
                   Select Company <span style={{ opacity: "0.5" }}> * </span>
                 </label>
                 <div className="relative">
-                  {!customerData?.customers ? (
-                    <div className="flex justify-start">
-                      <LoaderIconSVG />
-                      <span className="px-2">Loading...</span>
-                    </div>
-                  ) : (
-                    <SelectReactSelect
-                      closeMenuOnSelect={true}
-                      isClearable={true}
-                      options={customerData.customers.map((customer: any) => ({
-                        value: customer._id,
-                        label: customer.companyName,
-                      }))}
-                      onChange={(selectedOption: { value: string } | null) => {
-                        const customerId = selectedOption
-                          ? selectedOption.value
-                          : "";
-                        setSelectedCustomerId(customerId);
-                        formik.setFieldValue("selectedCustomerId", customerId);
+                  <div className="relative">
+                    <AsyncPaginate
+                      className="react-select-custom-styling__container"
+                      classNamePrefix="react-select-custom-styling"
+                      value={customerOptions}
+                      loadOptions={loadCustomerOptions}
+                      onChange={(selectedOption: any) => {
+                        setCustomerOptions(selectedOption);
+                        setSelectedCustomerId(
+                          selectedOption ? selectedOption.value : null
+                        );
+                        // handleDropDown("CompanyId", selectedOption);
                       }}
-                      placeholder="Select a Company"
+                      additional={{ page: 1 }}
+                      placeholder="Select Company"
+                      debounceTimeout={300}
+                      noOptionsMessage={({ inputValue }) =>
+                        inputValue
+                          ? `No Company found for "${inputValue}"`
+                          : "No Company found"
+                      }
+                      // onError={(error: any) => {
+                      //   errorToastingFunction("Error loading Client");
+                      //   console.error("Async Paginate Client:", error);
+                      // }}
+                      styles={{
+                        option: (provided, state) => ({
+                          ...provided,
+                          backgroundColor: state.isSelected
+                            ? "#007bff"
+                            : "white",
+                          cursor: "pointer",
+                          color: state.isSelected ? "white" : "black",
+                          ":hover": {
+                            backgroundColor: state.isSelected
+                              ? "#007bff"
+                              : "#f1f3f5",
+                          },
+                        }),
+                        singleValue: (provided) => ({
+                          ...provided,
+                          color: "black",
+                        }),
+                      }}
                     />
-                  )}
-                  {formik.touched.selectedCustomerId &&
-                  formik.errors.selectedCustomerId ? (
-                    <div className="text-red-500">
-                      {formik.errors.selectedCustomerId}
-                    </div>
-                  ) : null}
+                    {formik.touched.selectedCustomerId &&
+                    formik.errors.selectedCustomerId ? (
+                      <div className="text-red-500">
+                        {formik.errors.selectedCustomerId}
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </div>
               <div className="mb-3 w-full">
@@ -1327,45 +1616,55 @@ const AllForm = ({
                 Assigned To
               </label>
               <div className="relative">
-                {!userLoading && userData?.length === 0 ? (
-                  <div className="flex justify-start">
-                    <LoaderIconSVG />
-                    <span className="px-2">Loading...</span>
-                  </div>
-                ) : (
-                  <SelectReactSelect
-                    name="mentions"
-                    isMulti
-                    closeMenuOnSelect={false}
-                    isClearable={true}
-                    options={userData?.map(
-                      (user: { _id: any; fullName: any }) => ({
-                        value: user?._id,
-                        label: user?.fullName,
-                      })
-                    )}
-                    onChange={(selectedOptions) => {
-                      formik.setFieldValue(
-                        "mentions",
-                        selectedOptions
-                          ? selectedOptions.map((option) => option.value)
-                          : []
-                      );
-                    }}
-                    value={
-                      formik.values.mentions
-                        ? userData
-                            .filter((user: { _id: string }) =>
-                              formik.values.mentions.includes(user._id)
-                            )
-                            .map((user: { _id: any; fullName: any }) => ({
-                              value: user._id,
-                              label: user.fullName,
-                            }))
-                        : []
-                    }
-                  />
-                )}
+              <AsyncPaginate
+                  isMulti
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={userOptions
+                    .filter((user: { _id: any }) =>
+                      formik.values.mentions.includes(user._id)
+                    )
+                    .map((user: any) => ({
+                      value: user._id,
+                      label: user.fullName,
+                    }))}
+                  loadOptions={loadUserOptions}
+                  onChange={handleSelectChange}
+                  additional={{ page: 1 }}
+                  placeholder="Select Users"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No users found for "${inputValue}"`
+                      : "No users found"
+                  }
+                  isLoading={loading}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+             
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                    menuList: (provided, state) => ({
+                      ...provided,
+                      maxHeight: state.options.length * 28,
+                      overflowY: 'auto',
+                    }),
+         
+                    
+                  }}
+                />
               </div>
             </div>
 
@@ -1773,29 +2072,48 @@ const AllForm = ({
                 Select Company <span style={{ opacity: "0.5" }}> * </span>
               </label>
               <div className="relative">
-                {!customerData?.customers ? (
-                  <div className="flex justify-start">
-                    <LoaderIconSVG />
-                    <span className="px-2">Loading...</span>
-                  </div>
-                ) : (
-                  <SelectReactSelect
-                    closeMenuOnSelect={true}
-                    isClearable={true}
-                    options={customerData.customers.map((customer: any) => ({
-                      value: customer._id,
-                      label: customer.companyName,
-                    }))}
-                    onChange={(selectedOption: { value: string } | null) => {
-                      const customerId = selectedOption
-                        ? selectedOption.value
-                        : "";
-                      setSelectedCustomerId(customerId);
-                      formik.setFieldValue("selectedCustomerId", customerId);
-                    }}
-                    placeholder="Select a Company"
-                  />
-                )}
+                <AsyncPaginate
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={customerOptions}
+                  loadOptions={loadCustomerOptions}
+                  onChange={(selectedOption: any) => {
+                    setCustomerOptions(selectedOption);
+                    setSelectedCustomerId(
+                      selectedOption ? selectedOption.value : null
+                    );
+                    // handleDropDown("CompanyId", selectedOption);
+                  }}
+                  additional={{ page: 1 }}
+                  placeholder="Select Company"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No Company found for "${inputValue}"`
+                      : "No Company found"
+                  }
+                  // onError={(error: any) => {
+                  //   errorToastingFunction("Error loading Client");
+                  //   console.error("Async Paginate Client:", error);
+                  // }}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                  }}
+                />
                 {formik.touched.selectedCustomerId &&
                 formik.errors.selectedCustomerId ? (
                   <div className="text-red-500">
@@ -1810,7 +2128,56 @@ const AllForm = ({
                 Assigned To
               </label>
               <div className="relative">
-                {!userLoading && userData?.length === 0 ? (
+              <AsyncPaginate
+                  isMulti
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={userOptions
+                    .filter((user: { _id: any }) =>
+                      formik.values.mentions.includes(user._id)
+                    )
+                    .map((user: any) => ({
+                      value: user._id,
+                      label: user.fullName,
+                    }))}
+                  loadOptions={loadUserOptions}
+                  onChange={handleSelectChange}
+                  additional={{ page: 1 }}
+                  placeholder="Select Users"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No users found for "${inputValue}"`
+                      : "No users found"
+                  }
+                  isLoading={loading}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+             
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                    menuList: (provided, state) => ({
+                      ...provided,
+                      maxHeight: state.options.length * 28,
+                      overflowY: 'auto',
+                    }),
+         
+                    
+                  }}
+                />
+                {/* {!userLoading && userData?.length === 0 ? (
                   <div className="flex justify-start">
                     <LoaderIconSVG />
                     <span className="px-2">Loading...</span>
@@ -1848,7 +2215,7 @@ const AllForm = ({
                         : []
                     }
                   />
-                )}
+                )} */}
               </div>
             </div>
 
@@ -1922,11 +2289,17 @@ const AllForm = ({
                         )}
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
-                        {dateComplete &&
-                        dateComplete.toISOString() !==
-                          "1970-01-01T00:00:00.000Z"
-                          ? format(dateComplete, "dd-MM-yyyy")
-                          : "Pick a date"}
+                        {dateComplete ? (
+                          format(dateComplete, "dd-MM-yyyy")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        {dateComplete && (
+                          <XIcon
+                            onClick={clearDate}
+                            className="ml-2 h-3 w-3 cursor-pointer text-grey-500 hover:text-grey-700"
+                          />
+                        )}
                       </Button>
                     </PopoverTrigger>
 
@@ -1968,12 +2341,12 @@ const AllForm = ({
                       <div className="calendar-container">
                         <Calendar
                           className="pointer-events-auto"
-                          mode="single"
                           selected={dateComplete}
                           onSelect={handleComplateDateSelect}
-                          initialFocus
+                          mode="single"
                           month={dateComplete}
                           onMonthChange={(date) => setDateComplete(date)}
+                          initialFocus
                         />
                       </div>
                     </PopoverContent>
@@ -2144,28 +2517,48 @@ const AllForm = ({
                 Select Company <span style={{ opacity: "0.5" }}> * </span>
               </label>
               <div className="relative">
-                {!customerData?.customers ? (
-                  <div className="flex justify-start">
-                    <LoaderIconSVG />
-                    <span className="px-2">Loading...</span>
-                  </div>
-                ) : (
-                  <SelectReactSelect
-                    closeMenuOnSelect={true}
-                    isClearable={true}
-                    options={customerData.customers.map((customer: any) => ({
-                      value: customer._id,
-                      label: customer.companyName,
-                    }))}
-                    onChange={(selectedOption: { value: any } | null) => {
-                      setSelectedCustomerId(
-                        selectedOption ? selectedOption.value : null
-                      );
-                    }}
-                    placeholder="Select a Company"
-                  />
-                )}
-                {/* )}  */}
+                <AsyncPaginate
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={customerOptions}
+                  loadOptions={loadCustomerOptions}
+                  onChange={(selectedOption: any) => {
+                    setCustomerOptions(selectedOption);
+                    setSelectedCustomerId(
+                      selectedOption ? selectedOption.value : null
+                    );
+                    // handleDropDown("CompanyId", selectedOption);
+                  }}
+                  additional={{ page: 1 }}
+                  placeholder="Select Company"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No Company found for "${inputValue}"`
+                      : "No Company found"
+                  }
+                  // onError={(error: any) => {
+                  //   errorToastingFunction("Error loading Client");
+                  //   console.error("Async Paginate Client:", error);
+                  // }}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                  }}
+                />
               </div>
             </div>
 
@@ -2174,45 +2567,55 @@ const AllForm = ({
                 Assigned To
               </label>
               <div className="relative">
-                {!userLoading && userData?.length === 0 ? (
-                  <div className="flex justify-start">
-                    <LoaderIconSVG />
-                    <span className="px-2">Loading...</span>
-                  </div>
-                ) : (
-                  <SelectReactSelect
-                    name="mentions"
-                    isMulti
-                    closeMenuOnSelect={false}
-                    isClearable={true}
-                    options={userData?.map(
-                      (user: { _id: any; fullName: any }) => ({
-                        value: user?._id,
-                        label: user?.fullName,
-                      })
-                    )}
-                    onChange={(selectedOptions) => {
-                      formik.setFieldValue(
-                        "mentions",
-                        selectedOptions
-                          ? selectedOptions.map((option) => option.value)
-                          : []
-                      );
-                    }}
-                    value={
-                      formik.values.mentions
-                        ? userData
-                            .filter((user: { _id: string }) =>
-                              formik.values.mentions.includes(user._id)
-                            )
-                            .map((user: { _id: any; fullName: any }) => ({
-                              value: user._id,
-                              label: user.fullName,
-                            }))
-                        : []
-                    }
-                  />
-                )}
+              <AsyncPaginate
+                  isMulti
+                  className="react-select-custom-styling__container"
+                  classNamePrefix="react-select-custom-styling"
+                  value={userOptions
+                    .filter((user: { _id: any }) =>
+                      formik.values.mentions.includes(user._id)
+                    )
+                    .map((user: any) => ({
+                      value: user._id,
+                      label: user.fullName,
+                    }))}
+                  loadOptions={loadUserOptions}
+                  onChange={handleSelectChange}
+                  additional={{ page: 1 }}
+                  placeholder="Select Users"
+                  debounceTimeout={300}
+                  noOptionsMessage={({ inputValue }) =>
+                    inputValue
+                      ? `No users found for "${inputValue}"`
+                      : "No users found"
+                  }
+                  isLoading={loading}
+                  styles={{
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#007bff" : "white",
+             
+                      cursor: "pointer",
+                      color: state.isSelected ? "white" : "black",
+                      ":hover": {
+                        backgroundColor: state.isSelected
+                          ? "#007bff"
+                          : "#f1f3f5",
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "black",
+                    }),
+                    menuList: (provided, state) => ({
+                      ...provided,
+                      maxHeight: state.options.length * 28,
+                      overflowY: 'auto',
+                    }),
+         
+                    
+                  }}
+                />
               </div>
             </div>
 

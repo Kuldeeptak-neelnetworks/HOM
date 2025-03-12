@@ -54,7 +54,7 @@ export const useUserStore = create<UserState & UserActions>()(
       try {
         const response = await baseInstance.get("/users");
         if (response.status === 200) {
-          set({ userData: response.data?.data, loading: false });
+          set({ userData: response.data?.data?.users, loading: false });
         } else {
           set({ userData: response.data?.message, loading: false });
         }

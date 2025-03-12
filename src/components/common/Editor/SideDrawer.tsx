@@ -111,7 +111,7 @@ export default function SideDrawer({
     fetchCopywriterUpdateData,
     fetchProductFlowUpdateData,
     fetchWebsiteContentUpdateData,
-    copywriterUpdateData,fetchEditorData,fetchacData
+    copywriterUpdateData,fetchEditorData,fetchActivityData
   }: any = useEditorStore();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -191,7 +191,7 @@ export default function SideDrawer({
       fetchProductFlowUpdateData(productFlowId);
       fetchWebsiteContentUpdateData(websiteContentId);
       fetchEditorData(customerId)
-      fetchacData(cust)
+      fetchActivityData(cust)
       
 
       getUpdateFiles();

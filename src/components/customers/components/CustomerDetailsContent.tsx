@@ -143,9 +143,9 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
   const { customerId } = useParams();
   const {
     fetchEditorData,
-    fetchacData,
+    fetchActivityData,
     editorData,
-    acData,
+    activityData,
     loading,
     fetchCutomerFileData,
     customerFileData,
@@ -180,19 +180,19 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
       }
     }
   };
-  const getActivities = async () => {
-    try {
-      const result = await baseInstance.get(`activitylogs/${customerId}`);
-      if (result.status === 200) {
-        setActivityDetails(result?.data?.data as ActivityDetailsType);
-        fetchacData(customerId);
-      }
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        errorToastingFunction(error?.response?.data?.message);
-      }
-    }
-  };
+  // const getActivities = async () => {
+  //   try {
+  //     const result = await baseInstance.get(`activitylogs/${customerId}`);
+  //     if (result.status === 200) {
+  //       setActivityDetails(result?.data?.data as ActivityDetailsType);
+  //       fetchActivityData(customerId);
+  //     }
+  //   } catch (error: unknown) {
+  //     if (error instanceof AxiosError) {
+  //       errorToastingFunction(error?.response?.data?.message);
+  //     }
+  //   }
+  // };
   const getUpdateFiles = async () => {
     try {
       const result = await baseInstance.get(`/files/customer/${customerId}`);
@@ -259,9 +259,9 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
 
   useEffect(() => {
     getCustomerDetails();
-    getActivities();
+    // getActivities();
     getUpdateFiles();
-    fetchacData(customerId);
+    fetchActivityData(customerId);
     fetchFileData(customerId);
     fetchCutomerFileData(customerId);
     fetchEditorData(customerId);
@@ -837,16 +837,10 @@ const CustomerDetailsContent = ({ handleUpdate }: any) => {
           </Tabs>
         </div>
       </div>
-      <div className="lg gap-1  justify-start">
-        {(textTab === "activity" ||
-          textTab === "updates" ||
-          textTab === "orders" ||
-          textTab === "invoices" ||
-          textTab === "files") && (
-          <div className="w-full">
-            <ActivitySection activityDetails={acData}className="w-full" />
-          </div>
-        )}
+      <div className="lg gap-1 justify-start">
+        <div className="w-full">
+          <ActivitySection activityDetails={activityData} />
+        </div>
       </div>
     </div>
   );

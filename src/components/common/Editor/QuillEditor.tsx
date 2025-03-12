@@ -55,7 +55,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   const { fetchCopywriterData } = useCopywriterStore();
   const {
     fetchEditorData,
-    fetchacData,
+    fetchActivityData,
     fetchLeadsEditorData,
     fetchOrderEditorData,
     fetchTechnicalUpdateData,
@@ -276,8 +276,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
 
             // Use the helper function to reduce repetition
             callIfValidString(customerId, fetchEditorData, "customerId");
-            callIfValidString(customerId, fetchacData, "fetchacData");
-            callIfValidString(cust, fetchacData, "fetchacData");
+            callIfValidString(customerId, fetchActivityData, "fetchActivityData");
+            callIfValidString(cust, fetchActivityData, "fetchActivityData");
             callIfValidString(customerId, fetchFileData, "customerId");
 
             callIfValidString(orderId, fetchOrderEditorData, "orderId");
@@ -309,7 +309,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
               "websiteContentId"
             );
            
-            // fetchacData(customerId);
+            // fetchActivityData(customerId);
             
             setIsOpenReplyModel(false);
             setOpenQuill(false);

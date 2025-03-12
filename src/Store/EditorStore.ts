@@ -22,7 +22,7 @@ export type EditorDataType = {
 
 export type EditorState = {
   editorData: EditorDataType[] | any;
-  acData:EditorDataType[] | any;
+  activityData:EditorDataType[] | any;
   customerFileData:EditorDataType[] | any;
   fileData:EditorDataType[] | any;
   orderEditorData: EditorDataType[] | any;
@@ -39,7 +39,7 @@ export type EditorState = {
 
 export type EditorActions = {
   fetchEditorData: (customerId: string) => Promise<void>;
-  fetchacData :(customerId: string) => Promise<void>;
+  fetchActivityData :(customerId: string) => Promise<void>;
   fetchCutomerFileData:(customerId: string) => Promise<void>;
   fetchFileData:(customerId: string) => Promise<void>;
   fetchOrderEditorData: (orderId: string) => Promise<void>;
@@ -56,7 +56,7 @@ export type EditorActions = {
 export const useEditorStore = create<EditorState & EditorActions>()(
   devtools((set) => ({
     editorData: [],
-    acData:[],
+    activityData:[],
     fileData:[],
     customerFileData:[],
     orderEditorData: [],
@@ -72,8 +72,8 @@ export const useEditorStore = create<EditorState & EditorActions>()(
 
 
 
-    fetchacData: async (customerId: string) => {
-      console.log(customerId,"fsjhdfhhdjfhk")
+    fetchActivityData: async (customerId: string) => {
+
       if (customerId) {
         set({ loading: true });
         try {
@@ -81,12 +81,12 @@ export const useEditorStore = create<EditorState & EditorActions>()(
             `/activitylogs/${customerId}`
           );
           if (response.status === 200) {
-            set({ acData: response?.data?.data, loading: false });
+            set({ activityData: response?.data?.data, loading: false });
           } else {
-            set({ acData: response.data?.message, loading: false });
+            set({ activityData: response.data?.message, loading: false });
           }
         } catch (error: any) {
-          set({ acData: error?.response?.data?.message, loading: false });
+          set({ activityData: error?.response?.data?.message, loading: false });
         }
       }
     },
